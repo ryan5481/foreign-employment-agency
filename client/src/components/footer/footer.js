@@ -12,7 +12,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react'
 import { ReactNode } from 'react'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaInstagram, FaTwitter, FaYoutube, FaFacebook, FaFacebookMessenger, FaWhatsapp } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 
 const Logo = (props: any) => {
@@ -84,6 +84,15 @@ const Footer = () => {
                         </Box>
                         <Text fontSize={'sm'}>© 2023 XYZ Company. All rights reserved</Text>
                         <Stack direction={'row'} spacing={6}>
+                            <SocialButton label={'Facebook'} href={'#'}>
+                                <FaFacebook />
+                            </SocialButton>
+                            <SocialButton label={'Messanger'} href={'#'}>
+                                <FaFacebookMessenger />
+                            </SocialButton>
+                            <SocialButton label={'Whatsapp'} href={'#'}>
+                                <FaWhatsapp />
+                            </SocialButton>
                             <SocialButton label={'Twitter'} href={'#'}>
                                 <FaTwitter />
                             </SocialButton>

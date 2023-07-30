@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { FaInstagram, FaTwitter, FaWhatsapp, FaYoutube } from 'react-icons/fa'
+import { FaInstagram, FaTwitter, FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 import { ReactNode } from 'react'
 
 const SocialButton = ({
@@ -59,8 +59,14 @@ const Header = () => {
         <Stack direction={'row'} spacing={6}>
         <Text>hiring@agency.com</Text>
         <Text>+977-123456788</Text>
-          <SocialButton label={'Twitter'} href={'#'}>
+          <SocialButton label={'Whatsapp'} href={'#'}>
             <FaWhatsapp />
+          </SocialButton>
+          <SocialButton label={'Facebook'} href={'#'}>
+            <FaFacebook />
+          </SocialButton>
+          <SocialButton label={'Messanger'} href={'#'}>
+            <FaFacebookMessenger />
           </SocialButton>
         </Stack>
       </Container>

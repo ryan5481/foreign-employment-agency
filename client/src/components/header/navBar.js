@@ -16,6 +16,7 @@ import {
     Center,
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
+import {SlPlane} from "react-icons/sl"
 import { useNavigate } from "react-router-dom";
 
 
@@ -50,7 +51,7 @@ const NavBar = () => {
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-                    <Box>Logo</Box>
+                    <Box onClick={() => navigate("/")}><SlPlane style={{width:"200px"}} /></Box>
 
                     <Flex alignItems={'center'}>
                         <Button

@@ -1,31 +1,26 @@
-import Header from "../../components/header/header"
 import Carousel from "../../components/header/Carousel/carousel"
-import NavBar from "../../components/header/navBar"
-import TextImgCard1 from "../../components/card/textImgCard1"
-import TextImgCard2 from "../../components/card/textImgCard2"
+import CallToActionWithVideo from "../../components/card/callToActionWithVideo"
+import ImageParagraph from "../../components/card/imageParagraph1"
+import ImageParagraph2 from "../../components/card/imageParagraph2"
 import CategoryCard from "../../components/card/categoryCard"
-import Footer from "../../components/footer/footer"
 
 const Home = () => {
     
     return(
         <>
-        <NavBar/>
-        <div className="main">
-            <div>
-                <Header/>
-            </div>
+        <div className="main" style={{height:"auto"}}>
+            
             <div>
                 <Carousel/>
             </div>
             <div>
-                <TextImgCard1/>
+                <CallToActionWithVideo/>
             </div>
             <div>
-                <TextImgCard2/>
+                <ImageParagraph/>
             </div>
             <div>
-                <TextImgCard2/>
+            <ImageParagraph2/>
             </div>
             <div>
                 <CategoryCard/>
@@ -45,9 +40,7 @@ const Home = () => {
             <div>
                 <h1>Testimonials</h1>
             </div>
-            <div>
-                <Footer/>
-            </div>
+           
         </div>
         </>
     )
