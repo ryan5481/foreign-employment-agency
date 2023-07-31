@@ -10,17 +10,8 @@ import {
   Tooltip,
 } from '@chakra-ui/react'
 
-const data = {
-  isNew: true,
-  imageURL:
-    'http://nepalmanpoweragency.com/admin/img/files/1601279949_COMPANY%20REGISTRAR.jpg',
-  title: 'Company Certificate',
- 
-}
 
-
-
-function ImageTitleLarge() {
+const ImageTitleLarge = (props) => {
   return (
     <Flex p={50} w="full" alignItems="center" justifyContent="center">
       <Box
@@ -30,11 +21,11 @@ function ImageTitleLarge() {
         rounded="10px"
         shadow="lg"
         position="relative">
-        {data.isNew && (
+        {props.data.isNew && (
           <Circle size="10px" position="absolute" top={2} right={2} bg="blue.200" />
         )}
 
-        <Image src={data.imageURL} alt={`Picture of ${data.name}`} roundedTop="lg" />
+        <Image src={props.data.imageURL} alt={`Picture of ${props.data.name}`} roundedTop="lg" />
 
         <Box p="6">         
           <Flex mt="1" justifyContent="center" alignContent="center">
@@ -46,7 +37,7 @@ function ImageTitleLarge() {
               isTruncated
               textAlign="center"
               >
-              {data.title}
+              {props.data.title}
             </Box>  
           </Flex>
         </Box>

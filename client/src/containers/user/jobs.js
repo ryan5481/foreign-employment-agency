@@ -8,22 +8,41 @@ const Jobs = () => {
         <>
             <Carousel />
             <div>
-                <Heading m={2} fontSize={'4xl'} fontFamily={'body'}>
+                <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}>
                     Latest Jobs
-
-                    <Grid templateColumns='repeat(3, 1fr)' gap={5} rowGap={5} p={1} align="center">
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-                        <CategoryCard w='100%' h='10' bg='blue.500' />
-
-                    </Grid>
                 </Heading>
+                <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }}
+                    gap={5}
+                    rowGap={5}
+                    pt={10}
+                    p={10}
+                    direction={{ base: 'column', md: 'row' }}
+                    spacing={4}
+                    justify={{ base: 'space-between', md: 'space-between' }}
+                    align={{ base: 'center', md: 'center' }}>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+                  <CategoryCard/>
+
+                </Grid>
+
             </div>
         </>
     )

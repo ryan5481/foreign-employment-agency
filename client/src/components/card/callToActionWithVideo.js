@@ -26,12 +26,12 @@ export default function CallToActionWithVideo() {
         spacing={{ base: 8, md: 10 }}
         py={{ base: 20, md: 28 }}
         direction={{ base: 'column', md: 'row' }}>
-        <Stack flex={1} spacing={{ base: 5, md: 10 }}>
+        <Stack flex={1} spacing={{ base: 5, md: 10 }} align="center">
           <Heading
             lineHeight={1.1}
             fontWeight={600}
             fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
-           
+
             <Text as={'span'} color={'blue.400'}>
               About Us
             </Text>
@@ -41,27 +41,20 @@ export default function CallToActionWithVideo() {
             snippets, categorize them, and even sync them in the cloud so you can use them
             anywhere. All that is free!
           </Text>
-          
-            <Button
-              rounded={'10px'}
-              size={'lg'}
-              fontWeight={'normal'}
-              px={6}
-              w={"200px"}
-              placeItems="center"
-              colorScheme={'red'}
-              bg={'blue.400'}
-              _hover={{ bg: 'blue.500' }}>
-              Read More
-            </Button>
-            {/* <Button
-              rounded={'full'}
-              size={'lg'}
-              fontWeight={'normal'}
-              px={6}
-              leftIcon={<PlayIcon h={4} w={4} color={'gray.300'} />}>
-              How It Works
-            </Button> */}
+
+          <Button
+            rounded={'10px'}
+            size={'lg'}
+            fontWeight={'normal'}
+            px={6}
+            w={"200px"}
+            placeItems="center"
+            colorScheme={'red'}
+            bg={'blue.400'}
+            _hover={{ bg: 'blue.500' }}>
+            Read More
+          </Button>
+          {/* <Button rounded={'full'} size={'lg'} fontWeight={'normal'}  px={6}  leftIcon={<PlayIcon h={4} w={4} color={'gray.300'} />}> How It Works </Button> */}
         </Stack>
         <Flex
           flex={1}

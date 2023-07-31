@@ -3,16 +3,17 @@ import {
     Grid, Heading, Text
   } from '@chakra-ui/react'
 
-  
 
-const Docs = () => {
-  const certificates = {
-    isNew: true,
-    imageURL:
-      'http://nepalmanpoweragency.com/admin/img/files/1601279949_COMPANY%20REGISTRAR.jpg',
-    title: 'Company Certificate',
-  }
-  
+
+const Newspaper = () => {
+    
+    const newspaperVacancy = {
+        isNew: true,
+        imageURL:
+          'https://ujyaalojobs.com/wp-content/uploads/2023/02/New-Vacancy.png',
+        title: 'Newspaper Snippet',
+      }
+
     return(
         <>
          <Heading
@@ -22,17 +23,18 @@ const Docs = () => {
             p={5}>
            
             <Text as={'span'} color={'blue.400'}>
-              Licenses and Certificates
+              Newspaper Vacancy Snippets
             </Text>
           </Heading>
         <Grid templateColumns={{ sm: '1fr 1fr', md: '2fr 2fr' }} gap={1} p={3} align="center">
-        <ImageTitleLarge data={certificates}/>
-        <ImageTitleLarge data={certificates}/>
-        <ImageTitleLarge data={certificates}/>
-        <ImageTitleLarge data={certificates}/>
+        <ImageTitleLarge data={newspaperVacancy}/>
+        <ImageTitleLarge data={newspaperVacancy}/>
+        <ImageTitleLarge data={newspaperVacancy}/>
+        <ImageTitleLarge data={newspaperVacancy}/>
+        
         </Grid>
         </>
     )
 }
 
-export default Docs
+export default Newspaper

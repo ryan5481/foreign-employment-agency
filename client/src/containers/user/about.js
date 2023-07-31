@@ -1,18 +1,12 @@
-// import TextImgCard from "../../components/card/textImgCard"
-
+import AboutCard from "../../components/card/imageParagraphCard"
 
 const About = () => {
     
     return(
         <>
-         <div className="main">
-            <div className="banner-img">
-                <img src="https://educationbytes.in/wp-content/uploads/2022/07/NIT-rourkela.jpg"
-                alt="banner image" />
-            </div>
-            
+         <div className="main">          
             <div>
-                {/* <TextImgCard/> */}
+                <AboutCard/>
             </div>
             <div>
                 <h1>Text 2</h1>

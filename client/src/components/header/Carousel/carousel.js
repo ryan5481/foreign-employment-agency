@@ -100,15 +100,7 @@ const Carousel = () => {
         <Flex h="600px" w="full" boxSize="full" {...carouselStyle}>
           {slides.map((slide, sid) => (
             <Box key={`slide-${sid}`} boxSize="full" shadow="md" flex="none">
-              {/* <Text
-                color="white"
-                fontSize="xs"
-                p="8px 12px"
-                pos="absolute"
-                top="0"
-              >
-                {sid + 1} / {slidesCount}
-              </Text> */}
+              {/* <Text  color="white"  fontSize="xs"  p="8px 12px"  pos="absolute" top="0"  >  {sid + 1} / {slidesCount}</Text> */}
               <Image
                 src={slide.img}
                 fallbackSrc='https://via.placeholder.com/150'

@@ -2,46 +2,38 @@ import Carousel from "../../components/header/Carousel/carousel"
 import CallToActionWithVideo from "../../components/card/callToActionWithVideo"
 import ImageParagraph from "../../components/card/imageParagraph1"
 import ImageParagraph2 from "../../components/card/imageParagraph2"
-import CategoryCard from "../../components/card/categoryCard"
-
+import { Box } from "@chakra-ui/react"
+import StatisticsCard from "../../components/card/statsCard"
+import TestimonialCard from "../../components/card/testimonialCard"
 const Home = () => {
     
     return(
         <>
-        <div className="main" style={{height:"auto"}}>
+        <Box className="main" style={{height:"auto"}}>
             
-            <div>
+            <Box>
                 <Carousel/>
-            </div>
-            <div>
+            </Box>
+            <Box>
                 <CallToActionWithVideo/>
-            </div>
-            <div>
+            </Box>
+            <Box>
                 <ImageParagraph/>
-            </div>
-            <div>
+            </Box>
+            <Box>
             <ImageParagraph2/>
-            </div>
-            <div>
-                <CategoryCard/>
-            </div>
-            <div>
-                <h1>Application Procedure</h1>
-            </div>
-            <div>
-                <h1>Our Team</h1>
-            </div>
-            <div>
-                <h1>Our Clients</h1>
-            </div>
-            <div>
-                <h1>Our Clients</h1>
-            </div>
-            <div>
-                <h1>Testimonials</h1>
-            </div>
-           
-        </div>
+            </Box>   
+            
+            <Box>
+            <StatisticsCard/>
+            </Box> 
+            <Box>
+            <TestimonialCard/>
+            </Box> 
+
+
+
+        </Box>
         </>
     )
 }

@@ -18,14 +18,14 @@ import {
   Textarea,
   Center,
   Select,
-  Text,
-  Image,
+  Spacer,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  Checkbox
+  Checkbox,
+  CheckboxGroup
 } from '@chakra-ui/react'
 import { SmallCloseIcon } from '@chakra-ui/icons'
 
@@ -40,6 +40,8 @@ const Form = () => {
       setPfpImageRender(URL.createObjectURL(e.target.files[0]));
     }
   };
+
+  const languages = ["Arabic", "English", "Hindi"]
 
   return (
     <Flex
@@ -65,44 +67,34 @@ const Form = () => {
           <FormLabel>Photo</FormLabel>
           <Stack direction={['column', 'row']} spacing={6}>
             <Center>
-            <div className="pfp-input loginElement">
-                  <input
-                    name="pfpImgName"
-                    type="file"
-                    id="pfpInput"
-                    onChange={(e) => setPfpImageFunction(e)}
-                    hidden
-                  />
-                  <label htmlFor="pfpInput" className=" pfpInput-img">
-                    <img
-                      src={pfpImageRender}
-                      className="profileButton pfpInput-img"
-                      style={{height:"200px", border:"5px", borderRadius:"5px"}}
+              <div className="pfp-input loginElement">
+                <input
+                  name="pfpImgName"
+                  type="file"
+                  id="pfpInput"
+                  onChange={(e) => setPfpImageFunction(e)}
+                  hidden
+                />
+                <label htmlFor="pfpInput" className=" pfpInput-img">
+                  <img
+                    src={pfpImageRender}
+                    className="profileButton pfpInput-img"
+                    style={{ height: "200px", border: "5px", borderRadius: "5px" }}
 
-                    ></img>
-                    <div className="img-overlay-mid">
-                      <div className="img-overlay-text">Upload Photo</div>
-                    </div>
-                  </label>
-                </div>
+                  ></img>
+                  <div className="img-overlay-mid">
+                    <div className="img-overlay-text">Upload Photo</div>
+                  </div>
+                </label>
+              </div>
               {/* <Image boxSize='200px' src='https://bit.ly/dan-abramov' alt='Dan Abramov' /> */}
-              {/* <AvatarBadge
-                  as={IconButton}
-                  size="sm"
-                  rounded="full"
-                  top="-10px"
-                  colorScheme="red"
-                  aria-label="remove Image"
-                  icon={<SmallCloseIcon />}
-                /> */}
+              {/* <AvatarBadge  as={IconButton}  size="sm"  rounded="full"  top="-10px"  colorScheme="red"   aria-label="remove Image"  icon={<SmallCloseIcon />} /> */}
 
             </Center>
-            {/* <div style={{ verticalAlign: "center" }}>
-              <Button w="320px" htmlFor="pfpInput">Select Image</Button>
-            </div> */}
+            {/* <div style={{ verticalAlign: "center" }}>  <Button w="320px" htmlFor="pfpInput">Select Image</Button>   </div> */}
           </Stack>
         </FormControl>
-        <Grid templateColumns='repeat(2, 1fr)' gap={6}>
+        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr' }} gap={6}>
           <FormControl>
             <FormLabel>Country Applying For</FormLabel>
             <Select placeholder='Select country'>
@@ -123,8 +115,10 @@ const Form = () => {
           </FormControl>
         </Grid>
 
-        <Heading as='h5' size='sm' align={'left'}>Personal Details</Heading>
-        <Grid templateColumns='repeat(2, 1fr)' gap={6}>
+        <Spacer />
+        <Spacer />
+        <Heading as='h2' size='sm' align={'left'}>Personal Details</Heading>
+        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr' }} gap={6}>
           <FormControl id="fullName" isRequired>
             <FormLabel>Full name</FormLabel>
             <Input
@@ -133,7 +127,7 @@ const Form = () => {
               type="text"
             />
           </FormControl>
-         
+
 
           <FormControl>
             <FormLabel>Gender</FormLabel>
@@ -273,140 +267,71 @@ const Form = () => {
               type="number"
             />
           </FormControl>
-          </Grid>
-          <Heading as='h5' size='sm' align={'left'}>Language proficeincy</Heading>
-          <Flex gap={5} id='arabic'>
-            <Text as='h5' size='sm' w="150px">Arabic</Text>
-            <FormControl id="speaking">
-              <FormLabel>Speaking</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="listening">
-              <FormLabel>Listening</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="reading">
-              <FormLabel>Reading</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="writing">
-              <FormLabel>Writing</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
+        </Grid>
+        <Spacer />
+        <Spacer />
+        <Heading as='h2' size='sm' align={'left'}>Language Proficeincy</Heading>
+        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }} gap={5} id='arabic'>
+          {languages.map((language, index) => (
+            <>
+              <>
+                <Heading as='h4' align="center" size='sm'  >{language}</Heading>
+                <FormControl id="speaking">
+                  <FormLabel>Speaking</FormLabel>
+                  <Select placeholder='Select one'>
+                    <option>Excellent</option>
+                    <option>Good</option>
+                    <option>Fair</option>
+                    <option>Poor</option>
+                  </Select>
+                </FormControl>
+                <FormControl id="listening">
+                  <FormLabel>Listening</FormLabel>
+                  <Select placeholder='Select one'>
+                    <option>Excellent</option>
+                    <option>Good</option>
+                    <option>Fair</option>
+                    <option>Poor</option>
+                  </Select>
+                </FormControl>
+                <FormControl id="reading">
+                  <FormLabel>Reading</FormLabel>
+                  <Select placeholder='Select one'>
+                    <option>Excellent</option>
+                    <option>Good</option>
+                    <option>Fair</option>
+                    <option>Poor</option>
+                  </Select>
+                </FormControl>
+                <FormControl id="writing">
+                  <FormLabel>Writing</FormLabel>
+                  <Select placeholder='Select one'>
+                    <option>Excellent</option>
+                    <option>Good</option>
+                    <option>Fair</option>
+                    <option>Poor</option>
+                  </Select>
+                </FormControl>
+              </>
+            </>
+          ))}
+        </Grid>
+        <Spacer />
+        <Spacer />
 
-
-          </Flex>
-          <Flex gap={5} id='English'>
-            <Text as='h5' size='sm' w="150px">English</Text>
-            <FormControl id="speaking">
-              <FormLabel>Speaking</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="listening">
-              <FormLabel>Listening</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="reading">
-              <FormLabel>Reading</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="writing">
-              <FormLabel>Writing</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-
-
-          </Flex>
-          <Flex gap={5} id='Hindi'>
-            <Text as='h5' size='sm' w="150px">Hindi</Text>
-            <FormControl id="speaking">
-              <FormLabel>Speaking</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="listening">
-              <FormLabel>Listening</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="reading">
-              <FormLabel>Reading</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-            <FormControl id="writing">
-              <FormLabel>Writing</FormLabel>
-              <Select placeholder='Select one'>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Poor</option>
-              </Select>
-            </FormControl>
-          </Flex>
-          <Heading as='h5' size='sm' align={'left'}>Education</Heading>
-          <Flex gap={5} id='arabic'>
-          <Checkbox defaultChecked>Under SLC</Checkbox>
-          <Checkbox defaultChecked>SLC</Checkbox>
-          <Checkbox defaultChecked>+2</Checkbox>
-          <Checkbox defaultChecked>Bachelors</Checkbox>
-          <Checkbox defaultChecked>Masters</Checkbox>
-          </Flex>
-
-          <Heading as='h5' size='sm' align={'left'}>Work Experience In Nepal</Heading>
-          <Flex gap={5} id='nepalWorkExp'>
+        <Heading as='h2' size='sm' align={'left'}>Education</Heading>
+        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} columnGap={0} gap={5} id='education'>
+          <CheckboxGroup>
+            <Checkbox defaultChecked>Under SLC</Checkbox>
+            <Checkbox >SLC</Checkbox>
+            <Checkbox >+2</Checkbox>
+            <Checkbox >Bachelors</Checkbox>
+            <Checkbox >Masters</Checkbox>
+          </CheckboxGroup>
+        </Grid>
+        <Spacer />
+        <Heading as='h2' size='sm' align={'left'}>Work Experience In Nepal</Heading>
+        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5} id='nepalWorkExp'>
           <FormControl id="employer" >
             <FormLabel>Employer</FormLabel>
             <Input
@@ -431,10 +356,10 @@ const Form = () => {
               type="text"
             />
           </FormControl>
-          </Flex>
-
-          <Heading as='h5' size='sm' align={'left'}>Overseas Work Experience</Heading>
-          <Flex gap={5} id='overseasWorkExp'>
+        </Grid>
+        <Spacer />
+        <Heading as='h2' size='sm' align={'left'}>Overseas Work Experience</Heading>
+        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5} id='overseasWorkExp'>
           <FormControl id="employer" >
             <FormLabel>Employer</FormLabel>
             <Input
@@ -459,13 +384,13 @@ const Form = () => {
               type="text"
             />
           </FormControl>
-          </Flex>
+        </Grid>
 
-          <Heading as='h5' size='sm' align={'left'}>Other Skills</Heading>
-          <Textarea placeholder='Write your other skills.' />
+        <Heading as='h3' size='sm' align={'left'}>Other Skills</Heading>
+        <Textarea placeholder='Write your other skills.' />
 
-              
-        
+
+
         <Stack spacing={6} direction={['column', 'row']}>
           <Button
             bg={'red.400'}

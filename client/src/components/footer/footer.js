@@ -73,7 +73,9 @@ const Footer = () => {
     return (
         <Box className='footer'
             bg={useColorModeValue('gray.50', 'gray.900')}
-            color={useColorModeValue('gray.700', 'gray.200')}>
+            color={useColorModeValue('gray.700', 'gray.200')}
+            p={1}
+            >
             <Container as={Stack} maxW={'6xl'} py={10}>
                 <SimpleGrid
                     templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}

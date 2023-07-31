@@ -28,25 +28,29 @@ import {
 import { BsWhatsapp, BsPerson, BsMessenger, BsInstagram } from 'react-icons/bs'
 
 const ContactCard = () => {
+
+  const CoOrds = {lat: 27.7208228410843, lang: 85.32995244903029}
+
+
   return (
     <Container bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')} maxW="full" mt={0} centerContent overflow="hidden">
       <Flex>
         <Box
           bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-          color="white"
+          color={useColorModeValue('grey.800', 'grey.100')}
           borderRadius="lg"
           m={{ sm: 4, md: 16, lg: 10 }}
           p={{ sm: 5, md: 5, lg: 16 }}>
           <Box p={4}>
             <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
               <WrapItem>
-                <Box>
+                <Box w={200}>
                   <Heading>Contact</Heading>
-                  <Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
-                    Fill up the form below to contact
+                  <Text mt={{ sm: 3, md: 3, lg: 5 }} color={useColorModeValue('grey.800', 'grey.100')}>
+                    Fill up the form
                   </Text>
-                  <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
-                    <VStack pl={0} spacing={3} alignItems="flex-start">
+                  <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }} color={useColorModeValue('grey.800', 'grey.100')}>
+                    <VStack pl={0} spacing={3} alignItems="flex-start" color={useColorModeValue('grey.800', 'grey.100')}>
                       <Button
                         size="md"
                         height="48px"
@@ -81,9 +85,11 @@ const ContactCard = () => {
                   </Box>
                   <HStack
                     mt={{ lg: 10, md: 10 }}
-                    spacing={5}
-                    px={5}
-                    alignItems="flex-start">
+                    spacing={2}
+                    px={0}
+                    w={300}
+                    align="center"
+                    alignItems="center">
                       <IconButton
                       aria-label="whatsapp"
                       variant="ghost"
@@ -121,7 +127,7 @@ const ContactCard = () => {
                 </Box>
               </WrapItem>
               <WrapItem>
-                <Box bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')} borderRadius="lg">
+                <Box bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')} w={400}  borderRadius="lg">
                   <Box m={8} color="#0B0E3F">
                     <VStack spacing={5}>
                       <FormControl id="name">
@@ -161,6 +167,16 @@ const ContactCard = () => {
                   </Box>
                 </Box>
               </WrapItem>
+              <Box overflow='hidden' borderRadius={10}>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1023.6851100697893!2d85.33048799804155!3d!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1907b0522ead%3A0x392af32fe87dd0ea!2sRadiant%20Infotech%20Nepal%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1690782916035!5m2!1sen!2snp"
+                  width="400"
+                  height="425"
+                  style={{ border: 0 }}
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </Box>
             </Wrap>
           </Box>
         </Box>

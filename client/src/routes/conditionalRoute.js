@@ -9,8 +9,7 @@ import Gallery from '../containers/user/gallery'
 import Contact from '../containers/user/contact'
 import Resume from '../containers/user/resume'
 import { useSelector } from 'react-redux'
-import PhotoUploader from '../components/uploader/photoUpload'
-
+import Newspaper from '../containers/user/newspaper'
 const ConditionalRoute = () => {
   // if (userRole === 'admin') {
   //   return <AdminRoutes />
@@ -30,7 +29,7 @@ const UserRoutes = () => {
       <Route path="/apply" element={<Apply />} />
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/upload" element={<PhotoUploader />} />
+      <Route path="/newspaper-vacancy" element={<Newspaper />} />
     </Routes>
   )
 }

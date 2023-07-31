@@ -45,16 +45,19 @@ const SocialButton = ({
 const Header = () => {
   return (
     <Box className='header'
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}>
+      bg={useColorModeValue('blue.900', 'blue.1000')}
+      color={useColorModeValue('gray.200', 'gray.50')}
+      h={50}
+      >
       <Container
         as={Stack}
         maxW={'6xl'}
-        py={4}
+        py={2}
         direction={{ base: 'column', md: 'row' }}
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
-        align={{ base: 'center', md: 'center' }}>
+        align={{ base: 'center', md: 'center' }}
+        >
         <Text>©Lic. No.: 0123456789</Text>
         <Stack direction={'row'} spacing={6}>
         <Text>hiring@agency.com</Text>
