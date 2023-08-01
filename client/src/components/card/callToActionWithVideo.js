@@ -1,7 +1,4 @@
-// chakra UI hero image video 
-
-'use client'
-
+import { useNavigate } from 'react-router-dom'
 import {
   Container,
   Stack,
@@ -16,9 +13,12 @@ import {
   createIcon,
   IconProps,
   useColorModeValue,
+  AspectRatio,
+  Center
 } from '@chakra-ui/react'
 
 export default function CallToActionWithVideo() {
+  const navigate = useNavigate()
   return (
     <Container maxW={'7xl'}>
       <Stack
@@ -37,9 +37,7 @@ export default function CallToActionWithVideo() {
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Snippy is a rich coding snippets app that lets you create your own code
-            snippets, categorize them, and even sync them in the cloud so you can use them
-            anywhere. All that is free!
+            Sky Way Management, A last resort of Manpower requirement to its clients, has started its service since 2013 then continuously supplies the manpower pertaining Blue to White Colors Workers in the Middle East and Malaysia. It has a team of competent, Talents who have worked in the sectors for decades. Team of Talents goes deep down through the requirements received by its value clients and always focuses for the best output meeting the target in one –go to save the time and effort of both the parties for fair and successful recruitment. We always value ethics and professionalism at the top.
           </Text>
 
           <Button
@@ -51,7 +49,9 @@ export default function CallToActionWithVideo() {
             placeItems="center"
             colorScheme={'red'}
             bg={'blue.400'}
-            _hover={{ bg: 'blue.500' }}>
+            _hover={{ bg: 'blue.500' }}
+            onClick={() => navigate("/choose-us")}
+          >
             Read More
           </Button>
           {/* <Button rounded={'full'} size={'lg'} fontWeight={'normal'}  px={6}  leftIcon={<PlayIcon h={4} w={4} color={'gray.300'} />}> How It Works </Button> */}
@@ -73,12 +73,13 @@ export default function CallToActionWithVideo() {
           />
           <Box
             position={'relative'}
-            height={'300px'}
+            height={'400px'}
             rounded={'2xl'}
             boxShadow={'2xl'}
             width={'full'}
-            overflow={'hidden'}>
-            <IconButton
+            overflow={'hidden'}
+            maxH="500px">
+            {/* <IconButton
               aria-label={'Play Button'}
               variant={'ghost'}
               _hover={{ bg: 'transparent' }}
@@ -89,17 +90,17 @@ export default function CallToActionWithVideo() {
               left={'50%'}
               top={'50%'}
               transform={'translateX(-50%) translateY(-50%)'}
-            />
-            <Image
-              alt={'Hero Image'}
-              fit={'cover'}
-              align={'center'}
-              w={'100%'}
-              h={'100%'}
-              src={
-                'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80'
-              }
-            />
+            /> */}
+            <Center>
+              <Image
+                alt={'Hero Image'}
+                fit={'cover'}
+                align={'center'}
+                w={'100%'}
+                h={'100%'}
+                src={
+                  "https://skywaynepal.com/static/media/unnamed.6cb5e6a65084a11ebc07.jpg"}
+              />            </Center>
           </Box>
         </Flex>
       </Stack>

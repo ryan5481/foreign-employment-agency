@@ -1,10 +1,10 @@
-import Form from "../../components/form/form"
+import ResumeForm from "../../components/form/resumeForm"
 
 const Resume = () => {
     
     return(
         <>
-        <Form/>
+        <ResumeForm/>
         </>
     )
 }

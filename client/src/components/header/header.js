@@ -1,6 +1,7 @@
 
 import {
   Box,
+  Center,
   chakra,
   Container,
   Stack,
@@ -45,23 +46,32 @@ const SocialButton = ({
 const Header = () => {
   return (
     <Box className='header'
-      bg={useColorModeValue('blue.900', 'blue.1000')}
+      bg={'gray.900'}
       color={useColorModeValue('gray.200', 'gray.50')}
       h={50}
-      >
+      w="full"
+      fontSize={"sm"}
+    >
       <Container
         as={Stack}
-        maxW={'6xl'}
+        maxW={'full'}
         py={2}
         direction={{ base: 'column', md: 'row' }}
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}
-        >
-        <Text>©Lic. No.: 0123456789</Text>
+      >
+        <Text>Regd.No. : 66236/066/067</Text>
         <Stack direction={'row'} spacing={6}>
-        <Text>hiring@agency.com</Text>
-        <Text>+977-123456788</Text>
+          <Center>
+            <Text>  © Lic. No.: 0123456789</Text>
+          </Center>
+          <Center>
+            <Text> recruit@skywaynepal.com</Text>
+          </Center>
+          <Center>
+            <Text>+977-123456788</Text>
+          </Center>
           <SocialButton label={'Whatsapp'} href={'#'}>
             <FaWhatsapp />
           </SocialButton>

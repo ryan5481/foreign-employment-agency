@@ -1,22 +1,26 @@
-import { Image, Stack, Heading, Text, Divider, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 
-const CategoryCard = () => {
+import { Image, Stack, Heading, Grid, Divider, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+
+const CategoryCard = (props) => {
 
     return (
-        <div>
-            <Card maxW='sm'>
+        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr'}} p={10} gap={10}>
+            
+                {props.jobsList.map((job, index)=> {
+                    return(<>
+                <Card maxW='sm'>
                 <CardBody w='100%' h='10' bg='blue.500' >
                     <Image
-                        src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                        alt='Green double couch with wooden legs'
+                        src={job.src}
+                        alt={job.alt}
                         borderRadius='lg'
 
                     />
                     <Stack mt='6' spacing='3'>
-                        <Heading size='md'>Living room Sofa</Heading>
+                        <Heading size='md'>{job.alt}</Heading>
                     </Stack>
                 </CardBody>
-                {/* <Divider /> */}
+                <Divider />
                 <CardFooter alignContent={'middle'} align="center">
                     <ButtonGroup spacing='3' >
                         <Button variant='ghost' colorScheme='blue'>
@@ -27,8 +31,12 @@ const CategoryCard = () => {
                         </Button>
                     </ButtonGroup>
                 </CardFooter>
-            </Card>
-        </div>
+                </Card>
+                </>)
+            })}
+            
+            
+        </Grid>
     )
 
 }

@@ -1,15 +1,17 @@
 import { Routes, Route } from 'react-router-dom'
 import AdminLogin from "../containers/admin/auth/login"
 import Home from '../containers/user/home'
-import About from '../containers/user/about'
+import About from '../containers/user/nepal'
 import Jobs from '../containers/user/jobs'
-import Docs from '../containers/user/docs'
+import License from '../containers/user/License'
 import Apply from '../containers/user/apply'
 import Gallery from '../containers/user/gallery'
 import Contact from '../containers/user/contact'
 import Resume from '../containers/user/resume'
-import { useSelector } from 'react-redux'
+import Nepal from '../containers/user/nepal'
 import Newspaper from '../containers/user/newspaper'
+import WhyUs from '../containers/user/whyChooseUs'
+import { useSelector } from 'react-redux'
 const ConditionalRoute = () => {
   // if (userRole === 'admin') {
   //   return <AdminRoutes />
@@ -24,12 +26,14 @@ const UserRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/jobs" element={<Jobs />} />
-      <Route path="/post-resume" element={<Resume />} />
-      <Route path="/docs" element={<Docs />} />
+      <Route path="/resume" element={<Resume />} />
+      <Route path="/nepal" element={<Nepal />} />
+      <Route path="/choose-us" element={<WhyUs />} />
       <Route path="/apply" element={<Apply />} />
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/newspaper-vacancy" element={<Newspaper />} />
+      <Route path="/newspaper" element={<Newspaper />} />
+      <Route path="/license" element={<License />} />
     </Routes>
   )
 }
