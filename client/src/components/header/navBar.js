@@ -14,7 +14,9 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  useColorMode
+  useColorMode,
+  Image,
+  Center
 } from '@chakra-ui/react'
 import {
   HamburgerIcon,
@@ -22,7 +24,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   MoonIcon,
-  SunIcon 
+  SunIcon
 } from '@chakra-ui/icons'
 
 interface Props {
@@ -33,34 +35,36 @@ const NavLink = (props: Props) => {
   const { children } = props
 
   return (
-      <Box
-          as="a"
-          px={2}
-          py={1}
-          rounded={'md'}
-          _hover={{
-              textDecoration: 'none',
-              bg: useColorModeValue('gray.200', 'gray.700'),
-          }}
-          href={'#'}>
-          {children}
-      </Box>
+    <Box
+      as="a"
+      px={2}
+      py={1}
+      rounded={'md'}
+      _hover={{
+        textDecoration: 'none',
+        bg: useColorModeValue('gray.200', 'gray.700'),
+      }}
+      href={'#'}>
+      {children}
+    </Box>
   )
 }
 
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate()
 
   return (
-    <Box>
+    <Box className='header'>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={useColorModeValue('gray.200', 'blue.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
+        borderBottomColor={'blue.200'}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
         align={'center'}>
@@ -76,15 +80,19 @@ export default function NavBar() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Text
+          <Image
+            src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg"
+            h={10}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}>
-            Logo
-          </Text>
+            color={useColorModeValue('gray.800', 'white')}
+            onClick={()=>navigate("/")}
+          />
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav />
+            <Center>
+              <DesktopNav />
+            </Center>
           </Flex>
         </Flex>
 
@@ -92,23 +100,11 @@ export default function NavBar() {
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
-          spacing={6}>
+          spacing={6}
+        >
           <Button onClick={toggleColorMode}>
-                                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                            </Button>
-          {/* <Button
-            as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'#'}
-            _hover={{
-              bg: 'pink.300',
-            }}>
-            Sign Up
-          </Button> */}
+            {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+          </Button>
         </Stack>
       </Flex>
 
@@ -124,11 +120,11 @@ const DesktopNav = () => {
   const linkHoverColor = useColorModeValue('gray.800', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
   const navigate = useNavigate();
-  
+
   return (
     <Stack direction={'row'} spacing={4} fontWeight="bold">
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label} fontWeight="bold" onClick={()=>navigate("/" + navItem.urlPath)} >
+        <Box key={navItem.label} fontWeight="bold" onClick={() => navigate("/" + navItem.urlPath)} >
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Box
@@ -156,7 +152,7 @@ const DesktopNav = () => {
                 minW={'sm'}>
                 <Stack>
                   {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} onClick={()=>navigate("/" + navItem?.children?.urlPath)}/>
+                    <DesktopSubNav key={child.label} {...child} onClick={() => navigate("/" + navItem?.children?.urlPath)} />
                   ))}
                 </Stack>
               </PopoverContent>
@@ -207,7 +203,7 @@ const MobileNav = () => {
   return (
     <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }} fontWeight="bold">
       {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} onClick={navItem.slug}/>
+        <MobileNavItem key={navItem.label} {...navItem} onClick={navItem.slug} />
       ))}
     </Stack>
   )
@@ -271,14 +267,18 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Home',
-    href: '#',
+    href: '',
     urlPath: "",
   },
 
   {
     label: 'Jobs',
-    href: '#',
-    urlPath: "jobs",
+    href: 'jobs',
+  },
+
+  {
+    label: 'Resume',
+    href: "resume"
   },
 
   {
@@ -287,14 +287,12 @@ const NAV_ITEMS: Array<NavItem> = [
       {
         label: 'Licenses',
         subLabel: '',
-        href: '#',
-        urlPath: "license",
+        href: 'license',
       },
       {
         label: 'Newspaper Ads',
         subLabel: '',
-        href: '#',
-        urlPath: "newspaper",
+        href: 'newspaper',
       },
     ],
   },
@@ -304,24 +302,19 @@ const NAV_ITEMS: Array<NavItem> = [
       {
         label: 'About Nepal',
         subLabel: '',
-        href: '#',
-        urlPath: "nepal",
+        href: 'nepal',
       },
       {
-        label: 'Why Choose Nepalses',
+        label: 'Why Choose Us',
         subLabel: '',
-        href: '#',
-        urlPath: "why-nepal",
+        href: 'choose-us',
       },
     ],
   },
-  
-  
 
   {
     label: 'Contact Us',
-    href: '#',
-    urlPath: "contact",
+    href: 'contact',
   },
 
 ]

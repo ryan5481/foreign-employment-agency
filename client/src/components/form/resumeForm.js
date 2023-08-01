@@ -29,7 +29,7 @@ import {
 } from '@chakra-ui/react'
 import { SmallCloseIcon } from '@chakra-ui/icons'
 
-const Form = () => {
+const ResumeForm = () => {
   const dummyPfp =
     "https://tse1.mm.bing.net/th?id=OIP.mrnwgUJLZElTBKNfz89bZQAAAA";
   const [pfpImage, setPfpImage] = useState(null);
@@ -416,4 +416,4 @@ const Form = () => {
   )
 }
 
-export default Form
+export default ResumeForm

@@ -10,6 +10,7 @@ import {
     Input,
     IconButton,
     useColorModeValue,
+    Image
 } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 import { FaInstagram, FaTwitter, FaYoutube, FaFacebook, FaFacebookMessenger, FaWhatsapp } from 'react-icons/fa'
@@ -72,8 +73,8 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 const Footer = () => {
     return (
         <Box className='footer'
-            bg={useColorModeValue('gray.50', 'gray.900')}
-            color={useColorModeValue('gray.700', 'gray.200')}
+            bg={useColorModeValue('blue.900', 'gray.1000')}
+            color={useColorModeValue('gray.200', 'gray.200')}
             p={1}
             >
             <Container as={Stack} maxW={'6xl'} py={10}>
@@ -81,10 +82,11 @@ const Footer = () => {
                     templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
                     spacing={8}>
                     <Stack spacing={6}>
-                        <Box>
-                            <Logo color={useColorModeValue('gray.700', 'white')} />
+                        <Box align="center">
+                        <Image src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg"  w={60} />
                         </Box>
-                        <Text fontSize={'sm'}>© 2023 XYZ Company. All rights reserved</Text>
+                        <Text fontSize={'sm'}>© 2023 Sky Way Nepal</Text>
+                        <Text fontSize={'sm'}>All rights reserved</Text>
                         <Stack direction={'row'} spacing={6}>
                             <SocialButton label={'Facebook'} href={'#'}>
                                 <FaFacebook />
@@ -154,10 +156,10 @@ const Footer = () => {
                                 }}
                             />
                             <IconButton
-                                bg={useColorModeValue('green.400', 'green.800')}
+                                bg={useColorModeValue('#0D74FF', 'blue.400')}
                                 color={useColorModeValue('white', 'gray.800')}
                                 _hover={{
-                                    bg: 'green.600',
+                                    bg: 'blue.600',
                                 }}
                                 aria-label="Subscribe"
                                 icon={<BiMailSend />}

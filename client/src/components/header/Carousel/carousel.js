@@ -4,9 +4,12 @@ import {
   Box,
   Image,
   Stack,
-  HStack
+  HStack,
+  Heading,
+  Highlight
 } from '@chakra-ui/react'
-import React, {useState, useEffect} from "react";
+import { AspectRatio } from '@chakra-ui/react'
+import React, { useState, useEffect } from "react";
 const Carousel = () => {
   const arrowStyles = {
     cursor: "pointer",
@@ -29,29 +32,34 @@ const Carousel = () => {
   };
   const slides = [
     {
-      img: "https://cdn.pixabay.com/photo/2019/03/09/21/30/downtown-4045035_1280.jpg",
-      label: "First Slide",
+      img: "https://www.traveloffpath.com/wp-content/uploads/2022/11/Skyline-Of-Dubai-United-Arab-Emirates-With-The-Tallest-Building-In-The-World-Burj-Khalifa-Reflecting-The-Sun-Shine-And-A-Sea-Of-Skyscrapers-Surrounding-It-Middle-East.jpg",
+      label: "United Arab Emirates",
       description: "Nulla vitae elit libero, a pharetra augue mollis interdum.",
     },
     {
-      img: "https://images.pexels.com/photos/2714581/pexels-photo-2714581.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      label: "Second Slide",
+      img: "https://mldvwwasb8tu.i.optimole.com/cb:esbD~6200b/w:1300/h:858/q:90/https://travelaway.me/wp-content/uploads/2022/02/oradea-city-center.jpg",
+      label: "Romaina",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     },
     {
-      img: "https://images.pexels.com/photos/2878019/pexels-photo-2878019.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-      label: "Third Slide",
+      img: "https://cdn.pixabay.com/photo/2016/11/13/12/52/kuala-lumpur-1820944_1280.jpg",
+      label: "Malaysia",
       description:
         "Praesent commodo cursus magna, vel scelerisque nisl consectetur.",
     },
     {
-      img: "https://images.pexels.com/photos/1142950/pexels-photo-1142950.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      label: "Fourth Slide",
+      img: "https://assets.aboutamazon.com/dims4/default/3924cae/2147483647/strip/false/crop/4048x1609+0+0/resize/1486x591!/quality/90/?url=https%3A%2F%2Famazon-blogs-brightspot.s3.amazonaws.com%2F37%2F41%2Fb9b693c243978d81d7da62581288%2Fkuwait.jpg",
+      label: "Kuwait",
       description: "Nulla vitae elit libero, a pharetra augue mollis interdum.",
     },
     {
-      img: "https://images.pexels.com/photos/3124111/pexels-photo-3124111.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      label: "Fifth Slide",
+      img: "https://cdn.pixabay.com/photo/2018/12/02/06/48/artificial-islands-3850752_1280.jpg",
+      label: "Qatar",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    },
+    {
+      img: "https://www.vision2030.gov.sa/media/r3gdzy0i/projects-invest-history_invest-1920.jpg",
+      label: "Saudi Arabia",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     },
   ];
@@ -88,7 +96,6 @@ const Carousel = () => {
     <Flex
       w="full"
       bg="#edf3f8"
-      boxSize="full"
       _dark={{
         bg: "#3e3e3e",
       }}
@@ -101,14 +108,18 @@ const Carousel = () => {
           {slides.map((slide, sid) => (
             <Box key={`slide-${sid}`} boxSize="full" shadow="md" flex="none">
               {/* <Text  color="white"  fontSize="xs"  p="8px 12px"  pos="absolute" top="0"  >  {sid + 1} / {slidesCount}</Text> */}
-              <Image
-                src={slide.img}
-                fallbackSrc='https://via.placeholder.com/150'
-                alt="carousel image"
-                boxSize="full"
-                backgroundSize="cover"
-                height={500}
-              />
+              <AspectRatio ratio={7 / 3}>
+                <Image
+                  src={slide.img}
+                  fallbackSrc='https://via.placeholder.com/150'
+                  bg="rgba(255,0,0,0.5)"
+                  alt="carousel image"
+                  boxSize="full"
+                  backgroundSize="cover"
+                  height={500}
+                />
+              </AspectRatio>
+
               <Stack
                 p="8px 12px"
                 pos="absolute"
@@ -118,8 +129,15 @@ const Carousel = () => {
                 mb="8"
                 color="white"
               >
-                <Text fontSize="2xl">{slide.label}</Text>
-                <Text fontSize="lg">{slide.description}</Text>
+              <Heading as={"h1"} lineHeight='tall' color="white">
+                  <Highlight
+                    query={slide.label}
+                    styles={{ px: '3', py: '1', rounded: '10px', bg:"rgba(255,255,255,0.4)" }}
+                    >
+                    {slide.label}
+                  </Highlight>
+                </Heading>
+                {/* <Text fontSize="lg">{slide.description}</Text> */}
               </Stack>
             </Box>
           ))}

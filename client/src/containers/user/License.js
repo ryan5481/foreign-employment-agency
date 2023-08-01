@@ -5,7 +5,7 @@ import {
 
   
 
-const Docs = () => {
+const License = () => {
   const certificates = {
     isNew: true,
     imageURL:
@@ -35,4 +35,4 @@ const Docs = () => {
     )
 }
 
-export default Docs
+export default License
