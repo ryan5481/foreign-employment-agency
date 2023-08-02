@@ -1,4 +1,9 @@
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import { useInViewport } from "react-in-viewport";
+import { useInView } from 'react-hook-inview'
+
+// require('intersection-observer')
 import {
   Container,
   Stack,
@@ -14,55 +19,78 @@ import {
   IconProps,
   useColorModeValue,
   AspectRatio,
-  Center
+  Center,
+  SlideFade,
+  isOpen
 } from '@chakra-ui/react'
 
 export default function CallToActionWithVideo() {
+  const [ref: thisRef, inView: boxVisible] = useInView()
+
+  const thisRef = useRef(null);
+  const [boxVisible, setBoxVisible] = useState()
+  console.log('BoxVisible', boxVisible)
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      setBoxVisible(entry.isIntersecting)
+      console.log('entry', entry)
+    })
+    observer.observe(thisRef.current)
+  }, [])
   const navigate = useNavigate()
+
+
   return (
-    <Container maxW={'7xl'}>
-      <Stack
-        align={'center'}
-        spacing={{ base: 8, md: 10 }}
-        py={{ base: 20, md: 28 }}
-        direction={{ base: 'column', md: 'row' }}>
-        <Stack flex={1} spacing={{ base: 5, md: 10 }} align="center">
-          <Heading
-            lineHeight={1.1}
-            fontWeight={600}
-            fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
 
-            <Text as={'span'} color={'blue.400'}>
-              About Us
-            </Text>
-          </Heading>
-          <Text color={'gray.500'}>
-            Sky Way Management, A last resort of Manpower requirement to its clients, has started its service since 2013 then continuously supplies the manpower pertaining Blue to White Colors Workers in the Middle East and Malaysia. It has a team of competent, Talents who have worked in the sectors for decades. Team of Talents goes deep down through the requirements received by its value clients and always focuses for the best output meeting the target in one –go to save the time and effort of both the parties for fair and successful recruitment. We always value ethics and professionalism at the top.
-          </Text>
+    <Container maxW={'7xl'} >
+      <SlideFade in={boxVisible} direction="left" initialScale={0.9} offsetY='300px' whileHover={{scale:1.02}}>
 
-          <Button
-            rounded={'10px'}
-            size={'lg'}
-            fontWeight={'normal'}
-            px={6}
-            w={"200px"}
-            placeItems="center"
-            colorScheme={'red'}
-            bg={'blue.400'}
-            _hover={{ bg: 'blue.500' }}
-            onClick={() => navigate("/choose-us")}
-          >
-            Read More
-          </Button>
-          {/* <Button rounded={'full'} size={'lg'} fontWeight={'normal'}  px={6}  leftIcon={<PlayIcon h={4} w={4} color={'gray.300'} />}> How It Works </Button> */}
-        </Stack>
-        <Flex
-          flex={1}
-          justify={'center'}
+        <Stack
           align={'center'}
-          position={'relative'}
-          w={'full'}>
-          <Blob
+          spacing={{ base: 8, md: 10 }}
+          py={{ base: 20, md: 28 }}
+          direction={{ base: 'column', md: 'row' }}
+          
+        >
+          <Stack flex={1} spacing={{ base: 5, md: 10 }} align="center" ref={thisRef}>
+            <Heading
+              lineHeight={1.1}
+              fontWeight={600}
+              fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
+
+              <Text as={'span'} color={'blue.400'}>
+                About Us
+              </Text>
+            </Heading>
+            <Text color={'gray.500'}>
+              Sky Way Management, A last resort of Manpower requirement to its clients, has started its service since 2013 then continuously supplies the manpower pertaining Blue to White Colors Workers in the Middle East and Malaysia. It has a team of competent, Talents who have worked in the sectors for decades. Team of Talents goes deep down through the requirements received by its value clients and always focuses for the best output meeting the target in one –go to save the time and effort of both the parties for fair and successful recruitment. We always value ethics and professionalism at the top.
+            </Text>
+
+            <Button
+              rounded={'10px'}
+              size={'lg'}
+              fontWeight={'normal'}
+              px={6}
+              w={"200px"}
+              placeItems="center"
+              colorScheme={'red'}
+              bg={'blue.400'}
+              _hover={{ bg: 'blue.500' }}
+              onClick={() => navigate("/choose-us")}
+            >
+              Read More
+            </Button>
+            {/* <Button rounded={'full'} size={'lg'} fontWeight={'normal'}  px={6}  leftIcon={<PlayIcon h={4} w={4} color={'gray.300'} />}> How It Works </Button> */}
+          </Stack>
+
+          <Flex
+            flex={1}
+            justify={'center'}
+            align={'center'}
+            position={'relative'}
+            w={'full'}>
+            {/* <Blob
             w={'150%'}
             h={'150%'}
             position={'absolute'}
@@ -70,16 +98,16 @@ export default function CallToActionWithVideo() {
             left={0}
             zIndex={-1}
             color={useColorModeValue('red.50', 'red.400')}
-          />
-          <Box
-            position={'relative'}
-            height={'400px'}
-            rounded={'2xl'}
-            boxShadow={'2xl'}
-            width={'full'}
-            overflow={'hidden'}
-            maxH="500px">
-            {/* <IconButton
+          /> */}
+            <Box
+              position={'relative'}
+              height={'400px'}
+              rounded={'2xl'}
+              boxShadow={'2xl'}
+              width={'full'}
+              overflow={'hidden'}
+              maxH="500px">
+              {/* <IconButton
               aria-label={'Play Button'}
               variant={'ghost'}
               _hover={{ bg: 'transparent' }}
@@ -91,19 +119,20 @@ export default function CallToActionWithVideo() {
               top={'50%'}
               transform={'translateX(-50%) translateY(-50%)'}
             /> */}
-            <Center>
-              <Image
-                alt={'Hero Image'}
-                fit={'cover'}
-                align={'center'}
-                w={'100%'}
-                h={'100%'}
-                src={
-                  "https://skywaynepal.com/static/media/unnamed.6cb5e6a65084a11ebc07.jpg"}
-              />            </Center>
-          </Box>
-        </Flex>
-      </Stack>
+              <Center>
+                <Image
+                  alt={'Hero Image'}
+                  fit={'cover'}
+                  align={'center'}
+                  w={'100%'}
+                  h={'100%'}
+                  src={
+                    "https://skywaynepal.com/static/media/unnamed.6cb5e6a65084a11ebc07.jpg"}
+                />            </Center>
+            </Box>
+          </Flex>
+        </Stack>
+      </SlideFade>
     </Container>
   )
 }
