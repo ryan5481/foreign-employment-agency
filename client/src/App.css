@@ -52,10 +52,10 @@
   top: 0px;
 }
 /* HOMEPAGE */
-.main {
+/* .main {
   position: relative;
   top: 80px;
-}
+} */
 
 .text-img-card {
   display: flex;
@@ -92,4 +92,8 @@
   text-align: left;
   color: darkgray;
   font-size: 16px;
+}
+
+.owl-theme .owl-dots .owl-dot  {
+  display: none !important;
 }

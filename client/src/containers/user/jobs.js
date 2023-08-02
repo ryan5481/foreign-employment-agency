@@ -66,7 +66,10 @@ const Jobs = () => {
                     Latest Jobs
                 </Heading>
                 <Box>
+                <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+
                     <CategoryCard jobsList={jobsList}/>
+                </Grid>
                 </Box>
 
             </div>

@@ -104,11 +104,11 @@ const Carousel = () => {
       justifyContent="center"
     >
       <Flex w="full" pos="relative" boxSize="full" overflow="hidden">
-        <Flex h="600px" w="full" boxSize="full" {...carouselStyle}>
+        <Flex  w="full" boxSize="full" {...carouselStyle}>
           {slides.map((slide, sid) => (
             <Box key={`slide-${sid}`} boxSize="full" shadow="md" flex="none">
               {/* <Text  color="white"  fontSize="xs"  p="8px 12px"  pos="absolute" top="0"  >  {sid + 1} / {slidesCount}</Text> */}
-              <AspectRatio ratio={7 / 3}>
+              <AspectRatio ratio={2.1}>
                 <Image
                   src={slide.img}
                   fallbackSrc='https://via.placeholder.com/150'
@@ -116,7 +116,7 @@ const Carousel = () => {
                   alt="carousel image"
                   boxSize="full"
                   backgroundSize="cover"
-                  height={500}
+                  height={600}
                 />
               </AspectRatio>
 
@@ -129,7 +129,7 @@ const Carousel = () => {
                 mb="8"
                 color="white"
               >
-              <Heading as={"h1"} lineHeight='tall' color="white">
+              <Heading as={"h1"} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} lineHeight='tall' color="white">
                   <Highlight
                     query={slide.label}
                     styles={{ px: '3', py: '1', rounded: '10px', bg:"rgba(255,255,255,0.4)" }}
