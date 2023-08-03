@@ -72,7 +72,7 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 
 const Footer = () => {
     return (
-        <Box className='footer'
+        <Box
             bg={useColorModeValue('blue.900', 'gray.1000')}
             color={useColorModeValue('gray.200', 'gray.200')}
             p={1}

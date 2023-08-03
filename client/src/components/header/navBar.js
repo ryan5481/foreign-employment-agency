@@ -283,6 +283,7 @@ const NAV_ITEMS: Array<NavItem> = [
 
   {
     label: 'Documentation',
+    href: 'license',
     children: [
       {
         label: 'Licenses',
@@ -298,11 +299,12 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'About Us',
+    href: 'about',
     children: [
       {
         label: 'About Nepal',
         subLabel: '',
-        href: 'nepal',
+        href: 'about-nepal',
       },
       {
         label: 'Why Choose Us',
@@ -312,6 +314,10 @@ const NAV_ITEMS: Array<NavItem> = [
     ],
   },
 
+  {
+    label: 'Gallery',
+    href: 'gallery',
+  },
   {
     label: 'Contact Us',
     href: 'contact',

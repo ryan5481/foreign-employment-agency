@@ -1,4 +1,5 @@
-import { Box, Heading, Grid } from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom"
+import { Box, Heading, Grid, Flex, Button, useColorModeValue } from "@chakra-ui/react"
 import Carousel from "../../components/header/Carousel/carousel"
 import CallToActionWithVideo from "../../components/card/callToActionWithVideo"
 import ImageParagraph from "../../components/card/imageParagraph1"
@@ -16,6 +17,7 @@ import Procedure5 from "../../components/stepper5"
 import Procedure6 from "../../components/stepper6"
 import CarouselSmall from "../../components/header/Carousel/carouselSmall"
 const Home = () => {
+    const navigate = useNavigate()
 
     const jobsList = [
         {
@@ -148,49 +150,61 @@ const Home = () => {
                         </Grid>
                     </Box>
                 </Box>
-                <Box>
+                <Box maxW={'full'} bg={useColorModeValue('blue.500', 'gray.1000')}
+                    color='white'>
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}>
                         Latest Jobs
                     </Heading>
                     <Box>
-                        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+                        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
                             <CategoryCard jobsList={jobsList} />
                         </Grid>
                     </Box>
+                    <Flex p={10} w="full" alignItems="center" justifyContent="center">
+                        <Button
+                            bg={'whiteAlpha.800'}
+                            rounded={'full'}
+                            color={'blue.500'}
+                            _hover={{ bg: 'whiteAlpha.900', color:'blue.600' }}
+                            onClick={()=>navigate("/jobs")}
+                            >
+                            View All Jobs
+                        </Button>
+                    </Flex>
                 </Box>
                 <Box>
-                <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
-                    Operating Procedure
-                </Heading>
-                <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr' }} p={20} gap={10} pl={20} pr={20}>
-                    <Box >
-                        <Procedure1 />
-                    </Box>
-                    <Box >
-                        <Procedure2 />
-                    </Box>
-                    <Box >
-                        <Procedure3 />
-                    </Box>
-                    <Box >
-                        <Procedure4 />
-                    </Box>
-                    <Box >
-                        <Procedure5 />
-                    </Box>
-                    <Box >
-                        <Procedure6 />
-                    </Box>
-                </Grid>
+                    <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
+                        Operating Procedure
+                    </Heading>
+                    <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr' }} p={20} gap={10} pl={20} pr={20}>
+                        <Box >
+                            <Procedure1 />
+                        </Box>
+                        <Box >
+                            <Procedure2 />
+                        </Box>
+                        <Box >
+                            <Procedure3 />
+                        </Box>
+                        <Box >
+                            <Procedure4 />
+                        </Box>
+                        <Box >
+                            <Procedure5 />
+                        </Box>
+                        <Box >
+                            <Procedure6 />
+                        </Box>
+                    </Grid>
                 </Box>
                 <Box>
                     <TestimonialCard />
                 </Box>
                 <Box align="center">
-                <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
-                    Our Clients
-                </Heading>
-                <CarouselSmall/>
+                    <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
+                        Our Clients
+                    </Heading>
+                    <CarouselSmall />
                 </Box>
                 <Box>
                     <StatisticsCard />

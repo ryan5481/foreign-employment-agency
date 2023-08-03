@@ -64,6 +64,7 @@ import {
           backgroundImage:
             "url('https://skywaynepal.com/static/media/chairman.2b6c4f5ed4ec5e483c3c.JPG')",
         }}
+        
       ></Box>
     </Box>
 

@@ -2,13 +2,10 @@ import {
   Flex,
   Circle,
   Box,
-  Image,
-  Badge,
-  useColorModeValue,
-  Icon,
-  chakra,
-  Tooltip,
+  useColorModeValue
 } from '@chakra-ui/react'
+import ModalImage from "react-modal-image";
+
 
 
 const ImageTitleLarge = (props) => {
@@ -25,7 +22,7 @@ const ImageTitleLarge = (props) => {
           <Circle size="10px" position="absolute" top={2} right={2} bg="blue.200" />
         )}
 
-        <Image src={props.data.imageURL} alt={`Picture of ${props.data.name}`} roundedTop="lg" />
+        <ModalImage large={props.data.imageURL} small={props.data.imageURL} alt={`Picture of ${props.data.name}`} />
 
         <Box p="6">         
           <Flex mt="1" justifyContent="center" alignContent="center">
