@@ -4,6 +4,87 @@ import {
 } from '@chakra-ui/react'
 
 const Gallery = () => {
+
+    const galleryImages = 
+    [
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+       
+        {
+            src: "https://bit.ly/2Z4KKcF",
+            title: "Dubai",
+            alt: "dubai",
+            isNew: true
+        },
+    
+    ]
     
     return(
         <>
@@ -12,17 +93,7 @@ const Gallery = () => {
                     Image Gallery
 
                     <Grid templateColumns='repeat(4, 2fr)' gap={5} p={10} align="center" rowGap={5}>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-                        <GalleryPhotoCard/>
-
+                        <GalleryPhotoCard galleryImages={galleryImages}/>
                     </Grid>
                 </Heading>
         </div>

@@ -88,8 +88,8 @@ const TestimonialAvatar = ({
     <Flex align={'center'} mt={8} direction={'column'}>
       <Avatar src={src} mb={2} />
       <Stack spacing={-1} align={'center'}>
-        <Text fontWeight={600}>{name}</Text>
-        <Text fontSize={'sm'} color={useColorModeValue('gray.600', 'gray.400')}>
+        <Text fontWeight={600} color={useColorModeValue('white', 'gray.400')}>{name}</Text>
+        <Text fontSize={'sm'} color={useColorModeValue('gray.200', 'gray.400')}>
           {title}
         </Text>
       </Stack>
@@ -99,17 +99,19 @@ const TestimonialAvatar = ({
 
 const TestimonialCard = () => {
   return (
-    <Box bg={useColorModeValue('gray.100', 'gray.700')}>
+    <Box bg={useColorModeValue('blue.400', 'gray.700')}
+    >
       <Container maxW={'7xl'} py={16} as={Stack} spacing={12}>
-        <Stack spacing={0} align={'center'}>
+        <Stack spacing={0} align={'center'} color='white'>
           <Heading>What Our Clients Say</Heading>
           <Text>We have been finding overseas jobs for clients from all over Nepal</Text>
         </Stack>
         <Stack
           direction={{ base: 'column', md: 'row' }}
-          spacing={{ base: 10, md: 4, lg: 10 }}>
-          <Testimonial>
-            <TestimonialContent>
+          spacing={{ base: 10, md: 4, lg: 10 }}
+          >
+          <Testimonial >
+            <TestimonialContent >
               <TestimonialHeading>ABC gave me good job in UAE</TestimonialHeading>
               <TestimonialText>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed

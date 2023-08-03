@@ -1,52 +1,101 @@
-//chakraui statistics 2
-
-'use client'
-
+import React, { useState } from 'react';
+import { useInView } from 'react-hook-inview';
+import CountUp from 'react-countup';
 import {
   Box,
-  chakra,
-  SimpleGrid,
-  Stat,
+  Grid,
+  Heading,
+  Text,
   StatLabel,
   StatNumber,
   useColorModeValue,
 } from '@chakra-ui/react'
 
-interface StatsCardProps {
-  title: String,
-  stat: string
-}
-function StatsCard(props: StatsCardProps) {
-  const { title, stat } = props
+const StatisticsCard = () => {
+  const [hasInView, setHasInView] = useState(false);
+  const [ref] = useInView({
+    triggerOnce: true, // This will trigger the inView callback only once
+    onEnter: () => {
+      setHasInView(true); // When the component comes into view, set the hasInView state to true
+    },
+  });
+
+
   return (
-    <Stat
-      px={{ base: 4, md: 8 }}
-      py={'5'}
-      shadow={'xl'}
-      border={'1px solid'}
-      borderColor={useColorModeValue('gray.800', 'gray.500')}
-      rounded={'lg'}>
-      <StatLabel fontWeight={'medium'} isTruncated>
-        {title}
-      </StatLabel>
-      <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
-        {stat}
-      </StatNumber>
-    </Stat>
+    <Box
+      borderColor={useColorModeValue('blue.400', 'gray.400')}
+      color={useColorModeValue('blue.600', 'gray.100')}
+      alignContent={'middle'} align="center"
+      >
+        <Heading p={20}>Sky Way Nepal Statistics</Heading>
+      <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr ' }} pr={120} pl={120} pb={120} gap={10}>
+        <Box
+          px={{ base: 4, md: 8 }}
+          py={'5'}
+          shadow={'xl'}
+          border={'1px solid'}
+          rounded={'lg'}
+          m={'black'}
+          w={350}
+        >
+            <Text fontWeight={'medium'} fontSize='xl' isTruncated>
+              We Have Employed
+            </Text>
+            {hasInView ? (
+              <CountUp end={5631} duration={3} style={{color:"#ff2600", fontSize: "70px", fontWeight: "bold" }} /> // Replace 100 with the desired end value and adjust duration as needed
+            ) : (
+              'Scroll down to see the count-up effect'
+            )}
+            <Text fontWeight={'medium'} fontSize='xl' isTruncated ref={ref}>
+              people
+            </Text>
+        </Box>
+        <Box
+          px={{ base: 4, md: 8 }}
+          py={'5'}
+          shadow={'xl'}
+          border={'1px solid'}
+          rounded={'lg'}
+          m={'black'}
+          w={350}
+        >
+            <Text fontWeight={'medium'} fontSize='xl' isTruncated>
+              To Work In
+            </Text>
+            {hasInView ? (
+              <CountUp end={114} duration={3} style={{color:"#ff2600", fontSize: "70px", fontWeight: "bold" }} /> // Replace 100 with the desired end value and adjust duration as needed
+            ) : (
+              'Scroll down to see the count-up effect'
+            )}
+            <Text fontWeight={'medium'} fontSize='xl' isTruncated ref={ref}>
+              Sectors
+            </Text>
+        </Box>
+        <Box
+          px={{ base: 4, md: 8 }}
+          py={'5'}
+          shadow={'xl'}
+          border={'1px solid'}
+          rounded={'lg'}
+          m={'black'}
+          w={350}
+        >
+            <Text fontWeight={'medium'} fontSize='xl' isTruncated>
+              Landed Visas In
+            </Text>
+            {hasInView ? (
+              <CountUp end={26} duration={3}  style={{color:"#ff2600", fontSize: "70px", fontWeight: "bold" }} /> // Replace 100 with the desired end value and adjust duration as needed
+            ) : (
+              'Scroll down to see the count-up effect'
+            )}
+            <Text fontWeight={'medium'} fontSize='xl' isTruncated ref={ref}>
+              Different Countries
+            </Text>
+        </Box>
+        </Grid>
+        </Box>
   )
 }
 
-export default function StatisticsCard() {
-  return (
-    <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }} pb={10}>
-      <chakra.h1 textAlign={'center'} fontSize={'4xl'} py={10} fontWeight={'bold'}>
-        What our company can do for you?
-      </chakra.h1>
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-        <StatsCard title={'We have employed'} stat={'50,000 people'} />
-        <StatsCard title={'In'} stat={'30 different countries'} />
-        <StatsCard title={'Who speak'} stat={'100 different sectors'} />
-      </SimpleGrid>
-    </Box>
-  )
-}
+export default StatisticsCard
+

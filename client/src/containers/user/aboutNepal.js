@@ -2,7 +2,7 @@ import AboutImageParagraphCard from "../../components/card/aboutImageParagraphCa
 import GridTextList from "../../components/card/gridTextList"
 import {Box} from "@chakra-ui/react"
 
-const Nepal = () => {
+const AboutNepal = () => {
 
     return (
         <>
@@ -14,4 +14,4 @@ const Nepal = () => {
     )
 }
 
-export default Nepal
+export default AboutNepal

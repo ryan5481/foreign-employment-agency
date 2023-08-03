@@ -97,3 +97,8 @@
 .owl-theme .owl-dots .owl-dot  {
   display: none !important;
 }
+
+.valuable_client_bg {
+  background-image: url("../public/background_images/city-vector.jpg");
+  opacity: 0.5;
+}
