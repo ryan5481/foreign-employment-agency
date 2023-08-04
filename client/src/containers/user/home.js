@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Box, Heading, Grid, Flex, Button, useColorModeValue } from "@chakra-ui/react"
+import { Box, Heading, Grid, Flex, Button, useColorModeValue, Card, Divider, CardBody, Image, Badge, Stack, StackDivider, CardFooter, ButtonGroup } from "@chakra-ui/react"
 import Carousel from "../../components/header/Carousel/carousel"
 import CallToActionWithVideo from "../../components/card/callToActionWithVideo"
 import ImageParagraph from "../../components/card/imageParagraph1"
@@ -9,13 +9,9 @@ import TestimonialCard from "../../components/card/testimonialCard"
 import CategoryCard from "../../components/card/categoryCard"
 import BlogArticleCard from "../../components/card/blogArticleCard"
 import SimpleCard from "../../components/card/simpleCard"
-import Procedure1 from "../../components/stepper1"
-import Procedure2 from "../../components/stepper2"
-import Procedure3 from "../../components/stepper3"
-import Procedure4 from "../../components/stepper4"
-import Procedure5 from "../../components/stepper5"
-import Procedure6 from "../../components/stepper6"
+import Procedure from "../../components/stepper"
 import CarouselSmall from "../../components/header/Carousel/carouselSmall"
+import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
 const Home = () => {
     const navigate = useNavigate()
 
@@ -71,6 +67,7 @@ const Home = () => {
             new: true
         },
     ]
+    const slicedJobsList = jobsList.slice(0, 5)
     const categories = [
         {
             imageUrl: "https:images.pexels.com/photos/2324837/pexels-photo-2324837.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -124,7 +121,7 @@ const Home = () => {
 
     return (
         <>
-            <Box>
+            <Box bg={useColorModeValue('teal.50', 'gray.1000')}>
                 <Box>
                     <Carousel />
                 </Box>
@@ -140,24 +137,58 @@ const Home = () => {
                 <Box>
                     <BlogArticleCard />
                 </Box>
-                <Box>
-                    <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}>
+                <Box >
+                    <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}
+                        color={useColorModeValue('blue.600', 'gray.1000')}
+                    >
                         Sectors We Work In
                     </Heading>
-                    <Box>
+                    <Box >
                         <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
                             <SimpleCard categories={categories} />
                         </Grid>
                     </Box>
                 </Box>
-                <Box maxW={'full'} bg={useColorModeValue('blue.500', 'gray.1000')}
+                <Box maxW={'full'} bg={useColorModeValue('blue.600', 'gray.1000')}
                     color='white'>
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}>
                         Latest Jobs
                     </Heading>
                     <Box>
-                        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
-                            <CategoryCard jobsList={jobsList} />
+                        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr', xl: '1fr 1fr 1fr 1fr 1fr', '2xl': '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+                            {slicedJobsList.map((job, index) => {
+                                return (<>
+
+                                    <Card maxW='sm' >
+                                        <CardBody w='100%' h='10' bg='' >
+                                            <Image
+                                                src={job.src}
+                                                alt={job.alt}
+                                                borderRadius='lg'
+                                            />
+                                            <Box display='flex' alignItems='baseline' p="2">
+                                                <Badge borderRadius='full' colorScheme='teal'>
+                                                    New
+                                                </Badge>
+                                            </Box>
+                                            <Stack mt='1' spacing='3'>
+                                                <Heading size='md'>{job.alt}</Heading>
+                                            </Stack>
+                                        </CardBody>
+                                        <Divider />
+                                        <CardFooter alignContent={'middle'} align="center">
+                                            <ButtonGroup spacing='3' >
+                                                <Button variant='ghost' colorScheme='blue' rounded='full' onClick={() => navigate("/job-description")}>
+                                                    Details
+                                                </Button>
+                                                <Button variant='solid' colorScheme='blue' rounded='full' onClick={() => navigate("/resume")}>
+                                                    Apply now
+                                                </Button>
+                                            </ButtonGroup>
+                                        </CardFooter>
+                                    </Card>
+                                </>)
+                            })}
                         </Grid>
                     </Box>
                     <Flex p={10} w="full" alignItems="center" justifyContent="center">
@@ -165,50 +196,40 @@ const Home = () => {
                             bg={'whiteAlpha.800'}
                             rounded={'full'}
                             color={'blue.500'}
-                            _hover={{ bg: 'whiteAlpha.900', color:'blue.600' }}
-                            onClick={()=>navigate("/jobs")}
-                            >
+                            _hover={{ bg: 'whiteAlpha.900', color: 'blue.600' }}
+                            
+                        >
                             View All Jobs
                         </Button>
                     </Flex>
                 </Box>
-                <Box>
+                <Box alignContent={'center'} align="center"
+                    color={useColorModeValue('blue.700', 'gray.1000')}
+                >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
                         Operating Procedure
                     </Heading>
-                    <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr' }} p={20} gap={10} pl={20} pr={20}>
-                        <Box >
-                            <Procedure1 />
-                        </Box>
-                        <Box >
-                            <Procedure2 />
-                        </Box>
-                        <Box >
-                            <Procedure3 />
-                        </Box>
-                        <Box >
-                            <Procedure4 />
-                        </Box>
-                        <Box >
-                            <Procedure5 />
-                        </Box>
-                        <Box >
-                            <Procedure6 />
-                        </Box>
-                    </Grid>
+                    <Box >
+                        <Procedure />
+                    </Box>
                 </Box>
                 <Box>
                     <TestimonialCard />
                 </Box>
-                <Box align="center">
-                    <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
-                        Our Clients
-                    </Heading>
-                    <CarouselSmall />
-                </Box>
-                <Box>
-                    <StatisticsCard />
-                </Box>
+                <Stack>
+                    <Box align="center"
+                        bg={useColorModeValue('blue.600', 'gray.700')}
+                        color={useColorModeValue('gray.50', 'gray.500')}>
+                        <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
+                            Our Clients
+                        </Heading>
+                        <Box pb={20}
+                        >
+                            <SmoothCarousel />
+                        </Box>
+                        <StatisticsCard />
+                    </Box>
+                </Stack>
             </Box>
         </>
     )

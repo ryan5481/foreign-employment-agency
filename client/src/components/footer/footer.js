@@ -10,10 +10,12 @@ import {
     Input,
     IconButton,
     useColorModeValue,
-    Image
+    Image,
+    Center
 } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 import { ReactNode } from 'react'
-import { FaInstagram, FaTwitter, FaYoutube, FaFacebook, FaFacebookMessenger, FaWhatsapp } from 'react-icons/fa'
+import { FaInstagram, FaTwitter, FaYoutube, FaFacebook, FaFacebookMessenger, FaWhatsapp, FaFilePdf } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 
 const Logo = (props: any) => {
@@ -71,21 +73,23 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 }
 
 const Footer = () => {
+    const navigate = useNavigate()
     return (
         <Box
             bg={useColorModeValue('blue.900', 'gray.1000')}
             color={useColorModeValue('gray.200', 'gray.200')}
             p={1}
-            >
+        >
             <Container as={Stack} maxW={'6xl'} py={10}>
                 <SimpleGrid
                     templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
                     spacing={8}>
                     <Stack spacing={6}>
                         <Box align="center">
-                        <Image src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg"  w={60} />
+                            <Image src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg" w={60} />
                         </Box>
-                        <Text fontSize={'sm'}>© 2023 Sky Way Nepal</Text>
+                        <Text fontSize={'sm'}>Connecting Talent to Opportunities</Text>
+                        <Text fontSize={'sm'}>© Sky-Way Management Pvt Ltd</Text>
                         <Text fontSize={'sm'}>All rights reserved</Text>
                         <Stack direction={'row'} spacing={6}>
                             <SocialButton label={'Facebook'} href={'#'}>
@@ -110,19 +114,19 @@ const Footer = () => {
                     </Stack>
                     <Stack align={'flex-start'}>
                         <ListHeader>Company</ListHeader>
-                        <Box as="a" href={'#'}>
+                        <Box as="a" href={'about'}>
                             About us
                         </Box>
                         <Box as="a" href={'#'}>
                             Blog
                         </Box>
-                        <Box as="a" href={'#'}>
+                        <Box as="a" href={'contact'}>
                             Contact us
                         </Box>
                         <Box as="a" href={'#'}>
                             Pricing
                         </Box>
-                        <Box as="a" href={'#'}>
+                        <Box as="a" href={'testimonials'}>
                             Testimonials
                         </Box>
                     </Stack>
@@ -134,7 +138,7 @@ const Footer = () => {
                         <Box as="a" href={'#'}>
                             Terms of Service
                         </Box>
-                        <Box as="a" href={'#'}>
+                        <Box as="a" href={'license'}>
                             Legal
                         </Box>
                         <Box as="a" href={'#'}>
@@ -147,6 +151,15 @@ const Footer = () => {
                     <Stack align={'flex-start'}>
                         <ListHeader>Stay up to date</ListHeader>
                         <Stack direction={'row'}>
+                        <IconButton
+                                bg={useColorModeValue('blue.700', 'blue.400')}
+                                color={useColorModeValue('white', 'gray.800')}
+                                _hover={{
+                                    bg: 'blue.600',
+                                }}
+                                aria-label="Subscribe"
+                                icon={<BiMailSend />}
+                            />
                             <Input
                                 placeholder={'Your email address'}
                                 bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
@@ -155,15 +168,21 @@ const Footer = () => {
                                     bg: 'whiteAlpha.300',
                                 }}
                             />
+                        </Stack>
+                        <Stack direction={'row'} >
                             <IconButton
-                                bg={useColorModeValue('#0D74FF', 'blue.400')}
+                                bg={useColorModeValue('blue.700', 'blue.400')}
                                 color={useColorModeValue('white', 'gray.800')}
                                 _hover={{
                                     bg: 'blue.600',
                                 }}
                                 aria-label="Subscribe"
-                                icon={<BiMailSend />}
+                                icon={<FaFilePdf />}
+                                onClick={() => navigate("/brochure")}
                             />
+                            <Center>
+                            <Text>Download Brochure</Text>
+                            </Center>
                         </Stack>
                     </Stack>
                 </SimpleGrid>

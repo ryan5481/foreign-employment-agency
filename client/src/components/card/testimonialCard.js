@@ -99,7 +99,7 @@ const TestimonialAvatar = ({
 
 const TestimonialCard = () => {
   return (
-    <Box bg={useColorModeValue('blue.400', 'gray.700')}
+    <Box bg={useColorModeValue('blue.600', 'gray.700')}
     >
       <Container maxW={'7xl'} py={16} as={Stack} spacing={12}>
         <Stack spacing={0} align={'center'} color='white'>
@@ -109,10 +109,11 @@ const TestimonialCard = () => {
         <Stack
           direction={{ base: 'column', md: 'row' }}
           spacing={{ base: 10, md: 4, lg: 10 }}
+          color={useColorModeValue('blue.700', 'gray.1000')}
           >
-          <Testimonial >
+          <Testimonial  >
             <TestimonialContent >
-              <TestimonialHeading>ABC gave me good job in UAE</TestimonialHeading>
+              <TestimonialHeading>Lorem ipsum dolor sit amet</TestimonialHeading>
               <TestimonialText>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
                 imperdiet nibh lectus feugiat nunc sem.
@@ -128,7 +129,7 @@ const TestimonialCard = () => {
           </Testimonial>
           <Testimonial>
             <TestimonialContent>
-              <TestimonialHeading>I got Qatar visa very quickly</TestimonialHeading>
+              <TestimonialHeading>Lorem ipsum dolor sit amet</TestimonialHeading>
               <TestimonialText>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
                 imperdiet nibh lectus feugiat nunc sem.
@@ -144,7 +145,7 @@ const TestimonialCard = () => {
           </Testimonial>
           <Testimonial>
             <TestimonialContent>
-              <TestimonialHeading>I send money to my family monthly</TestimonialHeading>
+              <TestimonialHeading>Lorem ipsum dolor sit amet</TestimonialHeading>
               <TestimonialText>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
                 imperdiet nibh lectus feugiat nunc sem.

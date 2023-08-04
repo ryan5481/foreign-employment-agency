@@ -14,7 +14,7 @@ import {
   const ImageParagraph = () => {
     return (
       <Flex
-  bg="#edf3f8"
+  
   _dark={{
     bg: "#3e3e3e",
   }}
@@ -24,7 +24,9 @@ import {
   justifyContent="center"
 >
   <Box
-    bg="white"
+    bg={useColorModeValue('blue.500', 'gray.1000')} 
+    color={useColorModeValue('white', 'gray.1000')} 
+
     _dark={{
       bg: "gray.800",
     }}
@@ -46,29 +48,7 @@ import {
       lg: "lg",
     }}
   >
-    <Box
-      w={{
-        lg: "50%",
-      }}
-    >
-      <Box
-        h={{
-          base: 64,
-          lg: "full",
-        }}
-        roundedLeft={{
-          lg: "lg",
-        }}
-        bgSize="cover"
-        style={{
-          backgroundImage:
-            "url('https://skywaynepal.com/static/media/chairman.2b6c4f5ed4ec5e483c3c.JPG')",
-        }}
-        
-      ></Box>
-    </Box>
-
-    <Box
+        <Box
       py={12}
       px={6}
       maxW={{
@@ -84,7 +64,7 @@ import {
           base: "2xl",
           md: "3xl",
         }}
-        color="gray.800"
+        
         _dark={{
           color: "white",
         }}
@@ -92,7 +72,7 @@ import {
       >
         {" "}
         <chakra.span
-          color="brand.600"
+          
           _dark={{
             color: "brand.400",
           }}
@@ -102,7 +82,7 @@ import {
       </chakra.h2>
       <chakra.p
         mt={4}
-        color="gray.600"
+        
         _dark={{
           color: "gray.400",
         }}
@@ -114,8 +94,27 @@ Since it's operation SKY WAY Management is always propelled with the Ethic and p
 We have a systematic procedure to hire the candidates in job based on their skills and experience which values for the operations of our valued client for the best out-put throughout the human capital.
 We have a vast knowing of context of the work and its nature as per the requirement we receive from our clients and accordingly address for the best ...
       </chakra.p>
-
-      
+    </Box>
+    <Box
+      w={{
+        lg: "50%",
+      }}
+    >
+      <Box
+        h={{
+          base: 64,
+          lg: "full",
+        }}
+        roundedRight={{
+          lg: "lg",
+        }}
+        bgSize="cover"
+        style={{
+          backgroundImage:
+            "url('https://skywaynepal.com/static/media/chairman.2b6c4f5ed4ec5e483c3c.JPG')",
+        }}
+        
+      ></Box>
     </Box>
   </Box>
 </Flex>

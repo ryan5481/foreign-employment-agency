@@ -1,8 +1,10 @@
 import Carousel from "../../components/header/Carousel/carousel"
 import { Grid, GridItem, Box, Heading } from '@chakra-ui/react'
 import CategoryCard from "../../components/card/categoryCard"
+import { useNavigate } from "react-router-dom"
 
 const Jobs = () => {
+    const navigate = useNavigate()
 
  const jobsList = [
         {
@@ -65,7 +67,7 @@ const Jobs = () => {
                 <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}>
                     Latest Jobs
                 </Heading>
-                <Box>
+                <Box >
                 <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
 
                     <CategoryCard jobsList={jobsList}/>
@@ -78,3 +80,4 @@ const Jobs = () => {
 }
 
 export default Jobs
+

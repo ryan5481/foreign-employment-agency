@@ -1,4 +1,5 @@
 
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Center,
@@ -11,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { FaInstagram, FaTwitter, FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 import { ReactNode } from 'react'
+import EmailLink from '../utils/emailLink';
 
 const SocialButton = ({
   children,
@@ -44,30 +46,55 @@ const SocialButton = ({
 }
 
 const Header = () => {
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 768); // Adjust the breakpoint value if needed
+    };
+
+    // Initial check on mount
+    handleResize();
+
+    // Add event listener to handle window resize
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  if (isMobileView) {
+    return null; // Render nothing if in mobile view
+  }
   return (
-    <Box className='header'
+  <>
+    <Box 
       bg={'gray.900'}
-      color={useColorModeValue('gray.200', 'gray.50')}
+      color='gray.50'
       h={50}
       w="full"
-      fontSize={"sm"}
+      fontSize={{ sm: 'xxs', md: 'sm' }}
     >
       <Container
         as={Stack}
         maxW={'full'}
+        maxH={50}
         py={2}
         direction={{ base: 'column', md: 'row' }}
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}
       >
-        <Text>Regd.No. : 66236/066/067</Text>
+        <Stack direction={'row'} spacing={6}>
+
+          <Text>Regd.No. : 66236/066/067</Text>
+          <Text>  © Lic. No.: 0123456789</Text>
+        </Stack>
         <Stack direction={'row'} spacing={6}>
           <Center>
-            <Text>  © Lic. No.: 0123456789</Text>
-          </Center>
-          <Center>
-            <Text> recruit@skywaynepal.com</Text>
+          <EmailLink email="info@skywaynepal.com" />
           </Center>
           <Center>
             <Text>+977-123456788</Text>
@@ -84,6 +111,7 @@ const Header = () => {
         </Stack>
       </Container>
     </Box>
+  </>
   )
 }
 

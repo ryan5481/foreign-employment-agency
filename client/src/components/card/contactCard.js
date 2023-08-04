@@ -6,6 +6,7 @@ import {
   Text,
   IconButton,
   Button,
+  Stack,
   VStack,
   HStack,
   Wrap,
@@ -16,7 +17,8 @@ import {
   InputGroup,
   InputLeftElement,
   Textarea,
-  useColorModeValue
+  useColorModeValue,
+  VisuallyHidden
 } from '@chakra-ui/react'
 import {
   MdPhone,
@@ -26,62 +28,79 @@ import {
   MdOutlineEmail,
 } from 'react-icons/md'
 import { BsWhatsapp, BsPerson, BsMessenger, BsInstagram } from 'react-icons/bs'
+import EmailLink from '../utils/emailLink'
 
 const ContactCard = () => {
 
-  const CoOrds = {lat: 27.7208228410843, lang: 85.32995244903029}
-
-
   return (
-    <Container bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')} maxW="full" mt={0} centerContent overflow="hidden">
-      <Flex>
+    <Container  maxW="full" mt={0} centerContent overflow="hidden">
         <Box
-          bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-          color={useColorModeValue('grey.800', 'grey.100')}
+          bg={useColorModeValue('blue.600', 'gray.800')}
+          color={'white'}
           borderRadius="lg"
           m={{ sm: 4, md: 16, lg: 10 }}
           p={{ sm: 5, md: 5, lg: 16 }}>
-          <Box p={4}>
-            <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
-              <WrapItem>
-                <Box w={200}>
-                  <Heading>Contact</Heading>
-                  <Text mt={{ sm: 3, md: 3, lg: 5 }} color={useColorModeValue('grey.800', 'grey.100')}>
-                    Fill up the form
+          <Box p={4} >
+            <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }} >
+              <WrapItem >
+                <Box w={200} >
+                  <Heading>Contact Us</Heading>
+                  <Text mt={{ sm: 3, md: 3, lg: 5 }} color={useColorModeValue('grey.200', 'grey.200')} 
+                  >
+                    Tap to call or send email
                   </Text>
                   <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }} color={useColorModeValue('grey.800', 'grey.100')}>
-                    <VStack pl={0} spacing={3} alignItems="flex-start" color={useColorModeValue('grey.800', 'grey.100')}>
+                    <Stack  pl={0} spacing={3} alignItems="left" align="left" color={useColorModeValue('grey.800', 'grey.100')} color={'white'}>
+                    <Box  pl={0} spacing={0} alignContent="left" align="left" color={'white'}>
                       <Button
                         size="md"
                         height="48px"
                         width="200px"
                         variant="ghost"
-                        color="#DCE2FF"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<MdPhone color="#1970F1" size="20px" />}>
-                        +91-988888888
+                        leftIcon={<MdPhone color="#1970F1" size="20px" />}
+                        color={'white'}
+                      >
+                        <a href="tel:+977-014560160">
+                          014560160
+                        </a>
                       </Button>
                       <Button
+                      color={'white'}
                         size="md"
                         height="48px"
                         width="200px"
                         variant="ghost"
-                        color="#DCE2FF"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<MdEmail color="#1970F1" size="20px" />}>
-                        hello@abc.com
+                        leftIcon={<VisuallyHidden><MdPhone color="#1970F1" size="20px" /></VisuallyHidden>}
+                      >
+                        <a href="tel:+977-014571471" style={{paddingLeft:"18px"}}>
+                            014571471
+                        </a>
+                      </Button>
+                      </Box>
+                      <Button
+                      color={'white'}
+                        size="md"
+                        height="48px"
+                        width="200px"
+                        variant="ghost"
+                        _hover={{ border: '2px solid #1C6FEB' }}
+                        leftIcon={<MdEmail color="#1970F1" size="20px" />}
+                        >
+                        <EmailLink email="info@skywaynepal.com" />
                       </Button>
                       <Button
+                      color={'white'}
                         size="md"
                         height="48px"
                         width="200px"
                         variant="ghost"
-                        color="#DCE2FF"
                         _hover={{ border: '2px solid #1C6FEB' }}
                         leftIcon={<MdLocationOn color="#1970F1" size="20px" />}>
-                        Karnavati, India
+                        Kathmandu, Nepal
                       </Button>
-                    </VStack>
+                    </Stack>
                   </Box>
                   <HStack
                     mt={{ lg: 10, md: 10 }}
@@ -90,7 +109,8 @@ const ContactCard = () => {
                     w={300}
                     align="center"
                     alignItems="center">
-                      <IconButton
+                    <IconButton
+                    color={'white'}
                       aria-label="whatsapp"
                       variant="ghost"
                       size="lg"
@@ -99,6 +119,7 @@ const ContactCard = () => {
                       icon={<BsWhatsapp size="28px" />}
                     />
                     <IconButton
+                    color={'white'}
                       aria-label="facebook"
                       variant="ghost"
                       size="lg"
@@ -106,8 +127,9 @@ const ContactCard = () => {
                       _hover={{ bg: '#0D74FF' }}
                       icon={<MdFacebook size="28px" />}
                     />
-                    
+
                     <IconButton
+                    color={'white'}
                       aria-label="messanger"
                       variant="ghost"
                       size="lg"
@@ -116,6 +138,7 @@ const ContactCard = () => {
                       icon={<BsMessenger size="28px" />}
                     />
                     <IconButton
+                    color={'white'}
                       aria-label="instagram"
                       variant="ghost"
                       size="lg"
@@ -127,8 +150,8 @@ const ContactCard = () => {
                 </Box>
               </WrapItem>
               <WrapItem>
-                <Box bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')} w={400}  borderRadius="lg">
-                  <Box m={8} color="#0B0E3F">
+                <Box bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')} w={400} borderRadius="lg" >
+                  <Box m={8} color="#0B0E3F" color={'white'}>
                     <VStack spacing={5}>
                       <FormControl id="name">
                         <FormLabel>Your Name</FormLabel>
@@ -148,14 +171,14 @@ const ContactCard = () => {
                           <Input type="text" size="md" />
                         </InputGroup>
                       </FormControl>
-                      <FormControl id="name">
-                        <FormLabel>Message</FormLabel>
+                      <FormControl id="name" >
+                        <FormLabel >Message</FormLabel>
                         <Textarea
                           borderColor="gray.300"
                           _hover={{
                             borderRadius: 'gray.300',
                           }}
-                          placeholder="message"
+                          
                         />
                       </FormControl>
                       <FormControl id="name" float="right">
@@ -180,7 +203,6 @@ const ContactCard = () => {
             </Wrap>
           </Box>
         </Box>
-      </Flex>
     </Container>
   )
 }
