@@ -1,13 +1,15 @@
-
+import { useNavigate } from 'react-router-dom'
 import { Image, Stack, Heading, Box, Badge, Divider, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 
 const CategoryCard = (props) => {
+    const navigate = useNavigate()
 
     return (
         <>
             {props.jobsList.map((job, index) => {
                 return (<>
-                    <Card maxW='sm'>
+               
+                    <Card maxW='sm' >
                         <CardBody w='100%' h='10' bg='' >
                             <Image
                                 src={job.src}
@@ -26,10 +28,10 @@ const CategoryCard = (props) => {
                         <Divider />
                         <CardFooter alignContent={'middle'} align="center">
                             <ButtonGroup spacing='3' >
-                                <Button variant='ghost' colorScheme='blue' rounded='full'>
+                                <Button variant='ghost' colorScheme='blue' rounded='full' onClick={() => navigate("/job-description")}>
                                     Details
                                 </Button>
-                                <Button variant='solid' colorScheme='blue' rounded='full'>
+                                <Button variant='solid' colorScheme='blue' rounded='full' onClick={() => navigate("/resume")}>
                                     Apply now
                                 </Button>
                             </ButtonGroup>
@@ -37,6 +39,7 @@ const CategoryCard = (props) => {
                     </Card>
                 </>)
             })}
+            
         </>
     )
 }

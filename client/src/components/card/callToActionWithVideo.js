@@ -35,7 +35,7 @@ export default function CallToActionWithVideo() {
 
   return (
 
-    <Container maxW={'full'} bg={useColorModeValue('blue.400', 'gray.1000')} 
+    <Container maxW={'full'} bg={useColorModeValue('blue.500', 'gray.1000')} 
     color='white'>
       <ScaleFade initialScale={0.8} in={boxVisible} >
 
@@ -46,39 +46,6 @@ export default function CallToActionWithVideo() {
           direction={{ base: 'column', md: 'row' }}
           
         >
-          <Stack flex={1} spacing={{ base: 5, md: 10 }} align="center" >
-            <Heading
-              lineHeight={1.1}
-              fontWeight={600}
-              fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
-
-              <Text as={'span'} bg={useColorModeValue('blue.400', 'gray.1000')} >
-                About Us
-              </Text>
-            </Heading>
-            <Text  >
-              Sky Way Management, A last resort of Manpower requirement to its clients, has started its service since 2013 then continuously supplies the manpower pertaining Blue to White Colors Workers in the Middle East and Malaysia. It has a team of competent, Talents who have worked in the sectors for decades. Team of Talents goes deep down through the requirements received by its value clients and always focuses for the best output meeting the target in one –go to save the time and effort of both the parties for fair and successful recruitment. We always value ethics and professionalism at the top.
-            </Text>
-
-            <Button
-              rounded={'full'}
-              size={'lg'}
-              fontWeight={'normal'}
-              px={6}
-              w={"200px"}
-              placeItems="center"
-              bg={'blue.400'}
-              color={useColorModeValue('blue.500', 'gray.900')}
-              _hover={{ bg: 'whiteAlpha.900', color:'blue.600' }}
-              onClick={() => navigate("/about")}
-              ref={thisRef}
-              bg={'whiteAlpha.800'}
-            >
-              Read More
-            </Button>
-          </Stack>
-          
-
           <Flex
             flex={1}
             justify={'center'}
@@ -101,19 +68,9 @@ export default function CallToActionWithVideo() {
               boxShadow={'2xl'}
               width={'full'}
               overflow={'hidden'}
-              maxH="500px">
-              {/* <IconButton
-              aria-label={'Play Button'}
-              variant={'ghost'}
-              _hover={{ bg: 'transparent' }}
-              icon={<PlayIcon w={12} h={12} />}
-              size={'lg'}
-              color={'white'}
-              position={'absolute'}
-              left={'50%'}
-              top={'50%'}
-              transform={'translateX(-50%) translateY(-50%)'}
-            /> */}
+              h={{ sm: '200', lg: '400px' }}
+              >
+          
               <Center>
                 <Image
                   alt={'Hero Image'}
@@ -127,12 +84,44 @@ export default function CallToActionWithVideo() {
                       transform: 'scale(1.05)',
                   }}
                   transition="0.4s ease-in-out"
+                  ref={thisRef}
                 />            </Center>
             </Box>
           </Flex>
+          <Stack flex={1} spacing={{ base: 5, md: 10 }} align="center" >
+            <Heading
+              lineHeight={1.1}
+              fontWeight={600}
+              fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
+              >
+
+              <Text as={'span'}  >
+                About Us
+              </Text>
+            </Heading>
+            <Text  >
+              Sky Way Management, A last resort of Manpower requirement to its clients, has started its service since 2013 then continuously supplies the manpower pertaining Blue to White Colors Workers in the Middle East and Malaysia. It has a team of competent, Talents who have worked in the sectors for decades. Team of Talents goes deep down through the requirements received by its value clients and always focuses for the best output meeting the target in one –go to save the time and effort of both the parties for fair and successful recruitment. We always value ethics and professionalism at the top.
+            </Text>
+
+            <Button
+              rounded={'full'}
+              size={'lg'}
+              fontWeight={'normal'}
+              px={6}
+              w={"200px"}
+              placeItems="center"
+              bg={'blue.400'}
+              color={useColorModeValue('blue.500', 'gray.900')}
+              _hover={{ bg: 'whiteAlpha.900', color:'blue.600' }}
+              onClick={() => navigate("/about")}
+              bg={'whiteAlpha.800'}
+            >
+              Read More
+            </Button>
+          </Stack>
+          
         </Stack>
       </ScaleFade>
     </Container>
   )
 }
-

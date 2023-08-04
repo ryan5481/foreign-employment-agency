@@ -14,7 +14,6 @@ import {
 const ImageParagraph2 = () => {
   return (
     <Flex
-      bg="#edf3f8"
       _dark={{
         bg: "#3e3e3e",
       }}
@@ -22,9 +21,11 @@ const ImageParagraph2 = () => {
       w="full"
       alignItems="center"
       justifyContent="center"
+      
     >
       <Box
-        bg="white"
+        bg={useColorModeValue('blue.500', 'gray.1000')} 
+        color={useColorModeValue('white', 'gray.1000')} 
         _dark={{
           bg: "gray.800",
         }}
@@ -47,6 +48,26 @@ const ImageParagraph2 = () => {
         }}
       >
         <Box
+          w={{
+            lg: "50%",
+          }}
+        >
+          <Box
+            h={{
+              base: 64,
+              lg: "full",
+            }}
+            roundedLeft={{
+              lg: "lg",
+            }}
+            bgSize="cover"
+            style={{
+              backgroundImage:
+                "url('https://skywaynepal.com/static/media/director.69a440f0692c69b8d89b.JPG')",
+            }}
+          ></Box>
+        </Box> 
+        <Box
           py={12}
           px={6}
           maxW={{
@@ -62,7 +83,6 @@ const ImageParagraph2 = () => {
               base: "2xl",
               md: "3xl",
             }}
-            color="gray.800"
             _dark={{
               color: "white",
             }}
@@ -70,7 +90,6 @@ const ImageParagraph2 = () => {
           >
             {" "}
             <chakra.span
-              color="brand.600"
               _dark={{
                 color: "brand.400",
               }}
@@ -80,7 +99,6 @@ const ImageParagraph2 = () => {
           </chakra.h2>
           <chakra.p
             mt={4}
-            color="gray.600"
             _dark={{
               color: "gray.400",
             }}
@@ -92,29 +110,7 @@ const ImageParagraph2 = () => {
             We have a systematic procedure to hire the candidates in job based on their skills and experience which values for the operations of our valued client for the best out-put throughout the human capital.
             We have a vast knowing of context of the work and its nature as per the requirement we receive from our clients and accordingly address for the best ...
           </chakra.p>
-        </Box>
-        <Box
-          w={{
-            lg: "50%",
-          }}
-        >
-          <Box
-            h={{
-              base: 64,
-              lg: "full",
-            }}
-            roundedRight={{
-              lg: "lg",
-            }}
-            bgSize="cover"
-            style={{
-              backgroundImage:
-                "url('https://skywaynepal.com/static/media/director.69a440f0692c69b8d89b.JPG')",
-            }}
-          ></Box>
-        </Box>
-
-        
+        </Box> 
       </Box>
     </Flex>
   )

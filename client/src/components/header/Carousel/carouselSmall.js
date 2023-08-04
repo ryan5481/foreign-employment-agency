@@ -1,5 +1,5 @@
 
-import { AspectRatio, Box } from '@chakra-ui/react'
+import { Image, Box, Center, VStack } from '@chakra-ui/react'
 import React, { useState, useEffect } from "react";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -42,18 +42,18 @@ const CarouselSmall = () => {
   ];
 
   return (
-    
-    <OwlCarousel className='owl-theme'  items={5} loop='true' autoplay autoplaySpeed="1"  >
+    <OwlCarousel className='owl-theme'  items={5} loop='true' autoplay autoplaySpeed="0.1" style={{width:'90%', gap:"10px"}} >
       {slides.map((image, index)=> {
         return(<>
-        <div class='item'>
-        <img src={image.img} style={{width:"100px"}}  />
-      </div>
+        <VStack class='item' p={5} align="center">
+          <Center>
+            <Image src={image.img}  />
+          </Center>
+      </VStack>
       </>)
       })}
       
     </OwlCarousel>
-    
   );
 };
 

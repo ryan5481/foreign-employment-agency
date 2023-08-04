@@ -127,9 +127,8 @@ const Carousel = () => {
                 textAlign="center"
                 w="full"
                 mb="8"
-                color="white"
               >
-              <Heading as={"h1"} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} lineHeight='tall' color="white">
+              <Heading as={"h1"} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} lineHeight='tall'>
                   <Highlight
                     query={slide.label}
                     styles={{ px: '3', py: '1', rounded: '10px', bg:"rgba(255,255,255,0.4)" }}

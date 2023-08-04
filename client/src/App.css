@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -44,13 +45,15 @@
   top: 60px;
   width: 100%;
 }
+
 .header {
   position: sticky;
   width: 100%;
-  height:60px;
+  height: 60px;
   z-index: 9999;
   top: 0px;
 }
+
 /* HOMEPAGE */
 /* .main {
   position: relative;
@@ -84,6 +87,7 @@
 .pfpInput-img:hover .pfpInput-img {
   opacity: 0.3;
 }
+
 .pfpInput-img:hover .img-overlay-mid {
   opacity: 1;
 }
@@ -94,11 +98,38 @@
   font-size: 16px;
 }
 
-.owl-theme .owl-dots .owl-dot  {
+.owl-theme .owl-dots .owl-dot {
   display: none !important;
 }
 
-.valuable_client_bg {
-  background-image: url("../public/background_images/city-vector.jpg");
-  opacity: 0.5;
+@media (max-width: 768) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+.scroll-div-hide {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.scroll-div-show {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* ANIMATION */
+.app-container {
+  position: relative;
+  overflow: hidden;
+  width: 400px; /* Adjust the width as needed */
+  height: 200px; /* Adjust the height as needed */
+  margin: 0 auto;
+}
+
+
+.arrow-icon {
+  color:#37A169;
 }
