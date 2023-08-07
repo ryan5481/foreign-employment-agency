@@ -58,7 +58,7 @@ const ContactCard = () => {
                         width="200px"
                         variant="ghost"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<MdPhone color="#1970F1" size="20px" />}
+                        leftIcon={<MdPhone color="#0D72FF" size="20px" />}
                         color={'white'}
                       >
                         <a href="tel:+977-014560160">
@@ -72,7 +72,7 @@ const ContactCard = () => {
                         width="200px"
                         variant="ghost"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<VisuallyHidden><MdPhone color="#1970F1" size="20px" /></VisuallyHidden>}
+                        leftIcon={<VisuallyHidden><MdPhone color="#0D72FF" size="20px" /></VisuallyHidden>}
                       >
                         <a href="tel:+977-014571471" style={{paddingLeft:"18px"}}>
                             014571471
@@ -97,7 +97,7 @@ const ContactCard = () => {
                         width="200px"
                         variant="ghost"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<MdLocationOn color="#1970F1" size="20px" />}>
+                        leftIcon={<MdLocationOn color="#0D72FF" size="20px" />}>
                         Kathmandu, Nepal
                       </Button>
                     </Stack>
@@ -190,11 +190,11 @@ const ContactCard = () => {
                   </Box>
                 </Box>
               </WrapItem>
-              <Box overflow='hidden' borderRadius={10}>
+              <Box overflow='hidden' borderRadius={10} w={400} h={420}>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1023.6851100697893!2d85.33048799804155!3d!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1907b0522ead%3A0x392af32fe87dd0ea!2sRadiant%20Infotech%20Nepal%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1690782916035!5m2!1sen!2snp"
+                  className='footer-map'
                   width="400"
-                  height="425"
-                  style={{ border: 0 }}
+                  height="420"
                   allowfullscreen=""
                   loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"

@@ -12,6 +12,8 @@ import SimpleCard from "../../components/card/simpleCard"
 import Procedure from "../../components/stepper"
 import CarouselSmall from "../../components/header/Carousel/carouselSmall"
 import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
+import ResponsiveGrid from "../../components/card/statsCard"
+import BarChart from "../../components/animation/barChart"
 const Home = () => {
     const navigate = useNavigate()
 
@@ -121,7 +123,7 @@ const Home = () => {
 
     return (
         <>
-            <Box bg={useColorModeValue('teal.50', 'gray.1000')}>
+            <Box bg={useColorModeValue('teal.50', 'gray.1000')} alignContent={'center'}>
                 <Box>
                     <Carousel />
                 </Box>
@@ -197,7 +199,7 @@ const Home = () => {
                             rounded={'full'}
                             color={'blue.500'}
                             _hover={{ bg: 'whiteAlpha.900', color: 'blue.600' }}
-                            
+                            onClick={()=>navigate("/jobs")}
                         >
                             View All Jobs
                         </Button>
@@ -219,15 +221,21 @@ const Home = () => {
                 <Stack>
                     <Box align="center"
                         bg={useColorModeValue('blue.600', 'gray.700')}
-                        color={useColorModeValue('gray.50', 'gray.500')}>
+                        color={useColorModeValue('gray.100', 'gray.50')}>
                         <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
                             Our Clients
                         </Heading>
-                        <Box pb={20}
+                        <Box
                         >
                             <SmoothCarousel />
                         </Box>
+                        <Box color={useColorModeValue('blue.600', 'gray.500')} pb={50}>
+                        <Heading color={useColorModeValue('gray.100', 'gray.50')} m={2} fontSize={'4xl'} fontFamily={'body'} p={10} mb={30}>
+                            Sky Way Nepal Statistics
+                        </Heading>
+                        <BarChart labels={['Countries', 'Jobs', 'Sectors']} bg={['yellow.400', 'red.400', 'green.400']} />
                         <StatisticsCard />
+                        </Box>
                     </Box>
                 </Stack>
             </Box>
