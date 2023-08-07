@@ -60,7 +60,7 @@ export default function NavBar() {
       <Flex
         bg={useColorModeValue('gray.200', 'blue.800')}
         color={useColorModeValue('gray.600', 'white')}
-        minH={'60px'}
+        minH={'70px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
@@ -95,7 +95,7 @@ export default function NavBar() {
             </Center>
           </Flex>
         </Flex>
-
+        {/* toggle dark/light modes */}
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
@@ -116,8 +116,7 @@ export default function NavBar() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('blue.00', 'white')
+  const linkHoverColor = useColorModeValue('gray.200', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
   const navigate = useNavigate();
 
@@ -137,6 +136,9 @@ const DesktopNav = () => {
                 _hover={{
                   textDecoration: 'none',
                   color: linkHoverColor,
+                  bg: 'blue.400',
+                  rounded:'10px',
+                  shadow: 'md'
                 }}>
                 {navItem.label}
               </Box>
@@ -149,14 +151,17 @@ const DesktopNav = () => {
                 bg={popoverContentBgColor}
                 p={4}
                 color='gray.600'
-                rounded={'xl'}
+                rounded={'10px'}
                 minW={'sm'}>
                 <Stack>
                   {navItem.children.map((child) => (
                     <DesktopSubNav 
                     key={child.label} {...child}  
                     _hover={{
-                      color: 'gray.50',
+                      textDecoration: 'none',
+                      color: linkHoverColor,
+                      bg: 'blue.400',
+                      rounded:'10px',
                     }}
                     onClick={() => navigate("/" + navItem?.children?.urlPath)} 
                     />
@@ -172,6 +177,8 @@ const DesktopNav = () => {
 }
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+  const linkHoverColor = useColorModeValue('gray.200', 'white')
+
   return (
     <Box
       as="a"
@@ -180,11 +187,12 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       display={'block'}
       p={2}
       rounded={'md'}
-      _hover={{ bg: useColorModeValue('blue.400', 'gray.900') }}>
+      color={'blue.500'}
+      _hover={{ color: linkHoverColor, bg: useColorModeValue('blue.400', 'gray.900'),rounded:'10px' }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
-            transition={'all .3s ease'}
+            transition={'all 0.3s ease'}
             _groupHover={{ color: 'white.400' }}
             fontWeight={500}>
             {label}

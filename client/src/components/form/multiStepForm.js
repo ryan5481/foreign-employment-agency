@@ -21,6 +21,7 @@ import {
   Textarea,
   FormHelperText,
   InputRightElement,
+  useColorModeValue
 } from '@chakra-ui/react'
 
 import { useToast } from '@chakra-ui/react'
@@ -29,7 +30,9 @@ const Form1 = () => {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   return (
-    <>
+    <Box 
+    color={useColorModeValue('blue.700', 'gray.1000')}
+    >
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
         Job Application Resume
       </Heading>
@@ -73,13 +76,13 @@ const Form1 = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-    </>
+    </Box>
   )
 }
 
 const Form2 = () => {
   return (
-    <>
+    <Box color={useColorModeValue('blue.700', 'gray.1000')}>
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
         User Details
       </Heading>
@@ -88,7 +91,7 @@ const Form2 = () => {
           htmlFor="country"
           fontSize="sm"
           fontWeight="md"
-          color="gray.700"
+          color={useColorModeValue('blue.700', 'gray.1000')}
           _dark={{
             color: 'gray.50',
           }}>
@@ -115,7 +118,7 @@ const Form2 = () => {
           htmlFor="street_address"
           fontSize="sm"
           fontWeight="md"
-          color="gray.700"
+          color={useColorModeValue('blue.700', 'gray.1000')}
           _dark={{
             color: 'gray.50',
           }}
@@ -140,7 +143,7 @@ const Form2 = () => {
           htmlFor="city"
           fontSize="sm"
           fontWeight="md"
-          color="gray.700"
+          color={useColorModeValue('blue.700', 'gray.1000')}
           _dark={{
             color: 'gray.50',
           }}
@@ -165,7 +168,7 @@ const Form2 = () => {
           htmlFor="state"
           fontSize="sm"
           fontWeight="md"
-          color="gray.700"
+          color={useColorModeValue('blue.700', 'gray.1000')}
           _dark={{
             color: 'gray.50',
           }}
@@ -190,7 +193,7 @@ const Form2 = () => {
           htmlFor="postal_code"
           fontSize="sm"
           fontWeight="md"
-          color="gray.700"
+          color={useColorModeValue('blue.700', 'gray.1000')}
           _dark={{
             color: 'gray.50',
           }}
@@ -209,13 +212,13 @@ const Form2 = () => {
           rounded="md"
         />
       </FormControl>
-    </>
+    </Box>
   )
 }
 
 const Form3 = () => {
   return (
-    <>
+    <Box color={useColorModeValue('blue.700', 'gray.1000')}>
       <Heading w="100%" textAlign={'center'} fontWeight="normal">
         Social Handles
       </Heading>
@@ -224,7 +227,7 @@ const Form3 = () => {
           <FormLabel
             fontSize="sm"
             fontWeight="md"
-            color="gray.700"
+            color={useColorModeValue('blue.700', 'gray.1000')}
             _dark={{
               color: 'gray.50',
             }}>
@@ -236,7 +239,7 @@ const Form3 = () => {
               _dark={{
                 bg: 'gray.800',
               }}
-              color="gray.500"
+              color={useColorModeValue('blue.700', 'gray.1000')}
               rounded="md">
               http://
             </InputLeftAddon>
@@ -253,7 +256,7 @@ const Form3 = () => {
           <FormLabel
             fontSize="sm"
             fontWeight="md"
-            color="gray.700"
+            color={useColorModeValue('blue.700', 'gray.1000')}
             _dark={{
               color: 'gray.50',
             }}>
@@ -273,7 +276,7 @@ const Form3 = () => {
           </FormHelperText>
         </FormControl>
       </SimpleGrid>
-    </>
+    </Box>
   )
 }
 
@@ -291,7 +294,10 @@ const MultiStepForm = () => {
         maxWidth={800}
         p={6}
         m="10px auto"
-        as="form">
+        as="form"
+        bg={useColorModeValue('gray.50', 'gray.1000')}
+        color={useColorModeValue('blue.700', 'gray.1000')}
+        >
         <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
         {step === 1 ? <Form1 /> : step === 2 ? <Form2 /> : <Form3 />}
         <ButtonGroup mt="5%" w="100%">
@@ -303,7 +309,7 @@ const MultiStepForm = () => {
                   setProgress(progress - 33.33)
                 }}
                 isDisabled={step === 1}
-                colorScheme="teal"
+                colorScheme="blue"
                 variant="solid"
                 w="7rem"
                 mr="5%">
@@ -320,7 +326,7 @@ const MultiStepForm = () => {
                     setProgress(progress + 33.33)
                   }
                 }}
-                colorScheme="teal"
+                colorScheme="blue"
                 variant="outline">
                 Next
               </Button>

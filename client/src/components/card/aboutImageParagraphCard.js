@@ -20,7 +20,7 @@ import { MdLocalShipping } from 'react-icons/md'
 
 export default function AboutImageParagraphCard() {
   return (
-    <Container maxW={'7xl'}>
+    <Container maxW={'7xl'} color={useColorModeValue('blue.700', 'gray.400')}>
      
         <Stack spacing={{ base: 6, md: 10 }}>
         <Image
@@ -42,7 +42,7 @@ export default function AboutImageParagraphCard() {
               Nepal
             </Heading>
             <Text
-              color={useColorModeValue('gray.900', 'gray.400')}
+              color={useColorModeValue('gray.400', 'gray.400')}
               fontWeight={300}
               fontSize={'2xl'}>
               A country of lovingkindness and compassion
@@ -57,7 +57,7 @@ export default function AboutImageParagraphCard() {
             }>
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text
-                color={useColorModeValue('gray.500', 'gray.400')}
+                color={useColorModeValue('blue.500', 'gray.400')}
                 fontSize={'2xl'}
                 fontWeight={'300'}>
                 Middle Eastern countries continue to attract hundreds of thousands of Nepali migrant workers every year.
@@ -128,10 +128,10 @@ export default function AboutImageParagraphCard() {
                 fontWeight={'500'}
                 textTransform={'uppercase'}
                 mb={'4'}>
-                Nepali Overseas Immigrant Professions
+                Overseas Nepali Immigrant Professions
               </Text>
 
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} pb={10}>
                 <List spacing={2}>
                   <ListItem>Construction</ListItem>
                   <ListItem>Security</ListItem>{' '}

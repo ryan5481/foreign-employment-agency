@@ -9,7 +9,9 @@ const GalleryPhotoCard = (props) => {
         <>
             {props.galleryImages.map((picture, index) => {
                 return(<>
-                <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' shadow={'xl'}
+                bg={'gray.100'}
+                >
                     <ModalImage large={picture.src} small={picture.src} alt={picture.alt} />
                     <Box p='6'>
                         <Box display='flex' alignItems='baseline'>

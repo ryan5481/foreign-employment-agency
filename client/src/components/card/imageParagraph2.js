@@ -36,7 +36,7 @@ const ImageParagraph2 = () => {
           lg: "flex",
         }}
         maxW={{
-          lg: "full",
+          lg: "7xl",
         }}
         w={"full"}
         maxH={"1000px"}

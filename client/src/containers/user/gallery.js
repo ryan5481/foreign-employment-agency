@@ -1,6 +1,6 @@
 import GalleryPhotoCard from "../../components/card/galleryPhotoCard";
 import {
-    Heading, Grid
+    Heading, Grid, Center, useColorModeValue
 } from '@chakra-ui/react'
 
 const Gallery = () => {
@@ -87,17 +87,16 @@ const Gallery = () => {
     ]
     
     return(
-        <>
-        <div>
-        <Heading m={2} fontSize={'2xl'} fontFamily={'body'} p={5}>
-                    Image Gallery
-
-                    <Grid templateColumns='repeat(4, 2fr)' gap={5} p={10} align="center" rowGap={5}>
-                        <GalleryPhotoCard galleryImages={galleryImages}/>
-                    </Grid>
-                </Heading>
-        </div>
-        </>
+        <Center bg={useColorModeValue('teal.50', 'gray.800')}
+            color={useColorModeValue('blue.500', 'gray.100')}
+            w={"full"}>
+            <Heading m={2} fontSize={'2xl'} fontFamily={'body'} p={5}>
+                Image Gallery
+                <Grid templateColumns={{sm: '1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr' }} gap={5} p={10} align="center" rowGap={5}>
+                    <GalleryPhotoCard galleryImages={galleryImages}/>
+                </Grid>
+            </Heading>
+        </Center>
     )
 }
 

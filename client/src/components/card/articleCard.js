@@ -16,10 +16,8 @@ import {
   useStatStyles,
   Spacer
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
 
 const ArticleCard = () => {
-  const navigate = useNavigate
   return (
     <Container maxW={'6xl'} p="12" borderRadius='lg'>
       <Box
@@ -28,12 +26,14 @@ const ArticleCard = () => {
         flexDirection={{ base: 'column', sm: 'row' }}
         justifyContent="space-between"
         bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+        shadow={'xl'}
+        rounded={'5'}
       >
       </Box>
       <Heading as="h2" fontSize="4xl"
         color={useColorModeValue('blue.500', 'white')}
       >About Us</Heading>
-      <VStack paddingTop="40px" spacing="2" textAlign="left" color={useColorModeValue('blue.700', 'whiteAlpha.100')}>
+      <VStack paddingTop="40px" spacing="2" textAlign="left" color={useColorModeValue('blue.700', 'whiteAlpha.100')} >
         <Box maxW={{ sm: '100%', lg: '100%' }} p={10}
         gap={10}
         bg={useColorModeValue('blue.500', 'whiteAlpha.100')}
@@ -43,7 +43,7 @@ const ArticleCard = () => {
         rounded="10px"
         shadow="lg"
         position="relative">
-          <Text as="p" fontSize="md">
+          <Text as="p" fontSize="md" p={5} shadow={'xl'} rounded={'10px'}>
             Sky Way Management, A last resort of Manpower requirement to its clients, has started its service since 2013 then continuously supplies the manpower pertaining Blue to White Colors Workers in the Middle East and Malaysia. It has a team of competent, Talents who have worked in the sectors for decades. Team of Talents goes deep down through the requirements received by its value clients and always focuses for the best output meeting the target in one –go to save the time and effort of both the parties for fair and successful recruitment. We always value ethics and professionalism at the top.
             <br />
             <br />
@@ -78,7 +78,7 @@ const ArticleCard = () => {
         shadow="lg"
         position="relative"
         >
-        <Wrap spacing="30px" marginTop="5">
+        <Wrap spacing="30px" marginTop="5" p={5} shadow={'xl'} rounded={'5px'}>
           <Box w="100%">
             <Heading fontSize="xl" marginTop="2">
               <Text textDecoration="none" _hover={{ textDecoration: 'none' }}>
@@ -93,7 +93,7 @@ const ArticleCard = () => {
             </Text>
           </Box>
         </Wrap>
-        <Wrap spacing="30px" marginTop="5">
+        <Wrap spacing="30px" marginTop="5" shadow={'xl'} p={5} rounded={'5'}>
           <Box w="100%">
             <Heading fontSize="xl" marginTop="2">
               <Text textDecoration="none" _hover={{ textDecoration: 'none' }}>

@@ -11,9 +11,10 @@ import BlogArticleCard from "../../components/card/blogArticleCard"
 import SimpleCard from "../../components/card/simpleCard"
 import Procedure from "../../components/stepper"
 import CarouselSmall from "../../components/header/Carousel/carouselSmall"
-import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
+import ImageCarousel from "../../components/header/Carousel/SmoothCarousel2"
 import ResponsiveGrid from "../../components/card/statsCard"
 import BarChart from "../../components/animation/barChart"
+import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
 const Home = () => {
     const navigate = useNavigate()
 
@@ -127,18 +128,22 @@ const Home = () => {
                 <Box>
                     <Carousel />
                 </Box>
-                <Box>
+            {/* ABOUT US */}
+                <Box maxW={'full'} bg={useColorModeValue('blue.500', 'gray.1000')}>
                     <CallToActionWithVideo />
                 </Box>
+            {/* MESSAGES */}
                 <Box>
                     <ImageParagraph />
                 </Box>
                 <Box>
                     <ImageParagraph2 />
                 </Box>
+            {/* OUR VALUABLE CLIENTS */}
                 <Box>
                     <BlogArticleCard />
                 </Box>
+            {/* JOB SECTORS */}
                 <Box >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}
                         color={useColorModeValue('blue.600', 'gray.1000')}
@@ -151,8 +156,10 @@ const Home = () => {
                         </Grid>
                     </Box>
                 </Box>
+            {/* LATEST JOBS */}
                 <Box maxW={'full'} bg={useColorModeValue('blue.600', 'gray.1000')}
-                    color='white'>
+                    color='white'
+                    >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}>
                         Latest Jobs
                     </Heading>
@@ -205,6 +212,8 @@ const Home = () => {
                         </Button>
                     </Flex>
                 </Box>
+                <Divider />
+            {/* OPERATING PROCEDURE */}
                 <Box alignContent={'center'} align="center"
                     color={useColorModeValue('blue.700', 'gray.1000')}
                 >
@@ -215,6 +224,7 @@ const Home = () => {
                         <Procedure />
                     </Box>
                 </Box>
+            {/* TESTIMONIALS */}
                 <Box>
                     <TestimonialCard />
                 </Box>
@@ -225,11 +235,12 @@ const Home = () => {
                         <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
                             Our Clients
                         </Heading>
-                        <Box
-                        >
+            {/* CLIENTS CAROUSEL */}
+                        <Box>
                             <SmoothCarousel />
                         </Box>
                         <Box color={useColorModeValue('blue.600', 'gray.500')} pb={50}>
+            {/* STASTISTICS */}
                         <Heading color={useColorModeValue('gray.100', 'gray.50')} m={2} fontSize={'4xl'} fontFamily={'body'} p={10} mb={30}>
                             Sky Way Nepal Statistics
                         </Heading>

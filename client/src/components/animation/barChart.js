@@ -51,7 +51,7 @@ const BarChart = ({ labels, bg }) => {
               width="100%"
               height={`${animationStarted ? height : 0}px`}
               bg={bg[index]}
-              transition="height 3s ease-in-out"
+              transition="height 2s ease-in-out"
               shadow={"xl"}
             />
             <Text pt={5} fontSize={"md"} fontWeight={"bold"} color={bg[index]} textAlign={'center'}>{labels[index]}</Text> {/* Customizable label */}
