@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import "./SmoothCarousel.css"
-import { Box, Image, Center, Flex } from '@chakra-ui/react';
+import { Box, Image, Center, VStack } from '@chakra-ui/react';
 
 const CustomPrevArrow = (props) => {
     return <></>; // Empty fragment to hide the button
@@ -83,29 +83,38 @@ const Carousel = () => {
     };
 
     return (
-        <Box w={'90%'} 
-        >
-            <Slider {...settings}>
-                {clientLogos.map((image, index) => {
-                    return (<>
-                        <Flex m={10}>
-                            <Center>
-                                <Image
-                                    h={150}
-                                    src={image.src}
-                                    alt={image.alt}
-                                    mx={10}
-                                />
-                                <Box p={5}></Box>
-                            </Center>
-                        </Flex>
-                    </>)
-                })}
-
-                {/* Add more images as needed */}
-            </Slider>
-        </Box>
+        <Box w="90%">
+        <Slider {...settings}>
+          {clientLogos.map((image, index) => (
+            <Center key={index}>
+              <VStack spacing={5} mb={30}>
+                <Box
+                  height="150px" // Set a fixed height
+                  width="100%" // Take full width of the container
+                  display="flex"
+                  justifyContent="center" // Vertically align content
+                  overflow="hidden" // Hide image overflow
+                >
+                  <Image
+                    h="100%" // Maximize image height within the container
+                    w="auto" // Maintain image's aspect ratio
+                    objectFit="contain" // Fit image within the box
+                    src={image.src}
+                    alt={image.alt}
+                  />
+                </Box>
+              </VStack>
+            </Center>
+          ))}
+        </Slider>
+      </Box>
     );
-};
+  };
+  
+ 
+  
+  
+  
+
 
 export default Carousel;

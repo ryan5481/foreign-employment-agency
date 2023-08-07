@@ -1,104 +1,54 @@
-import React, { useState } from 'react';
-import { useInView } from 'react-hook-inview';
+import React from 'react';
+import { Grid, Box, Text, Stack } from '@chakra-ui/react';
 import CountUp from 'react-countup';
-import {
-  Box,
-  Grid,
-  Heading,
-  Text,
-  StatLabel,
-  StatNumber,
-  useColorModeValue,
-} from '@chakra-ui/react'
 
 const StatisticsCard = () => {
-  const [hasInView, setHasInView] = useState(false);
-  const [ref] = useInView({
-    triggerOnce: true, // This will trigger the inView callback only once
-    onEnter: () => {
-      setHasInView(true); // When the component comes into view, set the hasInView state to true
-    },
-  });
-
-
   return (
-   
-    <Box
-      borderColor={useColorModeValue('blue.400', 'gray.400')}
-      bg={useColorModeValue('blue.600', 'gray.700')}
-      color={useColorModeValue('blue.600', 'gray.100')}
-      >
-        <Heading pb={10} color={useColorModeValue('gray.50', 'gray.500')}>Sky Way Nepal Statistics</Heading>
-      <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr ' }} px={{ base: 4, md: 8 }} pb={20} gap={10}>
-      
-        <Box
-          px={{ base: 4, md: 8 }}
-          py={'5'}
-          shadow={'xl'}
-          border={'1px solid'}
-          rounded={'lg'}
-          maxW={350}
-          bg={useColorModeValue('gray.50', 'gray.500')}
-        >
-            <Text fontWeight={'medium'} fontSize='xl' isTruncated>
-              We Have Employed
-            </Text>
-            {hasInView ? (
-              <CountUp end={4528} duration={2} style={{color:"#ff2600", fontSize: "70px", fontWeight: "bold" }} /> // Replace 100 with the desired end value and adjust duration as needed
-            ) : (
-              'Scroll down to see the count-up effect'
-            )}
-            <Text fontWeight={'medium'} fontSize='xl' isTruncated ref={ref}>
-              Nepalese
-            </Text>
-        </Box>
-        <Box
-          px={{ base: 4, md: 8 }}
-          py={'5'}
-          shadow={'xl'}
-          border={'1px solid'}
-          rounded={'lg'}
-          maxW={350}
-          bg={useColorModeValue('gray.50', 'gray.500')}
-        >
-            <Text fontWeight={'medium'} fontSize='xl' isTruncated>
-              To Work In
-            </Text>
-            {hasInView ? (
-              <CountUp end={114} duration={2} style={{color:"#ff2600", fontSize: "70px", fontWeight: "bold" }} /> // Replace 100 with the desired end value and adjust duration as needed
-            ) : (
-              'Scroll down to see the count-up effect'
-            )}
-            <Text fontWeight={'medium'} fontSize='xl' isTruncated ref={ref}>
-              Sectors
-            </Text>
-        </Box>
-        <Box
-          px={{ base: 4, md: 8 }}
-          py={'5'}
-          shadow={'xl'}
-          border={'1px solid'}
-          rounded={'lg'}
-          maxW={350}
-          bg={useColorModeValue('gray.50', 'gray.500')}
-        >
-            <Text fontWeight={'medium'} fontSize='xl' isTruncated>
-              In
-            </Text>
-            {hasInView ? (
-              <CountUp end={36} duration={2} style={{color:"#ff2600", fontSize: "70px", fontWeight: "bold" }} /> // Replace 100 with the desired end value and adjust duration as needed
-            ) : (
-              'Scroll down to see the count-up effect'
-            )}
-            <Text fontWeight={'medium'} fontSize='xl' isTruncated ref={ref}>
-              Different Countries
-            </Text>
-        </Box>
-        </Grid>
-        </Box>
-       
-  )
-}
+    <Grid
+      templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }}
+      templateRows={{ base: '1fr 1fr 1fr', md: '1fr' }}
+      gap={5}
+      alignItems="center"
+      justifyItems="center"
+      maxH={{ sm: '75vh', md: '30vh' }}
+      marginBottom="20px"
+    >
+       <Box bg="teal.50" w={320} h={200} p={4} rounded={'xl'}>
 
-export default StatisticsCard
+<Stack>
+  <text style={{ fontSize: "24px", fontWeight: "bold" }}>
+    In
+  </text></Stack>
+<CountUp end={24} duration={3} style={{ color: "#ff2600", fontSize: "70px", fontWeight: "bold" }} />
+<Stack>
+  <text style={{ fontSize: "24px", fontWeight: "bold" }}>
+    Countries
+  </text></Stack>
+</Box>
+      <Box bg="teal.50" w={320} h={200} p={4} rounded={'xl'}>
+        <Stack>
+          <text style={{ fontSize: "24px", fontWeight: "bold" }}>
+            We Have Employed
+          </text></Stack>
+        <CountUp end={12528} duration={3} style={{ color: "#ff2600", fontSize: "70px", fontWeight: "bold" }} />
+        <Stack>
+          <text style={{ fontSize: "24px", fontWeight: "bold" }}>
+            Nepalese
+          </text></Stack>
+      </Box>
+      <Box bg="teal.50" w={320} h={200} p={4} rounded={'xl'}>
+        <Stack>
+          <text style={{ fontSize: "24px", fontWeight: "bold" }}>
+            To Work In
+          </text></Stack>
+        <CountUp end={68} duration={3} style={{ color: "#ff2600", fontSize: "70px", fontWeight: "bold" }} />
+        <Stack>
+          <text style={{ fontSize: "24px", fontWeight: "bold" }}>
+            Sectors
+          </text></Stack>
+      </Box>
+    </Grid>
+  );
+};
 
+export default StatisticsCard;

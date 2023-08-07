@@ -43,6 +43,7 @@ export default function CallToActionWithVideo() {
           align={'center'}
           spacing={{ base: 8, md: 10 }}
           py={{ base: 20, md: 28 }}
+          px={{ base: 10, md: 20 }}
           direction={{ base: 'column', md: 'row' }}
           
         >
@@ -106,7 +107,7 @@ export default function CallToActionWithVideo() {
             <Button
               rounded={'full'}
               size={'lg'}
-              fontWeight={'normal'}
+              fontWeight={'bold'}
               px={6}
               w={"200px"}
               placeItems="center"

@@ -1,6 +1,8 @@
 import { Stack, Flex, Button, Text, VStack, useBreakpointValue, Heading } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 export default function HeroWithBgButton() {
+  const navigate = useNavigate()
   return (
     <Flex
       w={'full'}
@@ -33,14 +35,18 @@ export default function HeroWithBgButton() {
               bg={'whiteAlpha.300'}
               rounded={'full'}
               color={'white'}
-              _hover={{ bg: 'whiteAlpha.500' }}>
+              _hover={{ bg: 'whiteAlpha.500' }}
+              onClick={()=>navigate("/jobs")}
+              >
               View Jobs
             </Button>
             <Button
               bg={'blue.400'}
               rounded={'full'}
               color={'white'}
-              _hover={{ bg: 'blue.500' }}>
+              _hover={{ bg: 'blue.500' }}
+              onClick={()=>navigate("/resume")}
+              >
               Apply
             </Button>
           </Stack>

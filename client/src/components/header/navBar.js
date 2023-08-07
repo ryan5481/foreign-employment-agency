@@ -117,7 +117,7 @@ export default function NavBar() {
 
 const DesktopNav = () => {
   const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('blue.600', 'white')
+  const linkHoverColor = useColorModeValue('blue.00', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
   const navigate = useNavigate();
 
@@ -131,9 +131,9 @@ const DesktopNav = () => {
                 as="a"
                 p={2}
                 href={navItem.href ?? '#'}
-                fontSize={'sm'}
+                fontSize={'md'}
                 fontWeight={500}
-                color='gray.600'
+                color='blue.500'
                 _hover={{
                   textDecoration: 'none',
                   color: linkHoverColor,
@@ -153,7 +153,13 @@ const DesktopNav = () => {
                 minW={'sm'}>
                 <Stack>
                   {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} onClick={() => navigate("/" + navItem?.children?.urlPath)} />
+                    <DesktopSubNav 
+                    key={child.label} {...child}  
+                    _hover={{
+                      color: 'gray.50',
+                    }}
+                    onClick={() => navigate("/" + navItem?.children?.urlPath)} 
+                    />
                   ))}
                 </Stack>
               </PopoverContent>
