@@ -162,7 +162,8 @@ const Footer = () => {
                             />
                             <Input
                                 placeholder={'Email'}
-                                bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+                                w={150}
+                                bg={useColorModeValue('blue.700', 'whiteAlpha.100')}
                                 border={0}
                                 _focus={{
                                     bg: 'whiteAlpha.300',

@@ -9,6 +9,14 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from "react-redux";
 import { ChakraProvider } from '@chakra-ui/react'
 
+/*
+==========================================
+  Title:  OVERSEAS EMPLOYMENT AGENCY
+  Author: github.com/ryan5481
+  Date:   24 July 2023
+==========================================
+*/
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

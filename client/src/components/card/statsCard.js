@@ -12,36 +12,37 @@ const StatisticsCard = () => {
       justifyItems="center"
       maxH={{ sm: '75vh', md: '30vh' }}
       marginBottom="20px"
+      color={'white'}
     >
-       <Box bg="teal.50" w={320} h={200} p={4} rounded={'xl'}>
+      <Box bg="yellow.400" w={320} h={200} p={4} rounded={'xl'} shadow={'xl'}>
 
-<Stack>
-  <text style={{ fontSize: "24px", fontWeight: "bold" }}>
-    In
-  </text></Stack>
-<CountUp end={24} duration={3} style={{ color: "#ff2600", fontSize: "70px", fontWeight: "bold" }} />
-<Stack>
-  <text style={{ fontSize: "24px", fontWeight: "bold" }}>
-    Countries
-  </text></Stack>
-</Box>
-      <Box bg="teal.50" w={320} h={200} p={4} rounded={'xl'}>
+        <Stack>
+          <text style={{ fontSize: "24px", fontWeight: "bold" }}>
+            In
+          </text></Stack>
+        <CountUp end={24} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />
+        <Stack>
+          <text style={{ fontSize: "24px", fontWeight: "bold" }}>
+            Countries
+          </text></Stack>
+      </Box>
+      <Box bg="red.400" w={320} h={200} p={4} rounded={'xl'} shadow={'xl'}>
         <Stack>
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
             We Have Employed
           </text></Stack>
-        <CountUp end={12528} duration={3} style={{ color: "#ff2600", fontSize: "70px", fontWeight: "bold" }} />
+        <CountUp end={12528} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />
         <Stack>
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
             Nepalese
           </text></Stack>
       </Box>
-      <Box bg="teal.50" w={320} h={200} p={4} rounded={'xl'}>
+      <Box bg="green.400" w={320} h={200} p={4} rounded={'xl'} shadow={'xl'}>
         <Stack>
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
             To Work In
           </text></Stack>
-        <CountUp end={68} duration={3} style={{ color: "#ff2600", fontSize: "70px", fontWeight: "bold" }} />
+        <CountUp end={112} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />
         <Stack>
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
             Sectors

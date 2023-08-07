@@ -37,7 +37,7 @@ import {
       lg: "flex",
     }}
     maxW={{
-      lg: "full",
+      lg: "7xl",
     }}
     w={"full"}
     maxH={"1000px"}
@@ -53,7 +53,7 @@ import {
       px={6}
       maxW={{
         base: "xl",
-        lg: "5xl",
+        lg: "2xl",
       }}
       w={{
         lg: "50%",

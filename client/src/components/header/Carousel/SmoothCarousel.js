@@ -80,6 +80,14 @@ const Carousel = () => {
         cssEase: 'linear',
         prevArrow: <CustomPrevArrow />, // Use the custom prevArrow component
         nextArrow: <CustomNextArrow />,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 1,
+            },
+          },
+        ],
     };
 
     return (

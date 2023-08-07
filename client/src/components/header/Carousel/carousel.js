@@ -92,6 +92,15 @@ const Carousel = () => {
     };
   }, [slides]);
 
+  const [isHovered, setIsHovered] = useState(false);
+
+  const imageStyle = {
+    transition: 'filter 0.2s ease-in-out',
+    filter: isHovered ? 'brightness(85%)' : 'brightness(100%)',
+  };
+
+  
+
   return (
     <Flex
       w="full"
@@ -111,6 +120,9 @@ const Carousel = () => {
               <AspectRatio ratio={2.1}>
                 <Image
                   src={slide.img}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  style={imageStyle}
                   fallbackSrc='https://via.placeholder.com/150'
                   bg="rgba(255,0,0,0.5)"
                   alt="carousel image"
@@ -128,7 +140,7 @@ const Carousel = () => {
                 w="full"
                 mb="8"
               >
-              <Heading as={"h1"} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} lineHeight='tall'>
+              <Heading as={"h1"} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} lineHeight='tall' zIndex={'10'}>
                   <Highlight
                     query={slide.label}
                     styles={{ px: '3', py: '1', rounded: '10px', bg:"rgba(255,255,255,0.4)" }}
