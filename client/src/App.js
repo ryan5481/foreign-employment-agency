@@ -2,6 +2,7 @@ import './App.css';
 import { useSelector } from "react-redux";
 import ConditionalRoute from "./routes/conditionalRoute"
 import NavBar from './components/header/navBar';
+import AppNavbar from './components/header/appNavbar';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 
@@ -15,6 +16,7 @@ function App() {
     <div className="App">
       <Header/>
       <NavBar/>
+      {/* <AppNavbar/> */}
       <ConditionalRoute/>
       {/* <NotificationBar/> */}
       <Footer/>

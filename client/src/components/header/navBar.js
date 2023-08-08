@@ -123,7 +123,7 @@ const DesktopNav = () => {
   return (
     <Stack direction={'row'} spacing={4} fontWeight="bold">
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label} fontWeight="bold" onClick={() => navigate("/" + navItem.urlPath)} >
+        <Box key={navItem.label} fontWeight="bold">
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Box
@@ -139,7 +139,9 @@ const DesktopNav = () => {
                   bg: 'blue.400',
                   rounded:'10px',
                   shadow: 'md'
-                }}>
+                }}
+                onClick={() => navigate(navItem.urlPath || "/")}
+                >
                 {navItem.label}
               </Box>
             </PopoverTrigger>
@@ -262,7 +264,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           align={'start'}>
           {children &&
             children.map((child) => (
-              <Box as="a" key={child.label} py={2} href={child.href}>
+              <Box as="a" key={child.label} py={2}>
                 {child.label}
               </Box>
             ))}
@@ -275,8 +277,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 interface NavItem {
   label: string,
   subLabel?: string,
-  children?: Array<NavItem>,
-  href?: string
+  children?: Array<NavItem>
 }
 
 const NAV_ITEMS: Array<NavItem> = [
