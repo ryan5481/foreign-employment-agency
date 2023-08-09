@@ -58,10 +58,10 @@ export default function NavBar() {
   return (
     <Box className='header'>
       <Flex
-        bg={useColorModeValue('gray.200', 'blue.800')}
+        bg={useColorModeValue('white', 'blue.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH={'70px'}
-        py={{ base: 2 }}
+        py={{ base: 0 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderBottomColor={'blue.200'}
@@ -82,7 +82,7 @@ export default function NavBar() {
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Image
             src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg"
-            h={10}
+            w={260}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}

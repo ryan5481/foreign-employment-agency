@@ -241,7 +241,7 @@ const Home = () => {
                         </Box>
                         <Box color={useColorModeValue('blue.600', 'gray.500')} pb={50}>
             {/* STASTISTICS */}
-                        <Heading color={useColorModeValue('gray.100', 'gray.50')} m={2} fontSize={'4xl'} fontFamily={'body'} p={10} mb={30}>
+                        <Heading color={useColorModeValue('gray.100', 'gray.50')} m={2} fontSize={'4xl'} fontFamily={'body'} p={10} mb={30} minH={'200px'}>
                             Sky Way Nepal Statistics
                         </Heading>
                         <BarChart labels={['Countries', 'Jobs', 'Sectors']} bg={['yellow.400', 'red.400', 'green.400']} />
