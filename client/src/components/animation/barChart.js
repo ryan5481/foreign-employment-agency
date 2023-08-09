@@ -49,6 +49,7 @@ const BarChart = ({ labels, bg }) => {
             </CountUp> */}
             <Box
               width="100%"
+              minW={'50px'}
               height={`${animationStarted ? height : 0}px`}
               bg={bg[index]}
               transition="height 2s ease-in-out"

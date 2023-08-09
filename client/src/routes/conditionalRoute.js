@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import AdminSignUp from '../containers/admin/auth/signUp'
 import AdminLogin from "../containers/admin/auth/login"
 import Home from '../containers/user/home'
 import About from '../containers/user/aboutNepal'
@@ -26,6 +27,10 @@ const ConditionalRoute = () => {
 const UserRoutes = () => {
   return (
     <Routes>
+      // TEMPORARY ADMIN ROUTES
+      <Route path="/adminlogin" element={<AdminLogin />} />
+      <Route path="/adminsignup" element={<AdminSignUp />} />
+
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<AboutUs />} />
       <Route path="/about-nepal" element={<AboutNepal />} />

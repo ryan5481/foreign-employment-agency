@@ -4,14 +4,14 @@ import { ChakraProvider, Box, Flex, Button, Grid } from '@chakra-ui/react';
 
 const itemsPerPage = 3; // Number of items per page
 
-const Pagination = ({ data }) => {
+const Pagination = ({ props }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const currentData = data.slice(startIndex, endIndex);
+    const currentData = props.slice(startIndex, endIndex);
 
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const totalPages = Math.ceil(props.length / itemsPerPage);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -30,7 +30,7 @@ const Pagination = ({ data }) => {
             <Box pb={5}>
                 <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
 
-                    <CategoryCard jobsList={data} />
+                    <CategoryCard jobsList={props} />
                 </Grid>
                 <Flex justify="center" marginTop="1rem">
                     <Button
