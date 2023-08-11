@@ -19,7 +19,7 @@ import {
   Center,
   useColorModeValue,
 } from '@chakra-ui/react'
-import { assignUserRole, setLoginDetails } from '../../../redux/reducers/userSclice'
+import { assignUserRole, setLoginDetails } from '../../../redux/reducers/userSllice'
 
 const AdminLogin = () => {
   const navigate = useNavigate()
@@ -31,7 +31,7 @@ const AdminLogin = () => {
   })
 
   const handleInputChange = (event) => {
-    console.log(event); // Log the event to see if it's capturing changes
+    // console.log(event); // Log the event to see if it's capturing changes
     const { name, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -40,20 +40,26 @@ const AdminLogin = () => {
     event.preventDefault();
 
     try {
-      console.log('Form Data:', formData);
-
+      // console.log('Form Data:', formData);
       const response = await axios.post("http://localhost:8000/adminlogin", {
         email: formData.email,
         password: formData.password,
       })
-      dispatch(assignUserRole("admin"))
-      dispatch(setLoginDetails({
-        email: response.data.email,
-        id: response.data.id
-      })
-      )
 
-      console.log('POST response', response.data);
+      if(response){
+        dispatch(assignUserRole("admin"))
+        dispatch(setLoginDetails({
+          email: response.data.email,
+          id: response.data.id,
+          fullName: response.data.fullName,
+        })
+        )
+        navigate("/adminpanel")
+      }else{
+        alert("Login failed!")
+      }
+
+      // console.log('POST response', response.data);
     } catch (error) {
       console.error('Error:', error.response);
     }

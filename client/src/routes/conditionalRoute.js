@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
-import AdminSignUp from '../containers/admin/auth/signUp'
+import { useSelector } from 'react-redux'
 import AdminLogin from "../containers/admin/auth/login"
 import Home from '../containers/user/home'
-import About from '../containers/user/aboutNepal'
+import AdminPanel from '../containers/admin/home'
 import Jobs from '../containers/user/jobs'
 import JobDescription from '../containers/user/jobDescription'
 import License from '../containers/user/license'
@@ -15,13 +15,15 @@ import Newspaper from '../containers/user/newspaper'
 import WhyUs from '../containers/user/whyChooseUs'
 import AboutUs from '../containers/user/aboutUs'
 import Brochure from '../containers/user/brochure'
-import { useSelector } from 'react-redux'
+import Profile from '../containers/admin/profile'
+import ChangePassword from '../containers/admin/auth/changePassword'
 const ConditionalRoute = () => {
-  // if (userRole === 'admin') {
-  //   return <AdminRoutes />
-  // } else{
+  const {userRole} = useSelector(state => state.user)
+  if (userRole === 'admin') {
+    return <AdminRoutes />
+  } else{
     return <UserRoutes/>
-  // }
+  }
 }
 
 const UserRoutes = () => {
@@ -29,7 +31,6 @@ const UserRoutes = () => {
     <Routes>
       // TEMPORARY ADMIN ROUTES
       <Route path="/adminlogin" element={<AdminLogin />} />
-      <Route path="/adminsignup" element={<AdminSignUp />} />
 
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<AboutUs />} />
@@ -51,12 +52,10 @@ const UserRoutes = () => {
 const AdminRoutes = () => {
   return (
     <Routes>
-       <Route path="/admin" element={<AdminLogin />} />
-     {/*<Route path="/home" element={<EditHomepage />} />
-      <Route path="/postjob" element={<PostJob />} />
-      <Route path="/resumes" element={<GetResumes />} />
-      <Route path="/post-gallery" element={<PostGallery />} />
-      <Route path="/messages" element={<Messages />} />  */}
+      <Route path="/adminpanel" element={<AdminPanel />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/password" element={<ChangePassword />} />
+     
     </Routes>
   )
 }
