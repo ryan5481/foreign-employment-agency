@@ -5,7 +5,8 @@ export const initialState = {
   isLoggedIn: false,
   token: '',
   id: '',
-  email: ''
+  email: '',
+  fullName: '',
 };
 
 const userSlice = createSlice({
@@ -17,10 +18,11 @@ const userSlice = createSlice({
     },
     setLoginDetails: (state, actions) => {
       if (actions.payload) {
-        const { token, id, email } = actions.payload
+        const { token, id, email, fullName } = actions.payload
         state.token = token
         state.id = id
         state.email = email
+        state.fullName = fullName
       }
       state.isLoggedIn = !state.isLoggedIn
     },
@@ -30,6 +32,7 @@ const userSlice = createSlice({
       state.token = ''
       state.id = ''
       state.email = ''
+      state.fullName = ''
       state.isLoggedIn = !state.isLoggedIn
     }
   }
