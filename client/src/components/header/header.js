@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Box,
   Center,
@@ -47,9 +48,21 @@ const SocialButton = ({
 
 const Header = () => {
   const [isMobileView, setIsMobileView] = useState(false);
+  const [data, setData] = useState([])
+
+  const GetHeaderData = async() => {
+    const res = await axios.get('http://localhost:8000/get-header')
+    if(res){
+      console.log("DATAAAA:" + data)
+      setData(res.data.headerData)
+    }else{
+      alert("Failed to fech header data")
+    }
+  } 
 
   useEffect(() => {
     const handleResize = () => {
+      GetHeaderData()
       setIsMobileView(window.innerWidth <= 768); // Adjust the breakpoint value if needed
     };
 
@@ -88,23 +101,23 @@ const Header = () => {
         align={{ base: 'center', md: 'center' }}
       >
         <Stack direction={'row'} spacing={6}>
-          <Text>Regd.No. : 66236/066/067</Text>
-          <Text>  © Lic. No.: 0123456789</Text>
+          <Text>{data.field1}</Text>
+          <Text>{data.field2}</Text>
         </Stack>
         <Stack direction={'row'} spacing={6}>
           <Center>
-          <EmailLink email="info@skywaynepal.com" />
+          <Text >{data.email}</Text>
           </Center>
           <Center>
-            <Text>+977-123456788</Text>
+            <Text>{data.phoneNumber}</Text>
           </Center>
-          <SocialButton label={'Whatsapp'} href={'#'}>
+          <SocialButton label={data.whatsapp} href={'#'}>
             <FaWhatsapp />
           </SocialButton>
-          <SocialButton label={'Facebook'} href={'#'}>
+          <SocialButton label={data.facebook} href={'#'}>
             <FaFacebook />
           </SocialButton>
-          <SocialButton label={'Messanger'} href={'#'}>
+          <SocialButton label={'data.messanger'} href={'#'}>
             <FaFacebookMessenger />
           </SocialButton>
         </Stack>

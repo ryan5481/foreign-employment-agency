@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import jobRoutes from "./routes/job.js";
 import adminAuthRoutes from "./routes/adminAuth.js";
+import headerRoutes from "./routes/header.js"
 
 app.use(cors());
 
@@ -16,6 +17,7 @@ connectDb()
 app.use(express.json());
 app.use("/", jobRoutes)
 app.use("/", adminAuthRoutes)
+app.use("/", headerRoutes)
 
 const port = 8000;
 
