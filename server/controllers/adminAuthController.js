@@ -5,28 +5,27 @@ import dotenv from "dotenv";
 const saltRounds = 10
 
 
+export const AdminSignUp = async(req, res) => {
+    try{
+        const encryptedPassword = await bcrypt.hash(req.body.password, saltRounds)
 
-// export const AdminSignUp = async(req, res) => {
-//     try{
-//         const encryptedPassword = await bcrypt.hash(req.body.password, saltRounds)
+        req.body.password = encryptedPassword
 
-//         req.body.password = encryptedPassword
-
-//         const data = await Admins.create(req.body)
-//         if(data){
-//             res.status(200).json({
-//                 msg: "Admin account created successfully."
-//             })
-//         }else{
-//             res.status(403).json({
-//                 msg: "Admin account registration failed."
-//             })
-//         }
-//     }catch(error){
-//         console.error("Authentication error:", error);
-//         return res.status(500).json({ msg: "Internal server error." });
-//     }
-// }
+        const data = await Admins.create(req.body)
+        if(data){
+            res.status(200).json({
+                msg: "Admin account created successfully."
+            })
+        }else{
+            res.status(403).json({
+                msg: "Admin account registration failed."
+            })
+        }
+    }catch(error){
+        console.error("Authentication error:", error);
+        return res.status(500).json({ msg: "Internal server error." });
+    }
+}
 
 export const AdminLogin = async (req, res) => {
     try {
@@ -53,16 +52,69 @@ export const AdminLogin = async (req, res) => {
 
 export const EditAdminUserProfile = async (req, res) => {
     try {
-        const { fullName, email } = req.body
 
         const updated = await Admins.findByIdAndUpdate(req.body._id, req.body)
 
         if (updated) {
-            res.status(500).json({
+            res.status(200).json({
                 msg: "Profile updated!",
-                fullName: updated.fullName,
-                email: updated.email,
+                fullName: req.body.fullName,
+                email: req.body.email,
                 id: updated._id
+            })
+        } else {
+            res.json({ msg: "Error" })
+        }
+
+    } catch (error) {
+        console.error("Authentication error:", error);
+        return res.status(500).json({ msg: "Internal server error." });
+    }
+}
+
+export const ChangeAdminUserPassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword, _id } = req.body
+
+        const user = Admins.findById(_id)
+
+        if (!user) {
+            return res.status(404).json({ msg: "User not found." })
+        }
+
+        const isMatch = bcrypt.compare(currentPassword, user.password)
+
+        if (!isMatch) {
+            return res.status(401).json({ msg: "Current password is incorrect." })
+        }
+
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10)
+        user.password = hashedNewPassword
+        await user.save()
+
+        return res.status(200).json({ msg: "Password updated successfully." })
+
+    } catch (error) {
+        console.error("Authentication error:", error);
+        return res.status(500).json({ msg: "Internal server error." });
+    }
+}
+
+
+
+
+
+
+
+export const GetAdminUserProfile = async (req, res) => {
+    try {
+
+        const profile = await Admins.findById(req.body._id)
+
+        if (profile) {
+            res.status(200).json({
+                fullName: profile.fullName,
+                email: profile.email,
             })
         } else {
             res.json({ msg: "Error" })

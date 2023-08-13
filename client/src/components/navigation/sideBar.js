@@ -22,17 +22,27 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Image,
+  Button,
+  useColorMode,
+
 } from '@chakra-ui/react'
+import{MoonIcon,
+  SunIcon} from '@chakra-ui/icons'
 import {
   FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
   FiMenu,
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi'
+import {BiSolidBriefcaseAlt2, BiSolidInfoSquare} from 'react-icons/bi'
+import {PiNewspaperClippingFill} from 'react-icons/pi'
+import {BsFillChatLeftTextFill} from 'react-icons/bs'
+import {IoIosPaper} from 'react-icons/io'
+import {FaImages} from 'react-icons/fa'
+import {AiFillHome} from 'react-icons/ai'
+import {CgToolbarTop, CgToolbarBottom} from 'react-icons/cg'
+import {TfiLayoutMenuSeparated} from 'react-icons/tfi'
 import { IconType } from 'react-icons'
 
 
@@ -55,11 +65,16 @@ interface SidebarProps extends BoxProps {
 }
 
 const LinkItems: Array <LinkItemProps> = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Header', icon: CgToolbarTop, href: '/edit-header' },
+  { name: 'Navbar', icon: TfiLayoutMenuSeparated, href: '/edit-navbar' },
+  { name: 'Home', icon: AiFillHome, href: '/edit-homepage' },
+  { name: 'Jobs', icon: BiSolidBriefcaseAlt2, href: '/edit-jobspage' },
+  { name: 'Resume', icon: PiNewspaperClippingFill, href: '/edit-resumepage' },
+  { name: 'Documentation', icon: IoIosPaper, href: '/edit-docspage' },
+  { name: 'About Us', icon: BiSolidInfoSquare, href: '/edit-aboutuspage' },
+  { name: 'Gallery', icon: FaImages, href: '/edit-gallerypage' },
+  { name: 'Contact Us', icon: BsFillChatLeftTextFill, href: '/edit-contactuspage' },
+  { name: 'Footer', icon: CgToolbarBottom, href: '/edit-footer' },
 ]
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -74,13 +89,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+        <Image src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg"></Image>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} href={link.href}>
           {link.name}
         </NavItem>
       ))}
@@ -124,6 +137,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const{fullName} = useSelector((state) => state.user)
@@ -161,12 +175,15 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
-        Logo
+        Sky Way Nepal
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
-        <Flex alignItems={'center'}>
+        <IconButton p={1} size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
+        <Button m={2} onClick={toggleColorMode}>
+            {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+          </Button>        
+          <Flex alignItems={'center'}>
           <Menu>
             <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
               <HStack>
@@ -207,7 +224,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   )
 }
 
-const SidebarWithHeader = () => {
+const Sidebar = () => {
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -239,4 +257,4 @@ const SidebarWithHeader = () => {
   )
 }
 
-export default SidebarWithHeader
+export default Sidebar

@@ -88,7 +88,6 @@ const Header = () => {
         align={{ base: 'center', md: 'center' }}
       >
         <Stack direction={'row'} spacing={6}>
-
           <Text>Regd.No. : 66236/066/067</Text>
           <Text>  © Lic. No.: 0123456789</Text>
         </Stack>

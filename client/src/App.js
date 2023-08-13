@@ -1,11 +1,9 @@
 import './App.css';
+import { BrowserRouter as Router, Route, Routes, Switch } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 import ConditionalRoute from "./routes/conditionalRoute"
-import NavBar from './components/header/navBar';
-import Header from './components/header/header';
-import Footer from './components/footer/footer';
 import AdminLogin from './containers/admin/auth/login';
-import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const { userRole } = useSelector(state => state.user)
@@ -24,10 +22,7 @@ function App() {
 function Layout() {
   return (
     <>
-      <Header />
-      <NavBar />
       <ConditionalRoute />
-      <Footer />
     </>
   );
 }
