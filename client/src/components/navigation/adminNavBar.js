@@ -20,7 +20,8 @@ import {
   useDisclosure,
   useColorMode,
   Image,
-  Center
+  Center,
+  Heading
 } from '@chakra-ui/react'
 import {
   HamburgerIcon,
@@ -48,7 +49,7 @@ const NavLink = (props: Props) => {
       rounded={'md'}
       _hover={{
         textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
+        bg: useColorModeValue('purple.500', 'gray.700'),
       }}
       href={'#'}>
       {children}
@@ -81,7 +82,7 @@ export default function AdminNavBar() {
         py={{ base: 0 }}
         px={{ base: 4 }}
         borderBottom={1}
-        borderBottomColor={'blue.200'}
+        borderBottomColor={'purple.200'}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
         align={'center'}>
@@ -118,7 +119,7 @@ export default function AdminNavBar() {
           direction={'row'}
           spacing={6}
         >
-          <Button onClick={toggleColorMode} m={2} >
+          <Button onClick={toggleColorMode} m={2} bg={useColorModeValue('purple.300', 'purple.700')}>
             {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
           </Button>
           
@@ -169,8 +170,8 @@ export default function AdminNavBar() {
 }
 
 const DesktopNav = () => {
-  const linkHoverColor = useColorModeValue('gray.200', 'white')
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800')
+  const linkHoverColor = useColorModeValue('gray.100', 'white')
+  const popoverContentBgColor = useColorModeValue('purple.100', 'purple.800')
   const navigate = useNavigate();
 
   return (
@@ -189,7 +190,7 @@ const DesktopNav = () => {
                 _hover={{
                   textDecoration: 'none',
                   color: linkHoverColor,
-                  bg: 'blue.400',
+                  bg: 'purple.400',
                   rounded: '10px',
                   shadow: 'md'
                 }}
@@ -215,7 +216,7 @@ const DesktopNav = () => {
                       _hover={{
                         textDecoration: 'none',
                         color: linkHoverColor,
-                        bg: 'blue.400',
+                        bg: 'purple.400',
                         rounded: '10px',
                       }}
                       onClick={() => navigate("/" + navItem?.children?.urlPath)}
@@ -243,7 +244,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       p={2}
       rounded={'md'}
       color={'blue.500'}
-      _hover={{ color: linkHoverColor, bg: useColorModeValue('blue.400', 'gray.900'), rounded: '10px' }}>
+      _hover={{ color: linkHoverColor, bg: useColorModeValue('purple.400', 'purple.900'), rounded: '10px' }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
@@ -271,7 +272,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 
 const MobileNav = () => {
   return (
-    <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }} fontWeight="bold">
+    <Stack bg={useColorModeValue('purple.100', 'purple.800')} p={4} display={{ md: 'none' }} fontWeight="bold">
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} onClick={navItem.slug} />
       ))}

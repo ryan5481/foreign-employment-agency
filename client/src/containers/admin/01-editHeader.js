@@ -1,83 +1,60 @@
-import React from "react"
+import React, {useState} from "react"
+import { useNavigate } from "react-router-dom"
 import {
     Box,
-    Input,
-    chakra,
     useColorModeValue,
     Stack,
+    HStack,
     Center,
-    Container,
-    Text,
-    VisuallyHidden,
+    Heading,
     Editable,
     EditableInput,
     EditablePreview,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverHeader,
-    PopoverBody,
-    PopoverFooter,
-    PopoverArrow,
-    PopoverCloseButton,
-    PopoverAnchor,
     Button,
-    ButtonGroup
 } from "@chakra-ui/react"
 import { FaInstagram, FaTwitter, FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 
-const SocialButton = ({
-    children,
-    label,
-    href,
-}: {
-    children: ReactNode,
-    label: string,
-    href: string,
-}) => {
-    return (
-        <chakra.button
-            bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-            rounded={'full'}
-            w={8}
-            h={8}
-            cursor={'pointer'}
-            as={'a'}
-            href={href}
-            display={'inline-flex'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            transition={'background 0.3s ease'}
-            _hover={{
-                bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
-            }}>
-            <VisuallyHidden>{label}</VisuallyHidden>
-            {children}
-        </chakra.button>
-    )
-}
+
 
 const EditHeader = () => {
     const initialFocusRef = React.useRef()
+    const navigate = useNavigate()
+    const [formData, setFormData] = useState({
+        regdNo: "Regd.No. 66236/066/067",
+        licNo: "© Lic. No.: 0123456789",
+        email: "info@skywaynepal.com",
+        phone: "+977-123456788",
+      });
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Here, you can handle the form submission, e.g., send data to a backend server
+        // console.log("Form submitted with data:", formData);
+        // After successful submission, you can navigate to the desired page
+        navigate("/adminpanel");
+      };
 
     return (<>
         <Box
             h={'100vh'}
             p={2}
-            bg={useColorModeValue('purple.200', 'purple.600')}
+            bg={useColorModeValue('purple.500', 'purple.800')}
             color={'purple.100'}
             pt={100}
         >
-            <Container
+            <form onSubmit={handleSubmit}>
+            <Heading color={useColorModeValue('purple.50', 'purple.200')} p={10}> Edit Header </Heading>
+
+            <Stack
                 bg='gray.900'
                 as={Stack}
                 maxW={'full'}
-                maxH={50}
-                py={2}
-                direction={{ base: 'column', md: 'row' }}
-                spacing={4}
-                justify={{ base: 'center', md: 'space-between' }}
-                align={{ base: 'center', md: 'center' }}
+                maxH={500}
+                p={2}
+                direction={{ base: 'column', md: 'row', sm: 'row' }}
+                spacing={{ base: 4, md: 6, lg: 8 }}
+                justify={{ base: 'center', md: 'space-between', sm: 'flex-start' }}
+                align={{ base: 'center', md: 'center', sm: 'flex-start' }}
                 color={'purple.100'}
             >
                 <Stack direction={'row'} spacing={6}>
@@ -104,115 +81,62 @@ const EditHeader = () => {
                             <EditableInput px={2} rounded={'10px'} />
                         </Editable>
                     </Center>
-
-                    <Popover
-                        initialFocusRef={initialFocusRef}
-                        placement='bottom'
-                        closeOnBlur={false}
-                    >
-                        <PopoverTrigger>
-                            <Button><FaWhatsapp /></Button>
-                        </PopoverTrigger>
-                        <PopoverContent color={'purple.100'} bg='blue.800' borderColor='blue.800'>
-                            <PopoverHeader color={'purple.100'} pt={4} fontWeight='bold' border='0'>
-                                Edit WhatsApp ID
-                            </PopoverHeader>
-                            <PopoverArrow bg='blue.800' />
-                            <PopoverCloseButton />
-                            <Center>
-                                <Editable defaultValue="9841001122" bg={'purple.500'} maxW={300} px={2} rounded={'10px'} >
-                                    <EditablePreview />
-                                    <EditableInput />
-                                </Editable>
-                            </Center>
-                            <Center>
-                                <PopoverFooter
-                                    border='0'
-                                    display='flex'
-                                    alignItems='center'
-                                    justifyContent='space-between'
-                                    pb={4}>
-                                    <Center>
-                                        <Button colorScheme='green' size='sm'>Confirm</Button>
-                                    </Center>
-                                </PopoverFooter>
-                            </Center>
-                        </PopoverContent>
-                    </Popover>
-                    <Popover
-                        initialFocusRef={initialFocusRef}
-                        placement='bottom'
-                        closeOnBlur={false}
-                    >
-                        <PopoverTrigger>
-                            <Button><FaFacebookMessenger /></Button>
-                        </PopoverTrigger>
-                        <PopoverContent color={'purple.100'} bg='blue.800' borderColor='blue.800'>
-                            <PopoverHeader color={'purple.100'} pt={4} fontWeight='bold' border='0'>
-                                Edit WhatsApp ID
-                            </PopoverHeader>
-                            <PopoverArrow bg='blue.800' />
-                            <PopoverCloseButton />
-                            <Center>
-                                <Editable defaultValue="9841001122" bg={'purple.500'} maxW={300} px={2} rounded={'10px'} >
-                                    <EditablePreview />
-                                    <EditableInput />
-                                </Editable>
-                            </Center>
-                            <Center>
-                                <PopoverFooter
-                                    border='0'
-                                    display='flex'
-                                    alignItems='center'
-                                    justifyContent='space-between'
-                                    pb={4}>
-                                    <Center>
-                                        <Button colorScheme='green' size='sm'>Confirm</Button>
-                                    </Center>
-                                </PopoverFooter>
-                            </Center>
-                        </PopoverContent>
-                    </Popover>
-                    <Popover
-                        initialFocusRef={initialFocusRef}
-                        placement='bottom'
-                        closeOnBlur={false}
-                    >
-                        <PopoverTrigger>
-                            <Button><FaWhatsapp /></Button>
-                        </PopoverTrigger>
-                        <PopoverContent color={'purple.100'} bg='blue.800' borderColor='blue.800'>
-                            <PopoverHeader color={'purple.100'} pt={4} fontWeight='bold' border='0'>
-                                Edit WhatsApp ID
-                            </PopoverHeader>
-                            <PopoverArrow bg='blue.800' />
-                            <PopoverCloseButton />
-                            <Center>
-                                <Editable defaultValue="9841001122" bg={'purple.500'} maxW={300} px={2} rounded={'10px'} >
-                                    <EditablePreview />
-                                    <EditableInput />
-                                </Editable>
-                            </Center>
-                            <Center>
-                                <PopoverFooter
-                                    border='0'
-                                    display='flex'
-                                    alignItems='center'
-                                    justifyContent='space-between'
-                                    pb={4}>
-                                    <Center>
-                                        <Button colorScheme='green' size='sm'>Confirm</Button>
-                                    </Center>
-                                </PopoverFooter>
-                            </Center>
-                        </PopoverContent>
-                    </Popover>
                 </Stack>
-            </Container>
+                <Stack direction={{ base: 'column', md: 'row', sm: 'row' }}>
+                    <Stack align={'center'} justify={'center'}>
+                        <FaWhatsapp />
+                        <Editable defaultValue="info@skywaynepal.com" bg={'purple.500'} px={1} rounded={'10px'}>
+
+                            <EditablePreview />
+                            <EditableInput px={2} rounded={'10px'} />
+                        </Editable>
+                    </Stack>
+                    <Stack align={'center'} justify={'center'}>
+                        <FaFacebook />
+                        <Editable defaultValue="info@skywaynepal.com" bg={'purple.500'} px={1} rounded={'10px'}>
+
+                            <EditablePreview />
+                            <EditableInput px={2} rounded={'10px'} />
+                        </Editable>
+                    </Stack>
+                    <Stack align={'center'} justify={'center'}>
+                        <FaFacebookMessenger />
+                        <Editable defaultValue="info@skywaynepal.com" bg={'purple.500'} px={1} rounded={'10px'}>
+
+                            <EditablePreview />
+                            <EditableInput px={2} rounded={'10px'} />
+                        </Editable>
+                    </Stack>
+                </Stack>
+
+            </Stack>
+            <HStack spacing={6} direction={['column', 'row']} pt={5} justify="center">
+                <Button
+
+                    bg={'red.400'}
+                    color={'white'}
+                    w="300px"
+                    _hover={{
+                        bg: 'red.500',
+                    }}
+                    onClick={() => navigate("/adminpanel")}
+                >
+                    Cancel
+                </Button>
+                <Button
+                    bg={'blue.400'}
+                    color={'white'}
+                    w="300px"
+                    _hover={{
+                        bg: 'blue.500',
+                    }}
+                    type='submit'>
+                    Submit
+                </Button>
+            </HStack>
+            </form>
         </Box>
-        <Center>
-            <Button colorScheme='green' size='sm'>Confirm</Button>
-        </Center>
+
     </>)
 }
 
