@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import NavBar from "../../../components/header/navBar"
 
 import axios from 'axios'
 import {
@@ -71,8 +70,9 @@ const AdminLogin = () => {
       <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }} color={useColorModeValue('blue.500', 'gray.100')}>
         <Flex p={8} flex={1} align={'center'} justify={'center'}>
           <Stack spacing={4} w={'full'} maxW={'md'}>
-            <Heading fontSize={'2xl'}>Sky Way Nepal</Heading>
-            <Heading fontSize={'2xl'}>Admin Account Sign In </Heading>
+
+            <Center><Image w={300} src='https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg'></Image></Center> 
+            <Heading fontSize={'2xl'}>C Panel Login</Heading>
             <FormControl>
               <form onSubmit={handleSubmit}>
                 <FormControl id="email">
@@ -89,7 +89,7 @@ const AdminLogin = () => {
                     direction={{ base: 'column', sm: 'row' }}
                     align={'start'}
                     justify={'space-between'}>
-                    <Checkbox>Remember me</Checkbox>
+                    {/* <Checkbox>Remember me</Checkbox> */}
                     <Box
                       color={useColorModeValue('blue.500', 'gray.100')}
                       transition="color 0.2s"

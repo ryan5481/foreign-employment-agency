@@ -1,11 +1,10 @@
 import SidebarWithHeader from "../../components/navigation/sideBar"
 import {Box, Heading} from "@chakra-ui/react"
-const AdminPanel = () => {
+const EditHomePage = () => {
 
     return(<Box>
-<SidebarWithHeader/>
         <Heading>ADMIN HOME</Heading>
     </Box>)
 }
 
-export default AdminPanel
+export default EditHomePage
