@@ -35,43 +35,45 @@ export default function Profile() {
         const { name, value } = event.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
-    
+
     const handelCancelButtonClick = () => {
-        navigate(location.state?.from || '/adminpanel');
+        navigate('/adminpanel');
     }
     const navigateToChangePassword = () => {
         navigate("/password");
     }
     const handelSubmit = async (event) => {
         event.preventDefault();
-      
+
         try {
-          const response = await axios.put('http://localhost:8000/edit-profile', {
-            _id: id,
-            fullName: formData.fullName, // Use 'formData.fullName'
-            email: formData.email, // Use 'formData.email'
-          });
-      
-          if (response) {
-        
-            dispatch(
-              setLoginDetails({
-                id: id,
+            const response = await axios.put('http://localhost:8000/edit-profile', {
+                _id: id,
                 fullName: formData.fullName,
                 email: formData.email,
-              })
-            );
-            navigate("/adminpanel")
-          } else {
-            alert('Edit profile failed.');
-          }
+            });
+            if (response) {
+                dispatch(
+                    setLoginDetails({
+                        id: id,
+                        fullName: formData.fullName,
+                        email: formData.email,
+                    })
+                );
+                window.location.reload()
+            } else {
+                alert('Edit profile failed.');
+            }
         } catch (error) {
-          console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error);
         }
-      };
+    };
 
     useEffect(() => {
-    }, [])
+        setFormData({
+            fullName: fullName,
+            email: email,
+        });
+    }, [fullName, email]);
 
     return (
         <Flex
@@ -116,9 +118,9 @@ export default function Profile() {
                     <FormControl id="fullName">
                         <FormLabel>Full Name</FormLabel>
                         <Input
-                            type="text" 
-                            name="fullName" 
-                            onChange={handleInputChange} 
+                            type="text"
+                            name="fullName"
+                            onChange={handleInputChange}
                             placeholder={fullName}
                             _placeholder={{ color: useColorModeValue('gray.600', 'gray.300') }}
                         />
@@ -127,11 +129,11 @@ export default function Profile() {
                     <FormControl id="email">
                         <FormLabel>Email address</FormLabel>
                         <Input
-                        type="email" 
-                        name="email" 
-                        onChange={handleInputChange} 
-                        placeholder={email}
-                        _placeholder={{ color: useColorModeValue('gray.600', 'gray.300') }} />
+                            type="email"
+                            name="email"
+                            onChange={handleInputChange}
+                            placeholder={email}
+                            _placeholder={{ color: useColorModeValue('gray.600', 'gray.300') }} />
                     </FormControl>
 
                     <Stack spacing={6} direction={['column', 'row']} pt={5}>

@@ -16,9 +16,19 @@ import WhyUs from '../containers/user/whyChooseUs'
 import AboutUs from '../containers/user/aboutUs'
 import Brochure from '../containers/user/brochure'
 
-import EditHeader from '../containers/admin/01-editHeader'
 import Profile from '../containers/admin/auth/profile'
 import ChangePassword from '../containers/admin/auth/changePassword'
+import EditHeader from '../containers/admin/01-editHeader'
+import EditNavbar from '../containers/admin/02-editNavBar'
+import EditHomePage from '../containers/admin/03-editHomePage'
+import EditJobsPage from '../containers/admin/04-editJobsPage'
+import EditResumePage from '../containers/admin/05-editResumePage'
+import EditDocsPage from '../containers/admin/06-editDocsPage'
+import EditAboutUsPage from '../containers/admin/07-editAboutUsPage'
+import EditGalleryPage from '../containers/admin/08-editGalleryPage'
+import EditContactUsPage from '../containers/admin/09-editContactUsPage.js'
+import EditFooter from '../containers/admin/10-editFooter'
+
 
 import NavBar from '../components/navigation/navBar'
 import Header from '../components/header/header'
@@ -28,6 +38,7 @@ import AdminNavBar from '../components/navigation/adminNavBar'
 import { useColorModeValue } from '@chakra-ui/react'
 
 import '../App.css';
+
 
 const ConditionalRoute = () => {
   const { userRole } = useSelector(state => state.user)
@@ -75,6 +86,16 @@ const AdminRoutes = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/password" element={<ChangePassword />} />
         <Route path="/edit-header" element={<EditHeader />} />
+        <Route path="/edit-navbar" element={<EditNavbar />} />
+        <Route path="/edit-homepage" element={<EditHomePage />} />
+        <Route path="/edit-jobspage" element={<EditJobsPage />} />
+        <Route path="/edit-footer" element={<EditFooter />} />
+        <Route path="/edit-resumepage" element={<EditResumePage />} />
+        <Route path="/edit-docspage" element={<EditDocsPage />} />
+        <Route path="/edit-aboutuspage" element={<EditAboutUsPage />} />
+        <Route path="/edit-gallerypage" element={<EditGalleryPage />} />
+        <Route path="/edit-contactuspage" element={<EditContactUsPage />} />
+        <Route path="/edit-footer" element={<EditFooter />} />
       </Routes>
     </>
   )

@@ -1,6 +1,6 @@
 import {Flex} from "@chakra-ui/react"
 
-const EditAboutUsPAge = () => {
+const EditAboutUsPage = () => {
     return(<>
     <Flex>
 <p>flex</p>
@@ -8,4 +8,4 @@ const EditAboutUsPAge = () => {
     </>)
 }
 
-export default EditAboutUsPAge
+export default EditAboutUsPage
