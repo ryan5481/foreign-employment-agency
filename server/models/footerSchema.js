@@ -1,51 +1,60 @@
 import mongoose from "mongoose";
 const Schema = mongoose;
 
-const headerSchema = ({
+const footerSchema = ({
 
-    headerLandmark: {
+    footerLandmark: {
         type: String,
         default: "skywaynepal.com"
     },
 
-    field1: {
+    column1Line1: {
         type: String,
-        default: "Regd.No. 0000000000000"
+        default: "Column 1 Line 1"
     },
 
-    field2: {
+    column1Line2: {
         type: String,
-        default: "© Lic. No.: 000000000000"
+        default: "Column 1 Line 2"
     },
 
-    email: {
+    column1Line3: {
         type: String,
-        default: "example@example.com"
+        default: "Column 1 Line 3"
     },
 
-    phoneNumber: {
+    facebookLink: {
         type: String,
-        default: "Regd.No. 0000000000"
+        default: "facebook.com"
     },
 
-    whatsapp: {
+    messengerLink: {
         type: String,
-        default: "whatsapp.com/example"
+        default: "messenger.com"
     },
 
-    facebook: {
+    whatsappLink: {
         type: String,
-        default: "facebook.com/example"
+        default: "whatsapp.com"
     },
 
-    messenger: {
+    twitterLink: {
         type: String,
-        default: "facebook.com/example"
+        default: "twitter.com"
     },
 
-    viber: {
+    youtubeLink: {
         type: String,
-        default: "viber.com/example"
+        default: "youtube.com"
+    },
+    instagramLink: {
+        type: String,
+        default: "instagram.com"
+    },
+
+    fileDownloadText: {
+        type: String,
+        default: "Download File"
     },
 
     createdAt: { type: Date, default: Date.now },
@@ -54,7 +63,7 @@ const headerSchema = ({
 
 })
 
-export default mongoose.model("Header", headerSchema, "Header")
+export default mongoose.model("Footer", footerSchema, "Footer")
 
 // {
 //     "field1": "Regd.No. 66236/066/067",
@@ -63,6 +72,6 @@ export default mongoose.model("Header", headerSchema, "Header")
 //     "phoneNumber": "+977-123456788",
 //     "whatsapp": "whatsapp.com",
 //     "facebook": "facebook.som",
-//     "messenger": "messanger.com",
+//     "messanger": "messanger.com",
 //     "viber": "viber.com"
 //     }
