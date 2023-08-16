@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { useInView } from 'react-hook-inview'
+import axios from 'axios'
 
 
 import {
@@ -18,21 +19,38 @@ import {
 } from '@chakra-ui/react'
 
 export default function CallToActionWithVideo() {
+  const [currentAboutUsData, setCurrentAboutUsData] = useState([])
+  const navigate = useNavigate()
   const [ref: thisRef, inView: boxVisible] = useInView()
-
   const thisRef = useRef(null);
   const [boxVisible, setBoxVisible] = useState()
-  console.log('BoxVisible', boxVisible)
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      setBoxVisible(entry.isIntersecting)
-      console.log('entry', entry)
-    })
-    observer.observe(thisRef.current)
-  }, [])
-  const navigate = useNavigate()
 
+  const GetAboutUsData = async () => {
+    const res = await axios.get('http://localhost:8000/get-aboutuspage')
+    if (res.data && res.data.headerData) {
+        setCurrentAboutUsData(res.data.headerData)
+    } else {
+        alert("Failed to fetch header data")
+    }
+}
+
+
+const Get50Words = async(inputText) => {
+  const words = await inputText.split(/\s+/);
+  const first50Words = words.slice(0, 50);
+  const result = first50Words.join(' ');
+  return result;
+}
+
+useEffect(() => {
+  GetAboutUsData()
+  const observer = new IntersectionObserver((entries) => {
+    const entry = entries[0];
+    setBoxVisible(entry.isIntersecting)
+    console.log('entry', entry)
+  })
+  observer.observe(thisRef.current)
+}, [])
 
   return (
 
@@ -54,15 +72,6 @@ export default function CallToActionWithVideo() {
             align={'center'}
             position={'relative'}
             w={'full'}>
-            {/* <Blob
-            w={'150%'}
-            h={'150%'}
-            position={'absolute'}
-            top={'-20%'}
-            left={0}
-            zIndex={-1}
-            color={useColorModeValue('red.50', 'red.400')}
-          /> */}
             <Box
               position={'relative'}
               height={'400px'}
@@ -81,7 +90,7 @@ export default function CallToActionWithVideo() {
                   w={'100%'}
                   h={'100%'}
                   src={
-                    "https://skywaynepal.com/static/media/unnamed.6cb5e6a65084a11ebc07.jpg"}
+                    `data:image/jpeg;base64,${currentAboutUsData.aboutUsImage}`}
                     _hover={{
                       transform: 'scale(1.05)',
                   }}
@@ -102,7 +111,7 @@ export default function CallToActionWithVideo() {
               </Text>
             </Heading>
             <Text  >
-              Sky Way Management, A last resort of Manpower requirement to its clients, has started its service since 2013 then continuously supplies the manpower pertaining Blue to White Colors Workers in the Middle East and Malaysia. It has a team of competent, Talents who have worked in the sectors for decades. Team of Talents goes deep down through the requirements received by its value clients and always focuses for the best output meeting the target in one –go to save the time and effort of both the parties for fair and successful recruitment. We always value ethics and professionalism at the top.
+           {currentAboutUsData.text1?.split(/\s+/).slice(0, 100).join(' ') + " ..."}
             </Text>
 
             <Button

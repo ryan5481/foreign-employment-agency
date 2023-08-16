@@ -58,7 +58,7 @@ const EditHeader = () => {
         }
     };
 
-    const GetHeaderData = async () => {
+    const GetHeaderData = async () => { 
         const res = await axios.get('http://localhost:8000/get-header')
         if (res) {
             setCurrentHeaderData(res.data.headerData)
@@ -73,7 +73,7 @@ const EditHeader = () => {
             });
             
         } else {
-            alert("Failed to fech header data")
+            alert("Failed to fetch header data")
         }
     }
 

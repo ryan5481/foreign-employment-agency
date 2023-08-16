@@ -144,15 +144,16 @@ const EditFooter = () => {
     return (
         <Box
             bg={useColorModeValue('purple.500', 'purple.800')}
-            h={'92.5vh'}
+            h={'93vh'}
             top={'10vh'}
         >
-            <Heading color={useColorModeValue('white', 'purple.100')} pt={5}> Edit Header </Heading>
+            <Heading color={useColorModeValue('white', 'purple.100')} pt={5}> Edit Footer </Heading>
             <Text color={useColorModeValue('white', 'purple.100')} pb={3} > Last Updated on {currentFooterData.updatedAt} </Text>
             <form onSubmit={handleSubmit}>
             <Box
                 bg={useColorModeValue('blue.900', 'gray.1000')}
                 color={useColorModeValue('gray.200', 'gray.200')}
+                py={3}
             >
 
                 <Container as={Stack} maxW={'7xl'} py={2} h={"100%"}>
