@@ -3,10 +3,12 @@ import cors from "cors";
 const app = express();
 import dotenv from "dotenv";
 
-import jobRoutes from "./routes/job.js";
-import adminAuthRoutes from "./routes/adminAuth.js";
-import headerRoutes from "./routes/header.js"
-import footerRoutes from "./routes/footer.js"
+import jobRoutes from "./routes/jobRoutes.js";
+import adminAuthRoutes from "./routes/adminAuthRoutes.js";
+import headerRoutes from "./routes/headerRoutes.js"
+import footerRoutes from "./routes/footerRoutes.js"
+import homePageRoutes from "./routes/homePageRoutes.js"
+import aboutUsRoutes from "./routes/aboutUsRoutes.js"
 
 app.use(cors());
 
@@ -20,6 +22,8 @@ app.use("/", jobRoutes)
 app.use("/", adminAuthRoutes)
 app.use("/", headerRoutes)
 app.use("/", footerRoutes)
+app.use("/", homePageRoutes)
+app.use("/", aboutUsRoutes)
 
 const port = 8000;
 
