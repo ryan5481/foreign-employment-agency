@@ -1,11 +1,35 @@
 
 import { Image, Stack, Heading, Box, Divider, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
-
+import React, { useEffect, useState } from 'react'
+import axios from "axios"
 const SimpleCard = (props) => {
+
+    const [sectorsData, setSectorsData] = useState([])
+    const [loading, setLoading] = useState(true)
+
+
+    const fetchWorkSectors = async () => {
+        try {
+            const res = await axios.get('http://localhost:8000/get-worksectors');
+            const newData = await res.data.data
+            setSectorsData(newData)
+            console.log(sectorsData)
+            // setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            // setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchWorkSectors();
+    }, [])
+
+    console.log("SECTORS:" + sectorsData)
 
     return (
         <>
-            {props.categories.map((category, index) => {
+            {sectorsData.map((sector, index) => {
                 return (<>
                     
                             <Box
@@ -30,7 +54,7 @@ const SimpleCard = (props) => {
                                   pos: 'absolute',
                                   top: 5,
                                   left: 0,
-                                  backgroundImage: `url(${category.imageUrl})`,
+                                  backgroundImage: `data:image/jpeg;base64,${sector.sectorImage}`,
                                   filter: 'blur(13px)',
                                   zIndex: -1,
                               }}
@@ -40,8 +64,8 @@ const SimpleCard = (props) => {
                                   },
                               }}>
                                 <Image
-                                    src={category.imageUrl}
-                                    alt={category.title}
+                                    src={`data:image/jpeg;base64,${sector.sectorImage}`}
+                                    alt={sector.sectorTitle}
                                     borderRadius='lg'
                                     h={120}
                                     objectFit="contain"
@@ -52,7 +76,7 @@ const SimpleCard = (props) => {
                                     }}
                                 />
                                 <Stack mt='7' spacing='3'>
-                                    <Heading size='sm'>{category.title}</Heading>
+                                    <Heading size='sm'>{sector.sectorTitle}</Heading>
                                 </Stack>
                             </Box>
                             </Box>

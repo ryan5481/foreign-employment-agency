@@ -1,4 +1,5 @@
 
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     chakra,
@@ -10,8 +11,30 @@ import {
     Text,
     useColorModeValue,
   } from '@chakra-ui/react'
+  import axios from 'axios';
+
   
   const ImageParagraph = () => {
+    const [image1, setImage1] = useState('');
+    const [heading1, setHeading1] = useState('');
+    const [text1, setText1] = useState('');
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/get-companymessage1');
+        const data = response.data
+        setImage1(`data:image/jpeg;base64,${data.data.companyMsgImage1}`);
+        setHeading1(data.data.heading1);
+        setText1(data.data.text1);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchData();
+    }, []);
+
     return (
       <Flex
   
@@ -24,6 +47,7 @@ import {
   justifyContent="center"
 >
   <Box
+  minH={"400px"}
     bg={useColorModeValue('blue.500', 'gray.1000')} 
     color={useColorModeValue('white', 'gray.1000')} 
 
@@ -46,6 +70,7 @@ import {
     }}
     rounded={{
       lg: "lg",
+      base: "lg"
     }}
   >
         <Box
@@ -77,7 +102,7 @@ import {
             color: "brand.400",
           }}
         >
-          Message From Chairman
+          {heading1}
         </chakra.span>
       </chakra.h2>
       <chakra.p
@@ -88,11 +113,7 @@ import {
         }}
         align={'left'}
       >
-        Dear Valued Clients and Associates, <br/>
-Greeting From SKY WAY MANAGEMENT.
-Since it's operation SKY WAY Management is always propelled with the Ethic and professionalism at the Top. We are always dedicated to our valued clients for meeting their need at one-go to save the time and effort while recruiting the competent aspirants in the jobs.
-We have a systematic procedure to hire the candidates in job based on their skills and experience which values for the operations of our valued client for the best out-put throughout the human capital.
-We have a vast knowing of context of the work and its nature as per the requirement we receive from our clients and accordingly address for the best ...
+        {text1}
       </chakra.p>
     </Box>
     <Box
@@ -108,10 +129,13 @@ We have a vast knowing of context of the work and its nature as per the requirem
         roundedRight={{
           lg: "lg",
         }}
+        rounded={{
+          base: "lg",
+        }}
         bgSize="cover"
         style={{
           backgroundImage:
-            "url('https://skywaynepal.com/static/media/chairman.2b6c4f5ed4ec5e483c3c.JPG')",
+            `url(${image1})`,
         }}
         
       ></Box>
