@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react'
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
 import {
     Box,
     Heading,
@@ -11,6 +14,26 @@ import ScrollDiv from '../animation/scrollDiv'
 
 
 const BlogArticleCard = () => {
+    const[image1, setImage1] = useState()
+    const[heading1, setHeading1] = useState()
+    const[text1, setText1] = useState()
+    const[description1, setDescription1] = useState()
+
+    const fetchData = async () => {
+        const res = await axios.get("http://localhost:8000/get-valuableclients")
+        if (res) {
+            const data = res.data.data
+            setImage1(`data:image/jpeg;base64,${data.valuableClientsImage1}`) 
+            setHeading1(data.heading1)
+            setText1(data.text1)
+            setDescription1(data.description1)
+
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    })
     return (
         <Box>
 
@@ -44,11 +67,8 @@ const BlogArticleCard = () => {
                                         <Image
                                             borderRadius="lg"
                                             maxH={"500px"}
-                                            src={
-
-                                                "https://skywaynepal.com/static/media/Qatar.0fcc35e00f31f7f1b9fd.jpeg"
-                                            }
-                                            alt="some good alt text"
+                                            src={image1}
+                                            alt="Overseas Co-operation Certificate"
                                             objectFit="contain"
                                             width="100%"
                                             transition="0.3s ease-in-out"
@@ -80,21 +100,21 @@ const BlogArticleCard = () => {
 
                             <Heading marginTop="1">
                                 <Text textDecoration="none" _hover={{ textDecoration: 'none' }}>
-                                    Qatar Armed Force - Catering Department
+                                    {heading1}
                                 </Text>
                             </Heading>
                             <Text
                                 color={useColorModeValue('gray.200', 'gray.400')}
                                 fontSize={'2xl'}
                                 fontWeight={'300'}>
-                                Qatar Government Project
+                                {text1}
                             </Text>
                             <Text
                                 as="p"
                                 marginTop="2"
                                 color={useColorModeValue('gray50', 'gray.200')}
                                 fontSize="lg">
-                                We Skyway Management Pvt. Ltd. are very pleased and grateful to work for the very first time in Nepal with the Qatar government Project (Qatar Armed Force - Catering Department). This was the first project from Nepal with the highest Salary scale of the Catering Department and It was very successful, both Client and Candidates were happy with our services and fulfilled their contract period happily. Now we are seeking more opportunities to work with them further.
+                                    {description1}
                             </Text>
                         </Box>
                     </Box>

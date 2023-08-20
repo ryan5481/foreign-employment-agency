@@ -6,19 +6,20 @@ export default function HeroWithBgButton(props) {
   return (
     <Flex
       w={'full'}
-      h={'100vh'}
       backgroundImage={
         props.imageUrl
       }
       backgroundSize={'cover'}
       backgroundPosition={'center center'}
-      h={400}>
+      h={850}
+      >
       <VStack
         w={'full'}
         justify={'center'}
         px={useBreakpointValue({ base: 4, md: 8 })}
         bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
         <Stack maxW={'4xl'} align={'flex-start'} spacing={6}>
+          
         <Heading
                 fontWeight={600}
                 fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
