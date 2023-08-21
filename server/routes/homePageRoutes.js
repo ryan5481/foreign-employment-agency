@@ -6,7 +6,7 @@ import {
     SetCompanyMessage1, GetCompanyMessage1,
     SetCompanyMessage2, GetCompanyMessage2,
     SetValuableClients, GetValuableClients,
-    SetWorkSectors, GetWorkSectors
+    AddWorkSector, SetWorkSectors, GetWorkSectors, DeleteWorkSector
 } from "../controllers/homePageController.js"
 import {
     TopCarouselImagesUpload,
@@ -29,6 +29,11 @@ router.get("/get-companymessage2", GetCompanyMessage2)
 router.post("/edit-homepage/valuableclients", ValubleClientsImgUpload, SetValuableClients)
 router.get("/get-valuableclients", GetValuableClients)
 // SECTORS
+router.post("/edit-homepage/add-worksector", WorkSectorsImgUpload, AddWorkSector)
 router.put("/edit-homepage/worksectors", WorkSectorsImgUpload, SetWorkSectors)
 router.get("/get-worksectors", GetWorkSectors)
+router.delete("/delete-worksector/:id", DeleteWorkSector)
+
+
+
 export default router

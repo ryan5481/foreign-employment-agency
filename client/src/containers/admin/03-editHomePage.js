@@ -260,15 +260,8 @@ const EditHomePage = () => {
             <ValuableClients />
             </Box>
             <Box>
-                <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}
-                        color="gray.100"
-                    >
-                        Sectors We Work In
-                    </Heading>
                     <Box >
-                        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
                         <JobSectors/>
-                        </Grid>
                     </Box>
             </Box>
 

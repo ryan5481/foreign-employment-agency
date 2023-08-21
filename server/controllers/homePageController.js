@@ -215,6 +215,32 @@ export const GetValuableClients = async(req, res) => {
 }
 
 /// WORK SECTORS
+export const AddWorkSector = async(req, res) => {
+    try{
+        console.log(req.body)
+            if(req.file){
+                const image = fs.readFileSync(path.join("../server/uploads/workSectors/" + req.file.filename))
+                const reqInclImage = {... req.body, sectorImage: image}
+            const data = await Sectors.create(reqInclImage)
+            if(data){
+                res.status(200).json({
+                    msg: "Changes updated successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+        }else{
+            res.json({
+                msg: "Image not selected"
+            })
+        }  
+    }catch(error){
+        console.log("error: " + error)
+    }
+}
+
 export const SetWorkSectors = async(req, res) => {
     try{
         console.log(req.body)
@@ -262,5 +288,22 @@ export const GetWorkSectors = async(req, res) => {
         }
     }catch(error){
         console.log("error: " + error)
+    }
+}
+
+export const DeleteWorkSector = async(req, res) => {
+    try {
+        const sectorId = req.params.id;
+
+        const deletedSector = await Sectors.findByIdAndDelete(sectorId);
+
+        if (!deletedSector) {
+            return res.status(404).json({ message: 'Sector not found' });
+        }
+
+        res.status(200).json({ message: 'Sector deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting sector:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 }
