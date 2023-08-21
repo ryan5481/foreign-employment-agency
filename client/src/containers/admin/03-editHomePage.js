@@ -23,6 +23,7 @@ import CallToActionWithVideo from "../../components/card/callToActionWithVideo";
 import CompanyMessage1 from "../../components/adminPanel/companyMessage1";
 import CompanyMessage2 from "../../components/adminPanel/companyMessage2";
 import ValuableClients from "../../components/adminPanel/valubleClients";
+import JobSectors from "../../components/adminPanel/jobSectors";
 
 const EditHomePage = () => {
     //CAROUSEL
@@ -63,7 +64,7 @@ const EditHomePage = () => {
         if (selectedCarouselImage && selectedCarouselImageIndex !== -1) {
             const formData = new FormData();
             formData.append("carouselImages", selectedCarouselImage);
-    
+
             try {
                 const res = await axios.post(
                     "http://localhost:8000/edit-homepage/topcarousel", // Replace with your backend's URL
@@ -74,15 +75,15 @@ const EditHomePage = () => {
                         },
                     }
                 );
-    
+
                 if (res) {
                     // Update only the selected image in the currentCarouselImages array
                     const updatedCarouselImages = [...currentCarouselImages];
                     updatedCarouselImages[selectedCarouselImageIndex] = res.data.data.carouselImages; // Use the actual response data
-    
+
                     // Refresh carousel images with updated array
                     setCurrentCarouselImages(updatedCarouselImages);
-    
+
                     // Reset selected image and index
                     setSelectedCarouselImage(null);
                     setSelectedCarouselImageIndex(-1);
@@ -110,7 +111,7 @@ const EditHomePage = () => {
 
     // VALUABLE CLIENTS
     const fetchData = async () => {
-        try{
+        try {
             const res = await axios.get("http://localhost:8000/get-valuableclients")
             if (res) {
                 const data = res.data.data
@@ -119,25 +120,25 @@ const EditHomePage = () => {
                 setText1(data.text1)
                 setDescription1(data.description1)
             }
-        }catch(error){
+        } catch (error) {
             console.log(error)
         }
     }
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        
+
         setSelectedFile(event.target.files[0]);
         setSelectedFile(file);
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                setPreviewImage(e.target.result); 
+                setPreviewImage(e.target.result);
             };
             reader.readAsDataURL(file);
         }
     };
-    
+
 
     useEffect(() => {
         fetchData()
@@ -145,23 +146,23 @@ const EditHomePage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-          try {
+        try {
             const formData = new FormData();
-            if(selectedFile){
+            if (selectedFile) {
                 formData.append('valuableClientsImage1', selectedFile);
             }
             formData.append('heading1', heading1);
             formData.append('text1', text1);
             formData.append('description1', description1);
-    
+
             const res = await axios.post('http://localhost:8000/edit-homepage/valuableClients', formData);
             if (res) {
-            //   window.location.reload();
+                //   window.location.reload();
             }
-          } catch (error) {
+        } catch (error) {
             console.log('Error updating data:', error);
-          }
-      };
+        }
+    };
     // VALUABLE CLIENTS
 
 
@@ -179,7 +180,7 @@ const EditHomePage = () => {
             justifyContent={"center"}
             top={"10vh"}
         >
-        {/* CAROUSEL */}
+            {/* CAROUSEL */}
             <Box>
                 <Grid
                     templateColumns={{
@@ -244,130 +245,33 @@ const EditHomePage = () => {
                     })}
                 </Grid>
             </Box>
-        {/* ABOUT US */}
-        <Box  >
-            {/* <Text>( This can be edited from 'About Us' Tab )</Text> */}
-        <CallToActionWithVideo/>
-        </Box>
-        <Box>
-            <CompanyMessage1/>
-        </Box>
-        <Box>
-            <CompanyMessage2/>
-        </Box>
-        <Box>
-
-<Container maxW={'100%'} p="12"
-    maxH={'130vh'}
-    bg={useColorModeValue('blue.600', 'gray.1000')}
-    color='white'
-    className="animated-div"
->
-    <form onSubmit={handleSubmit} >
-    <Heading as="h1">Our Valuable Clients</Heading>
-    <Box
-        marginTop={{ base: '1', sm: '5' }}
-        display="flex"
-
-        flexDirection={{ base: 'column', sm: 'row' }}
-        justifyContent="space-between">
-        <Box
-            display="flex"
-            flex="1"
-            marginRight="3"
-            position="relative"
-            alignItems="center">
-            <Box
-                width={{ base: '100%', sm: '85%' }}
-                zIndex="2"
-                marginLeft={{ base: '0', sm: '5%' }}
-                marginTop="5%">
-                <Box borderRadius="lg" overflow="hidden" maxH={"600px"}>
-                    <Box textDecoration="none" _hover={{ '& img': { filter: 'brightness(0.6)' } }}>
-                        <Image
-                            borderRadius="lg"
-                            maxH={"500px"}
-                            src={previewImage || image1}
-                            alt="Click To Upload"
-                            onClick={() => document.getElementById('fileInput').click()} 
-                            objectFit="contain"
-                            width="100%"
-                            transition="0.3s ease-in-out"
-                        />
-                        <input
-                            type='file'
-                            id='fileInput'
-                            accept='image/*'
-                            onChange={handleFileChange}
-                            style={{ display: "none" }}
-                        />
-                        <Box position="absolute"
-                            top="50%"
-                            left="50%"
-                            transform="translate(-50%, -50%)"
-                            fontWeight={"bold"}
-                            fontSize="24px"
-                            textAlign="center"
-                            _hover={{ opacity: 1, brightness: 0.7 }}
-                        >Edit Image</Box>
+            {/* ABOUT US */}
+            <Box  >
+                {/* <Text>( This can be edited from 'About Us' Tab )</Text> */}
+                <CallToActionWithVideo />
+            </Box>
+            <Box>
+                <CompanyMessage1 />
+            </Box>
+            <Box>
+                <CompanyMessage2 />
+            </Box>
+            <Box>
+            <ValuableClients />
+            </Box>
+            <Box>
+                <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}
+                        color="gray.100"
+                    >
+                        Sectors We Work In
+                    </Heading>
+                    <Box >
+                        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+                        <JobSectors/>
+                        </Grid>
                     </Box>
-                </Box>
             </Box>
-            <Box zIndex="1" width="100%" position="absolute" height="100%">
-                <Box
-                    bgGradient={useColorModeValue(
-                        'radial(white 1px, transparent 1px)',
-                        'radial(white 1px, transparent 1px)',
-                    )}
-                    backgroundSize="20px 20px"
-                    opacity="0.6"
-                    height="100%"
-                />
-            </Box>
-        </Box>
-        <Box
-            display="flex"
-            flex="1"
-            flexDirection="column"
-            justifyContent="center"
-            marginTop={{ base: '3', sm: '0' }}>
 
-            <FormControl id='heading1' mt="1">
-                <Input fontWeight="bold" 
-                fontSize="24px" 
-                textAlign="center"
-                value={heading1} 
-                onChange={(e) => setHeading1(e.currentTarget.value)}
-                />
-            </FormControl>
-            <Input  fontSize="24px" 
-            textAlign="center" 
-            value={text1} 
-            textDecoration="none" 
-            _hover={{ textDecoration: 'none' }}
-            onChange={(e) => setText1(e.currentTarget.value)}
-
-            />
-            <FormControl
-            id='description1'
-            >
-            <Textarea
-                marginTop="2"
-                color={useColorModeValue('gray50', 'gray.200')}
-                fontSize="lg"
-                value={description1}
-                onChange={(e) => setDescription1(e.currentTarget.value)}
-            />
-            </FormControl>
-        </Box>
-    </Box>
-    <Button type="submit" mt={4} colorScheme="teal">
-        Update Data
-    </Button>
-    </form>
-</Container>
-
-</Box>
         </Box>
     );
 };

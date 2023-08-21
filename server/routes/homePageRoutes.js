@@ -29,6 +29,6 @@ router.get("/get-companymessage2", GetCompanyMessage2)
 router.post("/edit-homepage/valuableclients", ValubleClientsImgUpload, SetValuableClients)
 router.get("/get-valuableclients", GetValuableClients)
 // SECTORS
-router.post("/edit-homepage/worksectors", WorkSectorsImgUpload, SetWorkSectors)
+router.put("/edit-homepage/worksectors", WorkSectorsImgUpload, SetWorkSectors)
 router.get("/get-worksectors", GetWorkSectors)
 export default router
