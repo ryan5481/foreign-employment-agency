@@ -217,11 +217,11 @@ export const GetValuableClients = async(req, res) => {
 /// WORK SECTORS
 export const SetWorkSectors = async(req, res) => {
     try{
-
+        console.log(req.body)
             if(req.file){
                 const image = fs.readFileSync(path.join("../server/uploads/workSectors/" + req.file.filename))
                 const reqInclImage = {... req.body, sectorImage: image}
-            const data = await Sectors.create(reqInclImage)
+            const data = await Sectors.findByIdAndUpdate(req.body._id, reqInclImage)
             if(data){
                 res.status(200).json({
                     msg: "Changes updated successfully.",
@@ -232,7 +232,7 @@ export const SetWorkSectors = async(req, res) => {
                 }) 
             }
         }else{
-            const data = await Sectors.findByIdAndUpdate("64ddcfb8bb495641ea56d171", req.body)
+            const data = await Sectors.findByIdAndUpdate(req.body._id, req.body)
             if(data){
                 res.status(200).json({
                     msg: "Changes updated successfully.",
