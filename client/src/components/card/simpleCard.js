@@ -1,5 +1,5 @@
 
-import { Image, Stack, Heading, Box, Divider, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { Image, Stack, Heading, Box, Divider, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, AspectRatio } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 const SimpleCard = (props) => {
@@ -25,7 +25,6 @@ const SimpleCard = (props) => {
         fetchWorkSectors();
     }, [])
 
-    console.log("SECTORS:" + sectorsData)
 
     return (
         <>
@@ -63,6 +62,7 @@ const SimpleCard = (props) => {
                                       filter: 'blur(20px)',
                                   },
                               }}>
+                                <AspectRatio>
                                 <Image
                                     src={`data:image/jpeg;base64,${sector.sectorImage}`}
                                     alt={sector.sectorTitle}
@@ -75,6 +75,7 @@ const SimpleCard = (props) => {
                                         transform: 'scale(1.1)',
                                     }}
                                 />
+                                </AspectRatio>
                                 <Stack mt='7' spacing='3'>
                                     <Heading size='sm'>{sector.sectorTitle}</Heading>
                                 </Stack>
