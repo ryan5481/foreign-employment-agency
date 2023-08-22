@@ -2,6 +2,7 @@ import TopCarousel from "../models/topCarouselSchema.js";
 import CompanyMessage from "../models/companyMessageSchema.js"
 import CompanyMessage2 from "../models/companyMessageSchema2.js"
 import ValuableClients from "../models/valuableClientsSchema.js"
+import Procedure from "../models/procedureSchema.js"
 import Sectors from "../models/sectorsSchema.js"
 import * as fs from "fs"
 import path from "path"
@@ -296,6 +297,77 @@ export const DeleteWorkSector = async(req, res) => {
         const sectorId = req.params.id;
 
         const deletedSector = await Sectors.findByIdAndDelete(sectorId);
+
+        if (!deletedSector) {
+            return res.status(404).json({ message: 'Sector not found' });
+        }
+
+        res.status(200).json({ message: 'Sector deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting sector:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+// OPERATING PROCEDURE
+export const AddProcedure = async(req, res) => {
+    try{
+        console.log(req.body)
+            const data = await Procedure.create(req.body)
+            if(data){
+                res.status(200).json({
+                    msg: "Data added successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+    }catch(error){
+        console.log("error: " + error)
+    }
+}
+
+export const SetProcedure = async(req, res) => {
+    try{
+        console.log(req.body)
+            const data = await Procedure.findByIdAndUpdate(req.body._id, req.body)
+            if(data){
+                res.status(200).json({
+                    msg: "Changes updated successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+    }catch(error){
+        console.log("error: " + error)
+    }
+}
+
+export const GetProcedure = async(req, res) => {
+    try{
+        const data = await Procedure.find()
+        if(data){
+            res.status(200).json({
+                data
+            })
+        }else{
+            res.status(403).json({
+                msg: "Failed to fetch company messages."
+            }) 
+        }
+    }catch(error){
+        console.log("error: " + error)
+    }
+}
+
+export const DeleteProcedure = async(req, res) => {
+    try {
+        const procedureId = req.params.id;
+
+        const deletedSector = await Procedure.findByIdAndDelete(procedureId);
 
         if (!deletedSector) {
             return res.status(404).json({ message: 'Sector not found' });

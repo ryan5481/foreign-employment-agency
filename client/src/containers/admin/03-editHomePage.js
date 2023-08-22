@@ -24,6 +24,7 @@ import CompanyMessage1 from "../../components/adminPanel/companyMessage1";
 import CompanyMessage2 from "../../components/adminPanel/companyMessage2";
 import ValuableClients from "../../components/adminPanel/valubleClients";
 import JobSectors from "../../components/adminPanel/jobSectors";
+import OperatingProcedure from "../../components/adminPanel/operatingProcedure";
 
 const EditHomePage = () => {
     //CAROUSEL
@@ -257,12 +258,25 @@ const EditHomePage = () => {
                 <CompanyMessage2 />
             </Box>
             <Box>
-            <ValuableClients />
+                <ValuableClients />
             </Box>
             <Box>
-                    <Box >
-                        <JobSectors/>
-                    </Box>
+                <Box >
+                    <JobSectors />
+                </Box>
+            </Box>
+            <Box alignContent={'center'} align="center"
+                bg={useColorModeValue('blue.600', 'blue.900')}
+            >
+                <Heading m={2} fontSize={'4xl'} fontFamily={'body'} pt={10}>
+                    Operating Procedure
+                </Heading>
+                <Text fontSize={'xl'} textAlign='center' pb={10}>
+                    Maximum of 18 steps allowed
+                </Text>
+                <Box >
+                    <OperatingProcedure />
+                </Box>
             </Box>
 
         </Box>
