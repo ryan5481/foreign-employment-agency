@@ -25,9 +25,9 @@ const JobSectors = (props) => {
         if(sectorToDelete){
             try{
                 const res = await axios.delete(`http://localhost:8000/delete-worksector/${sectorToDelete}`)
-                fetchWorkSectors();
-                onClose();
                 if(res){
+                    fetchWorkSectors();
+                    onClose();
                     console.log("Item deleted.")
                 }
             }catch(error){
@@ -135,6 +135,7 @@ const JobSectors = (props) => {
             >
                 Sectors We Work In
             </Heading>
+
             <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
 
                 {sectorsData.map((sector, index) => {
@@ -307,7 +308,6 @@ const JobSectors = (props) => {
                 leastDestructiveRef={cancelRef}
                 onClose={onClose}
                 isCentered
-                
             >
                 <AlertDialogOverlay >
                     <AlertDialogContent>

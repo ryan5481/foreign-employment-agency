@@ -6,7 +6,8 @@ import {
     SetCompanyMessage1, GetCompanyMessage1,
     SetCompanyMessage2, GetCompanyMessage2,
     SetValuableClients, GetValuableClients,
-    AddWorkSector, SetWorkSectors, GetWorkSectors, DeleteWorkSector
+    AddWorkSector, SetWorkSectors, GetWorkSectors, DeleteWorkSector,
+    AddProcedure, SetProcedure, GetProcedure, DeleteProcedure
 } from "../controllers/homePageController.js"
 import {
     TopCarouselImagesUpload,
@@ -33,7 +34,10 @@ router.post("/edit-homepage/add-worksector", WorkSectorsImgUpload, AddWorkSector
 router.put("/edit-homepage/worksectors", WorkSectorsImgUpload, SetWorkSectors)
 router.get("/get-worksectors", GetWorkSectors)
 router.delete("/delete-worksector/:id", DeleteWorkSector)
-
-
+// PROCEDURE STEPPER
+router.post("/edit-homepage/add-procedure", AddProcedure)
+router.put("/edit-homepage/procedure", SetProcedure)
+router.get("/get-procedure", GetProcedure)
+router.delete("/delete-procedure/:id", DeleteProcedure)
 
 export default router
