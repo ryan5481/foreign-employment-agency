@@ -11,32 +11,32 @@ import path from "path"
 // CAROUSEl
 export const PostCarouselImages = async(req, res) => {
     try{
-        if(req.files){
-            let carouselImagesList = req.files.map((image) => {
-                return fs.readFileSync("../server/uploads/topCarouselImages/" + image.filename)
-            })
+        if(req.file){
+            console.log
+            let carouselImage = fs.readFileSync(path.join("../server/uploads/topCarouselImages/" + req.file.filename))
         
-        let updatedData = {...req.body, carouselImages: carouselImagesList}
+        let updatedData = {...req.body, carouselImage: carouselImage}
 
-        const data = await TopCarousel.findByIdAndUpdate("64db1edb487cd0c020bc0786", updatedData)
+        const data = await TopCarousel.create(updatedData)
             if(data){
                 res.status(200).json({
-                    msg: "Carousel images added successfully.",
-                    data
-                })
+                    msg: "Carousel images added successfully."})
             }else{
                 res.status(403).json({
                     msg: "Failed to add carousel images."
                 }) 
             }
-        } 
+        } else{
+            console.log("File not received.")
+        }
     }catch(error)
     {console.log(error)}
 } 
 
 export const GetCarouselImages = async(req, res) => {
     try{
-        const data = await TopCarousel.findById({_id: "64db1edb487cd0c020bc0786"})
+        console.log(req)
+        const data = await TopCarousel.find()
         if(data){
             res.status(200).json({
                 msg: "Success",
@@ -49,6 +49,56 @@ export const GetCarouselImages = async(req, res) => {
         }
     } catch(error){
         console.log(error)}
+}
+
+export const UpdateCarouselImage = async(req, res) => {
+    try{
+        console.log(req.body)
+            if(req.file){
+                const image = fs.readFileSync(path.join("../server/uploads/topCarouselImages/" + req.file.filename))
+                const reqInclImage = {... req.body, carouselImage: image}
+            const data = await TopCarousel.findByIdAndUpdate(req.body._id, reqInclImage)
+            if(data){
+                res.status(200).json({
+                    msg: "Changes updated successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+        }else{
+            const data = await TopCarousel.findByIdAndUpdate(req.body._id, req.body)
+            if(data){
+                res.status(200).json({
+                    msg: "Changes updated successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+        }  
+    }catch(error){
+        console.log("error: " + error)
+    }
+}
+
+export const DeleteCarouselImages = async(req, res) => {
+    try {
+        const imageId = req.params.id;
+
+        const deletedImage = await TopCarousel.findByIdAndDelete(imageId);
+
+        if (!deletedImage) {
+            return res.status(404).json({ message: 'Image not found' });
+        }
+
+        res.status(200).json({ message: 'Image deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting sector:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 }
 
 // COMPANY MESSAGE 1

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Text, useDisclosure, Box, Grid, Input, FormControl, IconButton, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button, VStack } from "@chakra-ui/react"
+import { Text, useDisclosure, Box, Grid, Input, FormControl, IconButton, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button, Heading } from "@chakra-ui/react"
 import { SmallCloseIcon, CheckCircleIcon, AddIcon } from "@chakra-ui/icons";
 import { MdAddCircle } from "react-icons/md";
 import axios from "axios"
@@ -119,11 +119,19 @@ const OperatingProcedure = () => {
 
     return (
         <Box alignItems={'center'} px={10} pb={{ sm: '2', md: '7', lg: '10' }}>
+            <Heading m={2} fontSize={'4xl'} fontFamily={'body'} pt={10}>
+                    Operating Procedure
+                </Heading>
+            <Text fontSize={'xl'} textAlign='center' pb={10} >
+                Maximum of {stepperData.length + 1} images allowed
+            </Text>
             <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1r', lg: '1fr 1fr 1fr 1fr 1fr 1fr' }} gap px={{ sm: '2', md: '10', lg: '15' }} alignContent='center' align='center' rowGap={20} maxW={'100%'}>
                 {stepperData.map((step, index) => {
                     return (<>
 
-                        <Box key={step._id} p={2}
+                        <Box
+                            boxShadow={'2xl'}
+                            key={step._id} p={2}
                             _hover={{ boxShadow: "0 0 0 2px rgba(251, 251, 251, 0.5)" }}
                             transition="box-shadow 0.4s"
                             rounded="10px"
@@ -185,9 +193,10 @@ const OperatingProcedure = () => {
                 {stepperData.length <= 17 ?
                     (<FormControl >
                         <Box
+                            boxShadow={'2xl'}
                             p={2}
                             _hover={{ boxShadow: "0 0 0 2px rgba(251, 251, 251, 0.5)" }}
-                            transition="box-shadow 0.4s"
+                            transition="box-shadow 0.3s"
                             rounded="10px"
                         >
                             <Box
@@ -201,7 +210,7 @@ const OperatingProcedure = () => {
                                 boxShadow="2xl"
 
                             >
-                                <AddIcon boxSize={5} color="red.400" />
+                                <AddIcon boxSize={5} color="blue.900" />
                             </Box>
                             <Text fontSize={'2xl'} textAlign='center' fontWeight={'bold'} >
                                 {stepNumberToWord(stepperData.length + 1)}

@@ -36,15 +36,20 @@ const SimpleCard = (props) => {
                              p={2}
                              maxW={'330px'}
                              w={'full'}
-                             h={200}
+                             maxH={420}
                              boxShadow={'2xl'}
                              rounded={'lg'}
                              pos={'relative'}
-                             zIndex={1}>
+                             zIndex={1}
+                             _hover={{
+                                transform: 'scale(1.1)',
+                            }}
+                            transition="0.15s ease-in-out"
+                             >
                             <Box
                               rounded={'lg'}
                               pos={'relative'}
-                              height={'230px'}
+                              maxH={400}
                               _after={{
                                   transition: 'all .1s ease',
                                   content: '""',
@@ -70,14 +75,14 @@ const SimpleCard = (props) => {
                                     h={120}
                                     objectFit="contain"
                                     width="100%"
-                                    transition="0.15s ease-in-out"
+                                    transition="0.2s ease-in-out"
                                     _hover={{
-                                        transform: 'scale(1.1)',
+                                        transform: 'scale(1.05)',
                                     }}
                                 />
                                 </AspectRatio>
                                 <Stack mt='7' spacing='3'>
-                                    <Heading size='sm'>{sector.sectorTitle}</Heading>
+                                    <Heading pb={2} fontSize='22'>{sector.sectorTitle}</Heading>
                                 </Stack>
                             </Box>
                             </Box>

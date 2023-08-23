@@ -25,6 +25,7 @@ import CompanyMessage2 from "../../components/adminPanel/companyMessage2";
 import ValuableClients from "../../components/adminPanel/valubleClients";
 import JobSectors from "../../components/adminPanel/jobSectors";
 import OperatingProcedure from "../../components/adminPanel/operatingProcedure";
+import EditCarousel from "../../components/adminPanel/topCarousel";
 
 const EditHomePage = () => {
     //CAROUSEL
@@ -44,73 +45,8 @@ const EditHomePage = () => {
     const [description1, setDescription1] = useState('')
 
 
-    // CAROUSEL IMAGES //
-    const FetchCarouselImages = async () => {
-        try {
-            const res = await axios.get("http://localhost:8000/get-carousel-images");
-            if (res) {
-                const imagesBinData = await res.data.data.carouselImages;
-                const imageTitles = await res.data.data.imageTitles;
-                setCurrentCarouselImages(imagesBinData);
-                setCarouselTitles(imageTitles);
-            } else {
-                console.log("Failed to fetch images");
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
-    const handleCarouselImageUpload = async () => {
-        if (selectedCarouselImage && selectedCarouselImageIndex !== -1) {
-            const formData = new FormData();
-            formData.append("carouselImages", selectedCarouselImage);
-
-            try {
-                const res = await axios.post(
-                    "http://localhost:8000/edit-homepage/topcarousel", // Replace with your backend's URL
-                    formData,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
-
-                if (res) {
-                    // Update only the selected image in the currentCarouselImages array
-                    const updatedCarouselImages = [...currentCarouselImages];
-                    updatedCarouselImages[selectedCarouselImageIndex] = res.data.data.carouselImages; // Use the actual response data
-
-                    // Refresh carousel images with updated array
-                    setCurrentCarouselImages(updatedCarouselImages);
-
-                    // Reset selected image and index
-                    setSelectedCarouselImage(null);
-                    setSelectedCarouselImageIndex(-1);
-                    window.location.reload()
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
-
-    const handleCarouselImageClick = (index) => {
-        setSelectedCarouselImageIndex(index);
-    };
-
-    const handleTitleEdit = (index, newTitle) => {
-        const updatedTitles = [...carouselTitles];
-        updatedTitles[index] = newTitle;
-        setCarouselTitles(updatedTitles);
-    };
-
-    const carouselImageUrls = currentCarouselImages.map(
-        (imageString) => `data:image/jpeg;base64,${imageString}`
-    );
-
-    // VALUABLE CLIENTS
+    // // VALUABLE CLIENTS
     const fetchData = async () => {
         try {
             const res = await axios.get("http://localhost:8000/get-valuableclients")
@@ -168,10 +104,6 @@ const EditHomePage = () => {
 
 
 
-    useEffect(() => {
-        FetchCarouselImages();
-    }, []);
-
     return (
         <Box
             h={"100%"}
@@ -182,70 +114,7 @@ const EditHomePage = () => {
             top={"10vh"}
         >
             {/* CAROUSEL */}
-            <Box>
-                <Grid
-                    templateColumns={{
-                        sm: "1fr 1fr",
-                        md: "1fr 1fr",
-                        lg: "1fr 1fr 1fr 1fr 1fr",
-                        xl: "1fr 1fr 1fr 1fr 1fr",
-                        "2xl": "1fr 1fr 1fr 1fr 1fr",
-                    }}
-                    p={10}
-                    gap={3}
-                >
-                    {carouselImageUrls.map((url, index) => {
-                        return (
-                            <Card key={`image-card-${url}-${index}`} rounded={"10px"} maxW="xs" p={0}>
-                                <CardBody w="100%" h="10" bg="">
-                                    <AspectRatio ratio={2.1}>
-                                        <Image
-                                            src={url}
-                                            h={100}
-                                            cursor="pointer"
-                                            onClick={() => handleCarouselImageClick(index)}
-                                        />
-                                    </AspectRatio>
-                                    <Box display="flex" alignItems="baseline" p="2">
-                                        {selectedCarouselImageIndex === index && (
-                                            <>
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => setSelectedCarouselImage(e.target.files[0])}
-                                                />
-                                                <Button onClick={handleCarouselImageUpload}>Upload</Button>
-                                            </>
-                                        )}
-                                    </Box>
-                                    <Stack mt="1" spacing="3">
-                                        <Editable
-                                            id={`editable-title-${index}`}
-                                            value={carouselTitles[index]}
-                                            onChange={(newTitle) =>
-                                                handleTitleEdit(index, newTitle)
-                                            }
-                                            bg={"purple.300"}
-                                            px={1}
-                                            rounded={"5px"}
-                                            fontWeight={"bold"}
-                                            fontSize={"26"}
-                                        >
-                                            <EditablePreview />
-                                            <EditableInput
-                                                px={2}
-                                                rounded={"10px"}
-                                                type="text"
-                                                name={`title-${index}`}
-                                            />
-                                        </Editable>
-                                    </Stack>
-                                </CardBody>
-                            </Card>
-                        );
-                    })}
-                </Grid>
-            </Box>
+            <EditCarousel/>
             {/* ABOUT US */}
             <Box  >
                 {/* <Text>( This can be edited from 'About Us' Tab )</Text> */}
@@ -268,12 +137,7 @@ const EditHomePage = () => {
             <Box alignContent={'center'} align="center"
                 bg={useColorModeValue('blue.600', 'blue.900')}
             >
-                <Heading m={2} fontSize={'4xl'} fontFamily={'body'} pt={10}>
-                    Operating Procedure
-                </Heading>
-                <Text fontSize={'xl'} textAlign='center' pb={10}>
-                    Maximum of 18 steps allowed
-                </Text>
+                
                 <Box >
                     <OperatingProcedure />
                 </Box>

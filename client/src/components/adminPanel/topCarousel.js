@@ -4,29 +4,74 @@ import { SmallCloseIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
 
-const JobSectors = (props) => {
+const EditCarousel = (props) => {
+    const [carouselImageData, setCarouselImageData] = useState([])
+
     const [sectorsData, setSectorsData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [selectedSectorId, setSelectedSectorId] = useState(null);
+    const [selectedimageId, setSelectedimageId] = useState(null);
     const [selectedImageFile, setSelectedImageFile] = useState(null);
-    const [sectorTitles, setSectorTitles] = useState('');
+    const [imageTitles, setImageTitles] = useState('');
 
-    const [sectorTitle, setSectorTitle] = useState('');
+    const [imageTitle, setImageTitle] = useState('');
 
-
-    const sectorImageInputRef = useRef();
-    const newImageInputRef = useRef();
+    const carouselImageInputRef = useRef();
+    const newImageUploadInputRef = useRef();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [sectorToDelete, setSectorToDelete] = useState(null);
+    const [imageToDelete, setImageToDelete] = useState(null);
     const cancelRef = useRef()
 
-    const handleSectorDelete = async () => {
-        if (sectorToDelete) {
+    // FETCH DATA FROM THE BACKEND FOR DISPLAY
+
+    const fetchCarouselImages = async () => {
+
+        try {
+            const res = await axios.get("http://localhost:8000/get-carousel-images")
+            if (res) {
+                const newData = await res.data.data
+                setCarouselImageData(newData)
+                const initialImageTitles = newData.map(images => images.imageTitle || '')
+                setImageTitles(initialImageTitles)
+
+            } else {
+                console.log("Failed to fetch images")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    console.log(carouselImageData)
+
+    // ADD A NEW TITLE 
+    const handleUploadNewImage = async () => {
+        if (selectedImageFile && imageTitle) {
+            const formData = new FormData();
+            formData.append('carouselImage', selectedImageFile);
+            formData.append('imageTitle', imageTitle);
+
             try {
-                const res = await axios.delete(`http://localhost:8000/delete-worksector/${sectorToDelete}`)
+                await axios.post("http://localhost:8000/edit-homepage/add-topcarousel-image", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                fetchCarouselImages();
+                setSelectedImageFile(null);
+                setImageTitle('');
+            } catch (error) {
+                console.error('Error adding sector:', error);
+            }
+        }
+    }
+
+    const handleImageDelete = async () => {
+        if (imageToDelete) {
+            try {
+                const res = await axios.delete(`http://localhost:8000/edit-homepage/delete-topcarousel-image/${imageToDelete}`)
                 if (res) {
-                    fetchWorkSectors();
+                    fetchCarouselImages();
                     onClose();
                     console.log("Item deleted.")
                 }
@@ -36,63 +81,45 @@ const JobSectors = (props) => {
         }
     }
 
-    // FETCH DATA FROM THE BACKEND FOR DISPLAY
-    const fetchWorkSectors = async () => {
-        try {
-            const res = await axios.get('http://localhost:8000/get-worksectors');
-            const newData = await res.data.data
-            setSectorsData(newData)
-            const initialSectorTitles = newData.map(sector => sector.sectorTitle || '')
-            setSectorTitles(initialSectorTitles)
-            console.log(sectorsData)
-            // setLoading(false);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            // setLoading(false);
-        }
-    };
-
-    // UPDATE JOB SECTOR TITLE
-    const handleTitleSubmit = async (sectorId, index) => {
-        if (!sectorId) {
-            console.error("No sectorId provided.")
+    //UPDATE JOB SECTOR TITLE
+    const handleTitleSubmit = async (imageId, index) => {
+        if (!imageId) {
+            console.error("No imageId provided.")
             return
         }
-        const updatedTitle = sectorTitles[index]
-        const formData = new FormData();
-        formData.append('_id', sectorId);
-        formData.append('sectorTitle', updatedTitle);
+        const updatedTitle = imageTitles[index]
         try {
-            await axios.put('http://localhost:8000/edit-homepage/worksectors', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            await axios.put('http://localhost:8000/edit-homepage/update-topcarousel-image', {
+                _id: imageId,
+                imageTitle: updatedTitle
+
             });
-            fetchWorkSectors();
+            fetchCarouselImages();
         } catch (error) {
             console.error('Error updating title:', error);
         }
     }
 
-    const handleImageSelect = (event) => {
+    const handleNewImageSelect = (event) => {
         setSelectedImageFile(event.target.files[0])
 
     }
 
-    const handleImageReplace = async (sectorId) => {
+    const handleImageReplace = async (imageId) => {
         if (selectedImageFile) {
             const formData = new FormData()
-            formData.append("sectorImage", selectedImageFile)
-            formData.append("_id", sectorId)
+            formData.append("carouselImage", selectedImageFile)
+            formData.append("_id", imageId)
+
             try {
-                await axios.put("http://localhost:8000/edit-homepage/worksectors", formData, {
+                await axios.put("http://localhost:8000/edit-homepage/update-topcarousel-image", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 })
-                fetchWorkSectors();
+                fetchCarouselImages();
                 setSelectedImageFile(null);
-                setSelectedSectorId(null);
+                setSelectedimageId(null);
             } catch (error) {
 
                 console.error("Error updating image: ", error)
@@ -100,31 +127,8 @@ const JobSectors = (props) => {
         }
     }
 
-    // ADD A NEW SECTOR 
-    const handleSectorAdd = async () => {
-        if (selectedImageFile && sectorTitle) {
-            const formData = new FormData();
-            formData.append('sectorImage', selectedImageFile);
-            formData.append('sectorTitle', sectorTitle);
-
-            try {
-                await axios.post("http://localhost:8000/edit-homepage/add-worksector", formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                fetchWorkSectors();
-                setSelectedImageFile(null);
-                setSectorTitle('');
-            } catch (error) {
-                console.error('Error adding sector:', error);
-            }
-        }
-    }
-
-
     useEffect(() => {
-        fetchWorkSectors();
+        fetchCarouselImages();
     }, [])
 
 
@@ -133,19 +137,23 @@ const JobSectors = (props) => {
             <Heading m={2} fontSize={'4xl'} fontFamily={'body'} pt={5}
                 color="gray.100"
             >
-                Sectors We Work In
+                Top Carousel Images
             </Heading>
+            <Text fontSize={'xl'} textAlign='center'>
+                Maximum of {carouselImageData.length} images allowed
+            </Text>
 
             <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
 
-                {sectorsData.map((sector, index) => {
+                {carouselImageData.map((imageData, index) => {
                     return (<>
 
                         <Box
-                            key={sector._id}
+                            key={imageData._id}
                             role={'group'}
                             p={2}
                             maxW={'330px'}
+                            maxH="310"
                             w={'full'}
                             minH={{ base: "400", sm: "340", md: "320", lg: "340" }}
                             boxShadow={'2xl'}
@@ -184,7 +192,7 @@ const JobSectors = (props) => {
                                     zIndex='10'
                                     boxShadow="2xl"
                                     onClick={() => {
-                                        setSectorToDelete(sector._id)
+                                        setImageToDelete(imageData._id)
                                         onOpen()
                                     }}
                                 >
@@ -195,8 +203,8 @@ const JobSectors = (props) => {
                                 </Box>
                                 <AspectRatio>
                                     <Image
-                                        src={`data:image/jpeg;base64,${sector.sectorImage}`}
-                                        alt={sector.sectorTitle}
+                                        src={`data:image/jpeg;base64,${imageData.carouselImage}`}
+                                        alt={imageData.imageTitle}
                                         borderRadius='lg'
                                         h={120}
                                         objectFit="contain"
@@ -205,7 +213,7 @@ const JobSectors = (props) => {
                                         _hover={{
                                             brightness: '0.8',
                                         }}
-                                        onClick={() => sectorImageInputRef.current.click()}
+                                        onClick={() => carouselImageInputRef.current.click()}
                                     />
                                 </AspectRatio>
 
@@ -213,14 +221,16 @@ const JobSectors = (props) => {
                                     type='file'
                                     accept="image/*"
                                     style={{ display: "none" }}
-                                    ref={sectorImageInputRef}
-                                    onChange={handleImageSelect}
+                                    ref={carouselImageInputRef}
+                                    onChange={handleNewImageSelect}
                                 />
                                 <Button
                                     mt="2"
-                                    onClick={() => handleImageReplace(sector._id)}
+                                    onClick={() => handleImageReplace(imageData._id)}
                                 >Update Image</Button>
-                                <form onSubmit={handleTitleSubmit}>
+                                <form
+                                    onSubmit={handleTitleSubmit}
+                                >
                                     <FormControl mt='7' spacing='3' id='sectorTitle'>
                                         <Input
                                             size='sm'
@@ -229,11 +239,11 @@ const JobSectors = (props) => {
                                             fontWeight="bold"
                                             fontSize="16px"
                                             textAlign="center"
-                                            value={sectorTitles[index]}
+                                            value={imageTitles[index]}
                                             onChange={(e) => {
-                                                const updatedTitles = [...sectorTitles]
+                                                const updatedTitles = [...imageTitles]
                                                 updatedTitles[index] = e.target.value
-                                                setSectorTitles(updatedTitles)
+                                                setImageTitles(updatedTitles)
                                             }}
                                         ></Input>
                                     </FormControl>
@@ -242,7 +252,7 @@ const JobSectors = (props) => {
                                             mt="2"
                                             maxW="150"
                                             type='submit'
-                                            onClick={() => handleTitleSubmit(sector._id, index)}
+                                            onClick={() => handleTitleSubmit(imageData._id, index)}
                                         >Update Title</Button>
                                     </Stack>
                                 </form>
@@ -251,61 +261,68 @@ const JobSectors = (props) => {
 
                     </>)
                 })}
-                <Box
-                    boxShadow={'2xl'}
-                    _hover={{ boxShadow: "0 0 0 2px rgba(251, 251, 251, 0.5)" }}
-                    transition="box-shadow 0.4s"
-                    rounded="10px"
-                    role={'group'}
-                    p={2}
-                    maxW={'330px'}
-                    w={'full'}
-                    minH="400"
-                    pos={'relative'}
-                    zIndex={1}>
-                    <Text fontWeight="bold" pb={2} >Add new sector</Text>
-                    <AspectRatio>
-                        <Image
-                            src={'https://image.pngaaa.com/768/791768-middle.png'}
-                            // selectedImageFile ? URL.createObjectURL(selectedImageFile) : 
-                            alt='Add Image'
-                            rounded='10px'
-                            h={120}
-                            objectFit="contain"
-                            width="100%"
-                            transition="0.15s ease-in-out"
-                            _hover={{
-                                brightness: '0.8',
-                            }}
-                            onClick={() => newImageInputRef.current.click()}
+                {carouselImageData.length <= 5 ?
+
+                    (<Box
+                        boxShadow={'2xl'}
+                        _hover={{ boxShadow: "0 0 0 2px rgba(251, 251, 251, 0.5)" }}
+                        transition="box-shadow 0.4s"
+                        rounded="10px"
+                        role={'group'}
+                        p={2}
+                        maxW={'330px'}
+                        w={'full'}
+                        minH="300"
+                        pos={'relative'}
+                        zIndex={1}>
+                        <AspectRatio>
+                            <Image
+                                mt="8"
+                                src={'https://image.pngaaa.com/768/791768-middle.png'}
+                                alt='Add Image'
+                                rounded='10px'
+                                h={120}
+                                objectFit="contain"
+                                width="100%"
+                                transition="0.15s ease-in-out"
+                                _hover={{
+                                    brightness: '0.8',
+                                }}
+                                onClick={() => newImageUploadInputRef.current.click()}
+                            />
+                        </AspectRatio>
+                        <input
+                            type='file'
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            ref={newImageUploadInputRef}
+                            onChange={handleNewImageSelect}
                         />
-                    </AspectRatio>
-                    <input
-                        type='file'
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        ref={newImageInputRef}
-                        onChange={handleImageSelect}
-                    />
 
-                    <FormControl mt='7' id='sectorTitle'>
-                        <Input
-                            size='sm'
-                            rounded="10px"
-                            color='gray.100'
-                            fontWeight="bold"
-                            fontSize="16px"
-                            textAlign="center"
-                            value={sectorTitle}
-                            onChange={(e) => setSectorTitle(e.target.value)}
-                        ></Input>
-                        <Button
-                            mt="2"
-                            onClick={handleSectorAdd}
+                        <FormControl mt='7' id='imageTitle'>
+                            <Text fontWeight="bold" pt="5" pb={2} >Add new image</Text>
 
-                        >Add Sector</Button>
-                    </FormControl>
-                </Box>
+                            <Input
+                                size='sm'
+                                mt="7"
+                                rounded="10px"
+                                color='gray.100'
+                                fontWeight="bold"
+                                fontSize="16px"
+                                placeholder="Type new title"
+                                _placeholder={{ color: "gray.200", fontWeight: "normal", fontSize: "sm" }}
+                                textAlign="center"
+                                value={imageTitle}
+                                onChange={(e) => setImageTitle(e.target.value)}
+                            ></Input>
+
+                            <Button
+                                mt="2"
+                                onClick={handleUploadNewImage}
+
+                            >Add Sector</Button>
+                        </FormControl>
+                    </Box>) : (null)}
 
             </Grid>
             <AlertDialog
@@ -317,7 +334,7 @@ const JobSectors = (props) => {
                 <AlertDialogOverlay >
                     <AlertDialogContent>
                         <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                            Delete Sector
+                            Delete Image
                         </AlertDialogHeader>
 
                         <AlertDialogBody>
@@ -325,10 +342,14 @@ const JobSectors = (props) => {
                         </AlertDialogBody>
 
                         <AlertDialogFooter>
-                            <Button ref={cancelRef} onClick={onClose}>
+                            <Button
+                                ref={cancelRef} onClick={onClose}
+                            >
                                 Cancel
                             </Button>
-                            <Button colorScheme='red' onClick={handleSectorDelete} ml={3}>
+                            <Button colorScheme='red'
+                                onClick={handleImageDelete} ml={3}
+                            >
                                 Delete
                             </Button>
                         </AlertDialogFooter>
@@ -339,4 +360,4 @@ const JobSectors = (props) => {
     )
 }
 
-export default JobSectors
+export default EditCarousel

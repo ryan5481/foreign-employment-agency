@@ -3,18 +3,18 @@ const Schema = mongoose;
 
 const topCarouselSchema = ({
 
-    topCarouselLandmark: {
+    landmark: {
         type: String,
         default: "skywaynepal.com"
     },
 
-    carouselImages: {
+    carouselImage: {
         type: Object,
         default:{},
     },
 
-    imageTitles: {
-        type: Array,
+    imageTitle: {
+        type: String,
     },
 
     createdAt: { type: Date, default: Date.now },
