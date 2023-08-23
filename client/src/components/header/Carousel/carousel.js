@@ -1,68 +1,28 @@
-import axios from 'axios'
-import {
-  Flex,
-  Text,
-  Box,
-  Image,
-  HStack,
-  Stack,
-  Heading,
-  Highlight
-} from '@chakra-ui/react'
-import { AspectRatio } from '@chakra-ui/react'
-import React, { useState, useEffect } from "react";
+// Carousel.js
+import React, { useState, useEffect } from 'react';
+import Slider from 'react-slick';
+import axios from 'axios';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import "./SmoothCarousel.css"
+import { Box, Image, Center, Stack, Heading, Highlight, AspectRatio } from '@chakra-ui/react';
+import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons/io"
+
+const dotsStyle = {
+  bottom: '100px', // Adjust the distance from the bottom as needed
+};
+
 const Carousel = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [carouselTitles, setCarouselTitles] = useState()
-  const [carouselImages, setCarouselImages] = useState([])
+  const [carouselImageData, setCarouselImageData] = useState([])
 
-  const arrowStyles = {
-    cursor: "pointer",
-    pos: "absolute",
-    top: "50%",
-    w: "auto",
-    mt: "-22px",
-    p: "16px",
-    color: "white",
-    fontWeight: "bold",
-    fontSize: "18px",
-    transition: "0.6s ease",
-    borderRadius: "0 3px 3px 0",
-    userSelect: "none",
-    _hover: {
-      opacity: 0.8,
-      bg: "black",
-    },
-  };
-
-
-  const imagesCount = carouselImages.length;
-
-  const prevSlide = () => {
-    setCurrentSlide((s) => (s === 0 ? imagesCount - 1 : s - 1));
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((s) => (s === imagesCount - 1 ? 0 : s + 1));
-  };
-
-  const setSlide = (slide) => {
-    setCurrentSlide(slide);
-  };
-
-  const carouselStyle = {
-    transition: "all .5s",
-    ml: `-${currentSlide * 100}%`,
-  };
 
   const FetchCarouselImages = async () => {
+
     try {
       const res = await axios.get("http://localhost:8000/get-carousel-images")
       if (res) {
-        const imagesBinData = await res.data.data.carouselImages
-        const imageTitles = await res.data.data.imageTitles
-        setCarouselImages(imagesBinData)
-        setCarouselTitles(imageTitles)
+        const imagesBinData = await res.data.data
+        setCarouselImageData(imagesBinData)
       } else {
         console.log("Failed to fetch images")
       }
@@ -71,88 +31,102 @@ const Carousel = () => {
     }
   }
 
-console.log(carouselTitles)
+  const CustomPrevArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <div className={className} onClick={onClick}>
+        <IoIosArrowDropleftCircle
+          style={{
+            position: "relative",
+            top: "50%",
+            transform: "translateY(-50%)",
+            cursor: "pointer",
+            zIndex: "1",
+            left: "50%"
+          }} />
+      </div>
+    );
+  };
 
-  const imageUrls = carouselImages.map(imageString => `data:image/jpeg;base64,${imageString}`);
+  const CustomNextArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <div className={className} onClick={onClick}>
+        <IoIosArrowDroprightCircle />
+      </div>
+    );
+  };
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000, // Adjust the autoplay speed as needed
+    pauseOnHover: true,
+    cssEase: 'linear', // Apply linear transition between slides
+
+    prevArrow: <CustomPrevArrow />, // Use the custom prevArrow component
+    nextArrow: <CustomNextArrow />, // 
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+
+
 
   useEffect(() => {
     FetchCarouselImages()
   }, [])
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prevIndex) => (prevIndex + 1) % carouselImages.length);
-    }, 4000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [carouselImages]);
-
-
-  const imageStyle = {
-    transition: 'filter 0.2s ease-in-out',
-  };
-
-
   return (
-    <Flex
-      w="full"
-      bg="#edf3f8"
-      _dark={{
-        bg: "#3e3e3e",
-      }}
-      p={0}
-      alignItems="center"
-      justifyContent="center"
+    <Box
+      h="80vh"
+      overflow="hidden"
     >
-      <Flex w="full" pos="relative" boxSize="full" overflow="hidden">
-        <Flex w="full" boxSize="full" {...carouselStyle}>
-          {imageUrls.map((url,index) => (
-            <Box key={`imageUrl-${index}`} boxSize="full" shadow="md" flex="none">
-              {/* <Text  color="white"  fontSize="xs"  p="8px 12px"  pos="absolute" top="0"  >  {sid + 1} / {imagesCount}</Text> */}
-              <AspectRatio ratio={2.1}>
-                <Image
-                  src={url}
-                  style={imageStyle}
-                  fallbackSrc='https://via.placeholder.com/150'
-                  bg="rgba(255,0,0,0.5)"
-                  alt="carousel image"
-                  boxSize="full"
-                  backgroundSize="cover"
-                  height={600}
-                />
-              </AspectRatio>
-              <Stack
+      <Slider {...settings}>
+        {carouselImageData && carouselImageData.map((image, index) => (
+          <>
+            <AspectRatio ratio={2.1}>
+              <Image
+                
+                minH="100%"
+                objectFit="cover" // Fit image within the box
+                src={`data:image/jpeg;base64,${image.carouselImage}`}
+                alt={image.imageTitle}
+              />
+            </AspectRatio>
+          
+              {/* <Heading
+                as={"h1"}
+                right="50%"
+                bottom="top%"
+                fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }}
+                lineHeight='tall'
+                zIndex={'10'} 
                 p="8px 12px"
                 pos="absolute"
-                bottom="24px"
                 textAlign="center"
                 w="full"
                 mb="8"
-              >
-              <Heading as={"h1"} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} lineHeight='tall' zIndex={'10'}>
-                  <Highlight
-                    query={carouselTitles[index]}
-                    styles={{ px: '3', py: '1', rounded: '10px', bg:"rgba(255,255,255,0.4)" }}
-                    >
-                    {carouselTitles[index]}
-                  </Highlight>
-                </Heading>
-                {/* <Text fontSize="lg">{slide.description}</Text> */}
-              </Stack>
-            </Box>
-          ))}
-        </Flex>
-        <Text {...arrowStyles} left="0" onClick={prevSlide}>
-          &#10094;
-        </Text>
-        <Text {...arrowStyles} right="0" onClick={nextSlide}>
-          &#10095;
-        </Text>
-      </Flex>
-     
-    </Flex>
+                >
+                {image.imageTitle}
+              </Heading> */}
+       
+          </>
+        ))}
+      </Slider>
+
+    </Box>
   );
 };
 
-export default Carousel
+export default Carousel;

@@ -128,38 +128,41 @@ const Home = () => {
                 <Box>
                     <Carousel />
                 </Box>
-            {/* ABOUT US */}
+                {/* ABOUT US */}
                 <Box maxW={'full'} bg={useColorModeValue('blue.500', 'gray.1000')}>
                     <CallToActionWithVideo />
                 </Box>
-            {/* MESSAGES */}
+                {/* MESSAGES */}
                 <Box>
                     <ImageParagraph />
                 </Box>
                 <Box>
                     <ImageParagraph2 />
                 </Box>
-            {/* OUR VALUABLE CLIENTS */}
+                {/* OUR VALUABLE CLIENTS */}
                 <Box>
                     <BlogArticleCard />
                 </Box>
-            {/* JOB SECTORS */}
+                {/* JOB SECTORS */}
                 <Box >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}
                         color={useColorModeValue('blue.600', 'gray.1000')}
                     >
                         Sectors We Work In
                     </Heading>
-                    <Box >
+                    <Box color={useColorModeValue('blue.600', 'gray.200')}
+                    >
                         <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
                             <SimpleCard categories={categories} />
                         </Grid>
                     </Box>
                 </Box>
-            {/* LATEST JOBS */}
-                <Box maxW={'full'} bg={useColorModeValue('blue.600', 'gray.1000')}
-                    color='white'
-                    >
+                {/* LATEST JOBS */}
+                <Box 
+                maxW={'full'} 
+                bg={useColorModeValue('blue.600', 'gray.1000')}
+                color='white'
+                >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}>
                         Latest Jobs
                     </Heading>
@@ -168,7 +171,13 @@ const Home = () => {
                             {slicedJobsList.map((job, index) => {
                                 return (<>
 
-                                    <Card maxW='sm' >
+                                    <Card maxW='sm'
+                                        boxShadow={'2xl'}
+                                        p={2}
+                                        _hover={{ boxShadow: "0 0 0 2px rgba(251, 251, 251, 3)" }}
+                                        transition="box-shadow 0.3s"
+                                        rounded="10px"
+                                    >
                                         <CardBody w='100%' h='10' bg='' >
                                             <Image
                                                 src={job.src}
@@ -206,14 +215,14 @@ const Home = () => {
                             rounded={'full'}
                             color={'blue.500'}
                             _hover={{ bg: 'whiteAlpha.900', color: 'blue.600' }}
-                            onClick={()=>navigate("/jobs")}
+                            onClick={() => navigate("/jobs")}
                         >
                             View All Jobs
                         </Button>
                     </Flex>
                 </Box>
                 <Divider />
-            {/* OPERATING PROCEDURE */}
+                {/* OPERATING PROCEDURE */}
                 <Box alignContent={'center'} align="center"
                     color={useColorModeValue('blue.700', 'gray.1000')}
                 >
@@ -224,7 +233,7 @@ const Home = () => {
                         <Procedure />
                     </Box>
                 </Box>
-            {/* TESTIMONIALS */}
+                {/* TESTIMONIALS */}
                 <Box>
                     <TestimonialCard />
                 </Box>
@@ -235,17 +244,17 @@ const Home = () => {
                         <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
                             Our Clients
                         </Heading>
-            {/* CLIENTS CAROUSEL */}
+                        {/* CLIENTS CAROUSEL */}
                         <Box>
                             <SmoothCarousel />
                         </Box>
                         <Box color={useColorModeValue('blue.600', 'gray.500')} pb={50}>
-            {/* STASTISTICS */}
-                        <Heading color={useColorModeValue('gray.100', 'gray.50')} m={2} fontSize={'4xl'} fontFamily={'body'} p={10} mb={30} minH={'200px'}>
-                            Sky Way Nepal Statistics
-                        </Heading>
-                        <BarChart labels={['Countries', 'Jobs', 'Sectors']} bg={['yellow.400', 'red.400', 'green.400']} />
-                        <StatisticsCard />
+                            {/* STASTISTICS */}
+                            <Heading color={useColorModeValue('gray.100', 'gray.50')} m={2} fontSize={'4xl'} fontFamily={'body'} p={10} mb={30} minH={'200px'}>
+                                Sky Way Nepal Statistics
+                            </Heading>
+                            <BarChart labels={['Countries', 'Jobs', 'Sectors']} bg={['yellow.400', 'red.400', 'green.400']} />
+                            <StatisticsCard />
                         </Box>
                     </Box>
                 </Stack>

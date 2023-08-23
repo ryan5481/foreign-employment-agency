@@ -1,6 +1,6 @@
 import multer from 'multer'
 
-const topCarouselImagesStorage = multer.diskStorage({
+const topCarouselImageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "../server/uploads/topCarouselImages")
     },
@@ -9,11 +9,11 @@ const topCarouselImagesStorage = multer.diskStorage({
     }
 })
 
-export const TopCarouselImagesUpload = multer({
-    storage: topCarouselImagesStorage, 
+export const TopCarouselImageUpload = multer({
+    storage: topCarouselImageStorage, 
     // limits: { fileSize: 1024 * 1024 * 4 },
     // fileFilter: fileFilter
-}).array("carouselImages", 12)
+}).single("carouselImage")
 
 //////////
 
