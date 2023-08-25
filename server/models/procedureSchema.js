@@ -5,7 +5,7 @@ const procedureSchema = ({
 
     landmark: {
         type: String,
-        default: "skywaynepal.com",
+        default: "radiantInfoTech"
     },
 
     procedureText: {

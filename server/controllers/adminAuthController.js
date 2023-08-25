@@ -36,7 +36,7 @@ export const AdminLogin = async (req, res) => {
         if (!adminUser || !(await bcrypt.compare(password, adminUser.password))) {
             return (res.status(401).json({ msg: "Invalid email or password." }))
         } else {
-            console.log(adminUser.fullName)
+            // console.log(adminUser.fullName)
             res.status(200).json({
                 msg: "Logged into admin account successfully.",
                 fullName: adminUser.fullName,

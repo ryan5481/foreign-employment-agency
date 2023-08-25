@@ -9,7 +9,8 @@ import {
     AddWorkSector, SetWorkSectors, GetWorkSectors, DeleteWorkSector,
     AddProcedure, SetProcedure, GetProcedure, DeleteProcedure,
     PostBottomCarouselImages, GetBottomCarouselImages, UpdateBottomCarouselImage, DeleteBottomCarouselImages,
-    PostTestimony, GetTestimonies, UpdateTestimonies, DeleteTestimony
+    PostTestimony, GetTestimonies, UpdateTestimonies, DeleteTestimony,
+    PostStats, GetStats, EditStats
 } from "../controllers/homePageController.js"
 import {
     TopCarouselImageUpload,
@@ -63,6 +64,10 @@ router.get("/get-testimonies", GetTestimonies)
 router.put("/edit-homepage/update-testimony", TestimonyImageUpload, UpdateTestimonies)
 router.delete("/edit-homepage/delete-testimony/:id", DeleteTestimony)
 
+//STSTISTICS DISPLAY
+router.post("/edit-homepage/post-stats", PostStats)
+router.get("/get-stats", GetStats)
+router.put("/edit-homepage/edit-stats/", EditStats)
 
 
 

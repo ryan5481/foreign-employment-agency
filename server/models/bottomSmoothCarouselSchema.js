@@ -4,7 +4,7 @@ const bottomSmoothCarouselSchema = ({
 
     landmark: {
         type: String,
-        default: "skywaynepal.com"
+        default: "radiantInfoTech"
     },
 
     carouselImage: {

@@ -4,10 +4,8 @@ import Header from "../models/headerSchema.js"
 export const PostHeader = async(req, res) => {
     try
     {
-        const newReq = {... req.body}
-        newReq.headerLandmark= "skywaynepal.com"
 
-        const data = await Header.create(newReq)
+        const data = await Header.create(req.body)
         if(data){
             res.status(200).json({
                 msg: "Header updated successfully."

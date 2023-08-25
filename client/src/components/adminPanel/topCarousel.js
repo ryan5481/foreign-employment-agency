@@ -42,7 +42,6 @@ const EditCarousel = (props) => {
         }
     }
 
-    console.log(carouselImageData)
 
     // ADD A NEW TITLE 
     const handleUploadNewImage = async () => {

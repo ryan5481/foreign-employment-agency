@@ -2,6 +2,12 @@ import mongoose from "mongoose";
 const Schema = mongoose;
 
 const jobSchema = ({
+
+    landmark: {
+        type: String,
+        default: "radiantInfoTech"
+    },
+    
     title: {
         type: String,
     },

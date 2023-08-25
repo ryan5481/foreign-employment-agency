@@ -5,7 +5,7 @@ const sectorsSchema = ({
 
     landmark: {
         type: String,
-        default: "skywaynepal.com"
+        default: "radiantInfoTech"
     },
 
     serialNumber: {

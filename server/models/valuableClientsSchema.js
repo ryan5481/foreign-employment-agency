@@ -5,7 +5,7 @@ const valuableClientsSchema = ({
 
     landmark: {
         type: String,
-        default: "skywaynepal.com"
+        default: "radiantInfoTech"
     },
 
     valuableClientsImage1: {

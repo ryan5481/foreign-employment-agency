@@ -6,6 +6,7 @@ import Procedure from "../models/procedureSchema.js"
 import Sectors from "../models/sectorsSchema.js"
 import BottomCarousel from "../models/bottomSmoothCarouselSchema.js"
 import Testimony from "../models/testimonySchema.js"
+import Statistics from "../models/statisticsSchema.js"
 import * as fs from "fs"
 import path from "path"
 
@@ -37,7 +38,7 @@ export const PostCarouselImages = async(req, res) => {
 
 export const GetCarouselImages = async(req, res) => {
     try{
-        console.log(req)
+        // console.log(req)
         const data = await TopCarousel.find()
         if(data){
             res.status(200).json({
@@ -55,7 +56,7 @@ export const GetCarouselImages = async(req, res) => {
 
 export const UpdateCarouselImage = async(req, res) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
             if(req.file){
                 const image = fs.readFileSync(path.join("../server/uploads/topCarouselImages/" + req.file.filename))
                 const reqInclImage = {... req.body, carouselImage: image}
@@ -270,7 +271,7 @@ export const GetValuableClients = async(req, res) => {
 /// WORK SECTORS
 export const AddWorkSector = async(req, res) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
             if(req.file){
                 const image = fs.readFileSync(path.join("../server/uploads/workSectors/" + req.file.filename))
                 const reqInclImage = {... req.body, sectorImage: image}
@@ -296,7 +297,7 @@ export const AddWorkSector = async(req, res) => {
 
 export const SetWorkSectors = async(req, res) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
             if(req.file){
                 const image = fs.readFileSync(path.join("../server/uploads/workSectors/" + req.file.filename))
                 const reqInclImage = {... req.body, sectorImage: image}
@@ -364,7 +365,7 @@ export const DeleteWorkSector = async(req, res) => {
 // OPERATING PROCEDURE
 export const AddProcedure = async(req, res) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
             const data = await Procedure.create(req.body)
             if(data){
                 res.status(200).json({
@@ -382,7 +383,7 @@ export const AddProcedure = async(req, res) => {
 
 export const SetProcedure = async(req, res) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
             const data = await Procedure.findByIdAndUpdate(req.body._id, req.body)
             if(data){
                 res.status(200).json({
@@ -459,7 +460,7 @@ export const PostBottomCarouselImages = async(req, res) => {
 
 export const GetBottomCarouselImages = async(req, res) => {
     try{
-        console.log(req)
+        // console.log(req)
         const data = await BottomCarousel.find()
         if(data){
             res.status(200).json({
@@ -477,7 +478,7 @@ export const GetBottomCarouselImages = async(req, res) => {
 
 export const UpdateBottomCarouselImage = async(req, res) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
             if(req.file){
                 const image = fs.readFileSync(path.join("../server/uploads/bottomSmoothCarouselImages/" + req.file.filename))
                 const reqInclImage = {... req.body, carouselImage: image}
@@ -529,7 +530,6 @@ export const DeleteBottomCarouselImages = async(req, res) => {
 export const PostTestimony = async(req, res) => {
     try{
         if(req.file){
-            console.log
             let testimonyImage = fs.readFileSync(path.join("../server/uploads/testimonyImages/" + req.file.filename))
         
         let updatedData = {...req.body, testimonyImage: testimonyImage}
@@ -620,3 +620,59 @@ export const DeleteTestimony = async(req, res) => {
     }
 }
 
+// STATISTICS
+export const PostStats = async(req, res) => {
+    try
+    {
+        const data = await Statistics.create(req.body)
+        if(data){
+            res.status(200).json({
+                msg: "Data updated successfully."
+            })
+        }else{
+            res.json({
+                msg: "Failed to update the data."
+            })
+        }
+       
+    }catch(err){
+        console.log("Error: " + err)
+    }
+}
+
+export const GetStats =  async(req, res) => {
+    try{
+        const data = await Statistics.findById({_id: "64e8a8dc392d711c2b46e9b1"})
+        if(data){
+            res.status(200).json({
+                data
+            })
+        }else{
+            res.json({
+                msg: "Failed to fetch data."
+            })
+        }
+        
+    }catch(err){
+        console.log("Error: " + err)}
+}
+
+export const EditStats = async(req, res) => {
+    try
+    {
+        console.log(req.body)
+        const updatedData = await Statistics.findByIdAndUpdate(req.body._id, req.body)
+        if(updatedData){
+            res.status(200).json({
+                msg: "Data updated successfully."
+            })
+        }else{
+            res.json({
+                msg: "Failed to update the data."
+            })
+        }
+       
+    }catch(err){
+        console.log("Error: " + err)
+    }
+}

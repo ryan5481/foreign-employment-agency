@@ -3,9 +3,9 @@ const Schema = mongoose;
 
 const companyMessageSchema2 = ({
 
-    companyMessageLandmark: {
+    landmark: {
         type: String,
-        default: "skywaynepal.com"
+        default: "radiantInfoTech"
     },
 
     companyMsgImage2: {
