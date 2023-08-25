@@ -106,9 +106,7 @@ const EditFooter = () => {
                 instagramLink: formData.instagramLink,
                 fileDownloadText: formData.fileDownloadText
             })
-            if (response) {
-                window.location.reload();
-            }
+            GetFooterData()
 
         } catch (error) {
             console.error('Error:', error.response);

@@ -4,6 +4,8 @@ import CompanyMessage2 from "../models/companyMessageSchema2.js"
 import ValuableClients from "../models/valuableClientsSchema.js"
 import Procedure from "../models/procedureSchema.js"
 import Sectors from "../models/sectorsSchema.js"
+import BottomCarousel from "../models/bottomSmoothCarouselSchema.js"
+import Testimony from "../models/testimonySchema.js"
 import * as fs from "fs"
 import path from "path"
 
@@ -429,3 +431,192 @@ export const DeleteProcedure = async(req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+//BOTTOM SMOOTH CAROUSEL
+export const PostBottomCarouselImages = async(req, res) => {
+    try{
+        if(req.file){
+            console.log
+            let carouselImage = fs.readFileSync(path.join("../server/uploads/bottomSmoothCarouselImages/" + req.file.filename))
+        
+        let updatedData = {...req.body, carouselImage: carouselImage}
+
+        const data = await BottomCarousel.create(updatedData)
+            if(data){
+                res.status(200).json({
+                    msg: "Carousel images added successfully."})
+            }else{
+                res.status(403).json({
+                    msg: "Failed to add carousel images."
+                }) 
+            }
+        } else{
+            console.log("File not received.")
+        }
+    }catch(error)
+    {console.log(error)}
+} 
+
+export const GetBottomCarouselImages = async(req, res) => {
+    try{
+        console.log(req)
+        const data = await BottomCarousel.find()
+        if(data){
+            res.status(200).json({
+                msg: "Success",
+                data
+            })
+        }else{
+            res.status(403).json({
+                msg: "Failed to fetch carousel images."
+            }) 
+        }
+    } catch(error){
+        console.log(error)}
+}
+
+export const UpdateBottomCarouselImage = async(req, res) => {
+    try{
+        console.log(req.body)
+            if(req.file){
+                const image = fs.readFileSync(path.join("../server/uploads/bottomSmoothCarouselImages/" + req.file.filename))
+                const reqInclImage = {... req.body, carouselImage: image}
+            const data = await BottomCarousel.findByIdAndUpdate(req.body._id, reqInclImage)
+            if(data){
+                res.status(200).json({
+                    msg: "Changes updated successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+        }else{
+            const data = await BottomCarousel.findByIdAndUpdate(req.body._id, req.body)
+            if(data){
+                res.status(200).json({
+                    msg: "Changes updated successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+        }  
+    }catch(error){
+        console.log("error: " + error)
+    }
+}
+
+export const DeleteBottomCarouselImages = async(req, res) => {
+    try {
+        const imageId = req.params.id;
+
+        const deletedImage = await BottomCarousel.findByIdAndDelete(imageId);
+
+        if (!deletedImage) {
+            return res.status(404).json({ message: 'Image not found' });
+        }
+
+        res.status(200).json({ message: 'Image deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting sector:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+//TESTIMONIALS
+export const PostTestimony = async(req, res) => {
+    try{
+        if(req.file){
+            console.log
+            let testimonyImage = fs.readFileSync(path.join("../server/uploads/testimonyImages/" + req.file.filename))
+        
+        let updatedData = {...req.body, testimonyImage: testimonyImage}
+
+        const data = await Testimony.create(updatedData)
+            if(data){
+                res.status(200).json({
+                    msg: "Data added successfully."})
+            }else{
+                res.status(403).json({
+                    msg: "Failed to add data."
+                }) 
+            }
+        } else{
+            console.log("File not received.")
+        }
+    }catch(error)
+    {console.log(error)}
+} 
+// color={useColorModeValue('blue.700', 'gray.1000')}
+
+
+export const GetTestimonies = async(req, res) => {
+    try{
+        console.log(req)
+        const data = await Testimony.find()
+        if(data){
+            res.status(200).json({
+                msg: "Success",
+                data
+            })
+        }else{
+            res.status(403).json({
+                msg: "Failed to fetch data."
+            }) 
+        }
+    } catch(error){
+        console.log(error)}
+}
+
+export const UpdateTestimonies = async(req, res) => {
+    try{
+        console.log(req.body)
+            if(req.file){
+                const testimonyImage = fs.readFileSync(path.join("../server/uploads/testimonyImages/" + req.file.filename))
+                const reqInclImage = {... req.body, testimonyImage: testimonyImage}
+            const data = await Testimony.findByIdAndUpdate(req.body._id, reqInclImage)
+            if(data){
+                res.status(200).json({
+                    msg: "Changes updated successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+        }else{
+            const data = await Testimony.findByIdAndUpdate(req.body._id, req.body)
+            if(data){
+                res.status(200).json({
+                    msg: "Changes updated successfully.",
+                })
+            }else{
+                res.status(403).json({
+                    msg: "Failed to update changes."
+                }) 
+            }
+        }  
+    }catch(error){
+        console.log("error: " + error)
+    }
+}
+
+export const DeleteTestimony = async(req, res) => {
+    try {
+        const imageId = req.params.id;
+
+        const deletedImage = await Testimony.findByIdAndDelete(imageId);
+
+        if (!deletedImage) {
+            return res.status(404).json({ message: 'Data not found' });
+        }
+
+        res.status(200).json({ message: 'Data deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting sector:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+

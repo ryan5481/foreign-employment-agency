@@ -4,7 +4,7 @@ import { SmallCloseIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
 
-const EditCarousel = (props) => {
+const EditBottomCarousel = (props) => {
     const [carouselImageData, setCarouselImageData] = useState([])
 
     const [sectorsData, setSectorsData] = useState([])
@@ -27,7 +27,7 @@ const EditCarousel = (props) => {
     const fetchCarouselImages = async () => {
 
         try {
-            const res = await axios.get("http://localhost:8000/get-carousel-images")
+            const res = await axios.get("http://localhost:8000/get-bottomcarousel-images")
             if (res) {
                 const newData = await res.data.data
                 setCarouselImageData(newData)
@@ -52,7 +52,7 @@ const EditCarousel = (props) => {
             formData.append('imageTitle', imageTitle);
 
             try {
-                await axios.post("http://localhost:8000/edit-homepage/add-topcarousel-image", formData, {
+                await axios.post("http://localhost:8000/edit-homepage/add-bottomcarousel-image", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -69,7 +69,7 @@ const EditCarousel = (props) => {
     const handleImageDelete = async () => {
         if (imageToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/edit-homepage/delete-topcarousel-image/${imageToDelete}`)
+                const res = await axios.delete(`http://localhost:8000/edit-homepage/delete-bottomcarousel-image/${imageToDelete}`)
                 if (res) {
                     fetchCarouselImages();
                     onClose();
@@ -89,7 +89,7 @@ const EditCarousel = (props) => {
         }
         const updatedTitle = imageTitles[index]
         try {
-            await axios.put('http://localhost:8000/edit-homepage/update-topcarousel-image', {
+            await axios.put('http://localhost:8000/edit-homepage/update-bottomcarousel-image', {
                 _id: imageId,
                 imageTitle: updatedTitle
 
@@ -102,6 +102,7 @@ const EditCarousel = (props) => {
 
     const handleNewImageSelect = (event) => {
         setSelectedImageFile(event.target.files[0])
+
     }
 
     const handleImageReplace = async (imageId) => {
@@ -260,7 +261,7 @@ const EditCarousel = (props) => {
 
                     </>)
                 })}
-                {carouselImageData.length <= 5 ?
+                {carouselImageData.length <= 11 ?
 
                     (<Box
                         boxShadow={'2xl'}
@@ -359,4 +360,4 @@ const EditCarousel = (props) => {
     )
 }
 
-export default EditCarousel
+export default EditBottomCarousel

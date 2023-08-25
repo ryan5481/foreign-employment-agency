@@ -105,3 +105,35 @@ export const WorkSectorsImgUpload = multer({
     // limits: { fileSize: 1024 * 1024 * 4 }, //max file size 4 MB
     // fileFilter: fileFilter
 }).single("sectorImage")
+
+//////////
+const bottomSmoothCarouselImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/bottomSmoothCarouselImages")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "bottomSmoothCarouselImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const BottomSmoothCarouselImageUpload = multer({
+    storage: bottomSmoothCarouselImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("carouselImage")
+
+//////////
+const testimonyImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/testimonyImages")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "TestimonyImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const TestimonyImageUpload = multer({
+    storage: testimonyImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("testimonyImage")

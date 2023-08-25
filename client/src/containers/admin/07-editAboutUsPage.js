@@ -115,9 +115,7 @@ const EditAboutUsPage = () => {
                     text4: formData.text4,
                 }
             )
-            if (response) {
-                window.location.reload();
-            }
+            GetAboutUsData()
         } catch (error) {
             console.error('Error:', error.response);
         }

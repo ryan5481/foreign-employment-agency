@@ -26,6 +26,8 @@ import ValuableClients from "../../components/adminPanel/valubleClients";
 import JobSectors from "../../components/adminPanel/jobSectors";
 import OperatingProcedure from "../../components/adminPanel/operatingProcedure";
 import EditCarousel from "../../components/adminPanel/topCarousel";
+import EditBottomCarousel from "../../components/adminPanel/bottomSmooothCarousel";
+import EditTestimony from "../../components/adminPanel/editTestimony";
 
 const EditHomePage = () => {
     //CAROUSEL
@@ -141,6 +143,12 @@ const EditHomePage = () => {
                 <Box >
                     <OperatingProcedure />
                 </Box>
+            </Box>
+            <Box>
+            <EditBottomCarousel/>
+            </Box>
+            <Box>
+            <EditTestimony/>
             </Box>
 
         </Box>
