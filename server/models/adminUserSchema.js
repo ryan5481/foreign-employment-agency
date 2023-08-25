@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 const Schema = mongoose;
 
 const adminUserSchema = ({
+    landmark: {
+        type: String,
+        default: "radiantInfoTech"
+    },
+    
     fullName: {
         type: String,
         default: "Full Name"

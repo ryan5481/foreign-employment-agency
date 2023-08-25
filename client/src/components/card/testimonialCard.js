@@ -112,7 +112,7 @@ const TestimonialCard = () => {
       const res = await axios.get('http://localhost:8000/get-testimonies');
       const newData = await res.data.data
       setTestimonyData(newData)
-      console.log(testimonyData)
+      // console.log(testimonyData)
       // setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);

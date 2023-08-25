@@ -4,12 +4,12 @@ const testimonySchema = ({
 
     landmark: {
         type: String,
-        default: "skywaynepal.com"
+        default: "radiantInfoTech"
     },
 
     testimonyImage: {
         type: Object,
-        default:{},
+        default: {},
     },
 
     imageTitle: {
@@ -29,7 +29,7 @@ const testimonySchema = ({
     },
 
     createdAt: { type: Date, default: Date.now },
-    
+
     updatedAt: { type: Date, default: Date.now },
 
 })

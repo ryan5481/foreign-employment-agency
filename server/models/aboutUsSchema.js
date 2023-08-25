@@ -3,9 +3,9 @@ const Schema = mongoose;
 
 const aboutUsSchema = ({
 
-    aboutUsLandmark: {
+    landmark: {
         type: String,
-        default: "skywaynepal.com"
+        default: "radiantInfoTech"
     },
 
     aboutUsImage: {

@@ -13,7 +13,6 @@ const Procedure1 = () => {
       const res = await axios.get("http://localhost:8000/get-procedure")
       if(res){
         setStepperData(res.data.data)
-        console.log(stepperData)
       }
     }catch(error){
       console.error("Error: ", error)

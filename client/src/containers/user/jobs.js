@@ -19,7 +19,7 @@ const Jobs = () => {
         try {
             const res = await axios.get('http://localhost:8000/jobslist');
             setData(res.data.jobsList);
-            console.log(data)
+            // console.log(data)
             setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);

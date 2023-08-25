@@ -3,9 +3,9 @@ const Schema = mongoose;
 
 const footerSchema = ({
 
-    footerLandmark: {
+    landmark: {
         type: String,
-        default: "skywaynepal.com"
+        default: "radiantInfoTech"
     },
 
     column1Line1: {

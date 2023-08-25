@@ -121,7 +121,6 @@ const EditTestimony = () => {
     }
   };
 
-  console.log(imageTitles, names, descriptions, addresses)
 
   // EDIT
   const handleTestimonyEdit = async (event, imageId, index) => {

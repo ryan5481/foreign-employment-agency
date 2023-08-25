@@ -3,9 +3,9 @@ const Schema = mongoose;
 
 const headerSchema = ({
 
-    headerLandmark: {
+    landmark: {
         type: String,
-        default: "skywaynepal.com"
+        default: "radiantInfoTech"
     },
 
     field1: {

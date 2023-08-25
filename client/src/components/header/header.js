@@ -53,7 +53,7 @@ const Header = () => {
   const GetHeaderData = async() => {
     const res = await axios.get('http://localhost:8000/get-header')
     if(res){
-      console.log("DATAAAA:" + data)
+      // console.log("DATAAAA:" + data)
       setData(res.data.headerData)
     }else{
       alert("Failed to fech header data")

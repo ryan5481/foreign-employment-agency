@@ -28,6 +28,7 @@ import OperatingProcedure from "../../components/adminPanel/operatingProcedure";
 import EditCarousel from "../../components/adminPanel/topCarousel";
 import EditBottomCarousel from "../../components/adminPanel/bottomSmooothCarousel";
 import EditTestimony from "../../components/adminPanel/editTestimony";
+import EditStats from "../../components/adminPanel/editStatistics";
 
 const EditHomePage = () => {
     //CAROUSEL
@@ -149,6 +150,9 @@ const EditHomePage = () => {
             </Box>
             <Box>
             <EditTestimony/>
+            </Box>
+            <Box>
+            <EditStats/>
             </Box>
 
         </Box>

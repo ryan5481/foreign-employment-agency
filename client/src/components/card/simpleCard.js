@@ -13,7 +13,6 @@ const SimpleCard = (props) => {
             const res = await axios.get('http://localhost:8000/get-worksectors');
             const newData = await res.data.data
             setSectorsData(newData)
-            console.log(sectorsData)
             // setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);

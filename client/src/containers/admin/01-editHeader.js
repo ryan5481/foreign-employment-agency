@@ -14,7 +14,7 @@ import {
     Button,
     Text
 } from "@chakra-ui/react"
-import { FaInstagram, FaTwitter, FaViber, FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
+import {FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 
 const EditHeader = () => {
     const navigate = useNavigate()
