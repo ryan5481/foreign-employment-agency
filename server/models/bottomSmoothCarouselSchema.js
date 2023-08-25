@@ -1,0 +1,25 @@
+import mongoose from "mongoose";
+
+const bottomSmoothCarouselSchema = ({
+
+    landmark: {
+        type: String,
+        default: "skywaynepal.com"
+    },
+
+    carouselImage: {
+        type: Object,
+        default:{},
+    },
+
+    imageTitle: {
+        type: String,
+    },
+
+    createdAt: { type: Date, default: Date.now },
+    
+    updatedAt: { type: Date, default: Date.now },
+
+})
+
+export default mongoose.model("BottomCarousel", bottomSmoothCarouselSchema, "BottomCarousel")

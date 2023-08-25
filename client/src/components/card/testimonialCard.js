@@ -1,4 +1,5 @@
-//chakra UI testimonials 1
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import {
   Box,
   Flex,
@@ -27,7 +28,10 @@ const TestimonialContent = (props: Props) => {
     <Stack
       bg={useColorModeValue('white', 'gray.800')}
       boxShadow={'lg'}
-      p={8}
+      minH="150"
+      minW="350"
+      px={2}
+      py={5}
       rounded={'xl'}
       align={'center'}
       pos={'relative'}
@@ -97,7 +101,30 @@ const TestimonialAvatar = ({
   )
 }
 
+////////////MAIN FUNCTION /////////////////
+
 const TestimonialCard = () => {
+  //FETCH
+  const [testimonyData, setTestimonyData] = useState([])
+
+  const fetchTestimonies = async () => {
+    try {
+      const res = await axios.get('http://localhost:8000/get-testimonies');
+      const newData = await res.data.data
+      setTestimonyData(newData)
+      console.log(testimonyData)
+      // setLoading(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // setLoading(false);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchTestimonies();
+  }, [])
+
   return (
     <Box bg={useColorModeValue('blue.600', 'gray.700')}
     >
@@ -110,56 +137,34 @@ const TestimonialCard = () => {
           direction={{ base: 'column', md: 'row' }}
           spacing={{ base: 10, md: 4, lg: 10 }}
           color={useColorModeValue('blue.700', 'gray.1000')}
-          >
-          <Testimonial  >
-            <TestimonialContent >
-              <TestimonialHeading>Lorem ipsum dolor sit amet</TestimonialHeading>
-              <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
-                imperdiet nibh lectus feugiat nunc sem.
-              </TestimonialText>
-            </TestimonialContent>
-            <TestimonialAvatar
-              src={
-                'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
-              }
-              name={'Ram Kumar Thapa'}
-              title={'Bharatpur, Nepal'}
-            />
-          </Testimonial>
-          <Testimonial>
-            <TestimonialContent>
-              <TestimonialHeading>Lorem ipsum dolor sit amet</TestimonialHeading>
-              <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
-                imperdiet nibh lectus feugiat nunc sem.
-              </TestimonialText>
-            </TestimonialContent>
-            <TestimonialAvatar
-              src={
-                'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
-              }
-              name={'Bimala Khadha'}
-              title={'Ghorkha, Nepal'}
-            />
-          </Testimonial>
-          <Testimonial>
-            <TestimonialContent>
-              <TestimonialHeading>Lorem ipsum dolor sit amet</TestimonialHeading>
-              <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
-                imperdiet nibh lectus feugiat nunc sem.
-              </TestimonialText>
-            </TestimonialContent>
-            <TestimonialAvatar
-              src={
-                'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
-              }
-              name={'Sandip Kumal'}
-              title={'Banepa, Kavre'}
-            />
-          </Testimonial>
+        >
+          {testimonyData.map((testimony, id) => (
+            <Testimonial  >
+              <Box
+                _hover={{
+                  transform: 'scale(1.1)',
+                  transition: '0.2s ease-in-out',
+                }}
+              >
+                <TestimonialContent
+                >
+                  <TestimonialHeading>{testimony.imageTitle}</TestimonialHeading>
+                  <TestimonialText>
+                    {testimony.description}
+                  </TestimonialText>
+                </TestimonialContent>
+              </Box>
+              <TestimonialAvatar
+                src={
+                  `data:image/jpeg;base64,${testimony.testimonyImage}`
+                }
+                name={testimony.name}
+                title={testimony.address}
+              />
+            </Testimonial>
+          ))}
         </Stack>
+
       </Container>
     </Box>
   )

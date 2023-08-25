@@ -1,5 +1,5 @@
-// Carousel.js
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -14,60 +14,31 @@ const CustomNextArrow = (props) => {
     return <></>; // Empty fragment to hide the button
 };
 
-const clientLogos = [
-    {
-        src: "https://skywaynepal.com/static/media/27.300b31315d27839eddd4.png",
-        alt: "Image 1",
-    },
-    {
-        src: "https://skywaynepal.com/static/media/29.8046742e5ff424b0ed9e.jpg",
-        alt: "Image 2",
-    },
-    {
-        src: "https://skywaynepal.com/static/media/42.442cf1f108a021d20a1f.jpg",
-        alt: "Image 3",
-    },
-    {
-        src: "https://skywaynepal.com/static/media/45.31288e429d4659ae1fb6.jpg",
-        alt: "Image 3",
-    },
-    {
-        src: "https://skywaynepal.com/static/media/35.6248a887af7eb36fc706.jpg",
-        alt: "Image 3",
-    },
-    {
-        src: "https://skywaynepal.com/static/media/9.1360b347d1707f91773d.jpg",
-        alt: "Image 3",
 
-    },
-    {
-        src: "https://skywaynepal.com/static/media/8.dd722d0b1f672a7ae166.jpg",
-        alt: "Image 3",
-    },
-    {
-        src: "https://skywaynepal.com/static/media/41.f48a96f47057042a5be4.jpg",
-        alt: "Image 3"
-    },
-    {
-        src: "https://skywaynepal.com/static/media/16.252f7618a3e3d9a562fb.jpg",
-        alt: "Image 3"
-    },
-    {
-        src: "https://skywaynepal.com/static/media/34.de5f7de8169cf63cc4a0.png",
-        alt: "Image 3",
-
-    },
-    {
-        src: "https://skywaynepal.com/static/media/37.b505fd1a24a365f773f9.jpg",
-        alt: "Image 3",
-    },
-    {
-        src: "https://skywaynepal.com/static/media/40.6e4aee4e6de1a4381656.jpg",
-        alt: "Image 3",
-    },
-]
 
 const Carousel = () => {
+  const [carouselImageData, setCarouselImageData] = useState([])
+
+
+  const FetchCarouselImages = async () => {
+
+    try {
+      const res = await axios.get("http://localhost:8000/get-bottomcarousel-images")
+      if (res) {
+        const imagesBinData = await res.data.data
+        setCarouselImageData(imagesBinData)
+      } else {
+        console.log("Failed to fetch images")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    FetchCarouselImages()
+}, [])
+
     const settings = {
         dots: false,
         infinite: true,
@@ -93,7 +64,7 @@ const Carousel = () => {
     return (
         <Box w="90%">
         <Slider {...settings}>
-          {clientLogos.map((image, index) => (
+          {carouselImageData.map((imageData, index) => (
             <Center key={index}>
               <VStack spacing={5} mb={30}>
                 <Box
@@ -107,8 +78,8 @@ const Carousel = () => {
                     h="100%" // Maximize image height within the container
                     w="auto" // Maintain image's aspect ratio
                     objectFit="contain" // Fit image within the box
-                    src={image.src}
-                    alt={image.alt}
+                    src={`data:image/jpeg;base64,${imageData.carouselImage}`}
+                    alt={imageData.imageTitle}
                   />
                 </Box>
               </VStack>

@@ -89,9 +89,8 @@ const OperatingProcedure = () => {
                 _id: stepId,
                 procedureText: updatedStepText,
             })
-            if (res) {
                 fetchStepperData()
-            }
+
         } catch (error) {
             console.error('Error updating title:', error);
         }
