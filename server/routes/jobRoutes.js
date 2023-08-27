@@ -2,9 +2,11 @@
 import express from "express";
 const router = express.Router()
 
-import {PublishJob, GetJobsList} from "../controllers/jobController.js"
+import {PublishJob, GetJobsList, UpdateJobDescription} from "../controllers/jobController.js"
+import { JobImageUpload } from "../middleware/imageUpload.js";
 
-router.post("/publishjob", PublishJob)
+router.post("/admin/publishjob", JobImageUpload, PublishJob)
 router.get("/jobslist", GetJobsList)
+router.put("/admin/edit-job", JobImageUpload, UpdateJobDescription)
 
 export default router

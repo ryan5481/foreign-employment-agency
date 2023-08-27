@@ -130,7 +130,8 @@ const OperatingProcedure = () => {
 
                         <Box
                             boxShadow={'2xl'}
-                            key={step._id} p={2}
+                            key={step._id} 
+                            p={2}
                             _hover={{ boxShadow: "0 0 0 2px rgba(251, 251, 251, 0.5)" }}
                             transition="box-shadow 0.4s"
                             rounded="10px"

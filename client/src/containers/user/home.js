@@ -15,6 +15,7 @@ import ImageCarousel from "../../components/header/Carousel/SmoothCarousel2"
 import ResponsiveGrid from "../../components/card/statsCard"
 import BarChart from "../../components/animation/barChart"
 import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
+import AllJobs from "./allJobs"
 const Home = () => {
     const navigate = useNavigate()
 
@@ -160,66 +161,8 @@ const Home = () => {
                 {/* LATEST JOBS */}
                 <Box 
                 maxW={'full'} 
-                bg={useColorModeValue('blue.600', 'gray.1000')}
-                color='white'
                 >
-                    <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}>
-                        Latest Jobs
-                    </Heading>
-                    <Box>
-                        <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr', xl: '1fr 1fr 1fr 1fr 1fr', '2xl': '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
-                            {slicedJobsList.map((job, index) => {
-                                return (<>
-
-                                    <Card maxW='sm'
-                                        boxShadow={'2xl'}
-                                        p={2}
-                                        _hover={{ boxShadow: "0 0 0 2px rgba(251, 251, 251, 3)" }}
-                                        transition="box-shadow 0.3s"
-                                        rounded="10px"
-                                    >
-                                        <CardBody w='100%' h='10' bg='' >
-                                            <Image
-                                                src={job.src}
-                                                alt={job.alt}
-                                                borderRadius='lg'
-                                            />
-                                            <Box display='flex' alignItems='baseline' p="2">
-                                                <Badge borderRadius='full' colorScheme='teal'>
-                                                    New
-                                                </Badge>
-                                            </Box>
-                                            <Stack mt='1' spacing='3'>
-                                                <Heading size='md'>{job.alt}</Heading>
-                                            </Stack>
-                                        </CardBody>
-                                        <Divider />
-                                        <CardFooter alignContent={'middle'} align="center">
-                                            <ButtonGroup spacing='3' >
-                                                <Button variant='ghost' colorScheme='blue' rounded='full' onClick={() => navigate("/job-description")}>
-                                                    Details
-                                                </Button>
-                                                <Button variant='solid' colorScheme='blue' rounded='full' onClick={() => navigate("/resume")}>
-                                                    Apply now
-                                                </Button>
-                                            </ButtonGroup>
-                                        </CardFooter>
-                                    </Card>
-                                </>)
-                            })}
-                        </Grid>
-                    </Box>
-                    <Flex p={10} w="full" alignItems="center" justifyContent="center">
-                        <Button
-                            bg={'whiteAlpha.800'}
-                            rounded={'full'}
-                            color={'blue.500'}
-                            _hover={{ bg: 'whiteAlpha.900', color: 'blue.600' }}
-                            onClick={() => navigate("/jobs")}
-                        >
-                            View All Jobs
-                        </Button>
-                    </Flex>
+                    <AllJobs  displayAll={false}/>
                 </Box>
                 <Divider />
                 {/* OPERATING PROCEDURE */}

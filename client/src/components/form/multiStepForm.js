@@ -5,6 +5,10 @@
 import { useState } from 'react'
 import {
   Progress,
+  Grid,
+  CheckboxGroup,
+  Checkbox,
+  Spacer,
   Box,
   ButtonGroup,
   Button,
@@ -21,7 +25,8 @@ import {
   Textarea,
   FormHelperText,
   InputRightElement,
-  useColorModeValue
+  useColorModeValue,
+  Switch
 } from '@chakra-ui/react'
 
 import { useToast } from '@chakra-ui/react'
@@ -30,12 +35,28 @@ const Form1 = () => {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   return (
-    <Box 
-    color={useColorModeValue('blue.700', 'gray.1000')}
+    <Box
+      color={useColorModeValue('blue.700', 'gray.1000')}
     >
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-        Job Application Resume
+        Personal Information
       </Heading>
+      <Flex>
+
+        <FormControl mr="5%">
+          <FormLabel htmlFor="job-code" fontWeight={'normal'}>
+            Job code
+          </FormLabel>
+          <Input id="job-code" placeholder="Job code" />
+        </FormControl>
+        <FormControl display='flex' alignItems='center' mr="5%">
+          <FormLabel htmlFor='email-alerts' mb='0'>
+            Enable email alerts?
+          </FormLabel>
+          <Switch id='email-alerts' />
+        </FormControl>
+      </Flex>
+      {/* NAME ADDRESS */}
       <Flex>
         <FormControl mr="5%">
           <FormLabel htmlFor="full-name" fontWeight={'normal'}>
@@ -44,174 +65,210 @@ const Form1 = () => {
           <Input id="full-name" placeholder="Full name" />
         </FormControl>
 
-        <FormControl>
+        <FormControl mr="5%">
           <FormLabel htmlFor="last-name" fontWeight={'normal'}>
             Address
           </FormLabel>
           <Input id="Address" placeholder="Address" />
         </FormControl>
       </Flex>
-      <FormControl mt="2%">
-        <FormLabel htmlFor="email" fontWeight={'normal'}>
-          Email address
-        </FormLabel>
-        <Input id="email" type="email" />
-        {/* <FormHelperText>We&apos;ll never share your email.</FormHelperText> */}
-      </FormControl>
+      {/* NATIONALITY PASSPORT */}
+      <Flex>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="passport" fontWeight={'normal'}>
+            Nationality
+          </FormLabel>
+          <Input id="nationality" placeholder="Nationality" />
+        </FormControl>
 
-      <FormControl>
-        <FormLabel htmlFor="password" fontWeight={'normal'} mt="2%">
-          Password
-        </FormLabel>
-        <InputGroup size="md">
-          <Input
-            pr="4.5rem"
-            type={show ? 'text' : 'password'}
-            placeholder="Enter password"
-          />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? 'Hide' : 'Show'}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </FormControl>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="passport" fontWeight={'normal'}>
+            Passport number
+          </FormLabel>
+          <Input id="passport-number" placeholder="Passport number" />
+        </FormControl>
+      </Flex>
+      <Flex>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="place-of-issue" fontWeight={'normal'}>
+            Place of issue
+          </FormLabel>
+          <Input id="place-of-issue" placeholder="Place of issue" />
+        </FormControl>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="expiry-date" fontWeight={'normal'}>
+            Expiry date
+          </FormLabel>
+          <Input id="expiry-date" placeholder="Expiry date" />
+        </FormControl>
+      </Flex>
+      <Flex>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="date-of-birth" fontWeight={'normal'}>
+            Date of birth
+          </FormLabel>
+          <Input id="date-of-birth" placeholder="Date of birth" />
+        </FormControl>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="height" fontWeight={'normal'}>
+            Height
+          </FormLabel>
+          <Input id="height" placeholder="Height" />
+        </FormControl>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="weight" fontWeight={'normal'}>
+            Weight
+          </FormLabel>
+          <Input id="weight" placeholder="Weight" />
+        </FormControl>
+      </Flex>
+      <Flex>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="marital-status" fontWeight={'normal'}>
+            Marital status
+          </FormLabel>
+          <Input id="marital-status" placeholder="marital-status" />
+        </FormControl>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="children" fontWeight={'normal'}>
+            Children
+          </FormLabel>
+          <Input id="children" placeholder="Children" />
+        </FormControl>
+        <FormControl mr="5%">
+          <FormLabel htmlFor="religion" fontWeight={'normal'}>
+            Religion
+          </FormLabel>
+          <Input id="religion" placeholder="Religion" />
+        </FormControl>
+      </Flex>
     </Box>
   )
 }
 
 const Form2 = () => {
+  const languages = ["Arabic", "English", "Hindi"]
+
   return (
     <Box color={useColorModeValue('blue.700', 'gray.1000')}>
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-        User Details
+        Qualification
       </Heading>
-      <FormControl as={GridItem} colSpan={[6, 3]}>
-        <FormLabel
-          htmlFor="country"
-          fontSize="sm"
-          fontWeight="md"
-          color={useColorModeValue('blue.700', 'gray.1000')}
-          _dark={{
-            color: 'gray.50',
-          }}>
-          Country / Region
-        </FormLabel>
-        <Select
-          id="country"
-          name="country"
-          autoComplete="country"
-          placeholder="Select option"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md">
-          <option>United States</option>
-          <option>Canada</option>
-          <option>Mexico</option>
-        </Select>
-      </FormControl>
+      <Heading as='h2' size='sm' align={'left'}>Language Proficeincy</Heading>
+      <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }} gap={5} id='arabic'>
+        {languages.map((language, index) => (
+          <>
+            <>
+              <Heading as='h4' align="center" size='sm'  >{language}</Heading>
+              <FormControl id="speaking">
+                <FormLabel>Speaking</FormLabel>
+                <Select placeholder='Select one'>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Fair</option>
+                  <option>Poor</option>
+                </Select>
+              </FormControl>
+              <FormControl id="listening">
+                <FormLabel>Listening</FormLabel>
+                <Select placeholder='Select one'>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Fair</option>
+                  <option>Poor</option>
+                </Select>
+              </FormControl>
+              <FormControl id="reading">
+                <FormLabel>Reading</FormLabel>
+                <Select placeholder='Select one'>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Fair</option>
+                  <option>Poor</option>
+                </Select>
+              </FormControl>
+              <FormControl id="writing">
+                <FormLabel>Writing</FormLabel>
+                <Select placeholder='Select one'>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Fair</option>
+                  <option>Poor</option>
+                </Select>
+              </FormControl>
+            </>
+          </>
+        ))}
+      </Grid>
+      <Heading as='h2' size='sm' align={'left'}>Education</Heading>
+      <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} columnGap={0} gap={5} id='education'>
+        <CheckboxGroup>
+          <Checkbox defaultChecked>Under SLC</Checkbox>
+          <Checkbox >SLC</Checkbox>
+          <Checkbox >+2</Checkbox>
+          <Checkbox >Bachelors</Checkbox>
+          <Checkbox >Masters</Checkbox>
+        </CheckboxGroup>
+      </Grid>
+      <Spacer />
+      <Heading as='h2' size='sm' align={'left'}>Work Experience In Nepal</Heading>
+      <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5} id='nepalWorkExp'>
+        <FormControl id="employer" >
+          <FormLabel>Employer</FormLabel>
+          <Input
+            placeholder="Employer"
+            _placeholder={{ color: 'gray.500' }}
+            type="text"
+          />
+        </FormControl>
+        <FormControl id="duration" >
+          <FormLabel>Duration</FormLabel>
+          <Input
+            placeholder="Duration"
+            _placeholder={{ color: 'gray.500' }}
+            type="text"
+          />
+        </FormControl>
+        <FormControl id="Address" >
+          <FormLabel>Address</FormLabel>
+          <Input
+            placeholder="Address"
+            _placeholder={{ color: 'gray.500' }}
+            type="text"
+          />
+        </FormControl>
+      </Grid>
+      <Spacer />
+      <Heading as='h2' size='sm' align={'left'}>Overseas Work Experience</Heading>
+      <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5} id='overseasWorkExp'>
+        <FormControl id="employer" >
+          <FormLabel>Employer</FormLabel>
+          <Input
+            placeholder="Employer"
+            _placeholder={{ color: 'gray.500' }}
+            type="text"
+          />
+        </FormControl>
+        <FormControl id="duration" >
+          <FormLabel>Duration</FormLabel>
+          <Input
+            placeholder="Duration"
+            _placeholder={{ color: 'gray.500' }}
+            type="text"
+          />
+        </FormControl>
+        <FormControl id="Country" >
+          <FormLabel>Country</FormLabel>
+          <Input
+            placeholder="Country"
+            _placeholder={{ color: 'gray.500' }}
+            type="text"
+          />
+        </FormControl>
+      </Grid>
 
-      <FormControl as={GridItem} colSpan={6}>
-        <FormLabel
-          htmlFor="street_address"
-          fontSize="sm"
-          fontWeight="md"
-          color={useColorModeValue('blue.700', 'gray.1000')}
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%">
-          Street address
-        </FormLabel>
-        <Input
-          type="text"
-          name="street_address"
-          id="street_address"
-          autoComplete="street-address"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-        <FormLabel
-          htmlFor="city"
-          fontSize="sm"
-          fontWeight="md"
-          color={useColorModeValue('blue.700', 'gray.1000')}
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%">
-          City
-        </FormLabel>
-        <Input
-          type="text"
-          name="city"
-          id="city"
-          autoComplete="city"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
-        <FormLabel
-          htmlFor="state"
-          fontSize="sm"
-          fontWeight="md"
-          color={useColorModeValue('blue.700', 'gray.1000')}
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%">
-          State / Province
-        </FormLabel>
-        <Input
-          type="text"
-          name="state"
-          id="state"
-          autoComplete="state"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
-        <FormLabel
-          htmlFor="postal_code"
-          fontSize="sm"
-          fontWeight="md"
-          color={useColorModeValue('blue.700', 'gray.1000')}
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%">
-          ZIP / Postal
-        </FormLabel>
-        <Input
-          type="text"
-          name="postal_code"
-          id="postal_code"
-          autoComplete="postal-code"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
+      <Heading as='h3' size='sm' align={'left'}>Other Skills</Heading>
+      <Textarea placeholder='Write your other skills.' />
     </Box>
   )
 }
@@ -220,60 +277,48 @@ const Form3 = () => {
   return (
     <Box color={useColorModeValue('blue.700', 'gray.1000')}>
       <Heading w="100%" textAlign={'center'} fontWeight="normal">
-        Social Handles
+        Contact Information
       </Heading>
       <SimpleGrid columns={1} spacing={6}>
-        <FormControl as={GridItem} colSpan={[3, 2]}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color={useColorModeValue('blue.700', 'gray.1000')}
-            _dark={{
-              color: 'gray.50',
-            }}>
-            Website
-          </FormLabel>
-          <InputGroup size="sm">
-            <InputLeftAddon
-              bg="gray.50"
-              _dark={{
-                bg: 'gray.800',
-              }}
-              color={useColorModeValue('blue.700', 'gray.1000')}
-              rounded="md">
-              http://
-            </InputLeftAddon>
-            <Input
-              type="tel"
-              placeholder="www.example.com"
-              focusBorderColor="brand.400"
-              rounded="md"
-            />
-          </InputGroup>
-        </FormControl>
 
         <FormControl id="email" mt={1}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color={useColorModeValue('blue.700', 'gray.1000')}
-            _dark={{
-              color: 'gray.50',
-            }}>
-            About
-          </FormLabel>
-          <Textarea
-            placeholder="you@example.com"
-            rows={3}
-            shadow="sm"
-            focusBorderColor="brand.400"
-            fontSize={{
-              sm: 'sm',
-            }}
-          />
-          <FormHelperText>
-            Brief description for your profile. URLs are hyperlinked.
-          </FormHelperText>
+         
+          <FormControl mr="5%">
+              <FormLabel htmlFor="agent-name" fontWeight={'normal'}>
+                Agent name
+              </FormLabel>
+              <Input id="agent-name" placeholder="Agent name" />
+            </FormControl>
+          <Flex>
+            <FormControl mr="5%">
+              <FormLabel htmlFor="phone-number" fontWeight={'normal'}>
+                Phone number
+              </FormLabel>
+              <Input id="phone-number" placeholder="Phone number" />
+            </FormControl>
+            <FormControl mr="5%">
+              <FormLabel htmlFor="email" fontWeight={'email'}>
+                Email
+              </FormLabel>
+              <Input id="emaile" placeholder="Email" />
+            </FormControl>
+          </Flex>
+
+          <Flex>
+            <FormControl mr="5%">
+              <FormLabel htmlFor="home-number" fontWeight={'normal'}>
+                Home number
+              </FormLabel>
+              <Input id="home-number" placeholder="Home number" />
+            </FormControl>
+            <FormControl mr="5%">
+              <FormLabel htmlFor="relative-number" fontWeight={'normal'}>
+              Relative number
+              </FormLabel>
+              <Input id="relative-number" placeholder="Relative number" />
+            </FormControl>
+            
+          </Flex>
         </FormControl>
       </SimpleGrid>
     </Box>
@@ -297,7 +342,7 @@ const MultiStepForm = () => {
         as="form"
         bg={useColorModeValue('gray.50', 'gray.1000')}
         color={useColorModeValue('blue.700', 'gray.1000')}
-        >
+      >
         <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
         {step === 1 ? <Form1 /> : step === 2 ? <Form2 /> : <Form3 />}
         <ButtonGroup mt="5%" w="100%">

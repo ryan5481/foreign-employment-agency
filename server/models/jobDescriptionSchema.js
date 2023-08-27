@@ -7,13 +7,13 @@ const jobSchema = ({
         type: String,
         default: "radiantInfoTech"
     },
-    
-    title: {
-        type: String,
+
+    jobImage :{
+        type: Object,
     },
     
-    isNewJob: {
-        type: Boolean,
+    jobTitle: { 
+        type: String,
     },
 
     salary: {
@@ -24,7 +24,7 @@ const jobSchema = ({
         type: String,
     },
 
-    countryCity: {
+    location: {
         type: String,
     },
 
@@ -53,15 +53,15 @@ const jobSchema = ({
     },
 
     reqQualification: {
-        type: String,
+        type: Array,
     },
 
     responsiblities: {
-        type: String,
+        type: Array,
     },
 
     skillsRequired: {
-        type: String,
+        type: Array,
     },
     createdAt: { type: Date, default: Date.now },
     
@@ -69,4 +69,4 @@ const jobSchema = ({
 
 })
 
-export default mongoose.model("jobs", jobSchema, "Jobs")
+export default mongoose.model("JobDescription", jobSchema, "JobDescription")

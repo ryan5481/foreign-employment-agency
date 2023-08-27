@@ -3,9 +3,6 @@ import axios from "axios"
 import { Box, Grid, Heading, useColorModeValue, Button, Input, FormControl } from '@chakra-ui/react';
 
 const EditStats = () => {
-    //ANIMATE
-    const [barHeights, setBarHeights] = useState([0, 0, 0]);
-    const [animationStarted, setAnimationStarted] = useState(false);
     //FETCH
     const [barChartData, setBarChartData] = useState({})
 
@@ -30,9 +27,7 @@ const EditStats = () => {
     const [box3BottomText, setBox3BottomText] = useState('');
 
     //FETCH AND ANIMATE
-    let labels = []
-    barChartData &&
-        (labels = [barChartData.column1Label, barChartData.column2Label, barChartData.column3Label])
+
 
     const fetchBarChartData = async () => {
         try {
@@ -73,7 +68,7 @@ const EditStats = () => {
                 column2height,
                 column3height,
                 column1Label,
-                column3Label,
+                column2Label,
                 column3Label,
                 //NUMBER BOXES 
                 box1TopText: box1TopText,
@@ -94,16 +89,6 @@ const EditStats = () => {
     useEffect(() => {
         fetchBarChartData()
     }, [])
-
-    useEffect(() => {
-        if (
-            barChartData.column1height &&
-            barChartData.column2height &&
-            barChartData.column3height
-        ) {
-            setBarHeights([barChartData.column1height, barChartData.column2height, barChartData.column3height]);
-        }
-    }, [barChartData]);
 
     return (
         <Box color={useColorModeValue('blue.600', 'gray.500')}
