@@ -4,7 +4,6 @@ import AdminLogin from "../containers/admin/auth/login"
 import Home from '../containers/user/home'
 import AdminPanel from '../containers/admin/03-editHomePage'
 import Jobs from '../containers/user/jobs'
-import JobDescription from '../containers/user/jobDescription'
 import License from '../containers/user/license'
 import Apply from '../containers/user/apply'
 import Gallery from '../containers/user/gallery'
@@ -63,7 +62,6 @@ const UserRoutes = () => {
         <Route path="/about-nepal" element={<AboutNepal />} />
         <Route path="/choose-us" element={<WhyUs />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/job-description" element={<JobDescription />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/apply" element={<Apply />} />
         <Route path="/gallery" element={<Gallery />} />

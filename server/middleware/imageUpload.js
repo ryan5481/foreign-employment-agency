@@ -137,3 +137,18 @@ export const TestimonyImageUpload = multer({
     // limits: { fileSize: 1024 * 1024 * 4 },
     // fileFilter: fileFilter
 }).single("testimonyImage")
+//////////
+const jobImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/jobImages")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "JobImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const JobImageUpload = multer({
+    storage: jobImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("jobImage")

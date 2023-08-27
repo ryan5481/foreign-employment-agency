@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import {
   Button,
   Grid,
-  Box,
+  Checkbox,
+  Spacer,
   Flex,
   FormControl,
   FormLabel,
