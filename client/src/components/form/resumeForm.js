@@ -333,6 +333,14 @@ const ResumeForm = () => {
         <Spacer />
         <Heading as='h2' size='sm' align={'left'}>Work Experience In Nepal</Heading>
         <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5} id='nepalWorkExp'>
+          <FormControl id="field" >
+            <FormLabel>Field</FormLabel>
+            <Input
+              placeholder="Field"
+              _placeholder={{ color: 'gray.500' }}
+              type="text"
+            />
+          </FormControl>
           <FormControl id="employer" >
             <FormLabel>Employer</FormLabel>
             <Input
