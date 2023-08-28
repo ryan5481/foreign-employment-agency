@@ -1,13 +1,9 @@
-// #ChakraUI multi step form 
-
-'use client'
-
 import { useState } from 'react'
 import {
   Progress,
   Grid,
-  CheckboxGroup,
-  Checkbox,
+  RadioGroup,
+  Radio,
   Spacer,
   Box,
   ButtonGroup,
@@ -15,7 +11,7 @@ import {
   Heading,
   Flex,
   FormControl,
-  GridItem,
+  Stack,
   FormLabel,
   Input,
   Select,
@@ -24,7 +20,7 @@ import {
   InputGroup,
   Textarea,
   FormHelperText,
-  InputRightElement,
+  Center,
   useColorModeValue,
   Switch
 } from '@chakra-ui/react'
@@ -43,29 +39,31 @@ const Form1 = () => {
       </Heading>
       <Flex>
 
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="job-code" fontWeight={'normal'}>
             Job code
           </FormLabel>
           <Input id="job-code" placeholder="Job code" />
         </FormControl>
-        <FormControl display='flex' alignItems='center' mr="5%">
-          <FormLabel htmlFor='email-alerts' mb='0'>
-            Enable email alerts?
-          </FormLabel>
-          <Switch id='email-alerts' />
+        <FormControl display='flex' alignItems='center' mr="5%" py={2}>
+          <Center>
+            <FormLabel htmlFor='email-alerts' mb='0'>
+              Don't have a job code
+            </FormLabel>
+            <Switch id='email-alerts' />
+          </Center>
         </FormControl>
       </Flex>
       {/* NAME ADDRESS */}
       <Flex>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="full-name" fontWeight={'normal'}>
             Full name
           </FormLabel>
           <Input id="full-name" placeholder="Full name" />
         </FormControl>
 
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="last-name" fontWeight={'normal'}>
             Address
           </FormLabel>
@@ -74,48 +72,56 @@ const Form1 = () => {
       </Flex>
       {/* NATIONALITY PASSPORT */}
       <Flex>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="passport" fontWeight={'normal'}>
             Nationality
           </FormLabel>
           <Input id="nationality" placeholder="Nationality" />
         </FormControl>
 
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="passport" fontWeight={'normal'}>
             Passport number
           </FormLabel>
           <Input id="passport-number" placeholder="Passport number" />
         </FormControl>
+
+        <FormControl id="gender" py={2}>
+          <FormLabel>Gender</FormLabel>
+          <Select placeholder='Select one'>
+            <option>Male</option>
+            <option>Female</option>
+          </Select>
+        </FormControl>
       </Flex>
       <Flex>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="place-of-issue" fontWeight={'normal'}>
             Place of issue
           </FormLabel>
           <Input id="place-of-issue" placeholder="Place of issue" />
         </FormControl>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="expiry-date" fontWeight={'normal'}>
             Expiry date
           </FormLabel>
-          <Input id="expiry-date" placeholder="Expiry date" />
+          <Input id="expiry-date" type='date' placeholder="Expiry date" />
         </FormControl>
       </Flex>
       <Flex>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="date-of-birth" fontWeight={'normal'}>
             Date of birth
           </FormLabel>
-          <Input id="date-of-birth" placeholder="Date of birth" />
+          <Input id="date-of-birth" type='date' placeholder="Date of birth" />
         </FormControl>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="height" fontWeight={'normal'}>
             Height
           </FormLabel>
           <Input id="height" placeholder="Height" />
         </FormControl>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="weight" fontWeight={'normal'}>
             Weight
           </FormLabel>
@@ -123,19 +129,22 @@ const Form1 = () => {
         </FormControl>
       </Flex>
       <Flex>
-        <FormControl mr="5%">
-          <FormLabel htmlFor="marital-status" fontWeight={'normal'}>
-            Marital status
-          </FormLabel>
-          <Input id="marital-status" placeholder="marital-status" />
+        <FormControl mr="5%" py={2}>
+          <FormControl id="speaking" >
+            <FormLabel>Marital Status</FormLabel>
+            <Select placeholder='Married'>
+              <option>Single</option>
+              <option>Married</option>
+            </Select>
+          </FormControl>
         </FormControl>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="children" fontWeight={'normal'}>
             Children
           </FormLabel>
           <Input id="children" placeholder="Children" />
         </FormControl>
-        <FormControl mr="5%">
+        <FormControl mr="5%" py={2}>
           <FormLabel htmlFor="religion" fontWeight={'normal'}>
             Religion
           </FormLabel>
@@ -154,13 +163,16 @@ const Form2 = () => {
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
         Qualification
       </Heading>
-      <Heading as='h2' size='sm' align={'left'}>Language Proficeincy</Heading>
+      <Heading as='h2' size='md' align={'left'} py={2}>Language Proficeincy</Heading>
       <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }} gap={5} id='arabic'>
         {languages.map((language, index) => (
           <>
             <>
-              <Heading as='h4' align="center" size='sm'  >{language}</Heading>
-              <FormControl id="speaking">
+              <Center>
+
+                <Heading as='h4' align="center" size='sm' py={2} >{language}</Heading>
+              </Center>
+              <FormControl id="speaking" >
                 <FormLabel>Speaking</FormLabel>
                 <Select placeholder='Select one'>
                   <option>Excellent</option>
@@ -200,20 +212,29 @@ const Form2 = () => {
           </>
         ))}
       </Grid>
-      <Heading as='h2' size='sm' align={'left'}>Education</Heading>
-      <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} columnGap={0} gap={5} id='education'>
-        <CheckboxGroup>
-          <Checkbox defaultChecked>Under SLC</Checkbox>
-          <Checkbox >SLC</Checkbox>
-          <Checkbox >+2</Checkbox>
-          <Checkbox >Bachelors</Checkbox>
-          <Checkbox >Masters</Checkbox>
-        </CheckboxGroup>
-      </Grid>
       <Spacer />
-      <Heading as='h2' size='sm' align={'left'}>Work Experience In Nepal</Heading>
+      <Heading as='h2' size='md' align={'left'} py={2}>Education</Heading>
+      <RadioGroup defaultValue="under_slc" py={2}>
+        <Stack direction={{ base: "column", sm: "column", md: "row", lg: "row" }}>
+          <Radio value="under_slc">Under SLC</Radio>
+          <Radio value="slc">SLC</Radio>
+          <Radio value="+2">+2</Radio>
+          <Radio value="bachelors">Bachelors</Radio>
+          <Radio value="masters">Masters</Radio>
+        </Stack>
+      </RadioGroup>
+      <Spacer />
+      <Heading as='h2' size='md' align={'left'} py={2}>Work Experience In Nepal</Heading>
       <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5} id='nepalWorkExp'>
-        <FormControl id="employer" >
+        <FormControl id="field" py={2}>
+          <FormLabel>Field</FormLabel>
+          <Input
+            placeholder="Field"
+            _placeholder={{ color: 'gray.500' }}
+            type="text"
+          />
+        </FormControl>
+        <FormControl id="employer" py={2}>
           <FormLabel>Employer</FormLabel>
           <Input
             placeholder="Employer"
@@ -221,7 +242,7 @@ const Form2 = () => {
             type="text"
           />
         </FormControl>
-        <FormControl id="duration" >
+        <FormControl id="duration" py={2} >
           <FormLabel>Duration</FormLabel>
           <Input
             placeholder="Duration"
@@ -229,7 +250,7 @@ const Form2 = () => {
             type="text"
           />
         </FormControl>
-        <FormControl id="Address" >
+        <FormControl id="Address" py={2}>
           <FormLabel>Address</FormLabel>
           <Input
             placeholder="Address"
@@ -239,9 +260,17 @@ const Form2 = () => {
         </FormControl>
       </Grid>
       <Spacer />
-      <Heading as='h2' size='sm' align={'left'}>Overseas Work Experience</Heading>
+      <Heading as='h2' size='md' align={'left'} py={2}>Overseas Work Experience</Heading>
       <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5} id='overseasWorkExp'>
-        <FormControl id="employer" >
+        <FormControl id="field" py={2}>
+          <FormLabel>Field</FormLabel>
+          <Input
+            placeholder="Field"
+            _placeholder={{ color: 'gray.500' }}
+            type="text"
+          />
+        </FormControl>
+        <FormControl id="employer" py={2}>
           <FormLabel>Employer</FormLabel>
           <Input
             placeholder="Employer"
@@ -249,7 +278,7 @@ const Form2 = () => {
             type="text"
           />
         </FormControl>
-        <FormControl id="duration" >
+        <FormControl id="duration" py={2} >
           <FormLabel>Duration</FormLabel>
           <Input
             placeholder="Duration"
@@ -257,7 +286,7 @@ const Form2 = () => {
             type="text"
           />
         </FormControl>
-        <FormControl id="Country" >
+        <FormControl id="Country" py={2}>
           <FormLabel>Country</FormLabel>
           <Input
             placeholder="Country"
@@ -267,7 +296,7 @@ const Form2 = () => {
         </FormControl>
       </Grid>
 
-      <Heading as='h3' size='sm' align={'left'}>Other Skills</Heading>
+      <Heading as='h3' size='md' align={'left'} py={2} >Other Skills</Heading>
       <Textarea placeholder='Write your other skills.' />
     </Box>
   )
@@ -282,14 +311,14 @@ const Form3 = () => {
       <SimpleGrid columns={1} spacing={6}>
 
         <FormControl id="email" mt={1}>
-         
-          <FormControl mr="5%">
-              <FormLabel htmlFor="agent-name" fontWeight={'normal'}>
-                Agent name
-              </FormLabel>
-              <Input id="agent-name" placeholder="Agent name" />
-            </FormControl>
-          <Flex>
+
+          <FormControl mr="5%" py={2}>
+            <FormLabel htmlFor="agent-name" fontWeight={'normal'}>
+              Agent name
+            </FormLabel>
+            <Input id="agent-name" placeholder="Agent name" />
+          </FormControl>
+          <Flex py={2} >
             <FormControl mr="5%">
               <FormLabel htmlFor="phone-number" fontWeight={'normal'}>
                 Phone number
@@ -304,7 +333,7 @@ const Form3 = () => {
             </FormControl>
           </Flex>
 
-          <Flex>
+          <Flex py={2}>
             <FormControl mr="5%">
               <FormLabel htmlFor="home-number" fontWeight={'normal'}>
                 Home number
@@ -312,12 +341,12 @@ const Form3 = () => {
               <Input id="home-number" placeholder="Home number" />
             </FormControl>
             <FormControl mr="5%">
-              <FormLabel htmlFor="relative-number" fontWeight={'normal'}>
-              Relative number
+              <FormLabel htmlFor="relatives-number" fontWeight={'normal'}>
+                Relative's number
               </FormLabel>
-              <Input id="relative-number" placeholder="Relative number" />
+              <Input id="relatives-number" placeholder="Relatives number" />
             </FormControl>
-            
+
           </Flex>
         </FormControl>
       </SimpleGrid>
