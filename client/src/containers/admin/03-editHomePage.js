@@ -2,22 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import {
     Box,
-    Grid,
-    Image,
-    Card,
-    CardBody,
-    Stack,
-    AspectRatio,
-    useColorModeValue,
-    Text, Heading,
-    Button,
-    Editable,
-    EditableInput,
-    EditablePreview,
-    Container,
-    FormControl,
-    Input,
-    Textarea
+    useColorModeValue
 } from "@chakra-ui/react";
 import CallToActionWithVideo from "../../components/card/callToActionWithVideo";
 import CompanyMessage1 from "../../components/adminPanel/companyMessage1";

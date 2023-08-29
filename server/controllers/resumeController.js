@@ -55,11 +55,11 @@ export const GetResumes = async(req, res) => {
 
 export const DeleteResume = async(req, res) => {
     try {
-        const procedureId = req.params.id;
+        const resumeId = req.params.id;
 
-        const deletedSector = await Resume.findByIdAndDelete(procedureId);
+        const deletedResume = await Resume.findByIdAndDelete(resumeId);
 
-        if (!deletedSector) {
+        if (!deletedResume) {
             return res.status(404).json({ message: 'Resume not found' });
         }
 

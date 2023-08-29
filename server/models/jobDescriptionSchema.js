@@ -8,6 +8,10 @@ const jobSchema = ({
         default: "radiantInfoTech"
     },
 
+    jobCode: {
+        type: String,
+    },
+
     jobImage :{
         type: Object,
     },
