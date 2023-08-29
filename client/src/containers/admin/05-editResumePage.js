@@ -37,13 +37,13 @@ const EditResumePage = () => {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false); // New state for delete dialog
 
     const handleDeleteDialogOpen = () => {
-      setIsDeleteDialogOpen(true);
+        setIsDeleteDialogOpen(true);
     };
-  
+
     const handleDeleteDialogClose = () => {
-      setIsDeleteDialogOpen(false);
+        setIsDeleteDialogOpen(false);
     };
-    
+
     const fetchResumes = async () => {
         try {
             const res = await axios.get("http://localhost:8000/get-resumes")
@@ -85,9 +85,34 @@ const EditResumePage = () => {
 
 
     return (<>
-        <Box p={1} pt={5}>
-            <Heading>Resume Submissions</Heading>
+        <Box p={1} pt={5} color="purple.800" bg={useColorModeValue('purple.50', 'purple.800')} h="100%">
+            <Heading color={useColorModeValue('blue.800', 'gray.100')}>Resume Submissions</Heading>
             <VStack p={10} >
+                {/* HEADER */}
+                <Grid color={useColorModeValue('blue.800', 'gray.100')}
+                    templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                    p={3}
+                    gap={1}
+                    textAlign={"left"}
+                    fontWeight={"bold"}
+                    borderTop="1px solid"
+                    borderX="1px solid"
+                    borderColor="lightGray"
+                >
+
+                    <Text w="40px" textAlign={"left"} >SN</Text>
+                    <Text w="100px" textAlign={"center"} >Job code</Text>
+                    <Text w="200px">Full name</Text>
+                    <Text w="30px">Sex</Text>
+                    <Text w="200px">Address</Text>
+                    <Text w="100px">Education</Text>
+                    <Text w="120px">Phone number</Text>
+                    <Text w="120px">Submitted on</Text>
+                    <Text w="120px">View resume</Text>
+                    <Text w="120px">Delete entry</Text>
+
+                </Grid>
+                {/* RESUME ENTRIES DISPLAY */}
                 {resumes.map((doc, index) => {
                     const isEven = index % 2 === 0;
                     const rowStyle = {
@@ -96,43 +121,49 @@ const EditResumePage = () => {
                         gap: '1px',
                     };
                     return (<>
-                        <Grid 
-                        templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }} 
-                        p={3} 
-                        gap={1} 
-                        style={rowStyle} 
-                        textAlign={"left"}
-                        key={doc._id}
+                        <Box
+                        
+                        borderX="1px solid"
+                        borderColor="lightGray"
                         >
+                            <Grid
+                                templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                                p={3}
+                                gap={1}
+                                style={rowStyle}
+                                textAlign={"left"}
+                                key={doc._id}
+                            >
 
-                            <Text w="40px" textAlign={"left"} >{index + 1}</Text>
-                            <Text w="100px" textAlign={"center"} >{doc.jobCode}</Text>
-                            <Text w="200px">{capitalizeWords(doc.fullName)}</Text>
-                            <Text w="30px">{doc.gender.slice(0, 1).toUpperCase()}</Text>
-                            <Text w="200px">{capitalizeWords(doc.address)}</Text>
-                            <Text w="100px">{capitalizeWords(doc.education)}</Text>
-                            <Text w="120px">{doc.phoneNumber}</Text>
-                            <Text w="120px">{doc.createdAt.slice(0, 10)}</Text>
-                            <Center w="30px">
-                                <ViewIcon 
-                                style={{cursor: 'pointer'}} 
-                                _hover={{ color: 'blue.400' }} 
-                                onClick={() => {
-                                    onOpen()
-                                    setSelectedResume(doc)
-                                    }} />
-                            </Center>
-                            <Center w="30px">
-                                <DeleteIcon 
-                                style={{cursor: 'pointer'}}
-                                _hover={{ color: 'blue.400' }} 
-                                onClick={()=> {
-                                    setResumeTodelete(doc._id)
-                                    handleDeleteDialogOpen()
-                                }}
-                                />
-                            </Center>
-                        </Grid>
+                                <Text w="40px" textAlign={"left"} >{index + 1}</Text>
+                                <Text w="100px" textAlign={"center"} >{doc.jobCode}</Text>
+                                <Text w="200px">{capitalizeWords(doc.fullName)}</Text>
+                                <Text w="30px">{doc.gender.slice(0, 1).toUpperCase()}</Text>
+                                <Text w="200px">{capitalizeWords(doc.address)}</Text>
+                                <Text w="100px">{capitalizeWords(doc.education)}</Text>
+                                <Text w="120px">{doc.phoneNumber}</Text>
+                                <Text w="120px">{doc.createdAt.slice(0, 10)}</Text>
+                                <Center w="30px">
+                                    <ViewIcon
+                                        style={{ cursor: 'pointer' }}
+                                        _hover={{ color: 'blue.400' }}
+                                        onClick={() => {
+                                            onOpen()
+                                            setSelectedResume(doc)
+                                        }} />
+                                </Center>
+                                <Center w="30px">
+                                    <DeleteIcon
+                                        style={{ cursor: 'pointer' }}
+                                        _hover={{ color: 'blue.400' }}
+                                        onClick={() => {
+                                            setResumeTodelete(doc._id)
+                                            handleDeleteDialogOpen()
+                                        }}
+                                    />
+                                </Center>
+                            </Grid>
+                        </Box>
                     </>)
                 })}
             </VStack>
@@ -171,14 +202,14 @@ const EditResumePage = () => {
                                 Full name:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.fullName}
+                                {selectedResume.fullName}
                             </Text>
 
                             <Text htmlFor="last-name" fontWeight={'bold'}>
                                 Address:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.address}
+                                {selectedResume.address}
                             </Text>
                         </Grid>
                         {/* NATIONALITY PASSPORT */}
@@ -187,19 +218,19 @@ const EditResumePage = () => {
                                 Nationality:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.nationality}
+                                {selectedResume.nationality}
                             </Text>
 
                             <Text htmlFor="passport" fontWeight={'bold'}>
                                 Passport number:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.passportNumber}
+                                {selectedResume.passportNumber}
                             </Text>
 
                             <Text htmlFor="children" fontWeight={'bold'}>Gender:</Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.gender}
+                                {selectedResume.gender}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
@@ -207,13 +238,13 @@ const EditResumePage = () => {
                                 Place of issue:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.placeOfIssue}
+                                {selectedResume.placeOfIssue}
                             </Text>
                             <Text htmlFor="expiry-date" fontWeight={'bold'}>
                                 Expiry date:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.expiryDate}
+                                {selectedResume.expiryDate}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
@@ -221,19 +252,19 @@ const EditResumePage = () => {
                                 Date of birth:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.dateOfBirth}
+                                {selectedResume.dateOfBirth}
                             </Text>
                             <Text htmlFor="height" fontWeight={'bold'}>
                                 Height:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.height}
+                                {selectedResume.height}
                             </Text>
                             <Text htmlFor="weight" fontWeight={'bold'}>
                                 Weight:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.weight}
+                                {selectedResume.weight}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
@@ -241,20 +272,20 @@ const EditResumePage = () => {
                                 Marital Status:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.maritalStatus}
+                                {selectedResume.maritalStatus}
                             </Text>
 
                             <Text htmlFor="children" fontWeight={'bold'}>
                                 Children:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.children}
+                                {selectedResume.children}
                             </Text>
                             <Text htmlFor="religion" fontWeight={'bold'}>
                                 Religion:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.jobCode}
+                                {selectedResume.jobCode}
                             </Text>
                         </Grid>
                         <Spacer />
@@ -274,25 +305,25 @@ const EditResumePage = () => {
                                 Speaking:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.english?.speaking}
+                                {selectedResume?.english?.speaking}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Listening:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.english?.listening}
+                                {selectedResume?.english?.listening}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Reading:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.english?.reading}
+                                {selectedResume?.english?.reading}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Writing:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.english?.writing}
+                                {selectedResume?.english?.writing}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr" textAlign={"left"}>
@@ -303,25 +334,25 @@ const EditResumePage = () => {
                                 Speaking:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.arabic?.speaking}
+                                {selectedResume?.arabic?.speaking}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Listening:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.arabic?.listening}
+                                {selectedResume?.arabic?.listening}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Reading:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.arabic?.reading}
+                                {selectedResume?.arabic?.reading}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Writing:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.arabic?.writing}
+                                {selectedResume?.arabic?.writing}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr" textAlign={"left"}>
@@ -332,25 +363,25 @@ const EditResumePage = () => {
                                 Speaking:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.hindi?.speaking}
+                                {selectedResume?.hindi?.speaking}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Listening:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.hindi?.listening}
+                                {selectedResume?.hindi?.listening}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Reading:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.hindi?.reading}
+                                {selectedResume?.hindi?.reading}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Writing:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.hindi?.writing}
+                                {selectedResume?.hindi?.writing}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"} py={2} >
@@ -372,25 +403,25 @@ const EditResumePage = () => {
                                 Field:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.workExpNepal?.field}
+                                {selectedResume?.workExpNepal?.field}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Employer:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.workExpNepal?.employer}
+                                {selectedResume?.workExpNepal?.employer}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Duration:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.workExpNepal?.duration}
+                                {selectedResume?.workExpNepal?.duration}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Location:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.workExpNepal?.address}
+                                {selectedResume?.workExpNepal?.address}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr" textAlign={"left"}>
@@ -401,33 +432,33 @@ const EditResumePage = () => {
                                 Field:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.workExpOverseas?.field}
+                                {selectedResume?.workExpOverseas?.field}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Employer:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.workExpOverseas?.employer}
+                                {selectedResume?.workExpOverseas?.employer}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Duration:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.workExpOverseas?.duration}
+                                {selectedResume?.workExpOverseas?.duration}
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Location:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume?.workExpOverseas?.country}
+                                {selectedResume?.workExpOverseas?.country}
                             </Text>
                         </Grid>
                         <Text htmlFor="full-name" fontWeight={'bold'} pt={2}>
-                                Other skills:
-                            </Text>
-                            <Text htmlFor="full-name" fontWeight={'normal'}>
+                            Other skills:
+                        </Text>
+                        <Text htmlFor="full-name" fontWeight={'normal'}>
                             {selectedResume?.otherSkills}
-                            </Text>
+                        </Text>
                         <Text fontSize={28} htmlFor="job-code" pt={2} fontWeight={'normal'}>
                             Contact Information
                         </Text>
@@ -437,7 +468,7 @@ const EditResumePage = () => {
                                 Agent name:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.agentName}
+                                {selectedResume.agentName}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
@@ -445,13 +476,13 @@ const EditResumePage = () => {
                                 Applicant's phone number:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.phoneNumber}
+                                {selectedResume.phoneNumber}
                             </Text>
                             <Text htmlFor="passport" fontWeight={'bold'}>
                                 Email:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.email}
+                                {selectedResume.email}
                             </Text>
                         </Grid>
                         <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
@@ -459,13 +490,13 @@ const EditResumePage = () => {
                                 Home number:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.homeNumber}
+                                {selectedResume.homeNumber}
                             </Text>
                             <Text htmlFor="passport" fontWeight={'bold'}>
                                 Relative's number:
                             </Text>
                             <Text htmlFor="full-name" fontWeight={'normal'}>
-                            {selectedResume.relativesNumber}
+                                {selectedResume.relativesNumber}
                             </Text>
                         </Grid>
                     </Box>
@@ -482,32 +513,32 @@ const EditResumePage = () => {
         </Modal>
         {/* DELETE ALERT */}
         <AlertDialog
-        isOpen={isDeleteDialogOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={handleDeleteDialogClose} // Close the delete dialog
-        isCentered
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Resume
-            </AlertDialogHeader>
+            isOpen={isDeleteDialogOpen}
+            leastDestructiveRef={cancelRef}
+            onClose={handleDeleteDialogClose} // Close the delete dialog
+            isCentered
+        >
+            <AlertDialogOverlay>
+                <AlertDialogContent>
+                    <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                        Delete Resume
+                    </AlertDialogHeader>
 
-            <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
-            </AlertDialogBody>
+                    <AlertDialogBody>
+                        Are you sure? You can't undo this action afterwards.
+                    </AlertDialogBody>
 
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={handleDeleteDialogClose}>
-                Cancel
-              </Button>
-              <Button colorScheme="red" onClick={handleResumeDelete} ml={3}>
-                Delete
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+                    <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={handleDeleteDialogClose}>
+                            Cancel
+                        </Button>
+                        <Button colorScheme="red" onClick={handleResumeDelete} ml={3}>
+                            Delete
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialogOverlay>
+        </AlertDialog>
     </>)
 }
 

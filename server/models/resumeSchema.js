@@ -17,7 +17,7 @@ const resumeSchema = ({
     },
 
     gender: {
-        type: "String",
+        type: String,
     },
 
     address: {
@@ -37,19 +37,19 @@ const resumeSchema = ({
     },
 
     expiryDate: {
-        type: Date,
+        type: String,
     },
 
     dateOfBirth: {
-        type: Date,
+        type: String,
     },
 
     height: {
-        type: Number,
+        type: String,
     },
 
     weight: {
-        type: Number,
+        type: String,
     },
 
     maritalStatus: {
@@ -57,7 +57,7 @@ const resumeSchema = ({
     },
 
     children: {
-        type: Number,
+        type: String,
     },
 
     religion: {
@@ -130,7 +130,7 @@ const resumeSchema = ({
     },
 
     phoneNumber: {
-        type: Number,
+        type: String,
     },
 
     email: {
@@ -138,11 +138,11 @@ const resumeSchema = ({
     },
 
     homeNumber: {
-        type: Number,
+        type: String,
     },
 
     relativesNumber: {
-        type: Number,
+        type: String,
     },
 
     createdAt: { type: Date, default: Date.now },
@@ -152,3 +152,18 @@ const resumeSchema = ({
 })
 
 export default mongoose.model("Resume", resumeSchema, "Resume")
+
+
+{/* <RadioGroup defaultValue='SLC'
+        id='education'
+        value={formData['education'] || ''}
+        onChange={(value) => handleInputChange({target: {id: 'education', value}})}
+        py={2}>
+        <Stack direction={{ base: "column", sm: "column", md: "row", lg: "row" }}>
+          <Radio value="under_slc">Under SLC</Radio>
+          <Radio value="slc">SLC</Radio>
+          <Radio value="+2">+2</Radio>
+          <Radio value="bachelors">Bachelors</Radio>
+          <Radio value="masters">Masters</Radio>
+        </Stack>
+      </RadioGroup> */}
