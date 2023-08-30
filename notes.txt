@@ -25,42 +25,4 @@
 //intersection observer 
 
 
-const professions = [
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    sector: "Construction"
-  },
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "sector": "Medical"
-  },
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "sector": "Hotel management"
-  },
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "sector": "Security"
-  },
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "sector": "Crusie"
-  },
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "sector": "Oil & Gas Refineries"
-  },
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "sector": "Hospitality"
-  },
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "sector": "Engineering"
-  },
-  {
-    "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "sector": "Aviation"
-  },
-]
-
+AOS: CSS-Driven “On Scroll” Animation Library

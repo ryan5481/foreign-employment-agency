@@ -10,6 +10,7 @@ import footerRoutes from "./routes/footerRoutes.js"
 import homePageRoutes from "./routes/homePageRoutes.js"
 import aboutUsRoutes from "./routes/aboutUsRoutes.js"
 import resumeRoutes from "./routes/resumeRoutes.js"
+import galleryImageRoutes from "./routes/galleryImageRoutes.js"
 
 app.use(cors());
 
@@ -26,6 +27,7 @@ app.use("/", footerRoutes)
 app.use("/", homePageRoutes)
 app.use("/", aboutUsRoutes)
 app.use("/", resumeRoutes)
+app.use("/", galleryImageRoutes)
 
 const port = 8000;
 

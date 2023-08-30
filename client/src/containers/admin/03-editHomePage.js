@@ -19,7 +19,7 @@ const EditHomePage = () => {
     //CAROUSEL
     const [currentCarouselImages, setCurrentCarouselImages] = useState([]);
     const [carouselTitles, setCarouselTitles] = useState([]);
-    const [selectedCarouselImage, setSelectedCarouselImage] = useState(null);
+    const [selectedImageFile, setSelectedImageFile] = useState(null);
     const [selectedCarouselImageIndex, setSelectedCarouselImageIndex] = useState(-1);
     const [editedCarouselImageTitle, setEditedCarouselImageTitle] = useState("");
     //
@@ -48,6 +48,10 @@ const EditHomePage = () => {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const handleImageSelect = (event) => {
+        selectedImageFile(event.target.files[0])
     }
 
     const handleFileChange = (event) => {

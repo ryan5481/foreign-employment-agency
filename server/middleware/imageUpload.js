@@ -152,3 +152,19 @@ export const JobImageUpload = multer({
     // limits: { fileSize: 1024 * 1024 * 4 },
     // fileFilter: fileFilter
 }).single("jobImage")
+
+////////// IMAGE GALLERY //////////
+const galleryImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/galleryImages")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "JobImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const GalleryImageUplaod = multer({
+    storage: galleryImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("galleryImage")
