@@ -6,14 +6,13 @@ import path from "path"
 export const PublishJob = async(req, res) => {
     try{
         const jobCode = Date.now().toString()
-            const newReq = {...req.body, jobCode: jobCode.slice(-8)}
         
-        // if(req.file){
-        //     let jobImage = fs.readFileSync(path.join("../server/uploads/jobImages/" + req.file.filename))
+        if(req.file){
+            let jobImage = fs.readFileSync(path.join("../server/uploads/jobImages/" + req.file.filename))
         
-        // let updatedData = {...newReq, jobImage: jobImage}
+        let updatedData = {...req.body, jobImage: jobImage, jobCode: jobCode.slice(-8)}
 
-        const data = await JobDescription.create(newReq)
+        const data = await JobDescription.create(updatedData)
             if(data){
                 res.status(200).json({
                     msg: "Job posted successfully."})
@@ -22,9 +21,11 @@ export const PublishJob = async(req, res) => {
                     msg: "Failed to post the job."
                 }) 
             }
-        // } else{
-        //     console.log("File not received.")
-        // }
+        }else{
+            res.status(404).json({
+                msg: "Image file not received."
+            }) 
+        }
     }catch(error)
     {console.log(error)}
 } 

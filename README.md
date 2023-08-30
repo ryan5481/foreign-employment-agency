@@ -1,5 +1,14 @@
 # OVERSEAS EMPLOYMENT AGENCY
 
+## Introduction
+A web app developed using MERN stack. ReactJS for the users' and admins' end rendering of UI and data, and ExpressJs (a Nodejs framework) for data storage and manipulation.
+
+This app allows users to view the company's profile, contact them, view the jobs listings offered by the company and post a job resume.
+
+Admins are able to create and modify account details. They can create and modify all the data such as all images, texts and links including navigation bar items. 
+
+In addition, admins can post new job vacancies, view and delete the resumes submitted by users.
+
 ## Tech Stack
 
 1. [React JS](https://reactjs.org/docs/getting-started.html/)
@@ -76,7 +85,7 @@
   - [x] User detials and contact info
   - [x] Log out
   - [x] View current user's social media posts on profile page
-    - [ ] Change username, email, phone number feature
+    - [ ] Change username, email, phone number 
     - [ ] Edit profile picture
     - [ ] Edit bio
     
@@ -89,18 +98,17 @@
 - [x] Page Header
 - [x] Page Footer
 
-- [x] Chat window
+- [ ] Chat window
    
 
 ## Usage
 - `git checkout develop`
-- `npm`
- - `cd client`
-    - `npm install`
-    - `npm start`
  - `cd server`
     - `npm install`
     - `nodemon`
+ - `cd client`
+    - `npm install`
+    - `npm start`
 
 ## Preview (GIFs):
 

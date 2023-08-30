@@ -83,21 +83,20 @@ const TestimonialText = (props: Props) => {
 const EditTestimony = () => {
 
   const [testimonyData, setTestimonyData] = useState([])
-
+  const [selectedPreviewImages, setSelectedPreviewImages] = useState([]);
   //PUT
   const [selectedImageFile, setSelectedImageFile] = useState(null);
+  const [selectedPreviewImage, setSelectedPreviewImage] = useState(null);
+
   const [imageTitle, setImageTitle] = useState('');
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
-
   const [imageTitles, setImageTitles] = useState('')
   const [names, setNames] = useState('')
   const [descriptions, setDescriptions] = useState('')
   const [addresses, setAddresses] = useState('')
-
   const imageInputRef = useRef();
-
 
   const fetchTestimonies = async () => {
     try {
@@ -112,17 +111,19 @@ const EditTestimony = () => {
       setDescriptions(initialDescriptions)
       const initialAddresses = newData.map(array => array.address || '')
       setAddresses(initialAddresses)
-
-
-      // setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-      // setLoading(false);
     }
   };
 
-
   // EDIT
+  const handleNewImageSelect = (event, index) => {
+    const newSelectedPreviewImages = [...selectedPreviewImages];
+    newSelectedPreviewImages[index] = URL.createObjectURL(event.target.files[0]);
+    setSelectedPreviewImages(newSelectedPreviewImages);
+    setSelectedImageFile(event.target.files[0]);
+  };
+
   const handleTestimonyEdit = async (event, imageId, index) => {
     event.preventDefault()
     const updatedImageTitle = imageTitles[index]
@@ -144,21 +145,14 @@ const EditTestimony = () => {
           headers: {
             "Content-Type": "multipart/form-data"
         }
-
         })
         fetchTestimonies();
         setSelectedImageFile();
-        
       } catch (error) {
-
         console.error("Error updating image: ", error)
       }
-    
   }
 
-  const handleNewImageSelect = (event) => {
-    setSelectedImageFile(event.target.files[0])
-  }
 
   useEffect(() => {
     fetchTestimonies();
@@ -183,8 +177,9 @@ const EditTestimony = () => {
         >
           {testimonyData.map((testimony, index) => {
             return (<>
-              <form key={testimony._id}
-                onSubmit={(event) => handleTestimonyEdit(event, testimony._id, index)}
+              <form     
+              key={testimony._id}
+              onSubmit={(event) => handleTestimonyEdit(event, testimony._id, index)}
               >
 
                 <VStack  >
@@ -219,7 +214,7 @@ const EditTestimony = () => {
 
                   <Avatar
                     mt={5}
-                    src={`data:image/jpeg;base64,${testimony.testimonyImage}`}
+                    src={selectedPreviewImages[index] || `data:image/jpeg;base64,${testimony.testimonyImage}`}
                     alt={testimony.name}
                     onClick={() => imageInputRef.current.click()}
                   />

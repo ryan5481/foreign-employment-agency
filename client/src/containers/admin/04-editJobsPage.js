@@ -24,7 +24,10 @@ const AllJobs = ({ displayAll }) => {
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
     const cancelRef = useRef()
+    const imageInputRef = useRef()
     const toast = useToast()
+    const [selectedImage, setSelectedImage] = useState(null)
+    const [displaySelectedImage, setDisplaySelectedImage] = useState(null);
     const [formData, setFormData] = useState({
         jobTitle: '',
         salary: '',
@@ -38,44 +41,74 @@ const AllJobs = ({ displayAll }) => {
         shortDescription: '',
         reqQualification: [],
         responsiblities: [],
-        skillsRequired: []
+        skillsRequired: [],
+        jobImage: null
     })
 
     //POST
+
+    const handleImageSelect = (event) => {
+        setSelectedImage(event.target.files[0])
+        if (event.target.files && event.target.files[0]) {
+            setDisplaySelectedImage(URL.createObjectURL(event.target.files[0]));
+    }
+}
+
     const handleNewInputChange = (event) => {
         const { id, value } = event.target
         const newValue = value === 'Yes' ? true :
                          value === 'No' ? false :
                          value
-        setFormData((prevData) => {
-            if (id === 'reqQualifications') {
-                return {
-                    ...prevData,
-                    reqQualification: [...prevData.reqQualification, value]
-                };
-            } else if(id === 'reqQualifications') {
-                return {
-                    ...prevData,
-                    responsiblities: [...prevData.responsiblities, value]
-                };
-            } else if(id === 'skillsRequired') {
-                return {
-                    ...prevData,
-                    skillsRequired: [...prevData.skillsRequired, value]
-                };
-            }
-            else {
-                return {
+        setFormData((prevData) => ({
+            // if (id === 'reqQualifications') {
+            //     return {
+            //         ...prevData,
+            //         reqQualification: [...prevData.reqQualification, value]
+            //     };
+            // } else if(id === 'reqQualifications') {
+            //     return {
+            //         ...prevData,
+            //         responsiblities: [...prevData.responsiblities, value]
+            //     };
+            // } else if(id === 'skillsRequired') {
+            //     return {
+            //         ...prevData,
+            //         skillsRequired: [...prevData.skillsRequired, value]
+            //     };
+            // }
+            // else {
+                
                     ...prevData,
                     [id]: newValue
-                };
-            }
-        })
+                // };
+            
+        }))
     }
+
 
     const handlePostNewJob = async () => {
         try {
-            const res = await axios.post("http://localhost:8000/admin/publishjob", formData)
+            const updatedFormData = new FormData();
+
+        // Append all the form data to the updated FormData
+        Object.entries(formData).forEach(([key, value]) => {
+            if (key === 'jobImage') {
+                updatedFormData.append(key, selectedImage);
+            } else if (Array.isArray(value)) {
+                value.forEach((item, index) => {
+                    updatedFormData.append(`${key}[${index}]`, item);
+                });
+            } else {
+                updatedFormData.append(key, value);
+            }
+        });
+        console.log("FORMDATA:" + updatedFormData)
+            const res = await axios.post("http://localhost:8000/admin/publishjob", updatedFormData, 
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data", // Set Content-Type
+                },
+            })
             if (res.status === 200) {
                 toast({
                     title: 'Form submitted.',
@@ -87,18 +120,26 @@ const AllJobs = ({ displayAll }) => {
                 window.location.reload()
                 activatePostNewJob(true)
             } else {
-                throw new Error('Form submission failed.');
+                toast({
+                    title: 'Error',
+                    description: res.data.msg,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
             }
         } catch (error) {
+            console.error("Error: ", error)
             toast({
                 title: 'Error',
-                description: 'There was an error submitting the form.',
+                description: 'There was an error.',
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
             });
         }
     }
+
 
     //GET
     const fetchJobsList = async () => {
@@ -653,14 +694,25 @@ const AllJobs = ({ displayAll }) => {
                                         <Center>
                                             <Image
                                                 rounded={'md'}
+                                                border={"1px solid"}
                                                 alt={selectedJob.jobTitle}
-                                                src={
-                                                    `data:image/jpeg;base64,${selectedJob.jobImage}`
+                                                src={displaySelectedImage ||
+                                                    `https://image.pngaaa.com/768/791768-middle.png`
+
                                                 }
                                                 align='center'
                                                 maxH="200px"
                                                 objectFit="contain"
                                                 overflow="hidden"
+                                                onClick={() => imageInputRef.current.click()}
+                                            />
+                                            <input
+                                            id='jobImage'
+                                            type='file'
+                                            accept='image/*'
+                                            ref={imageInputRef}
+                                            style={{ display: "none" }}
+                                            onChange={handleImageSelect}
                                             />
                                         </Center>
                                     </Box>

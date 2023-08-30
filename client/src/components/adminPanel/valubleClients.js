@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import {
     Box,
@@ -15,13 +15,14 @@ import {
 
 
 const ValuableClients = () => {
-    const [previewImage, setPreviewImage] = useState(null)
-    const [selectedFile, setSelectedFile] = useState(null)
-
+    const [displaySelectedImage, setDisplaySelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null)
     const [image1, setImage1] = useState('')
     const [heading1, setHeading1] = useState('')
     const [text1, setText1] = useState('')
     const [description1, setDescription1] = useState('')
+    const imageInputRef = useRef()
+
 
     const fetchData = async () => {
         try{
@@ -38,48 +39,34 @@ const ValuableClients = () => {
         }
     }
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        
-        setSelectedFile(event.target.files[0]);
-        setSelectedFile(file);
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setPreviewImage(e.target.result); 
-            };
-            reader.readAsDataURL(file);
+    const handleImageSelect = (event) => {
+        setSelectedImage(event.target.files[0]);
+        if (event.target.files && event.target.files[0]) {
+          setDisplaySelectedImage(URL.createObjectURL(event.target.files[0]));
         }
-    };
-    
-
-    useEffect(() => {
-        fetchData()
-    }, [])
-
-
-
+      }
+   
     const handleSubmit = async (event) => {
         event.preventDefault();
           try {
             const formData = new FormData();
-            if(selectedFile){
-                formData.append('valuableClientsImage1', selectedFile);
+            if(selectedImage){
+                formData.append('valuableClientsImage1', selectedImage);
             }
             formData.append('heading1', heading1);
             formData.append('text1', text1);
             formData.append('description1', description1);
     
             const res = await axios.post('http://localhost:8000/edit-homepage/valuableClients', formData);
-            if (res) {
-            //   window.location.reload();
-            }
+            res && window.location.reload()
           } catch (error) {
             console.log('Error updating data:', error);
           }
       };
 
-
+      useEffect(() => {
+        fetchData()
+    }, [])
 
     return (
         <Box>
@@ -114,19 +101,20 @@ const ValuableClients = () => {
                                     <Image
                                         borderRadius="lg"
                                         maxH={"500px"}
-                                        src={previewImage || image1}
-                                        alt="Click To Upload"
-                                        onClick={() => document.getElementById('fileInput').click()} 
+                                        src={displaySelectedImage || image1}
+                                        alt="Upload image"
                                         objectFit="contain"
                                         width="100%"
                                         transition="0.3s ease-in-out"
+                                        onClick={() => imageInputRef.current.click()} 
                                     />
                                     <input
                                         type='file'
                                         id='fileInput'
                                         accept='image/*'
-                                        onChange={handleFileChange}
-                                        style={{ display: "none" }}
+                                        style={{ display: 'none' }} 
+                                        ref={imageInputRef}
+                                        onChange={handleImageSelect} 
                                     />
                                     <Box position="absolute"
                                         top="50%"
@@ -182,6 +170,7 @@ const ValuableClients = () => {
                             marginTop="2"
                             color={useColorModeValue('gray50', 'gray.200')}
                             fontSize="lg"
+                            minH={250}
                             value={description1}
                             onChange={(e) => setDescription1(e.currentTarget.value)}
                         />

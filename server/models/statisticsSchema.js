@@ -25,17 +25,14 @@ const statisticsSchema = ({
 
     column1height: {
         type: String,
-        default: "120"
     },
 
     column2height: {
         type: String,
-        default: "250"
     },
 
     column3height: {
         type: String,
-        default: "190"
     },
 
     box1TopText: {
