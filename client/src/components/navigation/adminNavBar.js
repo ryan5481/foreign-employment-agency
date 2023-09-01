@@ -363,7 +363,7 @@ const NAV_ITEMS: Array<NavItem> = [
 
   {
     label: 'Documentation',
-    href: '/edit-docspage',
+    href: '/edit-certificatepage',
   },
   {
     label: 'About Us',

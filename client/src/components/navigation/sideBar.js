@@ -70,7 +70,7 @@ const LinkItems: Array <LinkItemProps> = [
   { name: 'Home', icon: AiFillHome, href: '/edit-homepage' },
   { name: 'Jobs', icon: BiSolidBriefcaseAlt2, href: '/edit-jobspage' },
   { name: 'Resume', icon: PiNewspaperClippingFill, href: '/edit-resumepage' },
-  { name: 'Documentation', icon: IoIosPaper, href: '/edit-docspage' },
+  { name: 'Documentation', icon: IoIosPaper, href: '/edit-certificatepage' },
   { name: 'About Us', icon: BiSolidInfoSquare, href: '/edit-aboutuspage' },
   { name: 'Gallery', icon: FaImages, href: '/edit-gallerypage' },
   { name: 'Contact Us', icon: BsFillChatLeftTextFill, href: '/edit-contactuspage' },

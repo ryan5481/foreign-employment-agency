@@ -22,7 +22,7 @@ import EditNavbar from '../containers/admin/02-editNavBar'
 import EditHomePage from '../containers/admin/03-editHomePage'
 import EditJobsPage from '../containers/admin/04-editJobsPage'
 import EditResumePage from '../containers/admin/05-editResumePage'
-import EditDocsPage from '../containers/admin/06-editDocsPage'
+import EditCertificatePage from '../containers/admin/06-editCertificatePage'
 import EditAboutUsPage from '../containers/admin/07-editAboutUsPage'
 import EditGalleryPage from '../containers/admin/08-editGalleryPage'
 import EditContactUsPage from '../containers/admin/09-editContactUsPage.js'
@@ -89,7 +89,7 @@ const AdminRoutes = () => {
         <Route path="/edit-jobspage" element={<EditJobsPage />} />
         <Route path="/edit-footer" element={<EditFooter />} />
         <Route path="/edit-resumepage" element={<EditResumePage />} />
-        <Route path="/edit-docspage" element={<EditDocsPage />} />
+        <Route path="/edit-certificatepage" element={<EditCertificatePage />} />
         <Route path="/edit-aboutuspage" element={<EditAboutUsPage />} />
         <Route path="/edit-gallerypage" element={<EditGalleryPage />} />
         <Route path="/edit-contactuspage" element={<EditContactUsPage />} />
