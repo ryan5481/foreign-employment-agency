@@ -13,7 +13,8 @@ const ImageTitleLarge = (props) => {
     <Flex p={50} w="full" alignItems="center" justifyContent="center">
       <Box
         bg={useColorModeValue('white', 'gray.800')}
-        maxW="xl"
+        w='sm'
+
         borderWidth="1px"
         rounded="10px"
         shadow="lg"
@@ -21,10 +22,9 @@ const ImageTitleLarge = (props) => {
         {props.data.isNew && (
           <Circle size="10px" position="absolute" top={2} right={2} bg="blue.200" />
         )}
+        <ModalImage large={`data:image/jpeg;base64,${props.data.certificateImage}`} small={`data:image/jpeg;base64,${props.data.certificateImage}`} alt={props.data.certificateTitle} />
 
-        <ModalImage large={props.data.imageURL} small={props.data.imageURL} alt={`Picture of ${props.data.name}`} />
-
-        <Box p="6">         
+        <Box p="6">
           <Flex mt="1" justifyContent="center" alignContent="center">
             <Box
               fontSize="2xl"
@@ -33,9 +33,9 @@ const ImageTitleLarge = (props) => {
               lineHeight="tight"
               isTruncated
               textAlign="center"
-              >
-              {props.data.title}
-            </Box>  
+            >
+              {props.data.certificateTitle}
+            </Box>
           </Flex>
         </Box>
       </Box>

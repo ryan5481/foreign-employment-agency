@@ -147,7 +147,7 @@ const EditTestimony = () => {
         }
         })
         fetchTestimonies();
-        setSelectedImageFile();
+        setSelectedImageFile(null);
       } catch (error) {
         console.error("Error updating image: ", error)
       }

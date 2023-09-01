@@ -159,7 +159,7 @@ const galleryImageStorage = multer.diskStorage({
         cb(null, "../server/uploads/galleryImages")
     },
     filename: function (req, file, cb) {
-        cb(null, "JobImg_" + Date.now() + ".jpeg")
+        cb(null, "GalleryImg_" + Date.now() + ".jpeg")
     }
 })
 
@@ -168,3 +168,19 @@ export const GalleryImageUplaod = multer({
     // limits: { fileSize: 1024 * 1024 * 4 },
     // fileFilter: fileFilter
 }).single("galleryImage")
+
+////////// IMAGE GALLERY //////////
+const certificateImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/certificateImages")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "JobImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const CertificateImageUplaod = multer({
+    storage: certificateImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("certificateImage")

@@ -1,37 +1,26 @@
-import ImageTitleLarge from "../../components/card/imageTitleLarge"
+import React, {useState, useEffect} from "react"
+import axios from "axios"
 import {
-  Grid, Heading, Text, Box, useColorModeValue
+  Grid, Heading, Text, Box, useColorModeValue, useStatStyles
 } from '@chakra-ui/react'
-
-
+import ImageTitleLarge from "../../components/card/imageTitleLarge"
 
 const License = () => {
-  const certificates = [
-    {
-      isNew: true,
-      imageURL:
-        'http://nepalmanpoweragency.com/admin/img/files/1601279949_COMPANY%20REGISTRAR.jpg',
-      title: 'Company Certificate',
-    },
-    {
-      isNew: true,
-      imageURL:
-        'http://nepalmanpoweragency.com/admin/img/files/1601279949_COMPANY%20REGISTRAR.jpg',
-      title: 'Company Certificate',
-    },
-    {
-      isNew: true,
-      imageURL:
-        'http://nepalmanpoweragency.com/admin/img/files/1601279949_COMPANY%20REGISTRAR.jpg',
-      title: 'Company Certificate',
-    },
-    {
-      isNew: true,
-      imageURL:
-        'http://nepalmanpoweragency.com/admin/img/files/1601279949_COMPANY%20REGISTRAR.jpg',
-      title: 'Company Certificate',
-    },
-  ]
+  const [certificatesList, setCertificatesList] = useState([])
+  
+  const fetchCertificates = async () => {
+    try{
+      const res = await axios.get("http://localhost:8000/get-certificate-images")
+      const data = res.data.data
+      setCertificatesList(data)
+    }catch(error){
+      console.error("Error: ", error)
+    }
+  } 
+
+  useEffect(() => {
+    fetchCertificates()
+  }, [])
 
   return (
     <Box
@@ -50,7 +39,7 @@ const License = () => {
         </Text>
       </Heading>
       <Grid templateColumns={{ sm: '1fr 1fr', md: '2fr 2fr' }} gap={1} p={3} align="center">
-        {certificates.map((cert, index) => {
+        {certificatesList.map((cert, index) => {
           return(
             <>
             <ImageTitleLarge data={cert} />
