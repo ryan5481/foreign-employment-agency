@@ -53,7 +53,7 @@ const AdminLogin = () => {
           fullName: response.data.fullName,
         })
         )
-        navigate("/adminpanel")
+        navigate("/edit-homepage")
       }else{
         alert("Login failed!")
       }

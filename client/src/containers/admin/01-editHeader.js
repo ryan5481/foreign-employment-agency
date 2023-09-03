@@ -50,7 +50,8 @@ const EditHeader = () => {
                 whatsapp: formData.whatsapp
             })
             if (response) {
-                window.location.reload();
+                GetHeaderData()
+
             }
 
         } catch (error) {

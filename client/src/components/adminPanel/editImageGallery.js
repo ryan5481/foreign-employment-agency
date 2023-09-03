@@ -156,7 +156,6 @@ const EditImageGallery = (props) => {
                                             colorScheme='purple'
                                             mt='1'
                                             fontWeight='semibold'
-                                            as='h4'
                                             value={imageData.imageTitle}
                                             onChange={(e) => setImageTitle(e.target.value)}
                                         />

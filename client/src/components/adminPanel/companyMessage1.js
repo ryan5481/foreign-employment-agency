@@ -65,6 +65,8 @@ const CompanyMessage1 = () => {
           <Box>
             <FormControl id="heading1" mt={4}>
               <Input textAlign={'center'} 
+              fontWeight='bold'
+              fontSize={24}
               value={heading1} 
               onChange={(e) => setHeading1(e.target.value)} />
             </FormControl>
