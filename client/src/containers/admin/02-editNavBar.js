@@ -1,5 +1,6 @@
+import React, { useState, useEffect, useRef } from "react"
+import axios from "axios"
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 import {
     Box,
     Flex,
@@ -18,7 +19,7 @@ import {
     useColorMode,
     Image,
     Center,
-     Editable,
+    Editable,
     EditableInput,
     EditablePreview,
 } from '@chakra-ui/react'
@@ -27,6 +28,7 @@ import {
     CloseIcon,
     ChevronDownIcon,
     ChevronRightIcon,
+    CheckCircleIcon,
     MoonIcon,
     SunIcon
 } from '@chakra-ui/icons'
@@ -35,34 +37,33 @@ interface Props {
     children: React.ReactNode
 }
 
-const NavLink = (props: Props) => {
-    const { children } = props
-
-    return (
-        <Box
-            as="a"
-            px={2}
-            py={1}
-            rounded={'md'}
-            _hover={{
-                textDecoration: 'none',
-                bg: useColorModeValue('gray.200', 'gray.700'),
-            }}
-            href={'#'}>
-            {children}
-        </Box>
-    )
-}
-
 export default function EditNavbar() {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
     const navigate = useNavigate()
 
+    //GET
+    const [menuItems, setMenuItems] = useState([]);
+
+    const fecthNavBarItems = async () => {
+        try {
+            const res = await axios.get("http://localhost:8000/get-menu-items")
+            const data = res.data.data
+            setMenuItems(data)
+
+        } catch (error) {
+            console.error("Error: ", error)
+        }
+    }
+
+    useEffect(() => {
+        fecthNavBarItems()
+    }, [])
+
     return (
         <Box
             h={'92.5vh'}
-            bg={useColorModeValue('purple.500', 'purple.800')}
+            bg={useColorModeValue('purple.800', 'purple.800')}
             color={'purple.100'}
             justifyContent='center'
             top={'10vh'}
@@ -70,7 +71,7 @@ export default function EditNavbar() {
             <Box className='header'>
                 <Flex
                     bg={useColorModeValue('white', 'blue.800')}
-                    color={useColorModeValue('gray.600', 'white')}
+                    color={useColorModeValue('gray.800', 'white')}
                     minH={'70px'}
                     py={{ base: 0 }}
                     px={{ base: 4 }}
@@ -97,12 +98,15 @@ export default function EditNavbar() {
                             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
                             fontFamily={'heading'}
                             color={useColorModeValue('gray.800', 'white')}
-                            onClick={() => navigate("/")}
+                        // onClick={() => navigate("/")}
                         />
 
                         <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                             <Center>
-                                <DesktopNav />
+                                <DesktopNav 
+                                menuItems={menuItems}
+                                fecthNavBarItems={fecthNavBarItems}
+                                 />
                             </Center>
                         </Flex>
                     </Flex>
@@ -127,65 +131,135 @@ export default function EditNavbar() {
     )
 }
 
-const DesktopNav = () => {
+const DesktopNav = (props) => {
     const linkHoverColor = useColorModeValue('gray.200', 'white')
     const popoverContentBgColor = useColorModeValue('white', 'gray.800')
     const navigate = useNavigate();
-    const [formData, setFormData] = useState()
+    const [isFocused, setIsFocused] = useState(null); // Initialize as null
+    //PUT
+    const [subLabels, setSubLabels] = useState('')
+    const [subHrefs, setSubHrefs] = useState('')
 
+    const initialLabels = props.menuItems.map(item => item.label || '');
+    const initialHrefs = props.menuItems.map(item => item.href || '');
+    const [labels, setLabels] = useState(initialLabels);
+    const [hrefs, setHrefs] = useState(initialHrefs);
+    
+    const handleEditNavbar = async (e, itemId, index) => {
+        e.preventDefault()
+        const updatedLabel = labels[index]
+        const updatedHref = hrefs[index]
 
-    const handleInputChange = (event) => {
-        // console.log(event); // Log the event to see if it's capturing changes
-        const { name, value } = event.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
-    };
+        const requestData = {
+            _id: itemId,
+            label: updatedLabel,
+            href: updatedHref,
+          };
+        try {
+          // Send a PUT request to the backend to update the label
+          const response = await axios.put(`http://localhost:8000/admin/edit-menu-item`, requestData, {
+            headers: {
+                'Content-Type': 'application/json', // Specify JSON content type
+              },
+          });
+    
+          if (response.status === 200) {
+            props.fetchNavBarItems();
+          }
+        } catch (error) {
+          console.error('Error updating label:', error);
+        }
+      };
+  
 
     return (
         <Stack direction={'row'} spacing={4} fontWeight="bold"
-            color={useColorModeValue('blue.500', 'gray.300')}
+            colorScheme='purple'
         >
-            {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label} fontWeight="bold">
-                    <Popover trigger={'hover'} placement={'bottom-start'}>
-                        <PopoverTrigger>
-                            <Box
-                                as="a"
-                                p={2}
-                                href={navItem.href ?? '#'}
-                                fontSize={'md'}
-                                fontWeight={500}
-                               
-                                onClick={() => navigate(navItem.urlPath || "/")}
-                            >
-                                <Editable id={navItem.label} placeholder={navItem.label} bg={'purple.500'} px={1} rounded={'10px'}>
-                            <EditablePreview />
-                            <EditableInput type="text" name={navItem.label} onChange={handleInputChange} />
-                        </Editable>
-                            </Box>
-                        </PopoverTrigger>
+            {props.menuItems.map((navItem, index) => (
+                <>
+                    <form onSubmit={handleEditNavbar}>
 
-                        {navItem.children && (
-                            <PopoverContent
-                                border={0}
-                                boxShadow={'xl'}
-                                bg={popoverContentBgColor}
-                                p={4}
-                                color='gray.600'
-                                rounded={'10px'}
-                                minW={'sm'}>
-                                <Stack>
-                                    {navItem.children.map((child) => (
-                                        <DesktopSubNav
-                                            key={child.label} {...child}
-                                          
-                                            onClick={() => navigate("/" + navItem?.children?.urlPath)}
-                                        />
-                                    ))}
-                                </Stack>
-                            </PopoverContent>
-                        )}
-                    </Popover>
-                </Box>
+                        <Box key={navItem._id}
+                            fontWeight="bold"
+                            onFocus={() => setIsFocused(navItem.label)}
+                            onBlur={() => setIsFocused(null)}
+                            tabIndex={0}
+                        >
+                            <Popover trigger={'hover'} placement={'bottom-start'}  >
+                                <PopoverTrigger>
+                                    <Box
+                                        as="a"
+                                        p={2}
+                                        fontSize={'md'}
+                                        fontWeight={500}
+                                    >
+                                        <Editable
+                                            id={navItem.label}
+                                            placeholder={navItem.label}
+                                            px={1} rounded={'10px'}
+                                            isPreviewFocusable={true}
+                                        >
+                                            <EditablePreview />
+                                            <EditableInput 
+                                            type="text" name='label' 
+                                            onChange={(e) => {
+                                                const updatedLabels = [...labels]
+                                                updatedLabels[index] = e.target.value
+                                                setLabels(updatedLabels)
+                                            }} 
+                                            />
+                                        </Editable>
+                                        <Editable id={navItem.href} placeholder={navItem.href} px={1} rounded={'10px'}>
+                                            <EditablePreview fontWeight="thin" />
+                                            <EditableInput 
+                                            type="text" 
+                                            name='href' 
+                                            onChange={(e) => {
+                                                const updatedHrefs = [...hrefs]
+                                                updatedHrefs[index] = e.target.value
+                                                setHrefs(updatedHrefs)
+                                            }} 
+                                            />
+                                        </Editable>
+                                        {isFocused === navItem.label && (
+                                                <Icon
+                                                    color={'green.400'}
+                                                    _hover={{ color: "green" }}
+                                                    w={8}
+                                                    h={8}
+                                                    pt={1}
+                                                    pb={2}
+                                                    as={CheckCircleIcon}
+                                                    onClick={(e)=>handleEditNavbar(e, navItem._id, index)}
+                                                />
+                                        )}
+                                    </Box>
+                                </PopoverTrigger>
+
+                                {navItem.children && (
+                                    <PopoverContent
+                                        border={0}
+                                        boxShadow={'xl'}
+                                        bg={popoverContentBgColor}
+                                        p={4}
+                                        color='gray.600'
+                                        rounded={'10px'}
+                                        minW={'sm'}>
+                                        <Stack>
+                                            {navItem.children.map((child) => (
+                                                <DesktopSubNav
+                                                    key={child.label} {...child}
+                                                />
+                                            ))}
+                                        </Stack>
+                                    </PopoverContent>
+                                )}
+                            </Popover>
+                        </Box>
+                    </form>
+
+                </>
             ))}
         </Stack>
     )
@@ -193,63 +267,53 @@ const DesktopNav = () => {
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
     const linkHoverColor = useColorModeValue('gray.200', 'white');
-    const [isEditing, setIsEditing] = useState(false);
-
-    const handleEditStart = () => {
-        setIsEditing(true);
-    };
-
-    const handleEditEnd = () => {
-        setIsEditing(false);
-    };
+    const [isFocused, setIsFocused] = useState(null); // Initialize as null
 
     return (
         <Box
-            onMouseDown={handleEditStart} // Handle edit start
             as="a"
-            href={href}
             role={'group'}
             display={'block'}
             p={2}
             rounded={'md'}
             color={'blue.500'}
-            _hover={{ color: linkHoverColor, bg: useColorModeValue('blue.400', 'gray.900'), rounded: '10px' }}>
+            _hover={{ color: linkHoverColor, bg: useColorModeValue('purple.300', 'gray.900'), rounded: '10px' }}
+        >
             <Stack direction={'row'} align={'center'}>
                 <Box>
                     <Text
                         transition={'all 0.3s ease'}
                         _groupHover={{ color: 'white.400' }}
                         fontWeight={500}>
-                        <Editable 
-                            id={label} 
-                            placeholder={label} 
-                            px={2} 
+                        <Editable
+                            id={label}
+                            placeholder={label}
+                            px={2}
                             rounded={'10px'}
                             value={label}
                             onChange={(value) => {
                                 // Handle changes here
                             }}
-                            isPreviewFocusable={false} // Prevent focusing in preview mode
-                            isEditing={isEditing}
-                            onSubmit={handleEditEnd} // Handle edit end
+                            onFocus={() => setIsFocused(label)}
+                            onBlur={() => setIsFocused(null)}
+                            tabIndex={0}
                         >
                             <EditablePreview />
                             <EditableInput type="text" name="field1" />
                         </Editable>
+                        <Editable id={href} placeholder={href} px={1} rounded={'10px'} onFocus={() => setIsFocused(label)}
+                            onBlur={() => setIsFocused(null)}
+                            tabIndex={0} >
+                            <EditablePreview fontWeight="thin" />
+                            <EditableInput type="text" name='href' />
+                        </Editable>
                     </Text>
-                    <Text fontSize={'sm'} color={'white.400'}>{subLabel}</Text>
                 </Box>
-                <Flex
-                    transition={'all .3s ease'}
-                    transform={'translateX(-10px)'}
-                    opacity={0}
-                    _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-                    justify={'flex-end'}
-                    align={'center'}
-                    flex={1}>
-                    <Icon color={'white.400'} w={5} h={5} as={ChevronRightIcon} />
-                </Flex>
+                {isFocused === label && (
+                    <Icon color={'green.400'} _hover={{ color: "green" }} w={8} h={8} pt={1} pb={2} as={CheckCircleIcon} />
+                )}
             </Stack>
+
         </Box>
     );
 };
@@ -261,15 +325,15 @@ const MobileNav = () => {
             {NAV_ITEMS.map((navItem) => (
                 // <MobileNavItem key={navItem.label} {...navItem} onClick={navItem.slug} />
                 <Editable id="field1" placeholder='' bg={'purple.500'} px={1} rounded={'10px'}>
-                <EditablePreview />
-                <EditableInput type="text" name="field1" />
-            </Editable>
+                    <EditablePreview />
+                    <EditableInput type="text" name="field1" />
+                </Editable>
             ))}
         </Stack>
     )
 }
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children }: NavItem) => {
     const { isOpen, onToggle } = useDisclosure();
     const [isEditing, setIsEditing] = useState(false);
 
@@ -284,28 +348,27 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     return (
         <Stack spacing={4} onClick={children && onToggle}>
             <Box
-                onMouseDown={handleEditStart} // Handle edit start
+                onMouseDown={handleEditStart}
                 py={2}
                 as="a"
-                href={href ?? '#'}
                 justifyContent="space-between"
                 alignItems="center"
                 _hover={{
                     textDecoration: 'none',
                 }}>
                 <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
-                    <Editable 
-                        id={label} 
-                        placeholder={label} 
-                        px={2} 
+                    <Editable
+                        id={label}
+                        placeholder={label}
+                        px={2}
                         rounded={'10px'}
                         value={label}
                         onChange={(value) => {
                             // Handle changes here
                         }}
-                        isPreviewFocusable={false} // Prevent focusing in preview mode
+                        isPreviewFocusable={false}
                         isEditing={isEditing}
-                        onSubmit={handleEditEnd} // Handle edit end
+                        onSubmit={handleEditEnd}
                     >
                         <EditablePreview />
                         <EditableInput type="text" name="field1" />

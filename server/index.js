@@ -12,6 +12,7 @@ import aboutUsRoutes from "./routes/aboutUsRoutes.js"
 import resumeRoutes from "./routes/resumeRoutes.js"
 import galleryImageRoutes from "./routes/galleryImageRoutes.js"
 import certificateImageRoutes from "./routes/certificateImageRoutes.js"
+import navBarRoutes from "./routes/navbarRoutes.js"
 
 app.use(cors());
 
@@ -30,6 +31,7 @@ app.use("/", aboutUsRoutes)
 app.use("/", resumeRoutes)
 app.use("/", galleryImageRoutes)
 app.use("/", certificateImageRoutes)
+app.use("/", navBarRoutes)
 
 const port = 8000;
 

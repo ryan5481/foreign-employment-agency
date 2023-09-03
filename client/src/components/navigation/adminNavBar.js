@@ -1,5 +1,7 @@
+import React, { useState, useEffect, useRef } from "react"
+import axios from "axios"
 import { useNavigate } from 'react-router-dom'
-import { UseSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { resetLoginDetails } from '../../redux/reducers/userSllice'
 
 import {
@@ -32,7 +34,6 @@ import {
   SunIcon
 } from '@chakra-ui/icons'
 import {FiChevronDown} from 'react-icons/fi'
-import { useSelector } from 'react-redux'
 
 interface Props {
   children: React.ReactNode
@@ -64,6 +65,60 @@ export default function AdminNavBar() {
   const{fullName} = useSelector((state) => state.user)
   const navigate = useNavigate()
 
+  //GET
+  const [menuItems, setMenuItems] = useState([]);
+
+  const fecthNavBarItems = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/get-menu-items")
+      const data = res.data.data
+      setMenuItems(data)
+
+    } catch (error) {
+      console.error("Error: ", error)
+    }
+  }
+  console.log(menuItems)
+
+  useEffect(() => {
+    fecthNavBarItems()
+  }, [])
+
+  const headerFooterItems = [{
+    label: 'Header',
+    href: '',
+    urlPath: '/edit-header',
+  },
+  {
+    label: 'NavBar',
+    href: '',
+    urlPath: '/edit-navbar',
+  },
+  {
+    label: 'Footer',
+    href: '/edit-footer',
+  }]
+
+  const adminMenuItems = menuItems.map((item) => {
+    const newItem = { ...item };
+  
+    newItem.href = `edit-${newItem.href}`;
+  
+    if (newItem.children && newItem.children.length > 0) {
+      newItem.children = newItem.children.map((child) => ({
+        ...child,
+        href: `edit-${child.href}`,
+      }));
+    }
+  
+    return newItem;
+  });
+  
+  console.log(adminMenuItems);
+
+  const allMenuItems = [...adminMenuItems, ...headerFooterItems]
+  
+  //PROFILE SECTION
   const handleSignOut = () => {
     dispatch(resetLoginDetails())
     navigate("/adminlogin")
@@ -103,12 +158,12 @@ export default function AdminNavBar() {
             w={200}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/edit-homepage")}
           />
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <Center>
-              <DesktopNav />
+              <DesktopNav allMenuItems={allMenuItems} />
             </Center>
           </Flex>
         </Flex>
@@ -169,14 +224,14 @@ export default function AdminNavBar() {
   )
 }
 
-const DesktopNav = () => {
+const DesktopNav = (props) => {
   const linkHoverColor = useColorModeValue('gray.100', 'white')
   const popoverContentBgColor = useColorModeValue('purple.100', 'purple.800')
   const navigate = useNavigate();
 
   return (
     <Stack direction={'row'} spacing={4} fontWeight="bold">
-      {NAV_ITEMS.map((navItem) => (
+      {props.allMenuItems.map((navItem) => (
         <Box key={navItem.label} fontWeight="bold">
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
@@ -184,7 +239,7 @@ const DesktopNav = () => {
                 as="a"
                 p={2}
                 href={navItem.href ?? '#'}
-                fontSize={'md'}
+                fontSize={'xs'}
                 fontWeight={500}
                 color='gray.100'
                 _hover={{
@@ -204,7 +259,7 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={'xl'}
-                bg={popoverContentBgColor}
+                bg={'purple.800'}
                 p={4}
                 color='gray.600'
                 rounded={'10px'}
@@ -243,14 +298,18 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       display={'block'}
       p={2}
       rounded={'md'}
-      color={'blue.500'}
+      color={'gray.100'}
       _hover={{ color: linkHoverColor, bg: useColorModeValue('purple.400', 'purple.900'), rounded: '10px' }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
             transition={'all 0.3s ease'}
             _groupHover={{ color: 'white.400' }}
-            fontWeight={500}>
+            fontWeight={500}
+            minW={'sm'}
+            fontSize='sm'
+            align="left"
+            >
             {label}
           </Text>
           <Text fontSize={'sm'} color={'white.400'}>{subLabel}</Text>
@@ -335,52 +394,67 @@ interface NavItem {
 }
 
 const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Header',
-    href: '',
-    urlPath: '/edit-header',
-  },
-  {
-    label: 'NavBar',
-    href: '',
-    urlPath: '/edit-navbar',
-  },
+  
   {
     label: 'Home',
     href: '',
-    urlPath: '/edit-homepage',
+    urlPath: '/edit',
   },
 
   {
     label: 'Jobs',
-    href: '/edit-jobspage',
+    href: '/edit-jobs',
   },
 
   {
     label: 'Resume',
-    href: "/edit-resumepage"
+    href: "/edit-resume"
   },
 
   {
     label: 'Documentation',
-    href: '/edit-certificatepage',
+    href: '/edit-license',
+    children: [
+            {
+              label: 'Licenses',
+              subLabel: '',
+              href: 'edit-license',
+            },
+            {
+              label: 'Newspaper Ads',
+              subLabel: '',
+              href: 'edit-newspaper',
+            },
+          ],
   },
   {
     label: 'About Us',
-    href: '/edit-aboutuspage',
+    href: '/edit-about',
+    children: [
+            {
+              label: 'About Nepal',
+              subLabel: '',
+              href: 'edit-about-nepal',
+            },
+            {
+              label: 'Why Choose Us',
+              subLabel: '',
+              href: 'edit-choose-us',
+            },
+          ],
   },
 
   {
     label: 'Gallery',
-    href: '/edit-gallerypage',
+    href: '/edit-gallery',
   },
   {
     label: 'Contact Us',
-    href: '/edit-contactuspage',
+    href: '/edit-contact-us',
   },
-  {
-    label: 'Footer',
-    href: '/edit-footer',
-  },
+  
 
 ]
+
+
+

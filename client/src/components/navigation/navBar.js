@@ -1,3 +1,5 @@
+import React, { useState, useEffect, useRef } from "react"
+import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 import {
   Box,
@@ -53,7 +55,28 @@ const NavLink = (props: Props) => {
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+
   const navigate = useNavigate()
+  
+  //GET
+  const [menuItems, setMenuItems] = useState([]);
+
+  const fecthNavBarItems = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/get-menu-items")
+      const data = res.data.data
+      setMenuItems(data)
+
+    } catch (error) {
+      console.error("Error: ", error)
+    }
+  }
+  console.log(menuItems)
+
+  useEffect(() => {
+    fecthNavBarItems()
+  }, [])
+
 
   return (
     <Box className='header'>
@@ -86,12 +109,12 @@ export default function NavBar() {
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}
-            onClick={()=>navigate("/")}
+            onClick={() => navigate("/")}
           />
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <Center>
-              <DesktopNav />
+              <DesktopNav menuItems={menuItems} />
             </Center>
           </Flex>
         </Flex>
@@ -109,70 +132,72 @@ export default function NavBar() {
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
+        <MobileNav menuItems={menuItems} />
       </Collapse>
     </Box>
   )
 }
 
-const DesktopNav = () => {
+const DesktopNav = (props) => {
   const linkHoverColor = useColorModeValue('gray.200', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
   const navigate = useNavigate();
 
   return (
     <Stack direction={'row'} spacing={4} fontWeight="bold"
-    color={useColorModeValue('blue.500', 'gray.300')}
+      color={useColorModeValue('blue.500', 'gray.300')}
     >
-      {NAV_ITEMS.map((navItem) => (
+      {props.menuItems.map((navItem) => (
         <Box key={navItem.label} fontWeight="bold">
-          <Popover trigger={'hover'} placement={'bottom-start'}>
-            <PopoverTrigger>
-              <Box
-                as="a"
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'md'}
-                fontWeight={500}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                  bg: 'blue.400',
-                  rounded:'10px',
-                  shadow: 'md'
-                }}
-                onClick={() => navigate(navItem.urlPath || "/")}
+            <Popover trigger={'hover'} placement={'bottom-start'}>
+              <PopoverTrigger>
+                <Box
+                  as="a"
+                  p={2}
+                  href={navItem.href ?? '#'}
+                  fontSize={'md'}
+                  fontWeight={500}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: linkHoverColor,
+                    bg: 'blue.400',
+                    rounded: '10px',
+                    shadow: 'md'
+                  }}
+                  onClick={() => navigate(navItem.urlPath || "/")}
                 >
-                {navItem.label}
-              </Box>
-            </PopoverTrigger>
+                  {navItem.label}
+                </Box>
+              </PopoverTrigger>
 
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                color='gray.600'
-                rounded={'10px'}
-                minW={'sm'}>
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav 
-                    key={child.label} {...child}  
-                    _hover={{
-                      textDecoration: 'none',
-                      color: linkHoverColor,
-                      bg: 'blue.400',
-                      rounded:'10px',
-                    }}
-                    onClick={() => navigate("/" + navItem?.children?.urlPath)} 
-                    />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
-          </Popover>
+              {navItem.children.length!== 0 && (
+                <PopoverContent
+                  border={0}
+                  boxShadow={'xl'}
+                  bg={popoverContentBgColor}
+                  p={4}
+                  color='gray.600'
+                  rounded={'10px'}
+                  minW={'sm'}>
+                  <Stack>
+                    {navItem.children.map((child) => (
+                      <DesktopSubNav
+                        key={child.label} {...child}
+                        _hover={{
+                          textDecoration: 'none',
+                          color: linkHoverColor,
+                          bg: 'blue.400',
+                          rounded: '10px',
+                        }}
+                        onClick={() => navigate("/" + navItem?.children?.urlPath)}
+                      />
+                    ))}
+                  </Stack>
+                </PopoverContent>
+              )}
+            </Popover>
+          
+
         </Box>
       ))}
     </Stack>
@@ -191,7 +216,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       p={2}
       rounded={'md'}
       color={'blue.500'}
-      _hover={{ color: linkHoverColor, bg: useColorModeValue('blue.400', 'gray.900'),rounded:'10px' }}>
+      _hover={{ color: linkHoverColor, bg: useColorModeValue('blue.400', 'gray.900'), rounded: '10px' }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
@@ -217,10 +242,10 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   )
 }
 
-const MobileNav = () => {
+const MobileNav = (props) => {
   return (
     <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }} fontWeight="bold">
-      {NAV_ITEMS.map((navItem) => (
+      {props.menuItems.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} onClick={navItem.slug} />
       ))}
     </Stack>
@@ -281,63 +306,63 @@ interface NavItem {
   children?: Array<NavItem>
 }
 
-const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Home',
-    href: '',
-    urlPath: "",
-  },
+// const NAV_ITEMS: Array<NavItem> = [
+//   {
+//     label: 'Home',
+//     href: '',
+//     urlPath: "",
+//   },
 
-  {
-    label: 'Jobs',
-    href: 'jobs',
-  },
+//   {
+//     label: 'Jobs',
+//     href: 'jobs',
+//   },
 
-  {
-    label: 'Resume',
-    href: "resume"
-  },
+//   {
+//     label: 'Resume',
+//     href: "resume"
+//   },
 
-  {
-    label: 'Documentation',
-    href: 'license',
-    children: [
-      {
-        label: 'Licenses',
-        subLabel: '',
-        href: 'license',
-      },
-      {
-        label: 'Newspaper Ads',
-        subLabel: '',
-        href: 'newspaper',
-      },
-    ],
-  },
-  {
-    label: 'About Us',
-    href: 'about',
-    children: [
-      {
-        label: 'About Nepal',
-        subLabel: '',
-        href: 'about-nepal',
-      },
-      {
-        label: 'Why Choose Us',
-        subLabel: '',
-        href: 'choose-us',
-      },
-    ],
-  },
+//   {
+//     label: 'Documentation',
+//     href: 'license',
+//     children: [
+//       {
+//         label: 'Licenses',
+//         subLabel: '',
+//         href: 'license',
+//       },
+//       {
+//         label: 'Newspaper Ads',
+//         subLabel: '',
+//         href: 'newspaper',
+//       },
+//     ],
+//   },
+//   {
+//     label: 'About Us',
+//     href: 'about',
+//     children: [
+//       {
+//         label: 'About Nepal',
+//         subLabel: '',
+//         href: 'about-nepal',
+//       },
+//       {
+//         label: 'Why Choose Us',
+//         subLabel: '',
+//         href: 'choose-us',
+//       },
+//     ],
+//   },
 
-  {
-    label: 'Gallery',
-    href: 'gallery',
-  },
-  {
-    label: 'Contact Us',
-    href: 'contact',
-  },
+//   {
+//     label: 'Gallery',
+//     href: 'gallery',
+//   },
+//   {
+//     label: 'Contact Us',
+//     href: 'contact',
+//   },
 
-]
+// ]

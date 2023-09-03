@@ -102,7 +102,7 @@ const AllJobs = ({ displayAll }) => {
                 updatedFormData.append(key, value);
             }
         });
-        console.log("FORMDATA:" + updatedFormData)
+        // console.log("FORMDATA:" + updatedFormData)
             const res = await axios.post("http://localhost:8000/admin/publishjob", updatedFormData, 
             {
                 headers: {

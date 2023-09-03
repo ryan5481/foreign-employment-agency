@@ -57,7 +57,7 @@ const UserRoutes = () => {
       // TEMPORARY ADMIN ROUTES
         <Route path="/adminlogin" element={<AdminLogin />} />
 
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/about-nepal" element={<AboutNepal />} />
         <Route path="/choose-us" element={<WhyUs />} />
@@ -85,15 +85,17 @@ const AdminRoutes = () => {
         <Route path="/password" element={<ChangePassword />} />
         <Route path="/edit-header" element={<EditHeader />} />
         <Route path="/edit-navbar" element={<EditNavbar />} />
-        <Route path="/edit-homepage" element={<EditHomePage />} />
-        <Route path="/edit-jobspage" element={<EditJobsPage />} />
         <Route path="/edit-footer" element={<EditFooter />} />
-        <Route path="/edit-resumepage" element={<EditResumePage />} />
-        <Route path="/edit-certificatepage" element={<EditCertificatePage />} />
-        <Route path="/edit-aboutuspage" element={<EditAboutUsPage />} />
-        <Route path="/edit-gallerypage" element={<EditGalleryPage />} />
-        <Route path="/edit-contactuspage" element={<EditContactUsPage />} />
+        //
+        <Route path="/edit-home" element={<EditHomePage />} />
+        <Route path="/edit-jobs" element={<EditJobsPage />} />
         <Route path="/edit-footer" element={<EditFooter />} />
+        <Route path="/edit-resume" element={<EditResumePage />} />
+        <Route path="/edit-license" element={<EditCertificatePage />} />
+        <Route path="/edit-about" element={<EditAboutUsPage />} />
+        <Route path="/edit-about-nepal" element={<EditAboutUsPage />} />
+        <Route path="/edit-gallery" element={<EditGalleryPage />} />
+        <Route path="/edit-contact-us" element={<EditContactUsPage />} />
       </Routes>
     </>
   )
