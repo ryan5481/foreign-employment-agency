@@ -26,6 +26,16 @@ const EditAboutUsPage = () => {
     const [selectedFile, setSelectedFile] = useState(null)
     const [previewImage, setPreviewImage] = useState(null);
     const [currentAboutUsData, setCurrentAboutUsData] = useState([])
+    const [formData, setFormData] = useState({
+        heading1: "",
+        text1: "",
+        heading2: "",
+        text2: "",
+        heading3: "",
+        text3: "",
+        heading4: "",
+        text4: "",
+    });
 
     const GetAboutUsData = async () => {
         const res = await axios.get('http://localhost:8000/get-aboutuspage')
@@ -82,16 +92,7 @@ const EditAboutUsPage = () => {
         }
     }
 
-    const [formData, setFormData] = useState({
-        heading1: "",
-        text1: "",
-        heading2: "",
-        text2: "",
-        heading3: "",
-        text3: "",
-        heading4: "",
-        text4: "",
-    });
+
 
     // console.log(formData)
 
@@ -120,8 +121,6 @@ const EditAboutUsPage = () => {
             console.error('Error:', error.response);
         }
     }
-
-    
 
     useEffect(() => {
         GetAboutUsData()

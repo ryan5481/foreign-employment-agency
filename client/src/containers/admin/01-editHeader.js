@@ -12,22 +12,23 @@ import {
     EditableInput,
     EditablePreview,
     Button,
-    Text
+    Text, useToast
 } from "@chakra-ui/react"
+import { WarningIcon } from "@chakra-ui/icons"
 import {FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 
 const EditHeader = () => {
+    const toast= useToast()
     const navigate = useNavigate()
     const [currentHeaderData, setCurrentHeaderData] = useState([])
     const [formData, setFormData] = useState({
-        field1: "",
-        field2: "",
+        regdField: "",
+        licenseField: "",
         email: "",
-        phoneNumber: "",
-        whatsapp: "",
-        facebook: "",
-        messenger: "",
-        whatsapp: ""
+        phoneNumber1: "",
+        whatsappId: "",
+        facebookId: "",
+        oneTapMessengerLink: "",
     });
 
     const handleInputChange = (event) => {
@@ -38,16 +39,27 @@ const EditHeader = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (formData.some((item) => item.Key.trim() === "")) {
+            toast({
+                title: 'Empty field.',
+                description: 'Empty fields can not be submitted.',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                colorScheme: "purple",
+                icon: <Center><WarningIcon color="red.400" /></Center>
+            });
+            return;
+        }
         try {
-            const response = await axios.put("http://localhost:8000/edit-header", {
-                field1: formData.field1,
-                field2: formData.field2,
+            const response = await axios.put("http://localhost:8000/admin/edit-contact", {
+                regdField: formData.regdField,
+                licenseField: formData.licenseField,
                 email: formData.email,
-                phoneNumber: formData.phoneNumber,
-                whatsapp: formData.whatsapp,
-                facebook: formData.facebook,
-                messenger: formData.messenger,
-                whatsapp: formData.whatsapp
+                phoneNumber1: formData.phoneNumber1,
+                whatsappId: formData.whatsappId,
+                facebookId: formData.facebookId,
+                oneTapMessengerLink: formData.oneTapMessengerLink,
             })
             if (response) {
                 GetHeaderData()
@@ -60,17 +72,17 @@ const EditHeader = () => {
     };
 
     const GetHeaderData = async () => { 
-        const res = await axios.get('http://localhost:8000/get-header')
+        const res = await axios.get('http://localhost:8000/get-contact')
         if (res) {
-            setCurrentHeaderData(res.data.headerData)
+            setCurrentHeaderData(res.data.data)
             setFormData({
-                field1: res.data.headerData.field1,
-                field2: res.data.headerData.field2,
-                email: res.data.headerData.email,
-                phoneNumber: res.data.headerData.phoneNumber,
-                whatsapp: res.data.headerData.whatsapp,
-                facebook: res.data.headerData.facebook,
-                messenger: res.data.headerData.messenger,
+                regdField: currentHeaderData.regdField,
+                licenseField: currentHeaderData.licenseField,
+                email: currentHeaderData.email,
+                phoneNumber1: currentHeaderData.phoneNumber1,
+                whatsappId: currentHeaderData.whatsappId,
+                facebookId: currentHeaderData.facebookId,
+                oneTapMessengerLink: currentHeaderData.oneTapMessengerLink,
             });
             
         } else {
@@ -93,7 +105,7 @@ const EditHeader = () => {
         >
             <form onSubmit={handleSubmit}>
                 <Heading color={useColorModeValue('white', 'purple.100')} p={10}> Edit Header </Heading>
-                <Text color={useColorModeValue('white', 'purple.100')} p={10}> Last Updated on {currentHeaderData.updatedAt} </Text>
+                <Text fontStyle="italic" color={useColorModeValue('white', 'purple.100')} p={10}> Last Updated on {currentHeaderData.updatedAt} </Text>
                 <Stack
                     bg='gray.900'
                     as={Stack}
@@ -109,16 +121,16 @@ const EditHeader = () => {
                         {currentHeaderData && (
                     <Stack direction={'row'} spacing={6}>
                         {/* REGD NO */}
-                            <Editable id="field1" placeholder={currentHeaderData.field1} bg={'purple.500'} px={1} rounded={'10px'}>
+                            <Editable id="regdField" placeholder={currentHeaderData.regdField} bg={'purple.500'} px={1} rounded={'10px'}>
                                 <EditablePreview />
-                                <EditableInput type="text" name="field1" onChange={handleInputChange} />
+                                <EditableInput type="text" name="regdField" onChange={handleInputChange} />
                             </Editable>
                             
                     // LIC NO
                    
-                        <Editable id="field1" placeholder={currentHeaderData.field2} bg={'purple.500'} px={1} rounded={'10px'}>
+                        <Editable id="licenseField" placeholder={currentHeaderData.licenseField} bg={'purple.500'} px={1} rounded={'10px'}>
                             <EditablePreview />
-                            <EditableInput type="text" name="field2" onChange={handleInputChange} />
+                            <EditableInput type="text" name="licenseField" onChange={handleInputChange} />
                         </Editable>
                     </Stack>
                         )}
@@ -135,9 +147,9 @@ const EditHeader = () => {
                         </Center>
                         <Center>
                             {/* PHONE NUMBER */}
-                            <Editable id="phoneNumber" placeholder={currentHeaderData.phoneNumber} bg={'purple.500'} px={1} rounded={'10px'}>
+                            <Editable id="phoneNumber1" placeholder={currentHeaderData.phoneNumber1} bg={'purple.500'} px={1} rounded={'10px'}>
                                 <EditablePreview />
-                                <EditableInput px={2} rounded={'10px'} type="text" name="phoneNumber" onChange={handleInputChange} />
+                                <EditableInput px={2} rounded={'10px'} type="text" name="phoneNumber1" onChange={handleInputChange} />
                             </Editable>
                         </Center>
                     </Stack>
@@ -147,25 +159,25 @@ const EditHeader = () => {
                         <Stack align={'center'} justify={'center'}>
                             {/* WHATSAPP */}
                             <FaWhatsapp />
-                            <Editable id="whatsapp" placeholder={currentHeaderData.whatsapp} bg={'purple.500'} px={1} rounded={'10px'}>
+                            <Editable id="whatsappId" placeholder={currentHeaderData.whatsappId} bg={'purple.500'} px={1} rounded={'10px'}>
                                 <EditablePreview />
-                                <EditableInput px={2} rounded={'10px'} type="text" name="whatsapp" onChange={handleInputChange} />
+                                <EditableInput px={2} rounded={'10px'} type="text" name="whawhatsappIdtsapp" onChange={handleInputChange} />
                             </Editable>
                         </Stack>
                         <Stack align={'center'} justify={'center'}>
                             {/* FACEBOOK */}
                             <FaFacebook />
-                            <Editable id="facebook" placeholder={currentHeaderData.facebook} bg={'purple.500'} px={1} rounded={'10px'}>
+                            <Editable id="facebookId" placeholder={currentHeaderData.facebookId} bg={'purple.500'} px={1} rounded={'10px'}>
                                 <EditablePreview />
-                                <EditableInput px={2} rounded={'10px'} type="text" name="facebook" onChange={handleInputChange} />
+                                <EditableInput px={2} rounded={'10px'} type="text" name="facebookId" onChange={handleInputChange} />
                             </Editable>
                         </Stack>
                         <Stack align={'center'} justify={'center'}>
                             {/* MESSENGER */}
                             <FaFacebookMessenger />
-                            <Editable id="messenger" placeholder={currentHeaderData.messenger} bg={'purple.500'} px={1} rounded={'10px'}>
+                            <Editable id="oneTapMessengerLink" placeholder={currentHeaderData.oneTapMessengerLink} bg={'purple.500'} px={1} rounded={'10px'}>
                                 <EditablePreview />
-                                <EditableInput px={2} rounded={'10px'} type="text" name="messenger" onChange={handleInputChange} />
+                                <EditableInput px={2} rounded={'10px'} type="text" name="oneTapMessengerLink" onChange={handleInputChange} />
                             </Editable>
                         </Stack>
                     </Stack>

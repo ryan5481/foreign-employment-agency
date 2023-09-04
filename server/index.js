@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 import jobRoutes from "./routes/jobRoutes.js";
 import adminAuthRoutes from "./routes/adminAuthRoutes.js";
-import headerRoutes from "./routes/headerRoutes.js"
+import contactRoutes from "./routes/contactRoutes.js"
 import footerRoutes from "./routes/footerRoutes.js"
 import homePageRoutes from "./routes/homePageRoutes.js"
 import aboutUsRoutes from "./routes/aboutUsRoutes.js"
@@ -24,7 +24,7 @@ connectDb()
 app.use(express.json());
 app.use("/", jobRoutes)
 app.use("/", adminAuthRoutes)
-app.use("/", headerRoutes)
+app.use("/", contactRoutes)
 app.use("/", footerRoutes)
 app.use("/", homePageRoutes)
 app.use("/", aboutUsRoutes)

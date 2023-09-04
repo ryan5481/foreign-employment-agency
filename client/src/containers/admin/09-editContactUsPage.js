@@ -1,10 +1,11 @@
-import {Flex} from "@chakra-ui/react"
+import { Box } from "@chakra-ui/react"
+import EditContactUs  from "../../components/adminPanel/editContactUs.js"
 
 const EditContactUsPage = () => {
     return(<>
-    <Flex>
-<p>flex</p>
-    </Flex>
+    <Box h={"100vh"} >
+        <EditContactUs/>
+    </Box>
     </>)
 }
 

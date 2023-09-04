@@ -1,11 +1,11 @@
-import Header from "../models/headerSchema.js"
+import Contact from "../models/contactSchema.js"
 
 //Publish jobs from admin panel
-export const PostHeader = async(req, res) => {
+export const PostContact = async(req, res) => {
     try
     {
 
-        const data = await Header.create(req.body)
+        const data = await Contact.create(req.body)
         if(data){
             res.status(200).json({
                 msg: "Header updated successfully."
@@ -21,10 +21,10 @@ export const PostHeader = async(req, res) => {
     }
 }
 
-export const EditHeader = async(req, res) => {
+export const EditContact = async(req, res) => {
     try
     {
-        const updatedData = await Header.findOneAndUpdate(req.body._id, req.body)
+        const updatedData = await Contact.findOneAndUpdate(req.body._id, req.body)
         if(updatedData){
             res.status(200).json({
                 msg: "Header updated successfully."
@@ -41,13 +41,13 @@ export const EditHeader = async(req, res) => {
 }
 
 //Fetch jobs from user's end
-export const GetHeader =  async(req, res) => {
+export const GetContact =  async(req, res) => {
     // const headerLandmark = "headerLandmark"
     try{
-        const headerData = await Header.findById({_id: "64d8feda20a5c46426639c21"})
-        if(headerData){
+        const data = await Contact.findById({_id: "64f5be64a202c937ea933da7"})
+        if(data){
             res.status(200).json({
-                headerData
+                data
             })
         }else{
             res.json({

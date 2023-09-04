@@ -71,7 +71,7 @@ export default function NavBar() {
       console.error("Error: ", error)
     }
   }
-  console.log(menuItems)
+  // console.log(menuItems)
 
   useEffect(() => {
     fecthNavBarItems()
@@ -154,7 +154,7 @@ const DesktopNav = (props) => {
                 <Box
                   as="a"
                   p={2}
-                  href={navItem.href ?? '#'}
+                  href={navItem.href ?? '/home'}
                   fontSize={'md'}
                   fontWeight={500}
                   _hover={{
