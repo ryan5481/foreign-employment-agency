@@ -52,7 +52,7 @@ const UserRoutes = () => {
   return (
     <>
       <Header />
-      <NavBar />
+      <NavBar zIndex={99} />
       <Routes>
       // TEMPORARY ADMIN ROUTES
         <Route path="/adminlogin" element={<AdminLogin />} />
@@ -65,7 +65,7 @@ const UserRoutes = () => {
         <Route path="/resume" element={<Resume />} />
         <Route path="/apply" element={<Apply />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact-us" element={<Contact />} />
         <Route path="/newspaper" element={<Newspaper />} />
         <Route path="/license" element={<License />} />
         <Route path="/brochure" element={<Brochure />} />
@@ -102,3 +102,39 @@ const AdminRoutes = () => {
 }
 
 export default ConditionalRoute
+
+
+// const UserRoutes = ({ menuItems }) => {
+//   return (
+//     <>
+//       <Header />
+//       <NavBar menuItems={menuItems} />
+//       <Routes>
+//         {menuItems.map((menuItem, index) => (
+//           <Route
+//             key={index}
+//             path={`/${menuItem.href}`}
+//             element={getElementForMenuItem(menuItem)} // Implement getElementForMenuItem
+//           />
+//         ))}
+//       </Routes>
+//       <Footer />
+//     </>
+//   );
+// };
+
+// Implement a function to return the appropriate component for each menu item
+// function getElementForMenuItem(menuItem) {
+//   switch (menuItem.href) {
+//     case "home":
+//       return <Home />;
+//     case "about":
+//       return <AboutUs />;
+//     // Add more cases for other menu items
+//     default:
+//       return null;
+//   }
+// }
+
+
+

@@ -1,5 +1,15 @@
+import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { Box, Heading, Grid, Flex, Button, useColorModeValue, Card, Divider, CardBody, Image, Badge, Stack, StackDivider, CardFooter, ButtonGroup } from "@chakra-ui/react"
+import {
+    Box, Heading, Grid, Button, useColorModeValue, IconButton, Divider, CardBody, Badge, Stack, StackDivider, CardFooter, ButtonGroup, Image,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+} from "@chakra-ui/react"
+import { SmallCloseIcon } from "@chakra-ui/icons"
 import Carousel from "../../components/header/Carousel/carousel"
 import CallToActionWithVideo from "../../components/card/callToActionWithVideo"
 import ImageParagraph from "../../components/card/imageParagraph1"
@@ -17,6 +27,9 @@ import BarChart from "../../components/animation/barChart"
 import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
 import AllJobs from "./allJobs"
 const Home = () => {
+    const [isOpen, setIsOpen] = useState(true);
+    const onClose = () => setIsOpen(false);
+
     const navigate = useNavigate()
 
     const jobsList = [
@@ -123,6 +136,17 @@ const Home = () => {
         },
     ]
 
+    useEffect(() => {
+        // Close the modal after a certain delay (e.g., 5 seconds)
+        const timeout = setTimeout(() => {
+            setIsOpen(false);
+        }, 10000);
+
+        return () => {
+            clearTimeout(timeout); // Clear the timeout to prevent it from running after unmounting
+        };
+    }, []);
+
     return (
         <>
             <Box bg={useColorModeValue('teal.50', 'gray.1000')} alignContent={'center'}>
@@ -159,10 +183,10 @@ const Home = () => {
                     </Box>
                 </Box>
                 {/* LATEST JOBS */}
-                <Box 
-                maxW={'full'} 
+                <Box
+                    maxW={'full'}
                 >
-                    <AllJobs  displayAll={false}/>
+                    <AllJobs displayAll={false} />
                 </Box>
                 <Divider />
                 {/* OPERATING PROCEDURE */}
@@ -196,12 +220,44 @@ const Home = () => {
                             <Heading color={useColorModeValue('gray.100', 'gray.50')} m={2} fontSize={'4xl'} fontFamily={'body'} p={10} mb={30} minH={'200px'}>
                                 Sky Way Nepal Statistics
                             </Heading>
-                            <BarChart  />
+                            <BarChart />
                             <StatisticsCard />
                         </Box>
                     </Box>
                 </Stack>
             </Box>
+            <Modal isOpen={isOpen} onClose={onClose} zIndex="9999" isCentered>
+                <ModalOverlay  />
+                <ModalContent bg="blue.400" >
+                    <ModalHeader>Notice</ModalHeader>
+                    <Box
+                        as={IconButton}
+                        size='sm'
+                        colorScheme='red'
+                        rounded="full"
+                        top='20px'
+                        left='90%'
+                        zIndex='10'
+                        boxShadow="2xl"
+                        onClick={onClose}
+                        w='30px'
+                        h='30px'
+                    >
+                        <SmallCloseIcon
+                            color='gray.50'
+                            w='30px'
+                        />
+                    </Box>
+                    <ModalBody>
+                        {/* Image inside the modal */}
+                        <Image
+                            src="https://skywaynepal.com/static/media/Qatar.0fcc35e00f31f7f1b9fd.jpeg"
+                            alt="Modal Image"
+                        />
+                    </ModalBody>
+                    <ModalFooter/>
+                </ModalContent>
+            </Modal>
         </>
     )
 }

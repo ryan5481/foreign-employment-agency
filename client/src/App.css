@@ -40,8 +40,6 @@
 
 .nav-bar {
   position: fixed;
-  z-index: 9999;
-  background-color: white !important;
   top: 60px;
   width: 100%;
 }

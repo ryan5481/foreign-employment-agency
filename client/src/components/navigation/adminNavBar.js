@@ -86,17 +86,19 @@ export default function AdminNavBar() {
 
   const headerFooterItems = [{
     label: 'Header',
-    href: '',
+    href: '/edit-header',
     urlPath: '/edit-header',
   },
   {
     label: 'NavBar',
-    href: '',
+    href: '/edit-navbar',
     urlPath: '/edit-navbar',
   },
   {
     label: 'Footer',
     href: '/edit-footer',
+    urlPath: '/edit-navbar',
+
   }]
 
   const adminMenuItems = menuItems.map((item) => {
@@ -110,12 +112,9 @@ export default function AdminNavBar() {
         href: `edit-${child.href}`,
       }));
     }
-  
     return newItem;
   });
   
-  console.log(adminMenuItems);
-
   const allMenuItems = [...adminMenuItems, ...headerFooterItems]
   
   //PROFILE SECTION
@@ -129,6 +128,7 @@ export default function AdminNavBar() {
 }
 
   return (
+    
     <Box className='header'>
       <Flex
         bg={'purple.900'}
@@ -229,16 +229,17 @@ const DesktopNav = (props) => {
   const popoverContentBgColor = useColorModeValue('purple.100', 'purple.800')
   const navigate = useNavigate();
 
-  return (
+  return (<>
+    {props.allMenuItems && (
+
     <Stack direction={'row'} spacing={4} fontWeight="bold">
       {props.allMenuItems.map((navItem) => (
         <Box key={navItem.label} fontWeight="bold">
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Box
-                as="a"
                 p={2}
-                href={navItem.href ?? '#'}
+                href={navItem.href ?? '/'}
                 fontSize={'xs'}
                 fontWeight={500}
                 color='gray.100'
@@ -249,13 +250,13 @@ const DesktopNav = (props) => {
                   rounded: '10px',
                   shadow: 'md'
                 }}
-                onClick={() => navigate(navItem.urlPath || "/")}
+                onClick={() => navigate( navItem.href || "/edit-home")}
               >
                 {navItem.label}
               </Box>
             </PopoverTrigger>
 
-            {navItem.children && (
+            {navItem.children && navItem.children.length !== 0 && (
               <PopoverContent
                 border={0}
                 boxShadow={'xl'}
@@ -284,7 +285,8 @@ const DesktopNav = (props) => {
         </Box>
       ))}
     </Stack>
-  )
+    )}
+  </>)
 }
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {

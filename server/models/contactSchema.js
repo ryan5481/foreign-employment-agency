@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
 const Schema = mongoose;
 
-const headerSchema = ({
+const contactSchema = ({
 
     landmark: {
         type: String,
         default: "radiantInfoTech"
     },
 
-    field1: {
+    regdField: {
         type: String,
         default: "Regd.No. 0000000000000"
     },
 
-    field2: {
+    licenseField: {
         type: String,
         default: "© Lic. No.: 000000000000"
     },
@@ -23,29 +23,49 @@ const headerSchema = ({
         default: "example@example.com"
     },
 
-    phoneNumber: {
+    address: {
         type: String,
-        default: "Regd.No. 0000000000"
+        default: "Kathmandu, Nepal"
     },
 
-    whatsapp: {
+    phoneNumber1: {
+        type: Number,
+        default: "9841111111"
+    },
+    
+    phoneNumber2: {
+        type: Number,
+        default: "9841222222"
+    },
+
+    whatsappId: {
         type: String,
         default: "whatsapp.com/example"
     },
 
-    facebook: {
+    facebookId: {
         type: String,
         default: "facebook.com/example"
     },
 
-    messenger: {
+    oneTapMessengerLink: {
         type: String,
         default: "facebook.com/example"
     },
 
-    viber: {
+    viberId: {
         type: String,
         default: "viber.com/example"
+    },
+    
+    contactUsHeading: {
+        type: String,
+        default: "Contact Us",
+    },
+
+    contactUsSubHeading: {
+        type: String,
+        default: "Tap to call or email us",
     },
 
     createdAt: { type: Date, default: Date.now },
@@ -54,7 +74,7 @@ const headerSchema = ({
 
 })
 
-export default mongoose.model("Header", headerSchema, "Header")
+export default mongoose.model("Contact", contactSchema, "Contact")
 
 // {
 //     "field1": "Regd.No. 66236/066/067",

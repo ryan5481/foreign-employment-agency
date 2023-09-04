@@ -38,16 +38,20 @@ export const GetMenuItems = async(req, res) => {
 export const EditMenuItem = async(req, res) => {
     try{
         console.log(req.body)
-            const data = await NavBar.findByIdAndUpdate(req.body._id, req.body)
-            if(data){
-                res.status(200).json({
-                    msg: "Changes updated successfully.",
-                })
-            }else{
-                res.status(403).json({
-                    msg: "Failed to update changes."
-                }) 
-            }
+        const updatedData = req.body; 
+    await Promise.all(
+      updatedData.map(async (item) => {
+        await NavBar.findByIdAndUpdate(item._id, {
+          label: item.label,
+          children: item.children.map((child) => ({
+            _id: child._id,
+            label: child.label,
+          })),
+        });
+      })
+    );
+
+    res.status(200).json({ message: "Data updated successfully" });
     }catch(error){
         console.log("error: " + error)
     }

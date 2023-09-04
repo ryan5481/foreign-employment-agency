@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react'
 import { FaInstagram, FaTwitter, FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 import { ReactNode } from 'react'
-import EmailLink from '../utils/emailLink';
 
 const SocialButton = ({
   children,
@@ -51,10 +50,10 @@ const Header = () => {
   const [data, setData] = useState([])
 
   const GetHeaderData = async() => {
-    const res = await axios.get('http://localhost:8000/get-header')
+    const res = await axios.get('http://localhost:8000/get-contact')
     if(res){
       // console.log("DATAAAA:" + data)
-      setData(res.data.headerData)
+      setData(res.data.data)
     }else{
       alert("Failed to fech header data")
     }
@@ -77,6 +76,27 @@ const Header = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  function openMessengerChat(recipientId) {
+    // Replace 'your-app-id' with your Facebook App ID
+    const appId = 'your-app-id';
+    const messengerUrl = `https://m.me/${data.oneTapMessengerLink}`;
+    window.open(messengerUrl, 'Messenger Chat', 'width=600,height=400');
+  }
+
+  function openFaceBookPage(recipientId) {
+    // Replace 'your-app-id' with your Facebook App ID
+    const appId = 'your-app-id';
+    const facebookUrl = `https://facebook.com/${data.facebookId}`;
+    window.open(facebookUrl, 'Facebook Page', 'width=600,height=400');
+  }
+
+  function openWhatsappChat(recipientId) {
+    // Replace 'your-app-id' with your Facebook App ID
+    const appId = 'your-app-id';
+    const whatsappPhoneNumber = `https://wa.me/${data.whatsappId}`;
+    window.open(whatsappPhoneNumber, 'Whatsapp Chat', 'width=600,height=400');
+  }
 
   if (isMobileView) {
     return null; // Render nothing if in mobile view
@@ -101,24 +121,24 @@ const Header = () => {
         align={{ base: 'center', md: 'center' }}
       >
         <Stack direction={'row'} spacing={6}>
-          <Text>{data.field1}</Text>
-          <Text>{data.field2}</Text>
+          <Text>{data.regdField}</Text>
+          <Text>{data.licenseField}</Text>
         </Stack>
         <Stack direction={'row'} spacing={6}>
           <Center>
           <Text >{data.email}</Text>
           </Center>
           <Center>
-            <Text>{data.phoneNumber}</Text>
+            <Text>{data.phoneNumber1}</Text>
           </Center>
-          <SocialButton label={data.whatsapp} href={'#'}>
-            <FaWhatsapp />
+          <SocialButton label={data.whatsappId} href={'#'} >
+            <FaWhatsapp onClick={() => openWhatsappChat(data.facebookId)} />
           </SocialButton>
-          <SocialButton label={data.facebook} href={'#'}>
-            <FaFacebook />
+          <SocialButton label={data.facebookId} href={'#'}  >
+            <FaFacebook onClick={() => openFaceBookPage(data.facebookId)} />
           </SocialButton>
-          <SocialButton label={'data.messanger'} href={'#'}>
-            <FaFacebookMessenger />
+          <SocialButton label={data.oneTapMessengerLink} href={'#'} >
+            <FaFacebookMessenger onClick={() => openMessengerChat(data.messengerId)} />
           </SocialButton>
         </Stack>
       </Container>
