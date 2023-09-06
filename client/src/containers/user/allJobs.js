@@ -2,24 +2,20 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios"
 
 import {
-    Box, Button, Heading, useColorModeValue, Grid, Image, Stack, Badge, Divider, ButtonGroup, Card, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, CardBody, CardFooter, AspectRatio, Flex, Center,
+    Box, Button, Heading, useColorModeValue, Grid, Image, Stack, Badge, Divider, ButtonGroup, Card, useDisclosure, Modal, ModalOverlay, ModalContent, ModalBody, ModalFooter, CardBody, CardFooter, AspectRatio, Flex, Center,
     StackDivider, Text, VStack, List, ListItem, SimpleGrid, Spinner
 } from '@chakra-ui/react'
-import { useNavigate } from "react-router-dom"
-
-import Pagination from '../../components/pagination'
-import HeroWithBg from '../../components/card/heroWithBg'
-import CategoryCard from '../../components/card/categoryCard'
+import { useNavigate } from 'react-router-dom';
 
 
-const AllJobs = ({displayAll}) => {
+
+const AllJobs = ({ displayAll }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [modalJobData, setModalJobData] = useState({})
     const [reqQualifications, setReqQualifications] = useState([])
     const [reqSkills, setReqSkills] = useState([])
     const [reqResponsiblities, setReqResponsiblities] = useState([])
     const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
 
@@ -28,20 +24,23 @@ const AllJobs = ({displayAll}) => {
             console.log("Fetching job list...");
             const res = await axios.get('http://localhost:8000/jobslist');
             let newData = res.data.jobsList
-            setData(newData);
+            setData(newData.reverse());
             // console.log(data)
-            setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
-            setLoading(false);
         }
+    };
+
+    const handleApplyNowClick = (jobId) => {
+        navigate(`/resume?jobId=${jobId}`);
     };
 
     useEffect(() => {
         fetchJobsList();
     }, [])
 
-    const itemsToDisplay = displayAll ? data :  data.slice(0,5) 
+
+    const itemsToDisplay = displayAll ? data : data.slice(0, 5)
 
     return (
         <>
@@ -57,7 +56,7 @@ const AllJobs = ({displayAll}) => {
                         <>{itemsToDisplay ? (itemsToDisplay.map((job, index) => {
                             return (<>
 
-                                <Card maxW='sm' key={job._id}>
+                                <Card maxW='sm' key={job.jobCode}>
                                     <CardBody w='100%' h='10' bg='' >
                                         <AspectRatio>
                                             <Image
@@ -66,11 +65,15 @@ const AllJobs = ({displayAll}) => {
                                                 borderRadius='lg'
                                             />
                                         </AspectRatio>
-                                        <Box display='flex' alignItems='baseline' p="2">
-                                            <Badge borderRadius='full' colorScheme='teal'>
-                                                New
-                                            </Badge>
-                                        </Box>
+                                        {
+                                            new Date(job.updatedAt) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) ? (
+                                                <Box display='flex' alignItems='baseline' p="2" >
+                                                    <Badge borderRadius='full' colorScheme='red'>
+                                                        New
+                                                    </Badge>
+                                                </Box>
+                                            ) : (null)
+                                        }
                                         <Stack mt='1' spacing='3'>
                                             <Heading size='md'>{job.jobTitle}</Heading>
                                         </Stack>
@@ -92,8 +95,8 @@ const AllJobs = ({displayAll}) => {
                                             >
                                                 Details
                                             </Button>
-                                            <Button variant='solid' colorScheme='blue' rounded='full' 
-                                            // onClick={() => navigate("/resume")}
+                                            <Button variant='solid' colorScheme='blue' rounded='full'
+                                                onClick={() => handleApplyNowClick(job.jobCode)}
                                             >
                                                 Apply now
                                             </Button>
@@ -101,35 +104,34 @@ const AllJobs = ({displayAll}) => {
                                     </CardFooter>
                                 </Card>
                             </>)
-                        })) : <Spinner 
-                        thickness='4px'
-                        speed='0.65s'
-                        color='blue.500'
-                        size='xl'/>}
+                        })) : <Spinner
+                            thickness='4px'
+                            speed='0.65s'
+                            color='blue.500'
+                            size='xl' />}
                         </>
                     </Grid>
-                    {displayAll == false && (<Flex  w="full" alignItems="center" justifyContent="center">
+                    {displayAll == false && (<Flex w="full" alignItems="center" justifyContent="center">
                         <Box pb={"15px"}>
-                        <Button
-                            bg={'whiteAlpha.800'}
-                            rounded={'full'}
-                            color={'blue.500'}
-                            _hover={{ bg: 'whiteAlpha.900', color: 'blue.600' }}
-                            onClick={() => navigate("/jobs")}
-                        >
-                            View All Jobs
-                        </Button>
+                            <Button
+                                bg={'whiteAlpha.800'}
+                                rounded={'full'}
+                                color={'blue.500'}
+                                _hover={{ bg: 'whiteAlpha.900', color: 'blue.600' }}
+                                onClick={() => navigate("/jobs")}
+                            >
+                                View All Jobs
+                            </Button>
                         </Box>
                     </Flex>)
                     }
-                    
+
                 </div>
                 {/* JOB DESCRIPTION MODAL */}
-                <Box mt={"3%"}  >
+                <Box pos='relative' zIndex={"9999"} mt={"3%"}  >
                     <Modal isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent minW={"80%"} >
-                            <ModalCloseButton />
                             <ModalBody>
 
                                 <Box
@@ -171,6 +173,11 @@ const AllJobs = ({displayAll}) => {
                                                         >
                                                             {modalJobData.jobTitle}
                                                         </Heading>
+                                                        <Text
+                                                            fontSize={'md'}
+                                                            fontWeight={'300'}>
+                                                            Job code: {modalJobData.jobCode}
+                                                        </Text>
                                                         <Text
                                                             fontWeight={300}
                                                             fontSize={'2xl'}
@@ -254,7 +261,7 @@ const AllJobs = ({displayAll}) => {
                                                                 </List>
                                                             </SimpleGrid>
                                                         </Box>
-                                                        
+
                                                         <Box textAlign={'left'}>
                                                             <Text
                                                                 fontSize={{ base: '20px', lg: '24px' }}

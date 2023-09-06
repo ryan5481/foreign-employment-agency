@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
+    "formik": "^2.4.3",
     "framer-motion": "^10.15.0",
     "netlify-cli": "^15.10.0",
     "pdfjs-dist": "^3.9.179",
@@ -35,7 +36,8 @@
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "util": "^0.12.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "PORT=3000 react-scripts start",

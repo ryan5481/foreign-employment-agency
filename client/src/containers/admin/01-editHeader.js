@@ -94,6 +94,9 @@ const EditHeader = () => {
         GetHeaderData()
     }, [])
 
+    const textColorModeValue = useColorModeValue('white', 'purple.100');
+
+
     return (<>
         <Box
             h={'92.5vh'}
@@ -105,7 +108,7 @@ const EditHeader = () => {
         >
             <form onSubmit={handleSubmit}>
                 <Heading color={useColorModeValue('white', 'purple.100')} p={10}> Edit Header </Heading>
-                <Text fontStyle="italic" color={useColorModeValue('white', 'purple.100')} p={10}> Last Updated on {currentHeaderData.updatedAt} </Text>
+                {currentHeaderData && currentHeaderData.updatedAt && (<Text fontStyle="italic" color={textColorModeValue} p={10}> Last Updated on {currentHeaderData.updatedAt.slice(0,10)} </Text>)}
                 <Stack
                     bg='gray.900'
                     as={Stack}

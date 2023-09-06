@@ -28,10 +28,8 @@ import {
     PopoverContent,
     PopoverHeader,
     PopoverBody,
-    PopoverFooter,
     PopoverArrow,
     PopoverCloseButton,
-    PopoverAnchor,
 } from '@chakra-ui/react'
 import {
     MdPhone,
@@ -419,7 +417,6 @@ const EditContactUs = (props) => {
                 </Grid>
                 <HStack pb={2} spacing={6} direction={['column', 'row']}  justify="center">
                     <Button
-
                         bg={'red.400'}
                         color={'white'}
                         w="150px"

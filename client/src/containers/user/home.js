@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import {
-    Box, Heading, Grid, Button, useColorModeValue, IconButton, Divider, CardBody, Badge, Stack, StackDivider, CardFooter, ButtonGroup, Image,
+    Box, Heading, Grid, useColorModeValue, IconButton, Divider, Stack, Image,
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
     ModalBody,
     ModalFooter,
 } from "@chakra-ui/react"
@@ -16,125 +14,15 @@ import ImageParagraph from "../../components/card/imageParagraph1"
 import ImageParagraph2 from "../../components/card/imageParagraph2"
 import StatisticsCard from "../../components/card/statsCard"
 import TestimonialCard from "../../components/card/testimonialCard"
-import CategoryCard from "../../components/card/categoryCard"
 import BlogArticleCard from "../../components/card/blogArticleCard"
 import SimpleCard from "../../components/card/simpleCard"
 import Procedure from "../../components/stepper"
-import CarouselSmall from "../../components/header/Carousel/carouselSmall"
-import ImageCarousel from "../../components/header/Carousel/SmoothCarousel2"
-import ResponsiveGrid from "../../components/card/statsCard"
 import BarChart from "../../components/animation/barChart"
 import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
 import AllJobs from "./allJobs"
 const Home = () => {
     const [isOpen, setIsOpen] = useState(true);
     const onClose = () => setIsOpen(false);
-
-    const navigate = useNavigate()
-
-    const jobsList = [
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Security Guard',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Chef',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Caretaker',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Construction Worker',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Green double couch with wooden legs',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Green double couch with wooden legs',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Green double couch with wooden legs',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Green double couch with wooden legs',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Green double couch with wooden legs',
-            new: true
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            alt: 'Green double couch with wooden legs',
-            new: true
-        },
-    ]
-    const slicedJobsList = jobsList.slice(0, 5)
-    const categories = [
-        {
-            imageUrl: "https:images.pexels.com/photos/2324837/pexels-photo-2324837.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Medical & Hospital"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/945177/pexels-photo-945177.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Cruize"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Construction"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/6060192/pexels-photo-6060192.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Oil & Gas Refinery"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/3769144/pexels-photo-3769144.jpeg?auto=compress&cs=tinysrgb&w=600600",
-            title: "Hotel & Bars"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Engineering"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/1119152/pexels-photo-1119152.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Security"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/358220/pexels-photo-358220.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Aviation"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Medical & Hospital"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Medical & Hospital"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Medical & Hospital"
-        },
-        {
-            imageUrl: "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "Medical & Hospital"
-        },
-    ]
 
     useEffect(() => {
         // Close the modal after a certain delay (e.g., 5 seconds)
@@ -178,7 +66,7 @@ const Home = () => {
                     <Box color={useColorModeValue('blue.600', 'gray.200')}
                     >
                         <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
-                            <SimpleCard categories={categories} />
+                            <SimpleCard  />
                         </Grid>
                     </Box>
                 </Box>
@@ -226,10 +114,9 @@ const Home = () => {
                     </Box>
                 </Stack>
             </Box>
-            <Modal isOpen={isOpen} onClose={onClose} zIndex="9999" isCentered>
+            {/* <Modal isOpen={isOpen} onClose={onClose} zIndex="9999" isCentered>
                 <ModalOverlay  />
                 <ModalContent bg="blue.400" >
-                    <ModalHeader>Notice</ModalHeader>
                     <Box
                         as={IconButton}
                         size='sm'
@@ -250,14 +137,14 @@ const Home = () => {
                     </Box>
                     <ModalBody>
                         {/* Image inside the modal */}
-                        <Image
+                        {/* <Image
                             src="https://skywaynepal.com/static/media/Qatar.0fcc35e00f31f7f1b9fd.jpeg"
                             alt="Modal Image"
-                        />
-                    </ModalBody>
+                        /> */}
+                    {/* </ModalBody>
                     <ModalFooter/>
                 </ModalContent>
-            </Modal>
+            </Modal> */} 
         </>
     )
 }

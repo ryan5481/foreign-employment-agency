@@ -171,7 +171,6 @@ const EditResumePage = () => {
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent minW={"80%"} >
-                <ModalCloseButton />
                 <ModalBody>
                     <Box
                         px={"10%"}
@@ -513,12 +512,13 @@ const EditResumePage = () => {
         </Modal>
         {/* DELETE ALERT */}
         <AlertDialog
+        
             isOpen={isDeleteDialogOpen}
             leastDestructiveRef={cancelRef}
             onClose={handleDeleteDialogClose} // Close the delete dialog
             isCentered
         >
-            <AlertDialogOverlay>
+            <AlertDialogOverlay bg='purple.500'>
                 <AlertDialogContent>
                     <AlertDialogHeader fontSize="lg" fontWeight="bold">
                         Delete Resume

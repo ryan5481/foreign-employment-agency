@@ -34,10 +34,8 @@ const CompanyMessage2 = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const formData = new FormData();
       if(selectedImage){
@@ -48,7 +46,7 @@ const CompanyMessage2 = () => {
 
       const response = await axios.post('http://localhost:8000/edit-homepage/companyMessage2', formData);
       if (response) {
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (error) {
       console.error('Error updating data:', error);

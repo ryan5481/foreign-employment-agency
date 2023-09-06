@@ -49,19 +49,18 @@ const GalleryImage = ({ imageData }) => {
             <Modal isOpen={isOpen} onClose={onClose} size='xl' zIndex={9999} >
                     <ModalOverlay />
                     <ModalContent minW={'80%'}>
-                        <ModalCloseButton />
+                       
                         <ModalBody  >
-                            <Box>
                                 <Image
+                                    py={3}
                                     src={`data:image/jpeg;base64,${imageData.galleryImage}`}
                                     alt={imageData.imageTitle}
                                     objectFit='contain'
                                     w='100%'
                                     h='100%'
                                 />
-                            </Box>
+                            
                         </ModalBody>
-                        <ModalFooter></ModalFooter>
                     </ModalContent>
             </Modal>
         </>

@@ -129,6 +129,7 @@ const OperatingProcedure = () => {
                     return (<>
 
                         <Box
+
                             boxShadow={'2xl'}
                             key={step._id} 
                             p={2}
@@ -173,7 +174,6 @@ const OperatingProcedure = () => {
                                 rounded="full"
                                 top='-75%'
                                 left='5%'
-                                zIndex='10'
                                 boxShadow="2xl"
                                 onClick={() => {
                                     setStepToDelete(step._id)

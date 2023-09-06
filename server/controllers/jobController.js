@@ -33,7 +33,7 @@ export const PublishJob = async(req, res) => {
 //Fetch jobs from user's end
 export const GetJobsList =  async(req, res) => {
     try{
-        console.log("Jobs list fetched")
+        // console.log("Jobs list fetched")
         const jobsList = await JobDescription.find()
         if(jobsList){
             res.status(200).json({

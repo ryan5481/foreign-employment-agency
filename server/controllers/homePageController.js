@@ -15,7 +15,6 @@ import path from "path"
 export const PostCarouselImages = async(req, res) => {
     try{
         if(req.file){
-            console.log
             let carouselImage = fs.readFileSync(path.join("../server/uploads/topCarouselImages/" + req.file.filename))
         
         let updatedData = {...req.body, carouselImage: carouselImage}
@@ -437,7 +436,6 @@ export const DeleteProcedure = async(req, res) => {
 export const PostBottomCarouselImages = async(req, res) => {
     try{
         if(req.file){
-            console.log
             let carouselImage = fs.readFileSync(path.join("../server/uploads/bottomSmoothCarouselImages/" + req.file.filename))
         
         let updatedData = {...req.body, carouselImage: carouselImage}
@@ -554,7 +552,6 @@ export const PostTestimony = async(req, res) => {
 
 export const GetTestimonies = async(req, res) => {
     try{
-        console.log(req)
         const data = await Testimony.find()
         if(data){
             res.status(200).json({
@@ -572,7 +569,6 @@ export const GetTestimonies = async(req, res) => {
 
 export const UpdateTestimonies = async(req, res) => {
     try{
-        console.log(req.body)
             if(req.file){
                 const testimonyImage = fs.readFileSync(path.join("../server/uploads/testimonyImages/" + req.file.filename))
                 const reqInclImage = {... req.body, testimonyImage: testimonyImage}
@@ -660,7 +656,6 @@ export const GetStats =  async(req, res) => {
 export const EditStats = async(req, res) => {
     try
     {
-        console.log(req.body)
         const updatedData = await Statistics.findByIdAndUpdate(req.body._id, req.body)
         if(updatedData){
             res.status(200).json({

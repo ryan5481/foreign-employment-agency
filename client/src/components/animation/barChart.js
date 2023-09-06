@@ -46,7 +46,6 @@ const BarChart = () => {
   }, [inView, animationStarted]);
 
   return (
-    <ChakraProvider>
       <Box
         display="flex"
         justifyContent="center"
@@ -84,7 +83,6 @@ const BarChart = () => {
           </Box>
         ))}
       </Box>
-    </ChakraProvider>
   );
 };
 

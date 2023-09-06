@@ -175,7 +175,7 @@ const certificateImageStorage = multer.diskStorage({
         cb(null, "../server/uploads/certificateImages")
     },
     filename: function (req, file, cb) {
-        cb(null, "JobImg_" + Date.now() + ".jpeg")
+        cb(null, "CertificateImg_" + Date.now() + ".jpeg")
     }
 })
 
@@ -184,3 +184,51 @@ export const CertificateImageUplaod = multer({
     // limits: { fileSize: 1024 * 1024 * 4 },
     // fileFilter: fileFilter
 }).single("certificateImage")
+
+////////// WHY CHOOSE US //////////
+const chooseUsImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/chooseUsImage")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "ChooseUsImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const ChooseUsImageUpload = multer({
+    storage: chooseUsImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("heroImage")
+
+////////// WHY CHOOSE US //////////
+const logoImageStroage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/logoImage")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "LogoImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const LogoImageUpload = multer({
+    storage: logoImageStroage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("logoImage")
+
+////////// WHY CHOOSE US //////////
+const newsAdImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/newspaperAdImages")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "NewsAdImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const newsAdImageUpload = multer({
+    storage: newsAdImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("newsAdImage")

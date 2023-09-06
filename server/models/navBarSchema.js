@@ -9,7 +9,7 @@ const navBarSchema = ({
     },
     href: {
         type: String,
-        required: true,
+        immutable: true,
     },
     children: [
         {
@@ -19,7 +19,7 @@ const navBarSchema = ({
             },
             href: {
                 type: String,
-                required: true,
+                immutable: true,
             },
         },
     ],

@@ -6,7 +6,6 @@ import GalleryImage from "../models/galleryImageSchema.js"
 export const PostGalleryImage = async(req, res) => {
     try{
         if(req.file){
-            console.log
             let galleryImage = fs.readFileSync(path.join("../server/uploads/galleryImages/" + req.file.filename))
         
         let updatedData = {...req.body, galleryImage: galleryImage}

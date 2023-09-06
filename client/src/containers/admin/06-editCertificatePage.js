@@ -3,7 +3,7 @@ import axios from "axios"
 import {
     Grid, Heading, Text, Box, useColorModeValue, IconButton, Image, Input, FormControl, Button, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter
 } from '@chakra-ui/react'
-import { SmallCloseIcon, CheckCircleIcon } from "@chakra-ui/icons"
+import { SmallCloseIcon } from "@chakra-ui/icons"
 
 
 const EditCertificatePage = () => {
@@ -139,12 +139,13 @@ const EditCertificatePage = () => {
 
                                     {/* RED CROSS ICON */}
                                     <Box
+                                    zIndex={4}
                                         w='30px'
                                         as={IconButton}
                                         size='sm'
                                         colorScheme='red'
                                         rounded="full"
-                                        left='49%'
+                                        left='35%'
                                         top="16px"
                                         boxShadow="2xl"
                                         onClick={() => {
@@ -201,7 +202,7 @@ const EditCertificatePage = () => {
 
                     )
                 })}
-                <FormControl w="300px">
+                <FormControl  alignSelf='center' w='sm' p="6" roundedTop='5px'>
                     {/* IMAGE */}
                     <Image
                         roundedTop='5px'

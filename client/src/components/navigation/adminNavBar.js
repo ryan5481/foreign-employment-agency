@@ -65,9 +65,21 @@ export default function AdminNavBar() {
   const{fullName} = useSelector((state) => state.user)
   const navigate = useNavigate()
 
-  //GET
+  //GET LOGO IMAGE
   const [menuItems, setMenuItems] = useState([]);
+  const [logoImageData, setLogoImageData] = useState({});
 
+  const fetchLogoImage = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/get-logo-image")
+      const data = res.data.data
+      setLogoImageData(data)   
+
+    } catch (error) {
+      console.error("Error: ", error)
+    }
+  }
+  //GET NAVBAR MENU
   const fecthNavBarItems = async () => {
     try {
       const res = await axios.get("http://localhost:8000/get-menu-items")
@@ -81,8 +93,15 @@ export default function AdminNavBar() {
   console.log(menuItems)
 
   useEffect(() => {
+    fetchLogoImage()
     fecthNavBarItems()
   }, [])
+
+  const homeNavbarMenu = [{
+    label: 'Home',
+    href: '/',
+    urlPath: '/',
+  }]
 
   const headerFooterItems = [{
     label: 'Header',
@@ -115,7 +134,7 @@ export default function AdminNavBar() {
     return newItem;
   });
   
-  const allMenuItems = [...adminMenuItems, ...headerFooterItems]
+  const allMenuItems = [...homeNavbarMenu, ...adminMenuItems, ...headerFooterItems]
   
   //PROFILE SECTION
   const handleSignOut = () => {
@@ -154,8 +173,9 @@ export default function AdminNavBar() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Image
-            src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg"
-            w={200}
+          p={2}
+          h={20}
+            src={`data:image/jpeg;base64,${logoImageData.logoImage}`}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             onClick={() => navigate("/edit-homepage")}

@@ -27,7 +27,7 @@ import {
   MdFacebook,
   MdOutlineEmail,
 } from 'react-icons/md'
-import { BsWhatsapp, BsPerson, BsMessenger, BsInstagram } from 'react-icons/bs'
+import { BsWhatsapp, BsPerson, BsMessenger } from 'react-icons/bs'
 
 const ContactCard = (props) => {
 
@@ -61,13 +61,13 @@ const ContactCard = (props) => {
         m={{ sm: 4, md: 16, lg: 10 }}
         px={{ sm: 5, md: 5, lg: 16 }}>
         <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr' }} p={10} gap={10}  >
-              <Box w={200} pt={3} justifySelf="center"  >
+              <Box w={200} pt={3} alignSelf="center"  >
                 <Heading fontSize="3xl" >{props.data.contactUsHeading}</Heading>
                 <Text fontSize="md" mt={{ sm: 3, md: 3, lg: 5 }} color={useColorModeValue('grey.200', 'grey.200')}
                 >
                   {props.data.contactUsSubHeading}
                 </Text>
-                <Box py={{ base: 1, sm: 1, md: 2, lg: 3 }} color={useColorModeValue('grey.800', 'grey.100')}>
+                <Box py={{ base: 1, sm: 1, md: 2, lg: 3 }} color={useColorModeValue('grey.800', 'grey.100')} alignSelf={'center'} >
                   <Stack pl={0} spacing={3}  color={useColorModeValue('grey.800', 'grey.100')}>
                     <Box pl={0} spacing={0} justifySelf="left"  color={'white'}>
                       <Button
@@ -115,11 +115,12 @@ const ContactCard = (props) => {
                       {props.data.address}
                     </Button>
                   </Stack>
-                  <HStack
+                  <Stack
+                  direction={'horizontal'}
                     mt={{ lg: 10, md: 10 }}
                     spacing={2}
                     px={0}
-                    justify="center"
+                    alignSelf="center"
                   >
                     <IconButton
                       color={'white'}
@@ -162,7 +163,7 @@ const ContactCard = (props) => {
                     isRound={true}
                     _hover={{ bg: '#0D74FF' }}
                     icon={<BsInstagram size="28px" />} */}
-                  </HStack>
+                  </Stack>
                 </Box>
               </Box>
    
