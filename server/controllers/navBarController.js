@@ -37,7 +37,7 @@ export const GetMenuItems = async(req, res) => {
 
 export const EditMenuItem = async(req, res) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
         const updatedData = req.body; 
     await Promise.all(
       updatedData.map(async (item) => {

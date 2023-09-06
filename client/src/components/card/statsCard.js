@@ -2,9 +2,12 @@ import React, {useState, useEffect, useRef} from 'react';
 import axios from "axios"
 import { Grid, Box, Text, Stack } from '@chakra-ui/react';
 import CountUp from 'react-countup';
+import { useInView } from 'react-hook-inview';
 
 const StatisticsCard = () => {
   const [barChartData, setBarChartData] = useState({})
+  const [inViewRef, inView] = useInView();
+  const [isCounting, setIsCounting] = useState(false);
 
   const fetchBarChartData = async () => {
     try {
@@ -19,8 +22,16 @@ const StatisticsCard = () => {
   useEffect(() => {
     fetchBarChartData()
   }, [])
+
+  useEffect(() => {
+    if (inView) {
+      setIsCounting(true);
+    }
+  }, [inView]);
+
   return (
     <Grid
+    ref={inViewRef}
       templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }}
       templateRows={{ base: '1fr 1fr 1fr', md: '1fr' }}
       gap={5}
@@ -36,7 +47,7 @@ const StatisticsCard = () => {
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
           {barChartData.box1TopText}
           </text></Stack>
-        <CountUp end={barChartData.box1NumberData} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />
+          {isCounting && (<CountUp end={barChartData.box1NumberData} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />)}
         <Stack>
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
           {barChartData.box1BottomText}
@@ -47,7 +58,7 @@ const StatisticsCard = () => {
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
           {barChartData.box2TopText}
           </text></Stack>
-        <CountUp end={barChartData.box2NumberData} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />
+          {isCounting && (<CountUp end={barChartData.box2NumberData} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />)}
         <Stack>
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
           {barChartData.box2BottomText}
@@ -58,7 +69,7 @@ const StatisticsCard = () => {
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
           {barChartData.box3TopText}
           </text></Stack>
-        <CountUp end={barChartData.box3NumberData} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />
+          {isCounting && ( <CountUp end={barChartData.box3NumberData} duration={4} style={{ color: "white", fontSize: "70px", fontWeight: "bold" }} />)}
         <Stack>
           <text style={{ fontSize: "24px", fontWeight: "bold" }}>
           {barChartData.box3BottomText}

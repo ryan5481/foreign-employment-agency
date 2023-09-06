@@ -1,6 +1,5 @@
 import Contact from "../models/contactSchema.js"
 
-//Publish jobs from admin panel
 export const PostContact = async(req, res) => {
     try
     {
@@ -40,7 +39,6 @@ export const EditContact = async(req, res) => {
     }
 }
 
-//Fetch jobs from user's end
 export const GetContact =  async(req, res) => {
     // const headerLandmark = "headerLandmark"
     try{
@@ -58,3 +56,6 @@ export const GetContact =  async(req, res) => {
     }catch(err){
         console.log("Error: " + err)}
 }
+
+//LOGO
+

@@ -111,14 +111,17 @@ const AllJobs = ({ displayAll }) => {
             })
             if (res.status === 200) {
                 toast({
-                    title: 'Form submitted.',
-                    description: 'Your form has been successfully submitted.',
+                    title: 'Success.',
+                    description: 'Job published.',
                     status: 'success',
                     duration: 3000,
                     isClosable: true,
+                    position: 'top'
                 });
-                window.location.reload()
+                setDisplaySelectedImage(null)
+                setFormData({})
                 activatePostNewJob(true)
+                fetchJobsList()
             } else {
                 toast({
                     title: 'Error',
@@ -126,16 +129,18 @@ const AllJobs = ({ displayAll }) => {
                     status: 'error',
                     duration: 3000,
                     isClosable: true,
+                    position: 'top'
                 });
             }
         } catch (error) {
             console.error("Error: ", error)
             toast({
                 title: 'Error',
-                description: 'There was an error.',
+                description: 'Please select an image.',
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
+                position: 'top'
             });
         }
     }
@@ -147,7 +152,7 @@ const AllJobs = ({ displayAll }) => {
             console.log("Fetching job list...");
             const res = await axios.get('http://localhost:8000/jobslist');
             let newData = res.data.jobsList
-            setData(newData);
+            setData(newData.reverse());
             // console.log(data)
             setLoading(false);
         } catch (error) {
@@ -295,7 +300,7 @@ const AllJobs = ({ displayAll }) => {
                         <VStack p={10} >
                             {/* HEADER */}
                             <Grid color='blue.800'
-                                templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                                templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
                                 p={3}
                                 gap={1}
                                 textAlign={"left"}
@@ -312,7 +317,7 @@ const AllJobs = ({ displayAll }) => {
                                 <Text w="150px">Category</Text>
                                 <Text w="300px">Detail</Text>
                                 <Text w="120px">Submitted on</Text>
-                                <Text w="40px">Edit</Text>
+                                {/* <Text w="40px">Edit</Text> */}
                                 <Text w="60px">Delete</Text>
 
                             </Grid>
@@ -330,9 +335,9 @@ const AllJobs = ({ displayAll }) => {
                                         borderColor="lightGray"
                                     >
                                         <Grid
-                                            templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                                            templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
                                             p={3}
-                                            gap={1}
+                                            gap={2}
                                             style={rowStyle}
                                             textAlign={"left"}
                                             key={doc._id}
@@ -345,7 +350,7 @@ const AllJobs = ({ displayAll }) => {
                                             <Text w="150px">{doc.category}</Text>
                                             <Text w="300px" isTruncated >{doc.shortDescription}</Text>
                                             <Text w="120px">{doc.createdAt.slice(0, 10)}</Text>
-                                            <Center w="40px">
+                                            {/* <Center w="40px">
                                                 <EditIcon
                                                     style={{ cursor: 'pointer' }}
                                                     _hover={{ color: 'blue.400' }}
@@ -356,7 +361,7 @@ const AllJobs = ({ displayAll }) => {
                                                         setReqSkillsList(doc.skillsRequired)
                                                         setReqResponsiblitiesList(doc.responsiblities)
                                                     }} />
-                                            </Center>
+                                            </Center> */}
                                             <Center w="60px">
                                                 <DeleteIcon
                                                     style={{ cursor: 'pointer' }}
@@ -379,7 +384,6 @@ const AllJobs = ({ displayAll }) => {
                             <Modal isOpen={isOpen} onClose={onClose}>
                                 <ModalOverlay />
                                 <ModalContent minW={"80%"} >
-                                    <ModalCloseButton />
                                     <ModalBody>
 
                                         <Box
@@ -490,6 +494,7 @@ const AllJobs = ({ displayAll }) => {
                                                                                     </Text>
                                                                                     <Input
                                                                                         w="150"
+                                                                                        id='location'
                                                                                         value={selectedJob.location}
                                                                                         onChange={(e) => handleInputChange('location', e.target.value)}
 

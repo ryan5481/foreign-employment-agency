@@ -57,9 +57,21 @@ export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const navigate = useNavigate()
-  
+
   //GET
   const [menuItems, setMenuItems] = useState([]);
+  const [logoImageData, setLogoImageData] = useState({});
+
+  const fetchLogoImage = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/get-logo-image")
+      const data = res.data.data
+      setLogoImageData(data)   
+
+    } catch (error) {
+      console.error("Error: ", error)
+    }
+  }
 
   const fecthNavBarItems = async () => {
     try {
@@ -74,6 +86,7 @@ export default function NavBar() {
   // console.log(menuItems)
 
   useEffect(() => {
+    fetchLogoImage()
     fecthNavBarItems()
   }, [])
 
@@ -104,14 +117,15 @@ export default function NavBar() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Image
-            src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg"
-            w={260}
+            src={`data:image/jpeg;base64,${logoImageData.logoImage}`}
+            alt="Logo"
+            h={20}
+            p={2}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}
             onClick={() => navigate("/")}
           />
-
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <Center>
               <DesktopNav menuItems={menuItems} />
@@ -138,6 +152,7 @@ export default function NavBar() {
   )
 }
 
+
 const DesktopNav = (props) => {
   const linkHoverColor = useColorModeValue('gray.200', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
@@ -147,58 +162,75 @@ const DesktopNav = (props) => {
     <Stack direction={'row'} spacing={4} fontWeight="bold"
       color={useColorModeValue('blue.500', 'gray.300')}
     >
+      <Box
+        p={2}
+        fontSize={'md'}
+        fontWeight={500}
+        _hover={{
+          textDecoration: 'none',
+          color: linkHoverColor,
+          bg: 'blue.400',
+          rounded: '10px',
+          shadow: 'md'
+        }}
+        onClick={() => navigate("/")}
+      >
+        Home
+      </Box>
       {props.menuItems.map((navItem) => (
+        <Center>
         <Box key={navItem.label} fontWeight="bold">
-            <Popover trigger={'hover'} placement={'bottom-start'}>
-              <PopoverTrigger>
-                <Box
-                  as="a"
-                  p={2}
-                  href={navItem.href ?? '/home'}
-                  fontSize={'md'}
-                  fontWeight={500}
-                  _hover={{
-                    textDecoration: 'none',
-                    color: linkHoverColor,
-                    bg: 'blue.400',
-                    rounded: '10px',
-                    shadow: 'md'
-                  }}
-                  onClick={() => navigate(navItem.urlPath || "/")}
-                >
-                  {navItem.label}
-                </Box>
-              </PopoverTrigger>
+          <Popover trigger={'hover'} placement={'bottom-start'}>
+            <PopoverTrigger>
+              <Box
+                as="a"
+                p={2}
+                href={navItem.href ?? '/home'}
+                fontSize={'md'}
+                fontWeight={500}
+                _hover={{
+                  textDecoration: 'none',
+                  color: linkHoverColor,
+                  bg: 'blue.400',
+                  rounded: '10px',
+                  shadow: 'md'
+                }}
+                onClick={() => navigate(navItem.urlPath || "/")}
+              >
+                {navItem.label}
+              </Box>
+            </PopoverTrigger>
 
-              {navItem.children.length!== 0 && (
-                <PopoverContent
-                  border={0}
-                  boxShadow={'xl'}
-                  bg={popoverContentBgColor}
-                  p={4}
-                  color='gray.600'
-                  rounded={'10px'}
-                  minW={'sm'}>
-                  <Stack>
-                    {navItem.children.map((child) => (
-                      <DesktopSubNav
-                        key={child.label} {...child}
-                        _hover={{
-                          textDecoration: 'none',
-                          color: linkHoverColor,
-                          bg: 'blue.400',
-                          rounded: '10px',
-                        }}
-                        onClick={() => navigate("/" + navItem?.children?.urlPath)}
-                      />
-                    ))}
-                  </Stack>
-                </PopoverContent>
-              )}
-            </Popover>
-          
+            {navItem.children.length !== 0 && (
+              <PopoverContent
+                border={0}
+                boxShadow={'xl'}
+                bg={popoverContentBgColor}
+                p={4}
+                color='gray.600'
+                rounded={'10px'}
+                minW={'sm'}>
+                <Stack>
+                  {navItem.children.map((child) => (
+                    <DesktopSubNav
+                      key={child.label} {...child}
+                      _hover={{
+                        textDecoration: 'none',
+                        color: linkHoverColor,
+                        bg: 'blue.400',
+                        rounded: '10px',
+                      }}
+                      onClick={() => navigate("/" + navItem?.children?.urlPath)}
+                    />
+                  ))}
+                </Stack>
+              </PopoverContent>
+            )}
+          </Popover>
+
 
         </Box>
+        </Center>
       ))}
     </Stack>
   )
@@ -216,7 +248,10 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       p={2}
       rounded={'md'}
       color={'blue.500'}
-      _hover={{ color: linkHoverColor, bg: useColorModeValue('blue.400', 'gray.900'), rounded: '10px' }}>
+      _hover={{ 
+        color: linkHoverColor, 
+      bg: useColorModeValue('blue.400', 'gray.900'), rounded: '10px' }}
+      >
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
@@ -243,8 +278,21 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 }
 
 const MobileNav = (props) => {
+  const navigate = useNavigate()
   return (
     <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }} fontWeight="bold">
+             <Box
+        as="a"
+        p={2}
+        fontSize={'md'}
+        fontWeight={500}
+        _hover={{
+          textDecoration: 'none',
+        }}
+        onClick={() => navigate("/")}
+        >
+        Home
+      </Box>
       {props.menuItems.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} onClick={navItem.slug} />
       ))}
@@ -254,9 +302,13 @@ const MobileNav = (props) => {
 
 const MobileNavItem = ({ label, children, href }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure()
+  const linkHoverColor = useColorModeValue('gray.200', 'white')
+  const navigate = useNavigate()
+
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
+
       <Box
         py={2}
         as="a"
@@ -265,7 +317,8 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         alignItems="center"
         _hover={{
           textDecoration: 'none',
-        }}>
+        }}
+        >
         <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
           {label}
         </Text>

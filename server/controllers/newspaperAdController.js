@@ -1,16 +1,16 @@
 import * as fs from "fs"
 import path from "path"
-import Certificate from "../models/certificateSchema.js"
+import NewspaperAd from "../models/newspaperAdSchema.js"
 
 //BOTTOM SMOOTH CAROUSEL
-export const PostCertificate = async(req, res) => {
+export const PostNewsAd = async(req, res) => {
     try{
         if(req.file){
-            let certificateImage = fs.readFileSync(path.join("../server/uploads/certificateImages/" + req.file.filename))
+            let newsAdImage = fs.readFileSync(path.join("../server/uploads/newspaperAdImages/" + req.file.filename))
         
-        let updatedData = {...req.body, certificateImage: certificateImage}
+        let updatedData = {...req.body, newsAdImage: newsAdImage}
 
-        const data = await Certificate.create(updatedData)
+        const data = await NewspaperAd.create(updatedData)
             if(data){
                 res.status(200).json({
                     msg: "Image added successfully."})
@@ -26,10 +26,10 @@ export const PostCertificate = async(req, res) => {
     {console.log(error)}
 } 
 
-export const GetCertificates = async(req, res) => {
+export const GetNewsAd = async(req, res) => {
     try{
         // console.log(req)
-        const data = await Certificate.find()
+        const data = await NewspaperAd.find()
         if(data){
             res.status(200).json({
                 msg: "Success",
@@ -44,13 +44,13 @@ export const GetCertificates = async(req, res) => {
         console.log(error)}
 }
 
-export const EditCertificate = async(req, res) => {
+export const EditNewsAd = async(req, res) => {
     try{
         // console.log(req.body)
             if(req.file){
-                const certificateImage = fs.readFileSync(path.join("../server/uploads/certificateImages/" + req.file.filename))
-                const reqInclImage = {... req.body, certificateImage: certificateImage}
-            const data = await Certificate.findByIdAndUpdate(req.body._id, reqInclImage)
+                const newsAdImage = fs.readFileSync(path.join("../server/uploads/newspaperAdImages/" + req.file.filename))
+                const reqInclImage = {... req.body, newsAdImage: newsAdImage}
+            const data = await NewspaperAd.findByIdAndUpdate(req.body._id, reqInclImage)
             if(data){
                 res.status(200).json({
                     msg: "Changes updated successfully.",
@@ -61,7 +61,7 @@ export const EditCertificate = async(req, res) => {
                 }) 
             }
         }else{
-            const data = await Certificate.findByIdAndUpdate(req.body._id, req.body)
+            const data = await NewspaperAd.findByIdAndUpdate(req.body._id, req.body)
             if(data){
                 res.status(200).json({
                     msg: "Changes updated successfully.",
@@ -77,11 +77,11 @@ export const EditCertificate = async(req, res) => {
     }
 }
 
-export const DeleteCertificate = async(req, res) => {
+export const DeleteNewsAd = async(req, res) => {
     try {
         const imageId = req.params.id;
 
-        const deletedImage = await Certificate.findByIdAndDelete(imageId);
+        const deletedImage = await NewspaperAd.findByIdAndDelete(imageId);
 
         if (!deletedImage) {
             return res.status(404).json({ message: 'Image not found' });

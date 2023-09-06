@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import {
   Progress,
   Grid,
@@ -26,9 +26,14 @@ import {
   useToast
 } from '@chakra-ui/react'
 import axios from "axios"
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
 
 
 const Form1 = ({ formData, setFormData }) => {
+const location = useLocation();
+const queryParams = new URLSearchParams(location.search);
+const jobIdFromQuery = queryParams.get('jobId');
 
   const handleInputChange = (event) => {
     const { id, value } = event.target;
@@ -51,7 +56,7 @@ const Form1 = ({ formData, setFormData }) => {
           <FormLabel htmlFor="job-code" fontWeight={'normal'}>
             Job code
           </FormLabel>
-          <Input id="jobCode" placeholder="Job code" value={formData['jobCode'] || ''} onChange={handleInputChange} />
+          <Input id="jobCode" placeholder="Job code" value={jobIdFromQuery || ''} readOnly />
         </FormControl>
         {/* <FormControl display='flex' alignItems='center' mr="5%" py={2}>
           <Center>
@@ -384,7 +389,7 @@ const Form2 = ({ formData, setFormData }) => {
         <FormControl id="workExpOverseas.employer" py={2}>
           <FormLabel>Employer</FormLabel>
           <Input
-            placeholder="workExpOverseas.employer"
+            placeholder="Employer"
             _placeholder={{ color: 'gray.500' }}
             type="text"
             value={formData['workExpOverseas.employer'] || ''} 
@@ -538,8 +543,7 @@ const MultiStepForm = () => {
           homeNumber: '',
           relativesNumber: ''
   });
-  const navigate = useNavigate
-
+  const navigate = useNavigate()
 
   const handleFormSubmit = async () => {
     try {
@@ -551,19 +555,14 @@ const MultiStepForm = () => {
           status: 'success',
           duration: 3000,
           isClosable: true,
+          position: 'top'
         });
         navigate("/")
       } else {
         throw new Error('Form submission failed.');
       }
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'There was an error submitting the form.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      
     }
   }
 
@@ -626,7 +625,8 @@ const MultiStepForm = () => {
                 w="7rem"
                 colorScheme="red"
                 variant="solid"
-                onClick={() => {handleFormSubmit()
+                onClick={() => {
+                  handleFormSubmit()
                 }}>
                 Submit
               </Button>

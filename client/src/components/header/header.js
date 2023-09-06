@@ -11,7 +11,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { FaInstagram, FaTwitter, FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
+import { FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 import { ReactNode } from 'react'
 
 const SocialButton = ({
@@ -60,8 +60,11 @@ const Header = () => {
   } 
 
   useEffect(() => {
+    GetHeaderData()
+  }, [])
+
+  useEffect(() => {
     const handleResize = () => {
-      GetHeaderData()
       setIsMobileView(window.innerWidth <= 768); // Adjust the breakpoint value if needed
     };
 
@@ -126,10 +129,10 @@ const Header = () => {
         </Stack>
         <Stack direction={'row'} spacing={6}>
           <Center>
-          <Text >{data.email}</Text>
+          <a href={`mailto:${data.email}`}>{data.email}</a>
           </Center>
           <Center>
-            <Text>{data.phoneNumber1}</Text>
+          <a href={`tel:${data.phoneNumber1}`}>{data.phoneNumber1}</a>
           </Center>
           <SocialButton label={data.whatsappId} href={'#'} >
             <FaWhatsapp onClick={() => openWhatsappChat(data.facebookId)} />

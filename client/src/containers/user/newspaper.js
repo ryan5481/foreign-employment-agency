@@ -1,3 +1,5 @@
+import React, {useState, useEffect} from "react"
+import axios from "axios"
 import ImageTitleLarge from "../../components/card/imageTitleLarge"
 import {
   Grid, Heading, Text, useColorModeValue, Box
@@ -6,37 +8,24 @@ import {
 
 
 const Newspaper = () => {
+  const [newspaperAds, setNewspaperAds] = useState([])
+  
+  const fetchNewspaperAds = async () => {
+    try{
+      const res = await axios.get("http://localhost:8000/get-newspaper-images")
+      const data = res.data.data
+      setNewspaperAds(data)
+    }catch(error){
+      console.error("Error: ", error)
+    }
+  } 
 
-  const newspaperAds =
-    [
-      {
-        isNew: true,
-        imageURL:
-          'https://ujyaalojobs.com/wp-content/uploads/2023/02/New-Vacancy.png',
-        title: 'Newspaper Snippet',
-      },
-      {
-        isNew: true,
-        imageURL:
-          'https://ujyaalojobs.com/wp-content/uploads/2023/02/New-Vacancy.png',
-        title: 'Newspaper Snippet',
-      },
-      {
-        isNew: true,
-        imageURL:
-          'https://ujyaalojobs.com/wp-content/uploads/2023/02/New-Vacancy.png',
-        title: 'Newspaper Snippet',
-      },
-      {
-        isNew: true,
-        imageURL:
-          'https://ujyaalojobs.com/wp-content/uploads/2023/02/New-Vacancy.png',
-        title: 'Newspaper Snippet',
-      },
-    ]
+  useEffect(() => {
+    fetchNewspaperAds()
+  }, [])
 
   return (
-    <Box color={useColorModeValue('blue.600', 'gray.1000')}>
+    <Box p={10} color={useColorModeValue('blue.600', 'gray.1000')}>
       <Heading
         lineHeight={1.1}
         fontWeight={600}
@@ -48,7 +37,7 @@ const Newspaper = () => {
           Newspaper Vacancy Snippets
         </Text>
       </Heading>
-      <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr' }} gap={0} p={3} align="center">
+      <Grid templateColumns={{ base:'1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }} gap={0} p={3} justifySelf={'center'} alignSelf="center">
         {newspaperAds.map((ad, index) => {
           return (<>
             <ImageTitleLarge data={ad} />

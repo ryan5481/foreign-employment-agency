@@ -26,6 +26,8 @@ const License = () => {
     <Box
       bg={useColorModeValue('teal.50', 'gray.800')}
       color={useColorModeValue('blue.500', 'gray.100')}
+      p={5}
+      pb={10}
     >
 
       <Heading
@@ -38,7 +40,7 @@ const License = () => {
           Licenses and Certificates
         </Text>
       </Heading>
-      <Grid templateColumns={{ sm: '1fr 1fr', md: '2fr 2fr' }} gap={1} p={3} align="center">
+      <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr', lg: "1fr 1fr 1fr" }} gap={5} p={1} justifyItems="center">
         {certificatesList.map((cert, index) => {
           return(
             <>

@@ -144,12 +144,12 @@ const EditImageGallery = (props) => {
                                         onChange={handleImageReplaceSelect}
                                     />
                                     <Box p='6'>
-                                        <Box display='flex' alignItems='baseline'>
+                                        {/* <Box display='flex' alignItems='baseline'>
                                             <Badge borderRadius='full' px='2' colorScheme='teal'>
                                                 New
                                             </Badge>
-                                        </Box>
-                                        <Input
+                                        </Box> */}
+                                        {/* <Input
                                             border='1px solid'
                                             rounded='5px'
                                             color='purple.800'
@@ -158,7 +158,7 @@ const EditImageGallery = (props) => {
                                             fontWeight='semibold'
                                             value={imageData.imageTitle}
                                             onChange={(e) => setImageTitle(e.target.value)}
-                                        />
+                                        /> */}
                                         <Button
                                             mt="2"
                                             colorScheme='purple'
@@ -178,7 +178,7 @@ const EditImageGallery = (props) => {
                                 rounded="full"
                                 bottom='94%'
                                 left='47%'
-                                zIndex='100'
+                                zIndex='4'
                                 boxShadow="2xl"
                                 onClick={() => {
                                     setImageToDelete(imageData._id)
@@ -197,6 +197,7 @@ const EditImageGallery = (props) => {
                 {props.imageGalleryData.length <= 100 ?
                     (<Box
                         maxW='sm'
+                        h={355}
                         borderWidth='1px'
                         borderRadius='lg'
                         overflow='hidden'

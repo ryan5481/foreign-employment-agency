@@ -15,42 +15,17 @@ import {
     IconButton,
     useColorModeValue,
     Image,
-    Center
+    Center,
+    useToast
 } from '@chakra-ui/react'
-import { FaInstagram, FaTwitter, FaYoutube, FaFacebook, FaFacebookMessenger, FaWhatsapp, FaFilePdf } from 'react-icons/fa'
+import { FaFilePdf } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
+import { BsWhatsapp, BsMessenger } from 'react-icons/bs'
+import { MdFacebook } from 'react-icons/md'
 
 
-const SocialButton = ({
-    children,
-    label,
-    href,
-}: {
-    children: ReactNode,
-    label: string,
-    href: string
-}) => {
-    return (
-        <chakra.button
-            bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-            rounded={'full'}
-            w={8}
-            h={8}
-            cursor={'pointer'}
-            as={'a'}
-            href={href}
-            display={'inline-flex'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            transition={'background 0.3s ease'}
-            _hover={{
-                bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
-            }}>
-            <VisuallyHidden>{label}</VisuallyHidden>
-            {children}
-        </chakra.button>
-    )
-}
+
+
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
     return (
@@ -63,18 +38,92 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 const Footer = () => {
     const navigate = useNavigate()
     const [currentFooterData, setCurrentFooterData] = useState([])
+    const [logoImageData, setLogoImageData] = useState({});
+    const [email, setEmail] = useState('');
+    const toast = useToast()
+    
+    //MAIL SUBSCRIBE
+    const handleInputChange = async(event) => {
+        setEmail(event.target.value)
+    }
 
+    const handleSubscribeMail = () => {
+        setEmail('')
+        toast({
+            title: 'Subscribed',
+            description: 'You are subscribed to our newsletter.',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'top'
+        });
+    }
+
+    const fetchLogoImage = async () => {
+        try {
+            const res = await axios.get("http://localhost:8000/get-logo-image")
+            const data = res.data.data
+            setLogoImageData(data)
+
+        } catch (error) {
+            console.error("Error: ", error)
+        }
+    }
+
+    console.log(logoImageData)
+    //GET FOOTER DATA
     const GetFooterData = async () => {
         const res = await axios.get('http://localhost:8000/get-footer')
         if (res) {
             setCurrentFooterData(res.data.footerData)
-           
+
         } else {
             alert("Failed to fech footer data")
         }
     }
 
+
+    //GET FOOTER SOCIAL LINKS
+    const [socialData, setSocialData] = useState([])
+
+    const GetHeaderData = async () => {
+        const res = await axios.get('http://localhost:8000/get-contact')
+        if (res) {
+            // console.log("DATAAAA:" + data)
+            setSocialData(res.data.data)
+        } else {
+            alert("Failed to fech header data")
+        }
+    }
+
+    //SOCIAL ICON LINKS
+    function openMessengerChat(recipientId) {
+        // Replace 'your-app-id' with your Facebook App ID
+        const appId = 'your-app-id';
+        const messengerUrl = `https://m.me/${socialData.oneTapMessengerLink}`;
+        window.open(messengerUrl, 'Messenger Chat', 'width=600,height=400');
+    }
+
+    function openFaceBookPage(recipientId) {
+        // Replace 'your-app-id' with your Facebook App ID
+        const appId = 'your-app-id';
+        const facebookUrl = `https://facebook.com/${socialData.facebookId}`;
+        window.open(facebookUrl, 'Facebook Page', 'width=600,height=400');
+    }
+
+    function openWhatsappChat(recipientId) {
+        // Replace 'your-app-id' with your Facebook App ID
+        const appId = 'your-app-id';
+        const whatsappPhoneNumber = `https://wa.me/${socialData.whatsappId}`;
+        window.open(whatsappPhoneNumber, 'Whatsapp Chat', 'width=600,height=400');
+    }
+
     useEffect(() => {
+        GetHeaderData()
+    }, [])
+
+    useEffect(() => {
+        fetchLogoImage()
         GetFooterData()
     }, [])
 
@@ -90,30 +139,49 @@ const Footer = () => {
                     spacing={2}>
                     <Stack spacing={6}>
                         <Box align="center">
-                            <Image src="https://skywaynepal.com/static/media/logo2.ac770f9fccbae96efac0.jpg" w={60} />
+                            <Image
+                                h={20}
+                                src={`data:image/jpeg;base64,${logoImageData.logoImage}`}
+                                alt='Logo'
+                            />
                         </Box>
                         <Text fontSize={'sm'}>{currentFooterData.column1Line1}</Text>
                         <Text fontSize={'sm'}>{currentFooterData.column1Line2}</Text>
                         <Text fontSize={'sm'}>{currentFooterData.column1Line3}</Text>
-                        <Stack direction={'row'} spacing={6}>
-                            <SocialButton label={'Facebook'} navigate={() => currentFooterData.facebookLink}>
-                                <FaFacebook />
-                            </SocialButton>
-                            <SocialButton label={'Messenger'} href={currentFooterData.messengerLink}>
-                                <FaFacebookMessenger />
-                            </SocialButton>
-                            <SocialButton label={'Whatsapp'} href={currentFooterData.whatsappLink}>
-                                <FaWhatsapp />
-                            </SocialButton>
-                            <SocialButton label={'Twitter'} href={currentFooterData.twitterLink}>
-                                <FaTwitter />
-                            </SocialButton>
-                            <SocialButton label={'YouTube'} href={currentFooterData.youtubeLink}>
-                                <FaYoutube />
-                            </SocialButton>
-                            <SocialButton label={'Instagram'} href={currentFooterData.instagramLink}>
-                                <FaInstagram />
-                            </SocialButton>
+                        <Stack direction={'row'} spacing={6} alignSelf="center" >
+                            <IconButton
+                                color={'white'}
+                                aria-label="whatsapp"
+                                variant="ghost"
+                                size="lg"
+                                isRound={true}
+                                _hover={{ bg: '#0D74FF' }}
+                                icon={<BsWhatsapp size="28px" />}
+                                onClick={() => openWhatsappChat(socialData.facebookId)}
+
+                            />
+                            <IconButton
+                                color={'white'}
+                                aria-label="facebook"
+                                variant="ghost"
+                                size="lg"
+                                isRound={true}
+                                _hover={{ bg: '#0D74FF' }}
+                                icon={<MdFacebook size="28px" />}
+                                onClick={() => openFaceBookPage(socialData.facebookId)}
+
+                            />
+
+                            <IconButton
+                                color={'white'}
+                                aria-label="messanger"
+                                variant="ghost"
+                                size="lg"
+                                isRound={true}
+                                _hover={{ bg: '#0D74FF' }}
+                                icon={<BsMessenger size="28px" />}
+                                onClick={() => openMessengerChat(socialData.messengerId)}
+                            />
                         </Stack>
                     </Stack>
                     <Stack align={'flex-start'}>
@@ -158,11 +226,10 @@ const Footer = () => {
                             <IconButton
                                 bg={useColorModeValue('blue.700', 'blue.400')}
                                 color={useColorModeValue('white', 'gray.800')}
-                                _hover={{
-                                    bg: 'blue.600',
-                                }}
+                                _hover={{ bg: '#0D74FF' }}
                                 aria-label="Subscribe"
                                 icon={<BiMailSend />}
+                                onClick={() => handleSubscribeMail()}
                             />
                             <Input
                                 placeholder={'Email'}
@@ -172,15 +239,14 @@ const Footer = () => {
                                 _focus={{
                                     bg: 'whiteAlpha.300',
                                 }}
+                                onChange={handleInputChange}
                             />
                         </Stack>
                         <Stack direction={'row'} >
                             <IconButton
                                 bg={useColorModeValue('blue.700', 'blue.400')}
                                 color={useColorModeValue('white', 'gray.800')}
-                                _hover={{
-                                    bg: 'blue.600',
-                                }}
+                                _hover={{ bg: '#0D74FF' }}
                                 aria-label="Subscribe"
                                 icon={<FaFilePdf />}
                                 onClick={() => navigate("/brochure")}

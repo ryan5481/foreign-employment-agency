@@ -23,7 +23,9 @@ import EditHomePage from '../containers/admin/03-editHomePage'
 import EditJobsPage from '../containers/admin/04-editJobsPage'
 import EditResumePage from '../containers/admin/05-editResumePage'
 import EditCertificatePage from '../containers/admin/06-editCertificatePage'
+import EditNewspaperAds from '../containers/admin/06.5-editNewspaperAd'
 import EditAboutUsPage from '../containers/admin/07-editAboutUsPage'
+import EditWhyChooseUs from '../containers/admin/07.5-editWhyChooseUs'
 import EditGalleryPage from '../containers/admin/08-editGalleryPage'
 import EditContactUsPage from '../containers/admin/09-editContactUsPage.js'
 import EditFooter from '../containers/admin/10-editFooter'
@@ -57,7 +59,7 @@ const UserRoutes = () => {
       // TEMPORARY ADMIN ROUTES
         <Route path="/adminlogin" element={<AdminLogin />} />
 
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/about-nepal" element={<AboutNepal />} />
         <Route path="/choose-us" element={<WhyUs />} />
@@ -87,13 +89,15 @@ const AdminRoutes = () => {
         <Route path="/edit-navbar" element={<EditNavbar />} />
         <Route path="/edit-footer" element={<EditFooter />} />
         //
-        <Route path="/edit-home" element={<EditHomePage />} />
+        <Route path="/" element={<EditHomePage />} />
         <Route path="/edit-jobs" element={<EditJobsPage />} />
         <Route path="/edit-footer" element={<EditFooter />} />
         <Route path="/edit-resume" element={<EditResumePage />} />
         <Route path="/edit-license" element={<EditCertificatePage />} />
+        <Route path="/edit-newspaper" element={<EditNewspaperAds />} />
         <Route path="/edit-about" element={<EditAboutUsPage />} />
         <Route path="/edit-about-nepal" element={<EditAboutUsPage />} />
+        <Route path="/edit-choose-us" element={<EditWhyChooseUs />} />
         <Route path="/edit-gallery" element={<EditGalleryPage />} />
         <Route path="/edit-contact-us" element={<EditContactUsPage />} />
       </Routes>
