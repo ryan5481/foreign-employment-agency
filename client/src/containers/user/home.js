@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react"
 import {
-    Box, Heading, Grid, useColorModeValue, IconButton, Divider, Stack, Image,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalBody,
-    ModalFooter,
+    Box, Heading, Grid, useColorModeValue, Divider, Stack
 } from "@chakra-ui/react"
-import { SmallCloseIcon } from "@chakra-ui/icons"
 import Carousel from "../../components/header/Carousel/carousel"
 import CallToActionWithVideo from "../../components/card/callToActionWithVideo"
 import ImageParagraph from "../../components/card/imageParagraph1"
@@ -57,7 +51,7 @@ const Home = () => {
                     <BlogArticleCard />
                 </Box>
                 {/* JOB SECTORS */}
-                <Box >
+                <Box id="job-sectors" >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}
                         color={useColorModeValue('blue.600', 'gray.1000')}
                     >
@@ -78,7 +72,8 @@ const Home = () => {
                 </Box>
                 <Divider />
                 {/* OPERATING PROCEDURE */}
-                <Box alignContent={'center'} align="center"
+                <Box id="operating-procedure"
+                alignContent={'center'} align="center"
                     color={useColorModeValue('blue.700', 'gray.1000')}
                 >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
@@ -89,7 +84,7 @@ const Home = () => {
                     </Box>
                 </Box>
                 {/* TESTIMONIALS */}
-                <Box>
+                <Box id="testimonials" >
                     <TestimonialCard />
                 </Box>
                 <Stack>

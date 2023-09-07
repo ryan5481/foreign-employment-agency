@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { ReactNode } from 'react'
 import axios from 'axios'
 import {
@@ -184,40 +184,37 @@ const Footer = () => {
                             />
                         </Stack>
                     </Stack>
-                    <Stack align={'flex-start'}>
+                    <Stack align={'flex-start'} >
                         <ListHeader>Company</ListHeader>
-                        <Box as="a" href={'about'}>
+                        <Box as="a" href={'/about'} _hover={{ color: '#0D74FF' }} >
                             About us
                         </Box>
-                        <Box as="a" href={'#'}>
-                            Blog
+                        <Box as="a" href={'/choose-us'} _hover={{ color: '#0D74FF' }}>
+                            Why Choose us
                         </Box>
-                        <Box as="a" href={'contact'}>
-                            Contact us
+                        <Box as="a" href={'/about-nepal'} _hover={{ color: '#0D74FF' }}>
+                            About Nepal
                         </Box>
-                        <Box as="a" href={'#'}>
-                            Pricing
+                        <Box as="a" href={'/gallery'} _hover={{ color: '#0D74FF' }}>
+                            Image Gallery
                         </Box>
-                        <Box as="a" href={'testimonials'}>
-                            Testimonials
-                        </Box>
+                        
                     </Stack>
-                    <Stack align={'flex-start'}>
+                    <Stack align={'flex-start'} >
                         <ListHeader>Support</ListHeader>
-                        <Box as="a" href={'#'}>
-                            Help Center
+                        <Box as="a" href={'contact-us'} _hover={{ color: '#0D74FF' }}>
+                            Contact Us
                         </Box>
-                        <Box as="a" href={'#'}>
-                            Terms of Service
+                        
+                        <Box as="a" href={'/license'} _hover={{ color: '#0D74FF' }}>
+                            License
                         </Box>
-                        <Box as="a" href={'license'}>
-                            Legal
+                        <Box as="a" href={'/resume'} _hover={{ color: '#0D74FF' }}>
+                            Submit Resume
                         </Box>
-                        <Box as="a" href={'#'}>
-                            Privacy Policy
-                        </Box>
-                        <Box as="a" href={'#'}>
-                            Satus
+                        
+                        <Box as="a" href={'/jobs'} _hover={{ color: '#0D74FF' }}>
+                            Latest Jobs
                         </Box>
                     </Stack>
                     <Stack align={'flex-start'}>

@@ -39,20 +39,9 @@ const EditHeader = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (formData.some((item) => item.Key.trim() === "")) {
-            toast({
-                title: 'Empty field.',
-                description: 'Empty fields can not be submitted.',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                colorScheme: "purple",
-                icon: <Center><WarningIcon color="red.400" /></Center>
-            });
-            return;
-        }
+
         try {
-            const response = await axios.put("http://localhost:8000/admin/edit-contact", {
+            const res = await axios.put("http://localhost:8000/admin/edit-contact", {
                 regdField: formData.regdField,
                 licenseField: formData.licenseField,
                 email: formData.email,
@@ -61,15 +50,40 @@ const EditHeader = () => {
                 facebookId: formData.facebookId,
                 oneTapMessengerLink: formData.oneTapMessengerLink,
             })
-            if (response) {
+            if(res.status === 200){
+                toast({
+                    title: 'Success.',
+                    description: 'Data updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
                 GetHeaderData()
-
-            }
+                } else{
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
 
         } catch (error) {
             console.error('Error:', error.response);
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
         }
     };
+
 
     const GetHeaderData = async () => { 
         const res = await axios.get('http://localhost:8000/get-contact')

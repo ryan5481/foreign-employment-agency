@@ -30,8 +30,8 @@ const Gallery = () => {
     }, [])
     
     return(
-        <Center bg={useColorModeValue('teal.50', 'gray.800')}
-            color={useColorModeValue('blue.500', 'gray.100')}
+        <Center bg={useColorModeValue('blue.500', 'gray.800')}
+        color='gray.100'
             w={"full"}>
             <Heading m={2} fontSize={'2xl'} fontFamily={'body'} p={5}>
                 Image Gallery

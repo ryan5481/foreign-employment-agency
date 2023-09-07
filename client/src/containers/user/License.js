@@ -24,8 +24,9 @@ const License = () => {
 
   return (
     <Box
-      bg={useColorModeValue('teal.50', 'gray.800')}
-      color={useColorModeValue('blue.500', 'gray.100')}
+    h={"100vh"}
+    bg={useColorModeValue('blue.500', 'gray.800')}
+    color='gray.100'
       p={5}
       pb={10}
     >
@@ -36,7 +37,7 @@ const License = () => {
         fontSize={{ base: 'xl', sm: '4xl', lg: '4xl' }}
         p={5}>
 
-        <Text as={'span'} color={'blue.400'}>
+        <Text as={'span'}>
           Licenses and Certificates
         </Text>
       </Heading>

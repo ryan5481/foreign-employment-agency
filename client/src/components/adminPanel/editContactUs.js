@@ -30,6 +30,7 @@ import {
     PopoverBody,
     PopoverArrow,
     PopoverCloseButton,
+    useToast
 } from '@chakra-ui/react'
 import {
     MdPhone,
@@ -42,6 +43,7 @@ import { BsWhatsapp, BsPerson, BsMessenger, BsInstagram } from 'react-icons/bs'
 
 //GET
 const EditContactUs = (props) => {
+    const toast = useToast()
     const navigate = useNavigate()
     const [data, setData] = useState([])
     const [formData, setFormData] = useState({
@@ -94,9 +96,36 @@ const EditContactUs = (props) => {
                     "Content-Type": "application/json",
                 },
             })
-            GetHeaderData()
+            if(data){
+                toast({
+                    title: 'Success.',
+                    description: 'Data updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                GetHeaderData() 
+            }else{
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+            }
         }catch(error){
             console.error("Error", error)
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
         }
     }
 

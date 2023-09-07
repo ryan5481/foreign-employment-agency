@@ -25,7 +25,8 @@ const Newspaper = () => {
   }, [])
 
   return (
-    <Box p={10} color={useColorModeValue('blue.600', 'gray.1000')}>
+    <Box p={10} bg={useColorModeValue('blue.500', 'gray.800')}
+    color='gray.100'>
       <Heading
         lineHeight={1.1}
         fontWeight={600}
@@ -33,7 +34,7 @@ const Newspaper = () => {
         p={5}
         >
 
-        <Text as={'span'} color={'blue.400'}>
+        <Text as={'span'} >
           Newspaper Vacancy Snippets
         </Text>
       </Heading>

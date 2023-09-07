@@ -18,12 +18,14 @@ import {
     Editable,
     EditablePreview,
     EditableInput,
-    useColorModeValue
+    useColorModeValue,
+    useToast
 } from "@chakra-ui/react"
 import { CheckIcon } from "@chakra-ui/icons";
 
 
 const EditWhyChooseUs = () => {
+    const toast = useToast()
     const navigate = useNavigate()
     const [data, setData] = useState([])
     const [selectedImage, setSelectedImage] = useState(null)
@@ -131,13 +133,39 @@ const EditWhyChooseUs = () => {
             formData.append('featureTitle8', featureTitle8);
             formData.append('featureText8', featureText8);
     
-            const response = await axios.put("http://localhost:8000/admin/edit-choose-us", formData);
-            if (response) {
-            window.location.reload();
+            const res = await axios.put("http://localhost:8000/admin/edit-choose-us", formData);
+            if (res.status === 200) {
+                toast({
+                    title: 'Success.',
+                    description: 'Data Updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                fetchWhyChooseUsData()
+            }else {
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
-            } catch (error) {
-                console.error('Error updating data:', error);
-            }
+
+        } catch (error) {
+            console.error('Error adding sector:', error);
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
+        }
         };
 
     return (
@@ -146,7 +174,7 @@ const EditWhyChooseUs = () => {
         onSubmit={handleUpdateData}
         >
             <Box pb={5}>
-                <Box>
+                <Box  >
                     <Flex
                         className='hero-pic'
                         w={'full'}
@@ -159,6 +187,9 @@ const EditWhyChooseUs = () => {
                         onClick={() => imageInputRef.current.click()}
                         cursor="pointer"
                         >
+                            <Box>
+                                
+                            </Box>
                         <input 
                         type="file" 
                         style={{ display: 'none' }} 
@@ -174,10 +205,7 @@ const EditWhyChooseUs = () => {
                             bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
                             <Stack maxW={'2xl'} align={'flex-start'} spacing={6}>
 
-                                <Editable w={"80%"} id="imageTitle" placeholder={data.imageTitle} color={'white'} fontWeight={700} lineHeight={1.2} fontSize="3xl" >
-                                    <EditablePreview />
-                                    <EditableInput px={2} rounded={'10px'} type="text" name="imageTitle" value={data.imageTitle} onChange={(e) => setImageTitle(e.target.value)} />
-                                </Editable>
+                                
                                 <Stack direction={'row'}>
                                     <Button
                                         bg={'blue.400'}
@@ -201,6 +229,12 @@ const EditWhyChooseUs = () => {
                             </Stack>
                         </VStack>
                     </Flex>
+                    <Editable  id="imageTitle" placeholder={data.imageTitle}  fontWeight={700} lineHeight={1.2} fontSize="3xl" >
+                        <Center>
+                                    <EditablePreview />
+                                    <EditableInput px={2} rounded={'10px'} type="text" name="imageTitle" value={data.imageTitle} onChange={(e) => setImageTitle(e.target.value)} />
+                        </Center>
+                    </Editable>
                 </Box>
                 <Box>
                     <Box p={4} color={useColorModeValue('blue.700', 'gray.400')} justifySelf="center" >

@@ -152,18 +152,3 @@ const resumeSchema = ({
 })
 
 export default mongoose.model("Resume", resumeSchema, "Resume")
-
-
-{/* <RadioGroup defaultValue='SLC'
-        id='education'
-        value={formData['education'] || ''}
-        onChange={(value) => handleInputChange({target: {id: 'education', value}})}
-        py={2}>
-        <Stack direction={{ base: "column", sm: "column", md: "row", lg: "row" }}>
-          <Radio value="under_slc">Under SLC</Radio>
-          <Radio value="slc">SLC</Radio>
-          <Radio value="+2">+2</Radio>
-          <Radio value="bachelors">Bachelors</Radio>
-          <Radio value="masters">Masters</Radio>
-        </Stack>
-      </RadioGroup> */}
