@@ -46,7 +46,7 @@ const AllJobs = ({ displayAll }) => {
         <>
             <Box
                 bg={useColorModeValue('blue.500', 'gray.800')}
-                color={useColorModeValue('gray.50', 'gray.800')}
+                color='gray.100'
             >
                 <div>
                     <Heading fontSize={'4xl'} fontFamily={'body'} pt={5}>

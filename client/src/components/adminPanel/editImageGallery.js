@@ -1,5 +1,5 @@
 
-import { Image, Badge, Input, Box, Grid, Button, Heading, AspectRatio, Text, FormControl, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Textarea, VStack, useColorModeValue, Editable } from '@chakra-ui/react';
+import { Image, Badge, Input, Box, Grid, Button, Heading, useToast, Text, FormControl, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Textarea, VStack, useColorModeValue, Editable } from '@chakra-ui/react';
 import { SmallCloseIcon, CheckCircleIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
@@ -16,13 +16,17 @@ const EditImageGallery = (props) => {
     const [imageTitle, setImageTitle] = useState('');
     const [imageDescription, setImageDescription] = useState('');
 
-    const newImageUploadInputRef = useRef();
-    const updateImageInputRef = useRef();
+    const newImageUploadInputRef = useRef(null);
+    const updateImageInputRef = useRef(null); 
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [imageToDelete, setImageToDelete] = useState(null);
     const cancelRef = useRef()
+    const toast = useToast()
 
+
+
+    //EDIT
     const handleNewImageSelect = (event) => {
         setNewSelectedImageFile(event.target.files[0]);
         if (event.target.files && event.target.files[0]) {
@@ -30,7 +34,7 @@ const EditImageGallery = (props) => {
         }
     }
 
-    const handleImageReplaceSelect= (event) => {
+    const handleImageReplaceSelect = (event) => {
         setImageToUpdateWith(event.target.files[0]);
         if (event.target.files && event.target.files[0]) {
             setImageUpdatePreview(URL.createObjectURL(event.target.files[0]));
@@ -45,17 +49,45 @@ const EditImageGallery = (props) => {
             formData.append('imageDescription', imageDescription);
 
             try {
-                await axios.post("http://localhost:8000/admin/add-gallery-image", formData, {
+                const res = await axios.post("http://localhost:8000/admin/add-gallery-image", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                props.fetchGalleryImages();
-                setNewSelectedImageFile(null);
-                setImageTitle('');
-                setImageDescription('');
+                if (res.status === 200) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Image updated.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                    props.fetchGalleryImages();
+                    setNewSelectedImageFile(null);
+                    setImageTitle('');
+                    setImageDescription('');
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update image.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
+
             } catch (error) {
                 console.error('Error adding sector:', error);
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
     }
@@ -64,13 +96,42 @@ const EditImageGallery = (props) => {
         if (imageToDelete) {
             try {
                 const res = await axios.delete(`http://localhost:8000/admin/delete-gallery-image/${imageToDelete}`)
-                if (res) {
+                if (res.status === 200) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Image deleted.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
                     props.fetchGalleryImages();
                     onClose();
-                    console.log("Item deleted.")
                 }
+                if (res) {
+                    
+                    props.fetchGalleryImages();
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to delete data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
+
             } catch (error) {
-                console.error("Error deleting the item: ", error)
+                console.error('Error adding sector:', error);
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
     }
@@ -83,24 +144,56 @@ const EditImageGallery = (props) => {
             formData.append("imageTitle", imageTitle)
             formData.append("imageDescription", imageDescription)
             try {
-                await axios.put("http://localhost:8000/admin/update-gallery-image", formData, {
+                const res = await axios.put("http://localhost:8000/admin/update-gallery-image", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 })
-                props.fetchGalleryImages();
-                setImageToUpdateWith(null);
-                setSelectedimageId(null);
-            } catch (error) {
+               
+                if (res.status === 200) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Image Updated.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                    props.fetchGalleryImages();
+                    setImageToUpdateWith(null);
+                    setSelectedimageId(null);
+                }
+                if (res) {
+                    
+                    props.fetchGalleryImages();
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
 
-                console.error("Error updating image: ", error)
+            } catch (error) {
+                console.error('Error adding sector:', error);
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
     }
 
     return (
         <><Box bg={useColorModeValue('purple.100', 'gray.100')}
-        color={useColorModeValue('purple.800', 'gray.100')}
+            color={useColorModeValue('purple.800', 'gray.100')}
         >
             <Heading m={2} fontSize={'4xl'} fontFamily={'body'} pt={5}
                 color={useColorModeValue('purple.800', 'gray.100')}
@@ -112,7 +205,7 @@ const EditImageGallery = (props) => {
                 {props.imageGalleryData.map((imageData, index) => {
                     return (<>
                         <Box>
-
+                        
                             <Box
                                 maxW='sm'
                                 borderWidth='1px'
@@ -123,12 +216,13 @@ const EditImageGallery = (props) => {
                                 bg='gray.100'
                             >
                                 <VStack>
+                                    
                                     {/* <form onSubmit={handleImageReplace(imageData._id)} > */}
                                     <Image
-                                        src={ `data:image/jpeg;base64,${imageData.galleryImage}`}
+                                        src={`data:image/jpeg;base64,${imageData.galleryImage}`}
                                         alt={imageData.imageTitle}
                                         objectFit="contain"
-                                        h='250px'
+                                        h='100%'
                                         overflow="hidden"
                                         transition="0.15s ease-in-out"
                                         _hover={{
@@ -159,6 +253,7 @@ const EditImageGallery = (props) => {
                                             value={imageData.imageTitle}
                                             onChange={(e) => setImageTitle(e.target.value)}
                                         /> */}
+                                
                                         <Button
                                             mt="2"
                                             colorScheme='purple'
@@ -166,6 +261,7 @@ const EditImageGallery = (props) => {
                                             onClick={() => handleImageReplace(imageData._id)}
                                         >Update Image</Button>
                                     </Box>
+
                                     {/* </form> */}
                                 </VStack>
 
@@ -176,8 +272,8 @@ const EditImageGallery = (props) => {
                                 size='sm'
                                 colorScheme='red'
                                 rounded="full"
-                                bottom='94%'
-                                left='47%'
+                                bottom='95%'
+                                left='48%'
                                 zIndex='4'
                                 boxShadow="2xl"
                                 onClick={() => {
@@ -194,8 +290,8 @@ const EditImageGallery = (props) => {
 
                     </>)
                 })}
-                {props.imageGalleryData.length <= 100 ?
-                    (<Box
+                
+                    <Box
                         maxW='sm'
                         h={355}
                         borderWidth='1px'
@@ -204,18 +300,18 @@ const EditImageGallery = (props) => {
                         shadow={'xl'}
                         bg={'gray.100'}
                         cursor='pointer'>
-                            <Image
-                                src={newSelectedPreviewImage || 'https://image.pngaaa.com/768/791768-middle.png'}
-                                alt='Add Image'
-                                rounded='10px'
-                                objectFit="contain"
-                                h="250px"
-                                transition="0.15s ease-in-out"
-                                _hover={{
-                                    brightness: '0.8',
-                                }}
-                                onClick={() => newImageUploadInputRef.current.click()}
-                            />
+                        <Image
+                            src={newSelectedPreviewImage || 'https://image.pngaaa.com/768/791768-middle.png'}
+                            alt='Add Image'
+                            rounded='10px'
+                            objectFit="contain"
+                            h="250px"
+                            transition="0.15s ease-in-out"
+                            _hover={{
+                                brightness: '0.8',
+                            }}
+                            onClick={() => newImageUploadInputRef.current.click()}
+                        />
                         <input
                             type='file'
                             accept="image/*"
@@ -225,41 +321,41 @@ const EditImageGallery = (props) => {
                         />
 
                         <form>
-                        <FormControl mt='7' id='imageTitle'>
-                            <Input
-                                size='sm'
-                                rounded="10px"
-                                color='gray.100'
-                                fontWeight="bold"
-                                fontSize="16px"
-                                placeholder="New title"
-                                _placeholder={{ color: "purple.800", fontWeight: "normal", fontSize: "sm" }}
-                                textAlign="center"
-                                value={imageTitle}
-                                onChange={(e) => setImageTitle(e.target.value)}
-                            ></Input>
-                            <Textarea
-                                size='sm'
-                                rounded="10px"
-                                color='gray.100'
-                                fontWeight="bold"
-                                fontSize="16px"
-                                placeholder="New description"
-                                _placeholder={{ color: "purple.800", fontWeight: "normal", fontSize: "sm" }}
-                                textAlign="center"
-                                value={imageDescription}
-                                onChange={(e) => setImageDescription(e.target.value)}
-                            ></Textarea>
+                            <FormControl mt='7' id='imageTitle'>
+                                {/* <Input
+                                    size='sm'
+                                    rounded="10px"
+                                    color='gray.100'
+                                    fontWeight="bold"
+                                    fontSize="16px"
+                                    placeholder="New title"
+                                    _placeholder={{ color: "purple.800", fontWeight: "normal", fontSize: "sm" }}
+                                    textAlign="center"
+                                    value={imageTitle}
+                                    onChange={(e) => setImageTitle(e.target.value)}
+                                ></Input>
+                                <Textarea
+                                    size='sm'
+                                    rounded="10px"
+                                    color='gray.100'
+                                    fontWeight="bold"
+                                    fontSize="16px"
+                                    placeholder="New description"
+                                    _placeholder={{ color: "purple.800", fontWeight: "normal", fontSize: "sm" }}
+                                    textAlign="center"
+                                    value={imageDescription}
+                                    onChange={(e) => setImageDescription(e.target.value)}
+                                ></Textarea> */}
 
-                            <Button
-                                colorScheme='purple'
-                                m={1}
-                                type='submit'
-                                onClick={handleUploadNewImage}
-                            >Add Image</Button>
-                        </FormControl>
+                                <Button
+                                    colorScheme='purple'
+                                    m={1}
+                                    type='submit'
+                                    onClick={handleUploadNewImage}
+                                >Add Image</Button>
+                            </FormControl>
                         </form>
-                    </Box>) : (null)}
+                    </Box>
 
             </Grid>
             <AlertDialog

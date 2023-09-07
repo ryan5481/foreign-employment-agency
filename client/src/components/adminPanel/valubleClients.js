@@ -4,7 +4,7 @@ import {
     Box,
     Heading,
     Image,
-    Text,
+    useToast,
     Input,
     Button,
     useColorModeValue,
@@ -22,6 +22,7 @@ const ValuableClients = () => {
     const [text1, setText1] = useState('')
     const [description1, setDescription1] = useState('')
     const imageInputRef = useRef()
+    const toast = useToast()
 
 
     const fetchData = async () => {
@@ -56,11 +57,40 @@ const ValuableClients = () => {
             formData.append('heading1', heading1);
             formData.append('text1', text1);
             formData.append('description1', description1);
+            
     
             const res = await axios.post('http://localhost:8000/edit-homepage/valuableClients', formData);
-            res && window.location.reload()
+            if(res){
+                toast({
+                    title: 'Success.',
+                    description: 'Data updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                fetchData()
+                // res && window.location.reload()
+            } else{
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+            }
+
           } catch (error) {
-            console.log('Error updating data:', error);
+            toast({
+                title: 'Error.',
+                description: 'Failed to update data. Could not connect to server.',
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });;
           }
       };
 

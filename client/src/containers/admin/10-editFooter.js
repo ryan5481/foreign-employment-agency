@@ -21,13 +21,7 @@ import {
     Editable,
     EditableInput,
     EditablePreview,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverHeader,
-    PopoverBody,
-    PopoverArrow,
-    PopoverCloseButton,
+    useToast
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { ReactNode } from 'react'
@@ -82,6 +76,7 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 const EditFooter = () => {
     const textColorModeValue = useColorModeValue('white', 'purple.100');
     const navigate = useNavigate()
+    const toast = useToast()
     const [currentFooterData, setCurrentFooterData] = useState([])
     const [logoImageData, setLogoImageData] = useState([])
     const [formData, setFormData] = useState({
@@ -118,10 +113,37 @@ const EditFooter = () => {
                 instagramLink: formData.instagramLink,
                 fileDownloadText: formData.fileDownloadText
             })
-            GetFooterData()
+            if(response.status === 200){
+                toast({
+                    title: 'Success.',
+                    description: 'Data updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                GetFooterData()
+                } else{
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
 
         } catch (error) {
             console.error('Error:', error.response);
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
         }
     };
 

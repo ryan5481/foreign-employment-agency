@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import {
-    Grid, Heading, Text, Box, useColorModeValue, IconButton, Image, Input, FormControl, Button, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter
+    Grid, useToast, Heading, Text, Box, useColorModeValue, IconButton, Image, Input, FormControl, Button, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter
 } from '@chakra-ui/react'
 import { SmallCloseIcon } from "@chakra-ui/icons"
 
 
 const EditCertificatePage = () => {
+    const toast = useToast()
     //GET
     const [certificatesList, setCertificatesList] = useState([])
 
@@ -49,19 +50,47 @@ const EditCertificatePage = () => {
             formData.append("certificateTitle", certificateTitle)
         
         try {
-            await axios.post("http://localhost:8000/admin/add-certificate-image", formData, {
+            const res = await axios.post("http://localhost:8000/admin/add-certificate-image", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            fetchCertificates();
-            setNewCertificateImage(null);
-            setCertificateTitle('');
-        } catch (error) {
-            console.error('Error adding sector:', error);
+            if (res.status === 200) {
+                toast({
+                  title: 'Success.',
+                  description: 'Data Updated.',
+                  status: 'success',
+                  duration: 5000,
+                  isClosable: true,
+                  position: 'top'
+                });
+                fetchCertificates();
+                setNewCertificateImage(null);
+                setCertificateTitle('');
+              } else {
+                toast({
+                  title: 'Error.',
+                  description: 'Failed to update data.',
+                  status: 'error',
+                  duration: 5000,
+                  isClosable: true,
+                  position: 'top'
+                });
+              }
+      
+            } catch (error) {
+              console.error('Error adding sector:', error);
+              toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+              });
+            }
+          }
         }
-    }
-    }
 
     //PUT
     const handleImageToUpdateSelect = (event, index) => {
@@ -78,33 +107,90 @@ const EditCertificatePage = () => {
         formData.append("certificateTitle", updatedCertTitle)
 
         try {
-            const data = await axios.put(`http://localhost:8000/admin/update-certificate-image`, formData, {
+            const res = await axios.put(`http://localhost:8000/admin/update-certificate-image`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             })
-            fetchCertificates();
+            if (res.status === 200) {
+                toast({
+                  title: 'Success.',
+                  description: 'Data Updated.',
+                  status: 'success',
+                  duration: 5000,
+                  isClosable: true,
+                  position: 'top'
+                });
+                fetchCertificates();
             setImageToUpdateWith(null);
-        } catch (error) {
-            console.error("Error updating image: ", error)
-        }
-    }
+              } else {
+                toast({
+                  title: 'Error.',
+                  description: 'Failed to update data.',
+                  status: 'error',
+                  duration: 5000,
+                  isClosable: true,
+                  position: 'top'
+                });
+              }
+      
+            } catch (error) {
+              console.error('Error adding sector:', error);
+              toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+              });
+            }
+          }
+        
+
+        
 
     //DELETE
     const handleImageDelete = async () => {
         if (imageToDelete) {
             try {
                 const res = await axios.delete(`http://localhost:8000/admin/delete-certificate-image/${imageToDelete}`)
-                if (res) {
+                if (res.status === 200) {
+                    toast({
+                      title: 'Success.',
+                      description: 'Image delete.',
+                      status: 'success',
+                      duration: 5000,
+                      isClosable: true,
+                      position: 'top'
+                    });
                     fetchCertificates();
                     onClose();
-                    console.log("Item deleted.")
+                setImageToUpdateWith(null);
+                  } else {
+                    toast({
+                      title: 'Error.',
+                      description: 'Failed to delete image.',
+                      status: 'error',
+                      duration: 5000,
+                      isClosable: true,
+                      position: 'top'
+                    });
+                  }
+          
+                } catch (error) {
+                  console.error('Error adding sector:', error);
+                  toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                  });
                 }
-            } catch (error) {
-                console.error("Error deleting the item: ", error)
+              }
             }
-        }
-    }
 
     useEffect(() => {
         fetchCertificates()

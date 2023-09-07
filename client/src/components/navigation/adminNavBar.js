@@ -173,12 +173,15 @@ export default function AdminNavBar() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Image
+          _hover={{
+            cursor: "pointer"
+          }}
           p={2}
           h={20}
             src={`data:image/jpeg;base64,${logoImageData.logoImage}`}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
-            onClick={() => navigate("/edit-homepage")}
+            onClick={() => navigate("/")}
           />
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -268,7 +271,8 @@ const DesktopNav = (props) => {
                   color: linkHoverColor,
                   bg: 'purple.400',
                   rounded: '10px',
-                  shadow: 'md'
+                  shadow: 'md',
+                  cursor: "pointer"
                 }}
                 onClick={() => navigate( navItem.href || "/edit-home")}
               >

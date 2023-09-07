@@ -6,8 +6,8 @@ const Resume = () => {
     return(
         <Box 
         py={5}
-        bg={useColorModeValue('teal.50', 'gray.800')}
-        color={useColorModeValue('blue.500', 'gray.100')}
+        bg={useColorModeValue('blue.500', 'gray.800')}
+                color='gray.100'
         >
         <MultiStepForm/>
         </Box>
