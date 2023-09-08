@@ -47,16 +47,35 @@ const Footer = () => {
         setEmail(event.target.value)
     }
 
-    const handleSubscribeMail = () => {
-        setEmail('')
-        toast({
-            title: 'Subscribed',
-            description: 'You are subscribed to our newsletter.',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-            position: 'top'
-        });
+    // if (editedData.some((item) => item.label.trim() === "")) {
+    //     toast({
+    //         title: 'Empty field.',
+    //         description: 'Empty fields can not be submitted.',
+    //         status: 'error',
+    //         duration: 3000,
+    //         isClosable: true,
+    //         colorScheme: "purple",
+    //         icon: <Center><WarningIcon color="red.400" /></Center>
+    //     });
+    //     return;
+    // }
+
+    const handleSubscribeMail = (event) => {
+        event.preventDefault()
+        try{
+            setEmail(event.target.value)
+             if (email){ 
+                toast({
+                title: 'Subscribed',
+                description: 'You are subscribed to our newsletter.',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'top'
+            })}
+        }catch(error){
+            console.error("Error: " + error)
+        }
     }
 
     const fetchLogoImage = async () => {
@@ -70,7 +89,6 @@ const Footer = () => {
         }
     }
 
-    console.log(logoImageData)
     //GET FOOTER DATA
     const GetFooterData = async () => {
         const res = await axios.get('http://localhost:8000/get-footer')
@@ -226,7 +244,7 @@ const Footer = () => {
                                 _hover={{ bg: '#0D74FF' }}
                                 aria-label="Subscribe"
                                 icon={<BiMailSend />}
-                                onClick={() => handleSubscribeMail()}
+                                onClick={(event) => handleSubscribeMail(event)}
                             />
                             <Input
                                 placeholder={'Email'}

@@ -213,7 +213,7 @@ const EditCertificatePage = () => {
                     Licenses and Certificates
                 </Text>
             </Heading>
-            <Grid templateColumns={{ sm: '1fr 1fr', md: '2fr 2fr' }} gap={1} p={3} align="center">
+            <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr' }} gap={1} py={3} align="center">
                 {certificatesList.map((cert, index) => {
                     return (
                         <>
@@ -221,18 +221,17 @@ const EditCertificatePage = () => {
                                 key={cert._id}
                                 onSubmit={(event) => handleReplaceCertificate(event, cert._id, index)}
                             >
-                                <Box justifyItems='center' w='xl' p="6" roundedTop='5px'>
+                                <Box justifyItems='center'  p="6" roundedTop='5px'>
 
                                     {/* RED CROSS ICON */}
                                     <Box
-                                    zIndex={4}
+                                    zIndex={3}
                                         w='30px'
                                         as={IconButton}
-                                        size='sm'
                                         colorScheme='red'
                                         rounded="full"
-                                        left='35%'
-                                        top="16px"
+                                        left='34%'
+                                        top="20px"
                                         boxShadow="2xl"
                                         onClick={() => {
                                             setImageToDelete(cert._id)
@@ -244,9 +243,10 @@ const EditCertificatePage = () => {
                                             w='30px'
                                         />
                                     </Box>
-                                    <FormControl w='sm'>
+                                    <FormControl w={300}  justifyItems='center'>
                                         {/* IMAGE */}
                                         <Image
+                                        
                                             roundedTop='5px'
                                             src={`data:image/jpeg;base64,${cert.certificateImage}`}
                                             alt={cert.certificateTitle}
@@ -259,7 +259,7 @@ const EditCertificatePage = () => {
                                             ref={updateImageInputRef}
                                             onChange={handleImageToUpdateSelect}
                                         />
-                                        <Box bg='white'>
+                                        <Box >
                                             <Input
                                                 roundedBottom='5px'
                                                 colorScheme="purple"
@@ -276,7 +276,7 @@ const EditCertificatePage = () => {
                                             </Input>
                                         </Box>
                                         <Button
-                                            w='100%'
+                                            
                                             colorScheme="purple"
                                             type="submit"
 

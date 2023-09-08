@@ -31,23 +31,24 @@ const Home = () => {
 
     return (
         <>
-            <Box bg={useColorModeValue('teal.50', 'gray.1000')} alignContent={'center'}>
-                <Box>
-                    <Carousel />
-                </Box>
+            <Box bg={useColorModeValue('teal.100', 'blue.800')} alignContent={'center'}>
+                
+                <Carousel  />
+                
                 {/* ABOUT US */}
-                <Box maxW={'full'} bg={useColorModeValue('blue.500', 'gray.1000')}>
-                    <CallToActionWithVideo />
+                <Box>
+
+                <CallToActionWithVideo pos="relative" bottom={"200px"} />
                 </Box>
                 {/* MESSAGES */}
-                <Box>
+                <Box >
                     <ImageParagraph />
                 </Box>
-                <Box>
+                <Box >
                     <ImageParagraph2 />
                 </Box>
                 {/* OUR VALUABLE CLIENTS */}
-                <Box>
+                <Box >
                     <BlogArticleCard />
                 </Box>
                 {/* JOB SECTORS */}

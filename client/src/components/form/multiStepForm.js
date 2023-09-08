@@ -7,7 +7,6 @@ import {
   Radio,
   Spacer,
   Box,
-  ButtonGroup,
   Button,
   Heading,
   Flex,
@@ -18,7 +17,7 @@ import {
   Input,
   Select,
   SimpleGrid,
-  InputLeftAddon,
+  Text,
   InputGroup,
   Textarea,
   FormHelperText,
@@ -85,17 +84,25 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
         <Flex>
 
           <FormControl mr="5%" py={2}>
-            <FormLabel htmlFor="job-code" fontWeight={'normal'}>
-              Job code
+            <FormLabel htmlFor="job-code" >
+              Job code (Optional)
             </FormLabel>
-            <Input id="jobCode" placeholder="Job code" value={jobIdFromQuery || ''} readOnly />
+            <Input id="jobCode" placeholder="Job code for the published job you want to apply for"
+              value={jobIdFromQuery || formik.values.jobId}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setFormData({
+                  ...formData,
+                  jobId: e.target.value,
+                });
+              }} />
           </FormControl>
 
         </Flex>
         {/* NAME ADDRESS */}
         <Flex>
           <FormControl mr={"5%"} py={2} id="fullName" isInvalid={formik.errors.fullName && formik.touched.fullName}>
-            <FormLabel htmlFor="fullName">Full Name</FormLabel>
+            <FormLabel htmlFor="fullName" isTruncated>Full Name</FormLabel>
             <Input
               type="text"
               id="fullName"
@@ -105,7 +112,7 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
                 formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  fullName: e.target.value, 
+                  fullName: e.target.value,
                 });
               }}
               onBlur={formik.handleBlur}
@@ -117,7 +124,7 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
             )}
           </FormControl>
           <FormControl mr={"5%"} py={2} id="address" isInvalid={formik.errors.address && formik.touched.address}>
-            <FormLabel htmlFor="address">Full Name</FormLabel>
+            <FormLabel htmlFor="address" isTruncated>Address</FormLabel>
             <Input
               type="text"
               id="address"
@@ -127,7 +134,7 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
                 formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  address: e.target.value, 
+                  address: e.target.value,
                 });
               }}
               onBlur={formik.handleBlur}
@@ -143,7 +150,7 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
         {/* NATIONALITY PASSPORT */}
         <Flex>
           <FormControl mr={"5%"} py={2} id="nationality" isInvalid={formik.errors.nationality && formik.touched.nationality}>
-            <FormLabel htmlFor="address">Nationality</FormLabel>
+            <FormLabel htmlFor="address" isTruncated>Nationality</FormLabel>
             <Input
               type="text"
               id="nationality"
@@ -153,7 +160,7 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
                 formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  nationality: e.target.value, 
+                  nationality: e.target.value,
                 });
               }}
               onBlur={formik.nationality}
@@ -166,17 +173,17 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
           </FormControl>
 
           <FormControl mr={"5%"} py={2} id="passportNumber" isInvalid={formik.errors.passportNumber && formik.touched.passportNumber}>
-            <FormLabel htmlFor="passportNumber">Passport Number</FormLabel>
+            <FormLabel htmlFor="passportNumber" isTruncated>Passport Number</FormLabel>
             <Input
               type="number"
               id="passportNumber"
               placeholder="passportNumber"
               value={formik.values.passportNumber}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  passportNumber: e.target.value, 
+                  passportNumber: e.target.value,
                 });
               }}
               onBlur={formik.passportNumber}
@@ -195,10 +202,10 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               placeholder="Select one"
               value={formik.values.gender}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  gender: e.target.value, 
+                  gender: e.target.value,
                 });
               }}
             >
@@ -216,17 +223,17 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
         <Flex>
 
           <FormControl mr={"5%"} py={2} id="placeOfIssue" isInvalid={formik.errors.placeOfIssue && formik.touched.placeOfIssue}>
-            <FormLabel htmlFor="placeOfIssue">Place of issue</FormLabel>
+            <FormLabel htmlFor="placeOfIssue" isTruncated>Place of issue</FormLabel>
             <Input
               type="text"
               id="placeOfIssue"
               placeholder="placeOfIssue"
               value={formik.values.placeOfIssue}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  placeOfIssue: e.target.value, 
+                  placeOfIssue: e.target.value,
                 });
               }}
               onBlur={formik.placeOfIssue}
@@ -240,17 +247,17 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
 
 
           <FormControl mr={"5%"} py={2} id="expiryDate" isInvalid={formik.errors.expiryDate && formik.touched.expiryDate}>
-            <FormLabel htmlFor="expiryDate">Expiry Date</FormLabel>
+            <FormLabel htmlFor="expiryDate" isTruncated>Expiry Date</FormLabel>
             <Input
               type="text"
               id="expiryDate"
               placeholder="expiryDate"
               value={formik.values.expiryDate}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  expiryDate: e.target.value, 
+                  expiryDate: e.target.value,
                 });
               }}
               onBlur={formik.expiryDate}
@@ -265,17 +272,17 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
         {/* DOB HEIGHT WEIGHT */}
         <Flex>
           <FormControl mr={"5%"} py={2} id="dateOfBirth" isInvalid={formik.errors.dateOfBirth && formik.touched.dateOfBirth}>
-            <FormLabel htmlFor="dateOfBirth">Date of birth</FormLabel>
+            <FormLabel htmlFor="dateOfBirth" isTruncated>Date of birth</FormLabel>
             <Input
               type="text"
               id="dateOfBirth"
               placeholder="dateOfBirth"
               value={formik.values.dateOfBirth}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  dateOfBirth: e.target.value, 
+                  dateOfBirth: e.target.value,
                 });
               }}
               onBlur={formik.dateOfBirth}
@@ -287,17 +294,17 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
             )}
           </FormControl>
           <FormControl mr={"5%"} py={2} id="height" isInvalid={formik.errors.height && formik.touched.height}>
-            <FormLabel htmlFor="height">Height</FormLabel>
+            <FormLabel htmlFor="height" isTruncated>Height*</FormLabel>
             <Input
               type="number"
               id="height"
               placeholder="height"
               value={formik.values.height}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  height: e.target.value, 
+                  height: e.target.value,
                 });
               }}
               onBlur={formik.height}
@@ -309,17 +316,17 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
             )}
           </FormControl>
           <FormControl mr={"5%"} py={2} id="weight" isInvalid={formik.errors.weight && formik.touched.weight}>
-            <FormLabel htmlFor="weight">Weight</FormLabel>
+            <FormLabel htmlFor="weight" isTruncated>Weight</FormLabel>
             <Input
               type="number"
               id="weight"
               placeholder="weight"
               value={formik.values.weight}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  weight: e.target.value, 
+                  weight: e.target.value,
                 });
               }}
               onBlur={formik.weight}
@@ -332,17 +339,17 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
           </FormControl>
         </Flex>
         <Flex>
-          <FormControl id="maritalStatus" py={2} isInvalid={formik.errors.maritalStatus && formik.touched.maritalStatus}>
-            <FormLabel>Marital status</FormLabel>
+          <FormControl id="maritalStatus" mr={"5%"} py={2} isInvalid={formik.errors.maritalStatus && formik.touched.maritalStatus}>
+            <FormLabel isTruncated>Marital status</FormLabel>
             <Select
               id="maritalStatus"
               placeholder="Select one"
               value={formik.values.maritalStatus}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  maritalStatus: e.target.value, 
+                  maritalStatus: e.target.value,
                 });
               }}
             >
@@ -357,7 +364,7 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
           </FormControl>
 
           <FormControl mr={"5%"} py={2} id="children" isInvalid={formik.errors.children && formik.touched.children}>
-            <FormLabel htmlFor="children">Children</FormLabel>
+            <FormLabel htmlFor="children" isTruncated>Children</FormLabel>
             <Input
               type="children"
               id="children"
@@ -373,17 +380,17 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
             )}
           </FormControl>
           <FormControl mr={"5%"} py={2} id="religion" isInvalid={formik.errors.religion && formik.touched.religion}>
-            <FormLabel htmlFor="religion">Religion</FormLabel>
+            <FormLabel htmlFor="religion" isTruncated >Religion</FormLabel>
             <Input
               type="religion"
               id="religion"
               placeholder="Religion"
               value={formik.values.religion}
               onChange={(e) => {
-                formik.handleChange(e); 
+                formik.handleChange(e);
                 setFormData({
                   ...formData,
-                  religion: e.target.value, 
+                  religion: e.target.value,
                 });
               }}
               onBlur={formik.religion}
@@ -396,7 +403,7 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
           </FormControl>
         </Flex>
       </Box>
-      <Button type="submit" mt={4} colorScheme="blue">
+      <Button type="submit" mt={4} colorScheme="blue" w={'200px'} rounded={"10px"}>
         Next
       </Button>
     </form>
@@ -510,347 +517,375 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
         <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
           Qualification
         </Heading>
-        <Heading as='h2' size='md' align={'left'} py={2}>Language Proficeincy</Heading>
-
         {/*🔴 ARABIC */}
-
         <FormControl py={2} isInvalid={formik.errors.arabic && formik.touched.arabic}>
-  <FormLabel>Arabic</FormLabel>
-
-  {/* Speaking */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.arabic.speaking}
-    onChange={(e) => {
-      formik.setFieldValue('arabic', {
-        ...formik.values.arabic,
-        speaking: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        arabic: {
-          ...formData.arabic,
-          speaking: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {/* Listening */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.arabic.listening}
-    onChange={(e) => {
-      formik.setFieldValue('arabic', {
-        ...formik.values.arabic,
-        listening: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        arabic: {
-          ...formData.arabic,
-          listening: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {/* Reading */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.arabic.reading}
-    onChange={(e) => {
-      formik.setFieldValue('arabic', {
-        ...formik.values.arabic,
-        reading: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        arabic: {
-          ...formData.arabic,
-          reading: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {/* Writing */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.arabic.writing}
-    onChange={(e) => {
-      formik.setFieldValue('arabic', {
-        ...formik.values.arabic,
-        writing: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        arabic: {
-          ...formData.arabic,
-          writing: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {formik.errors.arabic && formik.touched.arabic && (
-    <Box color="red.500" mt={2}>
-      Please select proficiency for all fields.
-    </Box>
-  )}
-</FormControl>
-
-
-       
-
+          <FormLabel fontWeight="bold" size='xl'>Language Proficeincy</FormLabel>
+          <FormLabel fontWeight="bold" size='xl'>Arabic</FormLabel>
+      <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }} gap={5}>
+          <Box>
+          {/* Speaking */}
+          <FormLabel>Speaking</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.arabic.speaking}
+            onChange={(e) => {
+              formik.setFieldValue('arabic', {
+                ...formik.values.arabic,
+                speaking: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                arabic: {
+                  ...formData.arabic,
+                  speaking: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
+          {/* Listening */}
+          <FormLabel>Listening</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.arabic.listening}
+            onChange={(e) => {
+              formik.setFieldValue('arabic', {
+                ...formik.values.arabic,
+                listening: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                arabic: {
+                  ...formData.arabic,
+                  listening: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
+          {/* Reading */}
+          <FormLabel>Reading</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.arabic.reading}
+            onChange={(e) => {
+              formik.setFieldValue('arabic', {
+                ...formik.values.arabic,
+                reading: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                arabic: {
+                  ...formData.arabic,
+                  reading: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
+          {/* Writing */}
+          <FormLabel>Writing</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.arabic.writing}
+            onChange={(e) => {
+              formik.setFieldValue('arabic', {
+                ...formik.values.arabic,
+                writing: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                arabic: {
+                  ...formData.arabic,
+                  writing: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          
+          {formik.errors.arabic && formik.touched.arabic && (
+            <Box color="red.500" mt={2}>
+              Please select proficiency for all fields.
+            </Box>
+          )}
+          </Box>
+      </Grid>
+        </FormControl>
         {/* 🔴ENGLISH */}
 
         <FormControl py={2} isInvalid={formik.errors.english && formik.touched.english}>
-  <FormLabel>English</FormLabel>
+          <FormLabel fontWeight="bold" size='xl'>English</FormLabel>
 
-  {/* Speaking */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.english.speaking}
-    onChange={(e) => {
-      formik.setFieldValue('english', {
-        ...formik.values.english,
-        speaking: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        english: {
-          ...formData.english,
-          speaking: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
+          {/* Speaking */}
+          <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }} gap={5}>
+            <Box>
+          <FormLabel>Speaking</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.english.speaking}
+            onChange={(e) => {
+              formik.setFieldValue('english', {
+                ...formik.values.english,
+                speaking: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                english: {
+                  ...formData.english,
+                  speaking: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
+          {/* Listening */}
+          <FormLabel>Listening</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.english.listening}
+            onChange={(e) => {
+              formik.setFieldValue('english', {
+                ...formik.values.english,
+                listening: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                english: {
+                  ...formData.english,
+                  listening: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
 
-  {/* Listening */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.english.listening}
-    onChange={(e) => {
-      formik.setFieldValue('english', {
-        ...formik.values.english,
-        listening: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        english: {
-          ...formData.english,
-          listening: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
+          {/* Reading */}
+          <FormLabel>Reading</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.english.reading}
+            onChange={(e) => {
+              formik.setFieldValue('english', {
+                ...formik.values.english,
+                reading: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                english: {
+                  ...formData.english,
+                  reading: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
+          {/* Writing */}
+          <FormLabel>Writing</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.english.writing}
+            onChange={(e) => {
+              formik.setFieldValue('english', {
+                ...formik.values.english,
+                writing: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                english: {
+                  ...formData.english,
+                  writing: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
 
-  {/* Reading */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.english.reading}
-    onChange={(e) => {
-      formik.setFieldValue('english', {
-        ...formik.values.english,
-        reading: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        english: {
-          ...formData.english,
-          reading: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {/* Writing */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.english.writing}
-    onChange={(e) => {
-      formik.setFieldValue('english', {
-        ...formik.values.english,
-        writing: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        english: {
-          ...formData.english,
-          writing: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {formik.errors.english && formik.touched.english && (
-    <Box color="red.500" mt={2}>
-      Please select proficiency for all fields.
-    </Box>
-  )}
-</FormControl>
+          {formik.errors.english && formik.touched.english && (
+            <Box color="red.500" mt={2}>
+              Please select proficiency for all fields.
+            </Box>
+          )}
+          </Box>
+          
+          </Grid>
+        </FormControl>
 
 
         {/*🔴 HINDI */}
         <FormControl py={2} isInvalid={formik.errors.hindi && formik.touched.hindi}>
-  <FormLabel>Hindi</FormLabel>
+          <FormLabel fontWeight="bold" size='xl'>Hindi</FormLabel>
 
-  {/* Speaking */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.hindi.speaking}
-    onChange={(e) => {
-      formik.setFieldValue('hindi', {
-        ...formik.values.hindi,
-        speaking: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        hindi: {
-          ...formData.hindi,
-          speaking: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
+          {/* Speaking */}
+      <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }} gap={5}>
+            <Box>
+          <FormLabel>Speaking</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.hindi.speaking}
+            onChange={(e) => {
+              formik.setFieldValue('hindi', {
+                ...formik.values.hindi,
+                speaking: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                hindi: {
+                  ...formData.hindi,
+                  speaking: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
+          {/* Listening */}
+          <FormLabel>Listening</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.hindi.listening}
+            onChange={(e) => {
+              formik.setFieldValue('hindi', {
+                ...formik.values.hindi,
+                listening: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                hindi: {
+                  ...formData.hindi,
+                  listening: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
+          {/* Reading */}
+          <FormLabel>Reading</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.hindi.reading}
+            onChange={(e) => {
+              formik.setFieldValue('hindi', {
+                ...formik.values.hindi,
+                reading: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                hindi: {
+                  ...formData.hindi,
+                  reading: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
+          </Box>
+          <Box>
+          {/* Writing */}
+          <FormLabel>Writing</FormLabel>
+          <Select
+            placeholder='Select one'
+            value={formik.values.hindi.writing}
+            onChange={(e) => {
+              formik.setFieldValue('hindi', {
+                ...formik.values.hindi,
+                writing: e.target.value,
+              });
+              setFormData({
+                ...formData,
+                hindi: {
+                  ...formData.hindi,
+                  writing: e.target.value,
+                },
+              });
+            }}
+          >
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </Select>
 
-  {/* Listening */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.hindi.listening}
-    onChange={(e) => {
-      formik.setFieldValue('hindi', {
-        ...formik.values.hindi,
-        listening: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        hindi: {
-          ...formData.hindi,
-          listening: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {/* Reading */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.hindi.reading}
-    onChange={(e) => {
-      formik.setFieldValue('hindi', {
-        ...formik.values.hindi,
-        reading: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        hindi: {
-          ...formData.hindi,
-          reading: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {/* Writing */}
-  <Select
-    placeholder='Select one'
-    value={formik.values.hindi.writing}
-    onChange={(e) => {
-      formik.setFieldValue('hindi', {
-        ...formik.values.hindi,
-        writing: e.target.value,
-      });
-      setFormData({
-        ...formData,
-        hindi: {
-          ...formData.hindi,
-          writing: e.target.value,
-        },
-      });
-    }}
-  >
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
-    <option value="poor">Poor</option>
-  </Select>
-
-  {formik.errors.hindi && formik.touched.hindi && (
-    <Box color="red.500" mt={2}>
-      Please select proficiency for all fields.
-    </Box>
-  )}
-</FormControl>
+          {formik.errors.hindi && formik.touched.hindi && (
+            <Box color="red.500" mt={2}>
+              Please select proficiency for all fields.
+            </Box>
+          )}
+          </Box>
+          </Grid>
+        </FormControl>
 
 
-        <Spacer />
+        <Spacer h={5} />
         {/* 🔴 EDUCATION */}
-        <Heading as='h2' size='md' align={'left'} py={2}>Education</Heading>
+
         <FormControl id="education" py={2} isInvalid={formik.errors.education && formik.touched.education}>
-          <FormLabel>Education Level</FormLabel>
+          <FormLabel fontWeight="bold" size='xl'>Education level</FormLabel>
           <RadioGroup
             name="education"
             value={formik.values.education}
             onChange={(value) => {
               formik.setFieldValue('education', value);
-              setFormData({ ...formData, education: value }); 
+              setFormData({ ...formData, education: value });
             }}
           >
             <Stack direction={{ base: 'column', sm: 'column', md: 'row', lg: 'row' }}>
@@ -867,15 +902,14 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
             </Box>
           )}
         </FormControl>
-        <Spacer />
+        <Spacer h={5} />
         {/* 🔴 NEPAL WORK EXPERIENCE */}
-        <Heading as='h2' size='md' align={'left'} py={2}>Work Experience In Nepal</Heading>
         <FormControl py={2} isInvalid={formik.errors.workExpNepal && formik.touched.workExpNepal}>
-          <FormLabel>Work Experience in Nepal</FormLabel>
-
+          <FormLabel fontWeight="bold" size='xl'>Work Experience in Nepal</FormLabel>
+          <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5}>
           {/* Field */}
           <FormControl id="workExpNepal.field">
-            <FormLabel>Field</FormLabel>
+            <FormLabel as='h2' size='md'>Field</FormLabel>
             <Input
               placeholder="Field"
               _placeholder={{ color: 'gray.500' }}
@@ -932,22 +966,23 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
               }}
             />
           </FormControl>
-
+          </Grid>
           {formik.errors.workExpNepal && formik.touched.workExpNepal && (
             <Box color="red.500" mt={2}>
               Please fill in all work experience fields.
             </Box>
           )}
+          
         </FormControl>
 
 
 
         <Spacer />
         {/* 🔴 OVERSEAS WORK EXPERIENCE */}
-        <Heading as='h2' size='md' align={'left'} py={2}>Overseas Work Experience</Heading>
         <FormControl py={2} isInvalid={formik.errors.workExpOverseas && formik.touched.workExpOverseas}>
-          <FormLabel>Work Experience Overseas</FormLabel>
-
+          <FormLabel fontWeight="bold" size='xl'>Work Experience Overseas</FormLabel>
+          
+          <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr ' }} gap={5}>
           {/* Field */}
           <FormControl id="workExpOverseas.field">
             <FormLabel>Field</FormLabel>
@@ -1006,7 +1041,7 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
               }}
             />
           </FormControl>
-
+          </Grid>
           {formik.errors.workExpOverseas && formik.touched.workExpOverseas && (
             <Box color="red.500" mt={2}>
               Please fill in all work experience fields.
@@ -1014,16 +1049,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
           )}
         </FormControl>
 
-        <Heading as='h3' size='md' align={'left'} py={2} >Other Skills</Heading>
-
-
         <FormControl
           mr={"5%"}
           py={2}
           id="otherSkills"
           isInvalid={formik.errors.otherSkills && formik.touched.otherSkills}
         >
-          <FormLabel htmlFor="otherSkills">Other Skills</FormLabel>
+          <FormLabel fontWeight="bold" size='xl'>Other Skills</FormLabel>
           <Textarea
             type="text"
             id="otherSkills"
@@ -1033,7 +1065,7 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
               formik.handleChange(e);
               setFormData({
                 ...formData,
-                otherSkills: e.target.value, 
+                otherSkills: e.target.value,
               });
             }}
             onBlur={formik.handleBlur}
@@ -1044,7 +1076,7 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
             </Box>
           )}
         </FormControl>
-        <Button type="submit" colorScheme="blue" mt={4}>
+        <Button type="submit" colorScheme="blue" mt={4} w={'200px'} rounded={"10px"}>
           Next
         </Button>
       </Box>
@@ -1054,7 +1086,6 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
 
 const Form3 = ({ formData, setFormData, submitForm }) => {
   const validationSchema = Yup.object().shape({
-    agentName: Yup.string().required('Agent Name is required'),
     email: Yup.string().required('Email is required').email('Invalid email address'),
     phoneNumber: Yup.string().required('Phone Number is required'),
     homeNumber: Yup.string().required('Home Number is required'),
@@ -1100,7 +1131,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
               id="agentName"
               isInvalid={formik.errors.agentName && formik.touched.agentName}
             >
-              <FormLabel htmlFor="agentName">Agents Name</FormLabel>
+              <FormLabel fontWeight="bold" size='xl' isTruncated>Agent's Name (Optional)</FormLabel>
               <Input
                 type="text"
                 id="agentName"
@@ -1110,23 +1141,16 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                   formik.handleChange(e);
                   setFormData({
                     ...formData,
-                    agentName: e.target.value, 
+                    agentName: e.target.value,
                   });
                 }}
                 onBlur={formik.handleBlur}
               />
-              {formik.errors.agentName && formik.touched.agentName && (
-                <Box color="red.500" mt={1}>
-                  {formik.errors.agentName}
-                </Box>
-              )}
             </FormControl>
 
             <Flex py={2}>
               <FormControl mr="5%">
-                <FormLabel htmlFor="phone-number" fontWeight={'normal'}>
-                  Your phone number
-                </FormLabel>
+                <FormLabel fontWeight="bold" size='xl' isTruncated>Your phone number</FormLabel>
                 <Input
                   id="phoneNumber"
                   type="number"
@@ -1136,7 +1160,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                     formik.handleChange(e);
                     setFormData({
                       ...formData,
-                      phoneNumber: e.target.value, 
+                      phoneNumber: e.target.value,
                     });
                   }}
                   onBlur={formik.handleBlur}
@@ -1148,9 +1172,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                 )}
               </FormControl>
               <FormControl mr="5%">
-                <FormLabel htmlFor="email" fontWeight={'email'}>
-                  Email
-                </FormLabel>
+                <FormLabel fontWeight="bold" size='xl'>Email</FormLabel>
                 <Input
                   id="email"
                   type='email'
@@ -1160,7 +1182,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                     formik.handleChange(e);
                     setFormData({
                       ...formData,
-                      email: e.target.value, 
+                      email: e.target.value,
                     });
                   }}
                 />
@@ -1169,9 +1191,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
 
             <Flex py={2}>
               <FormControl mr="5%">
-                <FormLabel htmlFor="home-number" fontWeight={'normal'}>
-                  Home phone number
-                </FormLabel>
+                <FormLabel fontWeight="bold" size='xl' isTruncated>Home phone number</FormLabel>
                 <Input
                   id="homeNumber"
                   type="number"
@@ -1181,7 +1201,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                     formik.handleChange(e);
                     setFormData({
                       ...formData,
-                      homeNumber: e.target.value, 
+                      homeNumber: e.target.value,
                     });
                   }}
                   onBlur={formik.handleBlur}
@@ -1193,9 +1213,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                 )}
               </FormControl>
               <FormControl mr="5%">
-                <FormLabel htmlFor="relatives-number" fontWeight={'normal'}>
-                  Relative's number
-                </FormLabel>
+                <FormLabel fontWeight="bold" size='xl' isTruncated>Relative's number</FormLabel>
                 <Input
                   id="relativesNumber"
                   type="number"
@@ -1205,7 +1223,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                     formik.handleChange(e);
                     setFormData({
                       ...formData,
-                      relativesNumber: e.target.value, 
+                      relativesNumber: e.target.value,
                     });
                   }}
                   onBlur={formik.handleBlur}
@@ -1218,9 +1236,11 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
               </FormControl>
             </Flex>
           </FormControl>
-          <Button type="submit" colorScheme="blue" mt={4}>
-            Submit
-          </Button>
+          <Center>
+            <Button type="submit" colorScheme="red" mt={4} w={'200px'} rounded={"10px"}>
+              Submit
+            </Button>
+          </Center>
         </SimpleGrid>
       </Box>
     </form>
@@ -1232,73 +1252,85 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
 const MultiStepForm = () => {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search);
-const jobIdFromQuery = queryParams.get('jobId');
+  const jobIdFromQuery = queryParams.get('jobId');
   const toast = useToast()
-  const [step, setStep] = useState(1)
-  const [progress, setProgress] = useState(33.33)
+  const totalSteps = 3; // Total number of steps in the form
+  const [step, setStep] = useState(1);
+  // const [progress, setProgress] = useState(33.33)
+  const [progress, setProgress] = useState((step / totalSteps) * 100);
   const [formData, setFormData] = useState(
     {
-    jobCode: jobIdFromQuery,
-    fullName: '',
-    gender: '',
-    address: '',
-    nationality: '',
-    passportNumber: '',
-    placeOfIssue: '',
-    expiryDate: '',
-    dateOfBirth: '',
-    height: '',
-    weight: '',
-    maritalStatus: '',
-    religion: '',
-    arabic: {
-      speaking: '',
-      listening: '',
-      reading: '',
-      writing: '',
-    },
-    english: {
-      speaking: '',
-      listening: '',
-      reading: '',
-      writing: '',
-    },
-    hindi: {
-      speaking: '',
-      listening: '',
-      reading: '',
-      writing: '',
-    },
-    education: '',
-    workExpNepal: {
-      field: '',
-      employer: '',
-      duration: '',
+      jobCode: jobIdFromQuery,
+      fullName: '',
+      gender: '',
       address: '',
-    },
-    workExpOverseas: {
-      field: '',
-      employer: '',
-      duration: '',
-      country: '',
-    },
-    otherSkills: '',
-    agentName: '',
-    phoneNumber: '',
-    email: '',
-    homeNumber: '',
-    relativesNumber: ''
-  }
+      nationality: '',
+      passportNumber: '',
+      placeOfIssue: '',
+      expiryDate: '',
+      dateOfBirth: '',
+      height: '',
+      weight: '',
+      maritalStatus: '',
+      religion: '',
+      arabic: {
+        speaking: '',
+        listening: '',
+        reading: '',
+        writing: '',
+      },
+      english: {
+        speaking: '',
+        listening: '',
+        reading: '',
+        writing: '',
+      },
+      hindi: {
+        speaking: '',
+        listening: '',
+        reading: '',
+        writing: '',
+      },
+      education: '',
+      workExpNepal: {
+        field: '',
+        employer: '',
+        duration: '',
+        address: '',
+      },
+      workExpOverseas: {
+        field: '',
+        employer: '',
+        duration: '',
+        country: '',
+      },
+      otherSkills: '',
+      agentName: '',
+      phoneNumber: '',
+      email: '',
+      homeNumber: '',
+      relativesNumber: ''
+    }
   );
   const navigate = useNavigate()
 
   const nextStep = () => {
-    setStep(step + 1);
+    if (step < totalSteps) {
+      setStep(step + 1);
+      const newProgress = (step + 1) * (100 / totalSteps); // Calculate new progress
+      setProgress(newProgress);
+    }
   };
 
   const prevStep = () => {
-    setStep(step - 1);
+    if (step > 1) {
+      setStep(step - 1);
+      const newProgress = (step - 1) * (100 / totalSteps); // Calculate new progress
+      setProgress(newProgress);
+    }
   };
+
+
 
 
   //POST
@@ -1325,16 +1357,26 @@ const jobIdFromQuery = queryParams.get('jobId');
 
   return (
     <>
-    <Box p={4}>
-      {step === 1 && <Form1 formData={formData} setFormData={setFormData} nextStep={nextStep} />}
-      {step === 2 && <Form2 formData={formData} setFormData={setFormData} nextStep={nextStep} />}
-      {step === 3 && <Form3 formData={formData} setFormData={setFormData} submitForm={submitForm} />}
-      {step > 1 && (
-        <Button colorScheme="blue" variant="outline" onClick={prevStep}>
-          Previous
-        </Button>
-      )}
-    </Box>
+      <Box
+        borderWidth="1px"
+        rounded="lg"
+        shadow="1px 1px 3px rgba(0,0,0,0.3)"
+        maxWidth={800}
+        p={6}
+        m="10px auto"
+        bg={useColorModeValue('gray.50', 'gray.1000')}
+        color={useColorModeValue('blue.700', 'gray.1000')}
+      >
+        <Progress rounded={'lg'} h={4} hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
+        {step === 1 && <Form1 formData={formData} setFormData={setFormData} nextStep={nextStep} progress={progress} />}
+        {step === 2 && <Form2 formData={formData} setFormData={setFormData} nextStep={nextStep} progress={progress} />}
+        {step === 3 && <Form3 formData={formData} setFormData={setFormData} submitForm={submitForm} progress={progress} />}
+        {step > 1 && (
+          <Button colorScheme="blue" variant="outline" onClick={prevStep} mt={5} w={'200px'} rounded={"10px"}>
+            Previous
+          </Button>
+        )}
+      </Box>
     </>
   );
 };

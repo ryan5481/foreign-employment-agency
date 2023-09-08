@@ -41,12 +41,13 @@ const EditImageGallery = (props) => {
         }
     }
 
-    const handleUploadNewImage = async () => {
-        if (newSelectedImageFile && imageTitle) {
+    const handleUploadNewImage = async (event) => {
+        event.preventDefault()
+        if (newSelectedImageFile) {
             const formData = new FormData();
             formData.append('galleryImage', newSelectedImageFile);
-            formData.append('imageTitle', imageTitle);
-            formData.append('imageDescription', imageDescription);
+            // formData.append('imageTitle', imageTitle);
+            // formData.append('imageDescription', imageDescription);
 
             try {
                 const res = await axios.post("http://localhost:8000/admin/add-gallery-image", formData, {
@@ -65,8 +66,7 @@ const EditImageGallery = (props) => {
                     });
                     props.fetchGalleryImages();
                     setNewSelectedImageFile(null);
-                    setImageTitle('');
-                    setImageDescription('');
+                    setNewSelectedPreviewImage(null)
                 } else {
                     toast({
                         title: 'Error.',
@@ -204,10 +204,30 @@ const EditImageGallery = (props) => {
 
                 {props.imageGalleryData.map((imageData, index) => {
                     return (<>
-                        <Box>
-                        
+                        <Box> 
+                        <Box
+                                w='30px'
+                                as={IconButton}
+                                size='sm'
+                                colorScheme='red'
+                                rounded="full"
+                                bottom='-5%'
+                                left='49%'
+                                zIndex='4'
+                                boxShadow="2xl"
+                                onClick={() => {
+                                    setImageToDelete(imageData._id)
+                                    onOpen()
+                                }}
+                            >
+                                <SmallCloseIcon
+                                    color='gray.50'
+                                    w='30px'
+                                />
+                            </Box>
                             <Box
                                 maxW='sm'
+                                h=''
                                 borderWidth='1px'
                                 borderRadius='lg'
                                 overflow='hidden'
@@ -218,6 +238,7 @@ const EditImageGallery = (props) => {
                                 <VStack>
                                     
                                     {/* <form onSubmit={handleImageReplace(imageData._id)} > */}
+                                    <Box maxH="xs">
                                     <Image
                                         src={`data:image/jpeg;base64,${imageData.galleryImage}`}
                                         alt={imageData.imageTitle}
@@ -237,23 +258,9 @@ const EditImageGallery = (props) => {
                                         ref={updateImageInputRef}
                                         onChange={handleImageReplaceSelect}
                                     />
+                                    </Box>
                                     <Box p='6'>
-                                        {/* <Box display='flex' alignItems='baseline'>
-                                            <Badge borderRadius='full' px='2' colorScheme='teal'>
-                                                New
-                                            </Badge>
-                                        </Box> */}
-                                        {/* <Input
-                                            border='1px solid'
-                                            rounded='5px'
-                                            color='purple.800'
-                                            colorScheme='purple'
-                                            mt='1'
-                                            fontWeight='semibold'
-                                            value={imageData.imageTitle}
-                                            onChange={(e) => setImageTitle(e.target.value)}
-                                        /> */}
-                                
+                                       
                                         <Button
                                             mt="2"
                                             colorScheme='purple'
@@ -266,96 +273,66 @@ const EditImageGallery = (props) => {
                                 </VStack>
 
                             </Box>
-                            <Box
-                                w='30px'
-                                as={IconButton}
-                                size='sm'
-                                colorScheme='red'
-                                rounded="full"
-                                bottom='95%'
-                                left='48%'
-                                zIndex='4'
-                                boxShadow="2xl"
-                                onClick={() => {
-                                    setImageToDelete(imageData._id)
-                                    onOpen()
-                                }}
-                            >
-                                <SmallCloseIcon
-                                    color='gray.50'
-                                    w='30px'
-                                />
-                            </Box>
+                            
                         </Box>
 
                     </>)
                 })}
-                
-                    <Box
-                        maxW='sm'
-                        h={355}
-                        borderWidth='1px'
-                        borderRadius='lg'
-                        overflow='hidden'
-                        shadow={'xl'}
-                        bg={'gray.100'}
-                        cursor='pointer'>
-                        <Image
-                            src={newSelectedPreviewImage || 'https://image.pngaaa.com/768/791768-middle.png'}
-                            alt='Add Image'
-                            rounded='10px'
-                            objectFit="contain"
-                            h="250px"
-                            transition="0.15s ease-in-out"
-                            _hover={{
-                                brightness: '0.8',
-                            }}
-                            onClick={() => newImageUploadInputRef.current.click()}
-                        />
-                        <input
-                            type='file'
-                            accept="image/*"
-                            style={{ display: "none" }}
-                            ref={newImageUploadInputRef}
-                            onChange={handleNewImageSelect}
-                        />
+                <Box>
+                            <Box
+                                w='30px'
+                               h="30px"
+                            >
+                            </Box>
+                            <Box
+                                maxW='sm'
+                                borderWidth='1px'
+                                borderRadius='lg'
+                                overflow='hidden'
+                                shadow={'xl'}
+                                cursor='pointer'
+                                bg='gray.100'
+                            >
+                                <VStack>
+                                    
+                                    {/* <form onSubmit={handleImageReplace(imageData._id)} > */}
+                                    <Box maxH="xs">
+                                    <Image
+                                        src={newSelectedPreviewImage || 'https://image.pngaaa.com/768/791768-middle.png'}
+                                        alt='Add Image'
+                                        objectFit="contain"
+                                        h='100%'
+                                        overflow="hidden"
+                                        transition="0.15s ease-in-out"
+                                        _hover={{
+                                            brightness: '0.8',
+                                        }}
+                                        onClick={() => newImageUploadInputRef.current.click()}
+                                    />
+                                    <input
+                                        type='file'
+                                        accept="image/*"
+                                        style={{ display: "none" }}
+                                        ref={newImageUploadInputRef}
+                                        onChange={handleNewImageSelect}
+                                    />
+                                    </Box>
+                                    <Box p='6'>
+                                       
+                                        <Button
+                                            mt="2"
+                                            colorScheme='purple'
+                                            type='submit'
+                                            onClick={(event) =>handleUploadNewImage(event)}
+                                        >Update Image</Button>
+                                    </Box>
 
-                        <form>
-                            <FormControl mt='7' id='imageTitle'>
-                                {/* <Input
-                                    size='sm'
-                                    rounded="10px"
-                                    color='gray.100'
-                                    fontWeight="bold"
-                                    fontSize="16px"
-                                    placeholder="New title"
-                                    _placeholder={{ color: "purple.800", fontWeight: "normal", fontSize: "sm" }}
-                                    textAlign="center"
-                                    value={imageTitle}
-                                    onChange={(e) => setImageTitle(e.target.value)}
-                                ></Input>
-                                <Textarea
-                                    size='sm'
-                                    rounded="10px"
-                                    color='gray.100'
-                                    fontWeight="bold"
-                                    fontSize="16px"
-                                    placeholder="New description"
-                                    _placeholder={{ color: "purple.800", fontWeight: "normal", fontSize: "sm" }}
-                                    textAlign="center"
-                                    value={imageDescription}
-                                    onChange={(e) => setImageDescription(e.target.value)}
-                                ></Textarea> */}
+                                    {/* </form> */}
+                                </VStack>
 
-                                <Button
-                                    colorScheme='purple'
-                                    m={1}
-                                    type='submit'
-                                    onClick={handleUploadNewImage}
-                                >Add Image</Button>
-                            </FormControl>
-                        </form>
-                    </Box>
+                            </Box>
+                            </Box>
+                    
 
             </Grid>
             <AlertDialog

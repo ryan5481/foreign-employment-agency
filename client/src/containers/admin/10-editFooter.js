@@ -1,6 +1,5 @@
 
-import React, { useState } from 'react'
-import { useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import {
     Box,
@@ -21,7 +20,8 @@ import {
     Editable,
     EditableInput,
     EditablePreview,
-    useToast
+    useToast, 
+    Tooltip
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { ReactNode } from 'react'
@@ -74,10 +74,12 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 
 
 const EditFooter = () => {
+    const uploadPdfRef = useRef(null); 
     const textColorModeValue = useColorModeValue('white', 'purple.100');
     const navigate = useNavigate()
     const toast = useToast()
     const [currentFooterData, setCurrentFooterData] = useState([])
+    const [selectedPdfFile, setSelectedPdfFile] = useState(null)
     const [logoImageData, setLogoImageData] = useState([])
     const [formData, setFormData] = useState({
         column1Line1: "",
@@ -180,7 +182,29 @@ const EditFooter = () => {
         }
     }
 
+    //PUT PDF
+    const handlePdfSelect = (event) => {
+        setSelectedPdfFile(event.target.files[0]);
+    }
 
+    const handleUploadBrochure = async (event) => {
+        event.preventDefault();
+        try {
+            const formData = new FormData();
+            if (selectedPdfFile) {
+                formData.append('brochurePdfFile', selectedPdfFile);
+            }
+            formData.append('id', "64f8174bd3ffc9b5b018ee79");
+
+            const response = await axios.put('http://localhost:8000/admin/update-brochure-file', formData);
+            if (response) {
+                setSelectedPdfFile(null)
+                window.location.reload()
+            }
+        } catch (error) {
+            console.error('Error updating logo:', error);
+        }
+    };
 
     useEffect(() => {
         fetchLogoImage()
@@ -321,14 +345,25 @@ const EditFooter = () => {
                                     />
                                 </Stack>
                                 <Stack direction={'row'} >
+                                <Tooltip  label="Click to upload Brochure PDF file." placement="top">
                                     <IconButton
-                                        bg={useColorModeValue('blue.700', 'blue.400')}
+                                        colorScheme='purple'
                                         color={useColorModeValue('white', 'gray.800')}
                                         _hover={{ bg: '#0D74FF' }}
                                         aria-label="Subscribe"
                                         icon={<FaFilePdf />}
-                                        onClick={() => navigate("/brochure")}
+                                        onClick={() => uploadPdfRef.current.click()}
                                     />
+                                    </Tooltip>
+                                    
+                                    <input
+                                        type='file'
+                                        accept="pdf/*"
+                                        style={{ display: "none" }}
+                                        ref={uploadPdfRef}
+                                        onChange={handlePdfSelect}
+                                    />
+                                    
                                     {/* FILE DOWNLOAD */}
                                     <Center>
                                         <Stack direction={'row'} spacing={6}>
@@ -340,7 +375,9 @@ const EditFooter = () => {
                                             )}
                                         </Stack>
                                     </Center>
+                                    
                                 </Stack>
+                                {selectedPdfFile && <Button colorScheme='purple' onClick={handleUploadBrochure}>Upload selected PDF</Button>}
                             </Stack>
                             <Stack overflow='hidden' borderRadius={10} h={260} w={200} align={'center'} alignItems={'center'}>
                                 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1023.6851100697893!2d85.33048799804155!3d!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1907b0522ead%3A0x392af32fe87dd0ea!2sRadiant%20Infotech%20Nepal%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1690782916035!5m2!1sen!2snp"
