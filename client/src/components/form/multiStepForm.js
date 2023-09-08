@@ -101,7 +101,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="fullName"
               placeholder="Full Name"
               value={formik.values.fullName}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setFormData({
+                  ...formData,
+                  fullName: e.target.value, 
+                });
+              }}
               onBlur={formik.handleBlur}
             />
             {formik.errors.fullName && formik.touched.fullName && (
@@ -117,7 +123,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="address"
               placeholder="Address"
               value={formik.values.address}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setFormData({
+                  ...formData,
+                  address: e.target.value, 
+                });
+              }}
               onBlur={formik.handleBlur}
             />
             {formik.errors.address && formik.touched.address && (
@@ -137,7 +149,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="nationality"
               placeholder="nationality"
               value={formik.values.nationality}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setFormData({
+                  ...formData,
+                  nationality: e.target.value, 
+                });
+              }}
               onBlur={formik.nationality}
             />
             {formik.errors.nationality && formik.touched.nationality && (
@@ -154,7 +172,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="passportNumber"
               placeholder="passportNumber"
               value={formik.values.passportNumber}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  passportNumber: e.target.value, 
+                });
+              }}
               onBlur={formik.passportNumber}
             />
             {formik.errors.passportNumber && formik.touched.passportNumber && (
@@ -170,10 +194,16 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="gender"
               placeholder="Select one"
               value={formik.values.gender}
-              onChange={(e) => formik.setFieldValue('gender', e.target.value)}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  gender: e.target.value, 
+                });
+              }}
             >
               <option value="Male">Male</option>
-              <option value="Femake">Female</option>
+              <option value="Female">Female</option>
             </Select>
             {formik.errors.gender && formik.touched.gender && (
               <Box color="red.500" mt={1}>
@@ -192,7 +222,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="placeOfIssue"
               placeholder="placeOfIssue"
               value={formik.values.placeOfIssue}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  placeOfIssue: e.target.value, 
+                });
+              }}
               onBlur={formik.placeOfIssue}
             />
             {formik.errors.placeOfIssue && formik.touched.placeOfIssue && (
@@ -210,7 +246,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="expiryDate"
               placeholder="expiryDate"
               value={formik.values.expiryDate}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  expiryDate: e.target.value, 
+                });
+              }}
               onBlur={formik.expiryDate}
             />
             {formik.errors.expiryDate && formik.touched.expiryDate && (
@@ -229,7 +271,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="dateOfBirth"
               placeholder="dateOfBirth"
               value={formik.values.dateOfBirth}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  dateOfBirth: e.target.value, 
+                });
+              }}
               onBlur={formik.dateOfBirth}
             />
             {formik.errors.dateOfBirth && formik.touched.dateOfBirth && (
@@ -245,7 +293,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="height"
               placeholder="height"
               value={formik.values.height}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  height: e.target.value, 
+                });
+              }}
               onBlur={formik.height}
             />
             {formik.errors.height && formik.touched.height && (
@@ -261,7 +315,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="weight"
               placeholder="weight"
               value={formik.values.weight}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  weight: e.target.value, 
+                });
+              }}
               onBlur={formik.weight}
             />
             {formik.errors.weight && formik.touched.weight && (
@@ -278,7 +338,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="maritalStatus"
               placeholder="Select one"
               value={formik.values.maritalStatus}
-              onChange={(e) => formik.setFieldValue('maritalStatus', e.target.value)}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  maritalStatus: e.target.value, 
+                });
+              }}
             >
               <option value="Married">Married</option>
               <option value="Single">Single</option>
@@ -313,7 +379,13 @@ const Form1 = ({ formData, setFormData, nextStep }) => {
               id="religion"
               placeholder="Religion"
               value={formik.values.religion}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e); 
+                setFormData({
+                  ...formData,
+                  religion: e.target.value, 
+                });
+              }}
               onBlur={formik.religion}
             />
             {formik.errors.religion && formik.touched.religion && (
@@ -364,7 +436,7 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
       duration: Yup.number().required('Duration is required').positive().integer(),
       country: Yup.string().required('Country is required'),
     }),
-    otherSkills: Yup.string().required('Other skills is a required filed'),
+    otherSkills: Yup.string().max(200, 'Other Skills must be 200 characters or less'),
   });
 
   const formik = useFormik({
@@ -400,7 +472,7 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
         duration: formData.workExpOverseas?.duration || '',
         address: formData.workExpOverseas?.address || '',
       },
-      otherSkills: Yup.string().max(255, 'Other Skills must be 255 characters or less'),
+      otherSkills: formData.otherSkills || '',
     },
 
     validationSchema,
@@ -454,6 +526,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
         ...formik.values.arabic,
         speaking: e.target.value,
       });
+      setFormData({
+        ...formData,
+        arabic: {
+          ...formData.arabic,
+          speaking: e.target.value,
+        },
+      });
     }}
   >
     <option value="excellent">Excellent</option>
@@ -470,6 +549,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
       formik.setFieldValue('arabic', {
         ...formik.values.arabic,
         listening: e.target.value,
+      });
+      setFormData({
+        ...formData,
+        arabic: {
+          ...formData.arabic,
+          listening: e.target.value,
+        },
       });
     }}
   >
@@ -488,6 +574,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
         ...formik.values.arabic,
         reading: e.target.value,
       });
+      setFormData({
+        ...formData,
+        arabic: {
+          ...formData.arabic,
+          reading: e.target.value,
+        },
+      });
     }}
   >
     <option value="excellent">Excellent</option>
@@ -504,6 +597,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
       formik.setFieldValue('arabic', {
         ...formik.values.arabic,
         writing: e.target.value,
+      });
+      setFormData({
+        ...formData,
+        arabic: {
+          ...formData.arabic,
+          writing: e.target.value,
+        },
       });
     }}
   >
@@ -537,6 +637,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
         ...formik.values.english,
         speaking: e.target.value,
       });
+      setFormData({
+        ...formData,
+        english: {
+          ...formData.english,
+          speaking: e.target.value,
+        },
+      });
     }}
   >
     <option value="excellent">Excellent</option>
@@ -553,6 +660,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
       formik.setFieldValue('english', {
         ...formik.values.english,
         listening: e.target.value,
+      });
+      setFormData({
+        ...formData,
+        english: {
+          ...formData.english,
+          listening: e.target.value,
+        },
       });
     }}
   >
@@ -571,6 +685,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
         ...formik.values.english,
         reading: e.target.value,
       });
+      setFormData({
+        ...formData,
+        english: {
+          ...formData.english,
+          reading: e.target.value,
+        },
+      });
     }}
   >
     <option value="excellent">Excellent</option>
@@ -587,6 +708,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
       formik.setFieldValue('english', {
         ...formik.values.english,
         writing: e.target.value,
+      });
+      setFormData({
+        ...formData,
+        english: {
+          ...formData.english,
+          writing: e.target.value,
+        },
       });
     }}
   >
@@ -617,6 +745,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
         ...formik.values.hindi,
         speaking: e.target.value,
       });
+      setFormData({
+        ...formData,
+        hindi: {
+          ...formData.hindi,
+          speaking: e.target.value,
+        },
+      });
     }}
   >
     <option value="excellent">Excellent</option>
@@ -633,6 +768,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
       formik.setFieldValue('hindi', {
         ...formik.values.hindi,
         listening: e.target.value,
+      });
+      setFormData({
+        ...formData,
+        hindi: {
+          ...formData.hindi,
+          listening: e.target.value,
+        },
       });
     }}
   >
@@ -651,6 +793,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
         ...formik.values.hindi,
         reading: e.target.value,
       });
+      setFormData({
+        ...formData,
+        hindi: {
+          ...formData.hindi,
+          reading: e.target.value,
+        },
+      });
     }}
   >
     <option value="excellent">Excellent</option>
@@ -667,6 +816,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
       formik.setFieldValue('hindi', {
         ...formik.values.hindi,
         writing: e.target.value,
+      });
+      setFormData({
+        ...formData,
+        hindi: {
+          ...formData.hindi,
+          writing: e.target.value,
+        },
       });
     }}
   >
@@ -692,7 +848,10 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
           <RadioGroup
             name="education"
             value={formik.values.education}
-            onChange={(value) => formik.setFieldValue('education', value)}
+            onChange={(value) => {
+              formik.setFieldValue('education', value);
+              setFormData({ ...formData, education: value }); 
+            }}
           >
             <Stack direction={{ base: 'column', sm: 'column', md: 'row', lg: 'row' }}>
               <Radio value="Under SLC">Under SLC</Radio>
@@ -870,7 +1029,13 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
             id="otherSkills"
             placeholder="Other skills"
             value={formik.values.otherSkills}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+              setFormData({
+                ...formData,
+                otherSkills: e.target.value, 
+              });
+            }}
             onBlur={formik.handleBlur}
           />
           {formik.errors.otherSkills && formik.touched.otherSkills && (
@@ -890,6 +1055,7 @@ const Form2 = ({ formData, setFormData, nextStep }) => {
 const Form3 = ({ formData, setFormData, submitForm }) => {
   const validationSchema = Yup.object().shape({
     agentName: Yup.string().required('Agent Name is required'),
+    email: Yup.string().required('Email is required').email('Invalid email address'),
     phoneNumber: Yup.string().required('Phone Number is required'),
     homeNumber: Yup.string().required('Home Number is required'),
     relativesNumber: Yup.string().required("Relative's Number is required"),
@@ -899,6 +1065,7 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
     initialValues: {
       agentName: formData.agentName || '',
       phoneNumber: formData.phoneNumber || '',
+      email: formData.email || '',
       homeNumber: formData.homeNumber || '',
       relativesNumber: formData.relativesNumber || '',
     },
@@ -934,12 +1101,18 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
               isInvalid={formik.errors.agentName && formik.touched.agentName}
             >
               <FormLabel htmlFor="agentName">Agents Name</FormLabel>
-              <Textarea
+              <Input
                 type="text"
                 id="agentName"
                 placeholder="Agent Name"
                 value={formik.values.agentName}
-                onChange={formik.handleChange}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  setFormData({
+                    ...formData,
+                    agentName: e.target.value, 
+                  });
+                }}
                 onBlur={formik.handleBlur}
               />
               {formik.errors.agentName && formik.touched.agentName && (
@@ -952,14 +1125,20 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
             <Flex py={2}>
               <FormControl mr="5%">
                 <FormLabel htmlFor="phone-number" fontWeight={'normal'}>
-                  Phone number
+                  Your phone number
                 </FormLabel>
                 <Input
                   id="phoneNumber"
                   type="number"
                   placeholder="Phone number"
                   value={formik.values.phoneNumber}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    setFormData({
+                      ...formData,
+                      phoneNumber: e.target.value, 
+                    });
+                  }}
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.phoneNumber && formik.touched.phoneNumber && (
@@ -974,9 +1153,16 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                 </FormLabel>
                 <Input
                   id="email"
+                  type='email'
                   placeholder="Email"
                   value={formData['email'] || ''}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    setFormData({
+                      ...formData,
+                      email: e.target.value, 
+                    });
+                  }}
                 />
               </FormControl>
             </Flex>
@@ -991,7 +1177,13 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                   type="number"
                   placeholder="Home number"
                   value={formik.values.homeNumber}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    setFormData({
+                      ...formData,
+                      homeNumber: e.target.value, 
+                    });
+                  }}
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.homeNumber && formik.touched.homeNumber && (
@@ -1009,7 +1201,13 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
                   type="number"
                   placeholder="Relative's number"
                   value={formik.values.relativesNumber}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    setFormData({
+                      ...formData,
+                      relativesNumber: e.target.value, 
+                    });
+                  }}
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.relativesNumber && formik.touched.relativesNumber && (
@@ -1032,12 +1230,15 @@ const Form3 = ({ formData, setFormData, submitForm }) => {
 
 
 const MultiStepForm = () => {
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search);
+const jobIdFromQuery = queryParams.get('jobId');
   const toast = useToast()
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
   const [formData, setFormData] = useState(
     {
-    jobCode: '',
+    jobCode: jobIdFromQuery,
     fullName: '',
     gender: '',
     address: '',
@@ -1082,6 +1283,7 @@ const MultiStepForm = () => {
       country: '',
     },
     otherSkills: '',
+    agentName: '',
     phoneNumber: '',
     email: '',
     homeNumber: '',
@@ -1112,7 +1314,7 @@ const MultiStepForm = () => {
           isClosable: true,
           position: 'top'
         });
-        // navigate("/")
+        navigate("/")
       } else {
         throw new Error('Form submission failed.');
       }
