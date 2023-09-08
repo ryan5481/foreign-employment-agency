@@ -1,48 +1,96 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
-import ImageTitleLarge from "../../components/card/imageTitleLarge"
 import {
-  Grid, Heading, Text, useColorModeValue, Box
+  Grid, Heading, Text, Box, useColorModeValue, Wrap, Image, Center, Modal, ModalOverlay, ModalContent, ModalHeader, useDisclosure, ModalBody
 } from '@chakra-ui/react'
 
-
-
 const Newspaper = () => {
-  const [newspaperAds, setNewspaperAds] = useState([])
-  
+  const [newspaperAds, setNewspaperAds] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedAdIndex, setSelectedAdIndex] = useState(null);
+
   const fetchNewspaperAds = async () => {
-    try{
+    try {
       const res = await axios.get("http://localhost:8000/get-newspaper-images")
       const data = res.data.data
       setNewspaperAds(data)
-    }catch(error){
+    } catch (error) {
       console.error("Error: ", error)
     }
-  } 
+  }
 
   useEffect(() => {
     fetchNewspaperAds()
   }, [])
 
+  const openModal = (index) => {
+    setSelectedAdIndex(index);
+    onOpen();
+  }
+
+  const closeModal = () => {
+    setSelectedAdIndex(null);
+    onClose();
+  }
+
   return (
-    <Box p={10} bg={useColorModeValue('blue.500', 'gray.800')}
-    color='gray.100'>
+    <Box
+      bg={useColorModeValue('blue.500', 'gray.800')}
+      color='gray.100'
+      p={5}
+      pb={10}
+    >
+
       <Heading
         lineHeight={1.1}
         fontWeight={600}
         fontSize={{ base: 'xl', sm: '4xl', lg: '4xl' }}
-        p={5}
-        >
+        p={5}>
 
-        <Text as={'span'} >
-          Newspaper Vacancy Snippets
+        <Text as={'span'}>
+          Licenses and Certificates
         </Text>
       </Heading>
-      <Grid templateColumns={{ base:'1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }} gap={0} p={3} justifySelf={'center'} alignSelf="center">
+      <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr', lg: "1fr 1fr 1fr" }} gap={5} p={1} justifyItems="center">
         {newspaperAds.map((ad, index) => {
-          return (<>
-            <ImageTitleLarge data={ad} />
-          </>)
+          return (
+            <Box key={index}>
+              <Center
+                minH={530}
+                p={2}
+                w={{ sm: 'xs', md: 'sm', lg: "sm" }}
+                alignItems="center"
+                justifyContent="center"
+                rounded="10px"
+                borderWidth="1px"
+                shadow="lg"
+                position="relative"
+                isCentered
+                onClick={() => openModal(index)}
+                cursor="pointer"
+              >
+                <Image
+                  rounded={"10px"}
+                  objectFit="cover" // Set object-fit to "cover"
+                  width="100%"
+                  src={`data:image/jpeg;base64,${ad.newsAdImage}`}
+                />
+              </Center>
+              <Text fontWeight="bold" fontSize="2xl" m={5} textAlign={"center"} >{ad.newsAdTitle}</Text>
+              <Modal isOpen={isOpen && selectedAdIndex === index} onClose={closeModal} size='xl' zIndex={9999} >
+                <ModalOverlay />
+                <ModalContent >
+                  <ModalBody  >
+                    <Image
+                      py={3}
+                      src={`data:image/jpeg;base64,${ad.newsAdImage}`}
+                      alt={ad.newsAdTitle}
+                    />
+                  </ModalBody>
+                </ModalContent>
+              </Modal>
+            </Box>
+          )
         })}
       </Grid>
     </Box>
@@ -50,3 +98,4 @@ const Newspaper = () => {
 }
 
 export default Newspaper
+

@@ -1,130 +1,67 @@
-// Carousel.js
 import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick';
 import axios from 'axios';
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import "./SmoothCarousel.css"
-import { Box, Image, Center, Stack, Heading, Highlight, AspectRatio } from '@chakra-ui/react';
-import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons/io"
-
-const dotsStyle = {
-  bottom: '100px', // Adjust the distance from the bottom as needed
-};
+import { Box, Image, Heading, AspectRatio } from '@chakra-ui/react';
 
 const Carousel = () => {
-  const [carouselImageData, setCarouselImageData] = useState([])
+  const [carouselImageData, setCarouselImageData] = useState([]);
 
-
-  const FetchCarouselImages = async () => {
-
+  const fetchCarouselImages = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-carousel-images")
-      if (res) {
-        const imagesBinData = await res.data.data
-        setCarouselImageData(imagesBinData)
+      const res = await axios.get('http://localhost:8000/get-carousel-images');
+      if (res.status === 200) {
+        setCarouselImageData(res.data.data);
       } else {
-        console.log("Failed to fetch images")
+        console.log('Failed to fetch images');
       }
     } catch (error) {
-      console.log(error)
+      console.error('Error fetching images:', error);
     }
-  }
-
-  const CustomPrevArrow = (props) => {
-    const { className, onClick } = props;
-    return (
-      <div className={className} onClick={onClick}>
-        <IoIosArrowDropleftCircle
-          style={{
-            position: "relative",
-            top: "50%",
-            transform: "translateY(-50%)",
-            cursor: "pointer",
-            zIndex: "1",
-            left: "50%"
-          }} />
-      </div>
-    );
   };
 
-  const CustomNextArrow = (props) => {
-    const { className, onClick } = props;
-    return (
-      <div className={className} onClick={onClick}>
-        <IoIosArrowDroprightCircle />
-      </div>
-    );
-  };
+  useEffect(() => {
+    fetchCarouselImages();
+  }, []);
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000, // Adjust the autoplay speed as needed
+    autoplaySpeed: 5000,
     pauseOnHover: true,
-    cssEase: 'linear', // Apply linear transition between slides
-
-    prevArrow: <CustomPrevArrow />, // Use the custom prevArrow component
-    nextArrow: <CustomNextArrow />, // 
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
   };
 
-
-
-
-  useEffect(() => {
-    FetchCarouselImages()
-  }, [])
-
   return (
-    <Box
-      h="80vh"
-      overflow="hidden"
-    >
+    <Box>
       <Slider {...settings}>
-        {carouselImageData && carouselImageData.map((image, index) => (
-          <>
-            <AspectRatio ratio={2.1}>
+        {carouselImageData.map((image, index) => (
+          <Box key={`carousel_${index}`}  >
+            <AspectRatio ratio={16 / 9}>
               <Image
-                
-                minH="100%"
-                objectFit="cover" // Fit image within the box
                 src={`data:image/jpeg;base64,${image.carouselImage}`}
                 alt={image.imageTitle}
+                objectFit="cover"
+                w="100%"
+                h="80%"
               />
             </AspectRatio>
-          
-              {/* <Heading
-                as={"h1"}
-                right="50%"
-                bottom="top%"
-                fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }}
-                lineHeight='tall'
-                zIndex={'10'} 
-                p="8px 12px"
-                pos="absolute"
-                textAlign="center"
-                w="full"
-                mb="8"
-                >
-                {image.imageTitle}
-              </Heading> */}
-       
-          </>
+            {/* <Heading
+            pos
+              as="h1"
+              fontSize={{ base: '3xl', md: '5xl', lg: '6xl' }}
+              textAlign="center"
+              mt={4}
+            >
+              {image.imageTitle}
+            </Heading> */}
+          </Box>
         ))}
       </Slider>
-
     </Box>
   );
 };

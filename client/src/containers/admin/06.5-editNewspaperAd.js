@@ -208,7 +208,7 @@ const EditNewspaperAds = () => {
                       rounded="full"
                       top='20px'
                       left='50%'
-                      zIndex='10'
+                      zIndex='3'
                       boxShadow="2xl"
                       onClick={() => {
                         setImageToDelete(ad._id)

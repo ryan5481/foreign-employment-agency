@@ -121,6 +121,10 @@ export default function NavBar() {
             alt="Logo"
             h={20}
             p={2}
+            _hover={{
+              textDecoration: 'none',
+              cursor: "pointer"
+            }}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}
@@ -171,7 +175,8 @@ const DesktopNav = (props) => {
           color: linkHoverColor,
           bg: 'blue.400',
           rounded: '10px',
-          shadow: 'md'
+          shadow: 'md',
+          cursor: "pointer"
         }}
         onClick={() => navigate("/")}
       >
@@ -288,6 +293,7 @@ const MobileNav = (props) => {
         fontWeight={500}
         _hover={{
           textDecoration: 'none',
+          cursor: "pointer"
         }}
         onClick={() => navigate("/")}
         >

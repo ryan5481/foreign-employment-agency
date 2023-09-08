@@ -5,6 +5,7 @@ import GalleryImage from "../models/galleryImageSchema.js"
 //BOTTOM SMOOTH CAROUSEL
 export const PostGalleryImage = async(req, res) => {
     try{
+        console.log(req.file)
         if(req.file){
             let galleryImage = fs.readFileSync(path.join("../server/uploads/galleryImages/" + req.file.filename))
         

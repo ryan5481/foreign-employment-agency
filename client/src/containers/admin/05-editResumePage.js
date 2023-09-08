@@ -24,7 +24,7 @@ import {
     AlertDialogFooter,
     Button
 } from "@chakra-ui/react"
-import { ViewIcon, DeleteIcon, TimeIcon, EmailIcon, PhoneIcon, } from '@chakra-ui/icons'
+import { ViewIcon, DeleteIcon} from '@chakra-ui/icons'
 import { useNavigate } from "react-router-dom";
 
 const EditResumePage = () => {
@@ -49,7 +49,7 @@ const EditResumePage = () => {
             const res = await axios.get("http://localhost:8000/get-resumes")
             if (res) {
                 const data = res.data.data
-                setResumes(data)
+                setResumes(data.reverse())
 
             }
         } catch (error) {
@@ -518,7 +518,7 @@ const EditResumePage = () => {
             onClose={handleDeleteDialogClose} // Close the delete dialog
             isCentered
         >
-            <AlertDialogOverlay bg='purple.500'>
+            <AlertDialogOverlay>
                 <AlertDialogContent>
                     <AlertDialogHeader fontSize="lg" fontWeight="bold">
                         Delete Resume

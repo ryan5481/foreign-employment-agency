@@ -19,10 +19,10 @@ const GalleryImage = ({ imageData }) => {
     return (
         <>
             <Box
-                maxW='sm'
                 borderWidth='1px'
                 borderRadius='lg'
                 overflow='hidden'
+                h={"xs"}
                 shadow={'xl'}
                 bg={'gray.100'}
                 onClick={onOpen}
@@ -32,8 +32,7 @@ const GalleryImage = ({ imageData }) => {
                     src={`data:image/jpeg;base64,${imageData.galleryImage}`}
                     alt={imageData.imageTitle}
                     objectFit='fill'
-                    minW='100%'
-                    minH='70%'
+                    h='100%'
                 />
                 <Box p='6'>
                     <Box display='flex' alignItems='baseline'>
@@ -52,6 +51,7 @@ const GalleryImage = ({ imageData }) => {
                        
                         <ModalBody  >
                                 <Image
+                                rounded="10px"
                                     py={3}
                                     src={`data:image/jpeg;base64,${imageData.galleryImage}`}
                                     alt={imageData.imageTitle}
