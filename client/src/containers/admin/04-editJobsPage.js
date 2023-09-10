@@ -5,11 +5,8 @@ import {
     StackDivider, Text, VStack, List, useToast, SimpleGrid, Spinner, AlertDialog, cancelRef, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, HStack
 } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom"
-import { ViewIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { ViewIcon, DeleteIcon, EditIcon, CloseIcon } from '@chakra-ui/icons'
 
-import Pagination from '../../components/pagination'
-import HeroWithBg from '../../components/card/heroWithBg'
-import CategoryCard from '../../components/card/categoryCard'
 
 const AllJobs = ({ displayAll }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -28,6 +25,10 @@ const AllJobs = ({ displayAll }) => {
     const toast = useToast()
     const [selectedImage, setSelectedImage] = useState(null)
     const [displaySelectedImage, setDisplaySelectedImage] = useState(null);
+
+    const formBgColorMode = useColorModeValue("gray.50", "gray.700")
+    const formTextColorMode = useColorModeValue("purple.800", "gray.100")
+
     const [formData, setFormData] = useState({
         jobTitle: '',
         salary: '',
@@ -51,14 +52,15 @@ const AllJobs = ({ displayAll }) => {
         setSelectedImage(event.target.files[0])
         if (event.target.files && event.target.files[0]) {
             setDisplaySelectedImage(URL.createObjectURL(event.target.files[0]));
+        }
     }
-}
 
     const handleNewInputChange = (event) => {
+        event.preventDefault()
         const { id, value } = event.target
         const newValue = value === 'Yes' ? true :
-                         value === 'No' ? false :
-                         value
+            value === 'No' ? false :
+                value
         setFormData((prevData) => ({
             // if (id === 'reqQualifications') {
             //     return {
@@ -77,11 +79,11 @@ const AllJobs = ({ displayAll }) => {
             //     };
             // }
             // else {
-                
-                    ...prevData,
-                    [id]: newValue
-                // };
-            
+
+            ...prevData,
+            [id]: newValue
+            // };
+
         }))
     }
 
@@ -90,25 +92,25 @@ const AllJobs = ({ displayAll }) => {
         try {
             const updatedFormData = new FormData();
 
-        // Append all the form data to the updated FormData
-        Object.entries(formData).forEach(([key, value]) => {
-            if (key === 'jobImage') {
-                updatedFormData.append(key, selectedImage);
-            } else if (Array.isArray(value)) {
-                value.forEach((item, index) => {
-                    updatedFormData.append(`${key}[${index}]`, item);
-                });
-            } else {
-                updatedFormData.append(key, value);
-            }
-        });
-        // console.log("FORMDATA:" + updatedFormData)
-            const res = await axios.post("http://localhost:8000/admin/publishjob", updatedFormData, 
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data", // Set Content-Type
-                },
-            })
+            // Append all the form data to the updated FormData
+            Object.entries(formData).forEach(([key, value]) => {
+                if (key === 'jobImage') {
+                    updatedFormData.append(key, selectedImage);
+                } else if (Array.isArray(value)) {
+                    value.forEach((item, index) => {
+                        updatedFormData.append(`${key}[${index}]`, item);
+                    });
+                } else {
+                    updatedFormData.append(key, value);
+                }
+            });
+            // console.log("FORMDATA:" + updatedFormData)
+            const res = await axios.post("http://localhost:8000/admin/publishjob", updatedFormData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data", // Set Content-Type
+                    },
+                })
             if (res.status === 200) {
                 toast({
                     title: 'Success.',
@@ -162,73 +164,6 @@ const AllJobs = ({ displayAll }) => {
     };
 
 
-    //EDIT
-    const handleInputChange = (field, index, value) => {
-        if (index === undefined) {
-            // For single values
-            setFormData(prevData => ({
-                ...prevData,
-                [field]: value
-            }));
-
-            setselectedJob(prevJob => ({
-                ...prevJob,
-                [field]: value
-            }));
-        } else {
-            // For array values
-            setFormData(prevData => {
-                const newData = { ...prevData };
-                newData[field][index] = value;
-                return newData;
-            });
-
-            setselectedJob(prevJob => {
-                const newJob = { ...prevJob };
-                newJob[field][index] = value;
-                return newJob;
-            });
-        }
-    };
-
-    const handleEditJob = async (jobId) => {
-        try {
-            const updatedFormData = new FormData();
-
-            // Add the updated values from the formData state
-            updatedFormData.append("_id", jobId);
-            updatedFormData.append("jobTitle", formData.jobTitle);
-            updatedFormData.append("salary", formData.salary);
-            updatedFormData.append("category", formData.category);
-            updatedFormData.append("location", formData.location);
-            updatedFormData.append("isFullTime", formData.isFullTime);
-            updatedFormData.append("workHours", formData.workHours);
-            updatedFormData.append("daysOff", formData.daysOff);
-            updatedFormData.append("fooding", formData.fooding);
-            updatedFormData.append("shortDescription", formData.shortDescription);
-
-            formData.reqQualification.forEach((qualification, index) => {
-                updatedFormData.append(`reqQualification[${index}]`, qualification);
-            });
-
-            formData.responsiblities.forEach((responsibility, index) => {
-                updatedFormData.append(`responsiblities[${index}]`, responsibility);
-            });
-
-            formData.skillsRequired.forEach((skill, index) => {
-                updatedFormData.append(`skillsRequired[${index}]`, skill);
-            });
-            await axios.put("http://localhost:8000/edit-homepage/update-topcarousel-image", updatedFormData, {
-
-            })
-            fetchJobsList();
-            setselectedJob(null);
-        } catch (error) {
-
-            console.error("Error updating image: ", error)
-        }
-
-    }
 
     //DELETE
     const handleDeleteDialogOpen = () => {
@@ -311,13 +246,13 @@ const AllJobs = ({ displayAll }) => {
                             >
 
                                 <Text w="30px" textAlign={"left"} >SN</Text>
-                                <Text w="120px" textAlign={"center"} >Job code</Text>
+                                <Text w="120px" textAlign={"left"} >Job code</Text>
                                 <Text w="200px">Job title</Text>
                                 <Text w="80px">Salary</Text>
                                 <Text w="150px">Category</Text>
                                 <Text w="300px">Detail</Text>
                                 <Text w="120px">Submitted on</Text>
-                                {/* <Text w="40px">Edit</Text> */}
+                                <Text w="40px">View</Text>
                                 <Text w="60px">Delete</Text>
 
                             </Grid>
@@ -343,15 +278,15 @@ const AllJobs = ({ displayAll }) => {
                                             key={doc._id}
                                         >
 
-                                            <Text w="30px" textAlign={"center"} >{index + 1}</Text>
-                                            <Text w="120px" textAlign={"center"} >{doc.jobCode}</Text>
+                                            <Text w="30px" textAlign={"left"} >{index + 1}</Text>
+                                            <Text w="120px" textAlign={"left"} >{doc.jobCode}</Text>
                                             <Text w="200px">{doc.jobTitle}</Text>
                                             <Text w="80px">{doc.salary}</Text>
                                             <Text w="150px">{doc.category}</Text>
                                             <Text w="300px" isTruncated >{doc.shortDescription}</Text>
                                             <Text w="120px">{doc.createdAt.slice(0, 10)}</Text>
-                                            {/* <Center w="40px">
-                                                <EditIcon
+                                            <Center w="60px">
+                                                <ViewIcon
                                                     style={{ cursor: 'pointer' }}
                                                     _hover={{ color: 'blue.400' }}
                                                     onClick={() => {
@@ -361,7 +296,7 @@ const AllJobs = ({ displayAll }) => {
                                                         setReqSkillsList(doc.skillsRequired)
                                                         setReqResponsiblitiesList(doc.responsiblities)
                                                     }} />
-                                            </Center> */}
+                                            </Center>
                                             <Center w="60px">
                                                 <DeleteIcon
                                                     style={{ cursor: 'pointer' }}
@@ -384,269 +319,238 @@ const AllJobs = ({ displayAll }) => {
                             <Modal isOpen={isOpen} onClose={onClose}>
                                 <ModalOverlay />
                                 <ModalContent minW={"80%"} >
+                                <ModalHeader alignContent={"right"} >
+                                        <DeleteIcon 
+                                        pos={"relative"}
+                                        bottom={3}
+                                        colorScheme="purple"
+                                        w={4}
+                                        style={{ cursor: 'pointer' }}
+                                        _hover={{ color: 'purple.600' }}
+                                        onClick={() => {
+                                            setJobTodelete(selectedJob._id)
+                                            handleDeleteDialogOpen()
+
+                                        }}
+                                         />
+                                       
+                                    </ModalHeader>
+                                    <ModalCloseButton />
                                     <ModalBody>
 
                                         <Box
-                                            w={'100%'}
                                             rounded="10px"
                                             position="relative"
+                                            p={10}
                                         >
-                                            <form onSubmit={handleEditJob}>
+
+                                            <Stack
+                                                direction={{ base: 'column', sm: 'column', md: "row", lg: "row" }}
+                                                gap={5}
+                                                justify="center"
+                                                divider={
+                                                    <StackDivider borderColor='gray.200' />
+                                                }>
+                                                <Box maxH="200px" >
+                                                    <Center>
+                                                        <Image
+                                                            rounded={'md'}
+                                                            alt={selectedJob.jobTitle}
+                                                            src={
+                                                                `data:image/jpeg;base64,${selectedJob.jobImage}`
+                                                            }
+                                                            align='center'
+                                                            maxH="200px"
+                                                            objectFit="contain"
+                                                            overflow="hidden"
+                                                        />
+                                                    </Center>
+                                                </Box>
+                                                <Box >
+                                                    <Text
+                                                        lineHeight={1.1}
+                                                        fontWeight={600}
+                                                        fontSize={{ base: 'xl', sm: '3xl', lg: '4xl' }}
+                                                    >{selectedJob.jobTitle}</Text>
+                                                    <Text
+                                                        pt={1}
+                                                        fontWeight={300}
+                                                        fontSize={'xl'}
+                                                    >
+                                                        Job id: {selectedJob.jobCode}
+                                                    </Text>
+
+                                                    <Text
+                                                        fontWeight={300}
+                                                        fontSize={'xl'}
+                                                        pt={2}
+                                                        isTruncated
+                                                    >NRs. {selectedJob.salary} per month</Text>
+
+                                                    <Text fontWeight={300}
+                                                        fontSize={'xl'}
+
+                                                    >{selectedJob.shortDescription}</Text>
+                                                </Box>
+                                            </Stack>
+
+
+                                            <Stack spacing={{ base: 6, md: 10 }}>
+
+
                                                 <Stack
-                                                    direction={{ base: 'row', sm: 'column', md: "row", lg: "row" }}
-                                                    gap={5}
-                                                    justify="center"
+                                                    minW={"100%"}
+                                                    spacing={{ base: 4, sm: 6 }}
+                                                    direction={'column'}
                                                     divider={
                                                         <StackDivider borderColor='gray.200' />
                                                     }>
-                                                    <Box maxH="200px" >
-                                                        <Center>
-                                                            <Image
-                                                                rounded={'md'}
-                                                                alt={selectedJob.jobTitle}
-                                                                src={
-                                                                    `data:image/jpeg;base64,${selectedJob.jobImage}`
-                                                                }
-                                                                align='center'
-                                                                maxH="200px"
-                                                                objectFit="contain"
-                                                                overflow="hidden"
-                                                            />
-                                                        </Center>
-                                                    </Box>
-                                                    <Box as={'header'}>
-                                                        <Input
-                                                            lineHeight={1.1}
-                                                            fontWeight={600}
-                                                            fontSize={{ base: 'xl', sm: '3xl', lg: '4xl' }}
-                                                            value={selectedJob.jobTitle}
-                                                            onChange={(e) => handleInputChange('jobTitle', e.target.value)}
-                                                        />
+
+                                                    <Box textAlign={'left'}>
                                                         <Text
-                                                            pt={1}
-                                                            fontWeight={300}
-                                                            fontSize={'xl'}
+                                                            fontSize={{ base: '20px', lg: '24px' }}
+                                                            fontWeight={'700'}
+                                                            textTransform={'uppercase'}
+                                                            mb={'4'}
                                                         >
-                                                            Job id: {selectedJob.jobCode}
+                                                            Details
                                                         </Text>
-                                                        <HStack
-                                                            fontWeight={300}
-                                                            fontSize={'2xl'}
-                                                        >
-                                                            <Text fontSize={'2xl'}>NRs. </Text>
-                                                            <Input
-                                                                fontWeight={300}
-                                                                fontSize={'2xl'}
-                                                                pt={2}
-                                                                w={170}
-                                                                value={selectedJob.salary}
-                                                                onChange={(e) => handleInputChange('salary', e.target.value)}
 
-                                                            />
-                                                            <Text >per month </Text>
-                                                        </HStack>
+                                                        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={20} fontSize={{ base: '14px', lg: '18px' }}>
+                                                            <List spacing={2}>
+                                                                <HStack>
+                                                                    <Text as={'span'} fontWeight={'bold'}>
+                                                                        Location:
+                                                                    </Text>
+                                                                    <Text
+                                                                        w="150"
+                                                                        id='location'
+                                                                        fontWeight={'normal'}
+                                                                    >{selectedJob.location}</Text>
+                                                                </HStack>
+                                                                <HStack>
+                                                                    <Text as={'span'} fontWeight={'bold'}>
+                                                                        Field:
+                                                                    </Text>
+                                                                    <Text
+                                                                        w="150"
+                                                                        fontWeight={'normal'}
+                                                                    >{selectedJob.category}</Text>
+                                                                </HStack>
+                                                                <HStack>
+                                                                    <Text as={'span'} fontWeight={'bold'}>
+                                                                        Type:
+                                                                    </Text>
+                                                                    <Text
+                                                                        w="150"
+                                                                        fontWeight={'normal'}
+                                                                    >{formData.isFullTime ? 'Full time' : 'Part time'}</Text>
+                                                                </HStack>
 
-                                                        <Input fontWeight={300}
-                                                            fontSize={'2xl'}
-                                                            value={selectedJob.shortDescription}
-                                                            onChange={(e) => handleInputChange('shortDescription', e.target.value)}
+                                                                <HStack>
+                                                                    <Text as={'span'} fontWeight={'bold'}>
+                                                                        Work hours:
+                                                                    </Text>
+                                                                    <Text
+                                                                        fontWeight={'normal'}
+                                                                    >{selectedJob.workHours}</Text>
+                                                                </HStack>
 
-                                                        />
+                                                            </List>
+                                                            <List spacing={2}>
+                                                                <HStack>
+                                                                    <Text as={'span'} fontWeight={'bold'}>
+                                                                        Days off:
+                                                                    </Text>
+                                                                    <Text
+                                                                        fontWeight={'normal'}
+                                                                    >{selectedJob.daysOff}</Text>
+                                                                </HStack>
+
+                                                                <HStack>
+                                                                    <Text as={'span'} fontWeight={'bold'}>
+                                                                        Housing:
+                                                                    </Text>
+                                                                    <Text
+                                                                        w="150"
+                                                                        fontWeight={'normal'}
+                                                                    >{formData.housing ? 'Yes' : 'No'}</Text>
+                                                                </HStack>
+                                                                <HStack>
+                                                                    <Text as={'span'} fontWeight={'bold'}>
+                                                                        Fooding:
+                                                                    </Text>
+                                                                    <Text
+                                                                        w="150"
+                                                                        fontWeight={'normal'}
+                                                                    >{formData.fooding ? 'Yes' : 'No'}</Text>
+                                                                </HStack>
+
+                                                            </List>
+                                                        </SimpleGrid>
+                                                    </Box>
+
+
+
+                                                    <Box textAlign={'left'}>
+                                                        <Text
+                                                            fontSize={{ base: '20px', lg: '24px' }}
+                                                            fontWeight={'700'}
+                                                            textTransform={'uppercase'}
+                                                            mb={'4'}>
+                                                            Qualifications Required
+                                                        </Text>
+
+                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                            {reqQualificationsList.map((qualify, index) => (
+                                                                <Text textAlign={"left"}
+                                                                >{qualify}</Text>
+                                                            ))}
+                                                        </VStack>
+                                                    </Box>
+
+
+                                                    <Box textAlign={'left'}>
+                                                        <Text
+                                                            fontSize={{ base: '20px', lg: '24px' }}
+                                                            fontWeight={'700'}
+                                                            textTransform={'uppercase'}
+                                                            mb={'4'}>
+                                                            Skills Required
+                                                        </Text>
+                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                            {reqSkillsList.map((skill, index) => (
+                                                                <Text textAlign={"left"}
+                                                                >{skill}</Text>
+                                                            ))}
+                                                        </VStack>
+                                                    </Box>
+                                                    <Box textAlign={'left'}>
+                                                        <Text
+                                                            fontSize={{ base: '20px', lg: '24px' }}
+                                                            fontWeight={'700'}
+                                                            textTransform={'uppercase'}
+                                                            mb={'4'}>
+                                                            Qualifications Required
+                                                        </Text>
+
+                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                            {reqResponsiblitiesList.map((responsiblity, index) => (
+                                                                <Text textAlign={"left"}
+                                                                >{responsiblity}</Text>
+                                                            ))}
+                                                        </VStack>
                                                     </Box>
                                                 </Stack>
-                                                <Box px={{ base: '5', sm: '5', md: '20', lg: '250' }}
-                                                    py={5}
+                                                <Box
+                                                    align='center'
                                                 >
-                                                    <Box mt="1" justifyContent="center" alignContent="center">
-                                                        <Box
-                                                            fontSize="2xl"
-                                                            fontWeight="semibold"
-                                                            as="h4"
-                                                            lineHeight="tight"
-                                                            textAlign="center"
-                                                        >
-                                                            <Stack spacing={{ base: 6, md: 10 }}>
-
-
-                                                                <Stack
-                                                                    spacing={{ base: 4, sm: 6 }}
-                                                                    direction={'column'}
-                                                                    divider={
-                                                                        <StackDivider borderColor='gray.200' />
-                                                                    }>
-
-
-                                                                    <Box textAlign={'left'}>
-                                                                        <Text
-                                                                            fontSize={{ base: '20px', lg: '24px' }}
-                                                                            fontWeight={'700'}
-                                                                            textTransform={'uppercase'}
-                                                                            mb={'4'}
-                                                                        >
-                                                                            Details
-                                                                        </Text>
-
-                                                                        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} fontSize={{ base: '14px', lg: '18px' }}>
-                                                                            <List spacing={2}>
-                                                                                <HStack>
-                                                                                    <Text as={'span'} fontWeight={'bold'}>
-                                                                                        Location:
-                                                                                    </Text>
-                                                                                    <Input
-                                                                                        w="150"
-                                                                                        id='location'
-                                                                                        value={selectedJob.location}
-                                                                                        onChange={(e) => handleInputChange('location', e.target.value)}
-
-                                                                                    />
-                                                                                </HStack>
-                                                                                <HStack>
-                                                                                    <Text as={'span'} fontWeight={'bold'}>
-                                                                                        Field:
-                                                                                    </Text>
-                                                                                    <Input
-                                                                                        w="150"
-                                                                                        value={selectedJob.category}
-                                                                                        onChange={(e) => handleInputChange('category', e.target.value)}
-
-                                                                                    />
-                                                                                </HStack>
-                                                                                <HStack>
-                                                                                    <FormLabel fontWeight={'bold'}>Type</FormLabel>
-                                                                                    <FormControl id="type" py={2}>
-                                                                                        <Select
-                                                                                            maxW="150"
-                                                                                            value={formData.isFullTime ? 'Full time' : 'Part time'}
-                                                                                            onChange={e => handleInputChange('isFullTime', e.target.value === 'Full time')}
-                                                                                        >
-                                                                                            <option>Full time</option>
-                                                                                            <option>Part time</option>
-                                                                                        </Select>
-                                                                                    </FormControl>
-                                                                                </HStack>
-                                                                                <HStack>
-                                                                                    <Text as={'span'} fontWeight={'bold'}>
-                                                                                        Work hours:
-                                                                                    </Text>
-                                                                                    <Input
-                                                                                        maxW="100"
-                                                                                        value={selectedJob.workHours}
-                                                                                        onChange={(e) => handleInputChange('workHours', e.target.value)}
-                                                                                    />
-                                                                                </HStack>
-
-                                                                            </List>
-                                                                            <List spacing={2}>
-                                                                                <HStack>
-                                                                                    <Text as={'span'} fontWeight={'bold'}>
-                                                                                        Days off:
-                                                                                    </Text>
-                                                                                    <Input
-                                                                                        maxW="170"
-                                                                                        value={selectedJob.daysOff}
-                                                                                        onChange={(e) => handleInputChange('daysOff', e.target.value)}
-                                                                                    />
-                                                                                </HStack>
-                                                                                <HStack>
-                                                                                    <FormLabel fontWeight={'bold'}>Housing</FormLabel>
-                                                                                    <FormControl id="housing" py={2}>
-                                                                                        <Select
-                                                                                            maxW="150" value={formData.housing ? 'Yes' : 'No'}
-                                                                                            onChange={e => handleInputChange('housing', e.target.value === 'Yes')}  >
-                                                                                            <option>Yes</option>
-                                                                                            <option>No</option>
-                                                                                        </Select>
-                                                                                    </FormControl>
-                                                                                </HStack>
-                                                                                <HStack>
-                                                                                    <FormLabel fontWeight={'bold'}>Fooding</FormLabel>
-                                                                                    <FormControl id="fooding" py={2}>
-                                                                                        <Select
-                                                                                            maxW="150"
-                                                                                            value={formData.fooding ? 'Yes' : 'No'}
-                                                                                            onChange={e => handleInputChange('fooding', e.target.value === 'Yes')}
-                                                                                        >
-                                                                                            <option>Yes</option>
-                                                                                            <option>No</option>
-                                                                                        </Select>
-                                                                                    </FormControl>
-                                                                                </HStack>
-                                                                            </List>
-                                                                        </SimpleGrid>
-                                                                    </Box>
-
-
-
-                                                                    <Box textAlign={'left'}>
-                                                                        <Text
-                                                                            fontSize={{ base: '20px', lg: '24px' }}
-                                                                            fontWeight={'700'}
-                                                                            textTransform={'uppercase'}
-                                                                            mb={'4'}>
-                                                                            Qualifications Required
-                                                                        </Text>
-                                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                                            {reqQualificationsList.map((qualify, index) => (
-                                                                                <Input key={index} value={qualify}
-                                                                                    onChange={(e) => handleInputChange('reqQualification', index, e.target.value)}
-                                                                                />
-                                                                            ))}
-
-                                                                        </VStack>
-                                                                    </Box>
-
-
-                                                                    <Box textAlign={'left'}>
-                                                                        <Text
-                                                                            fontSize={{ base: '20px', lg: '24px' }}
-                                                                            fontWeight={'700'}
-                                                                            textTransform={'uppercase'}
-                                                                            mb={'4'}>
-                                                                            Qualifications Required
-                                                                        </Text>
-                                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                                            {reqSkillsList.map((skill, index) => (
-                                                                                <Input value={skill}
-                                                                                    key={index}
-                                                                                    onChange={(e) => handleInputChange("skillsRequired", index, e.target.value)}
-                                                                                />
-                                                                            ))}
-                                                                        </VStack>
-                                                                    </Box>
-                                                                    <Box textAlign={'left'}>
-                                                                        <Text
-                                                                            fontSize={{ base: '20px', lg: '24px' }}
-                                                                            fontWeight={'700'}
-                                                                            textTransform={'uppercase'}
-                                                                            mb={'4'}>
-                                                                            Qualifications Required
-                                                                        </Text>
-                                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                                            {reqResponsiblitiesList.map((responsiblity, index) => (
-                                                                                <Input key={index} value={responsiblity}
-                                                                                    onChange={(e) => handleInputChange("responsiblities", index, e.target.value)}
-                                                                                />
-                                                                            ))}
-                                                                        </VStack>
-                                                                    </Box>
-                                                                </Stack>
-                                                                <Box
-                                                                    align='center'
-                                                                >
-                                                                </Box>
-                                                            </Stack>
-                                                        </Box>
-                                                    </Box>
                                                 </Box>
-                                            </form>
+                                            </Stack>
                                         </Box>
                                         {/* </ScrollDiv> */}
                                     </ModalBody>
-                                    <ModalFooter alignSelf="center">
-                                        <Button colorScheme='blue' rounded='30px' mb={3} type='submit'>
-                                            Save Changes
-                                        </Button>
-                                    </ModalFooter>
+                                    
                                 </ModalContent>
                             </Modal>
                         </Box>
@@ -681,282 +585,289 @@ const AllJobs = ({ displayAll }) => {
                     </Box>) : (
                         //  POST A NEW JOB FORM
                         <Box
-                            bg='gray.50'
+                            bg={formBgColorMode}
+                            color={formTextColorMode}
                             py={10}
                             maxW='80%'
                             rounded="10px"
                             mx='auto'
                         >
-                            <form onSubmit={handleEditJob}>
-                                <Stack
-                                    direction={{ base: 'row', sm: 'column', md: "row", lg: "row" }}
-                                    gap={5}
-                                    justify="center"
-                                    divider={
-                                        <StackDivider borderColor='purple.500' />
-                                    }>
-                                    <Box maxH="200px" >
-                                        <Center>
-                                            <Image
-                                                rounded={'md'}
-                                                border={"1px solid"}
-                                                alt={selectedJob.jobTitle}
-                                                src={displaySelectedImage ||
-                                                    `https://image.pngaaa.com/768/791768-middle.png`
 
-                                                }
-                                                align='center'
-                                                maxH="200px"
-                                                objectFit="contain"
-                                                overflow="hidden"
-                                                onClick={() => imageInputRef.current.click()}
-                                            />
-                                            <input
+                            <Stack
+                                direction={{ base: 'row', sm: 'column', md: "row", lg: "row" }}
+                                gap={5}
+                                justify="center"
+                                divider={
+                                    <StackDivider borderColor='purple.500' />
+                                }>
+                                <Box maxH="200px" >
+                                    <Center>
+                                        <Image
+                                            rounded={'md'}
+                                            border={"1px solid"}
+                                            alt={selectedJob.jobTitle}
+                                            src={displaySelectedImage ||
+                                                `https://image.pngaaa.com/768/791768-middle.png`
+
+                                            }
+                                            align='center'
+                                            maxH="200px"
+                                            objectFit="contain"
+                                            overflow="hidden"
+                                            onClick={() => imageInputRef.current.click()}
+                                        />
+                                        <input
                                             id='jobImage'
                                             type='file'
                                             accept='image/*'
                                             ref={imageInputRef}
                                             style={{ display: "none" }}
                                             onChange={handleImageSelect}
-                                            />
-                                        </Center>
-                                    </Box>
-                                    <Box as={'header'}>
-                                    <FormLabel fontWeight={'bold'}>Job title</FormLabel>
-                                        <Input
-                                            lineHeight={1.1}
-                                            fontWeight={600}
-                                            fontSize={{ base: 'xl', sm: '3xl', lg: '4xl' }}
-                                            id='jobTitle'
-                                            value={formData['jobTitle'] || ''}
-                                            onChange={handleNewInputChange}
                                         />
-                                        <FormLabel fontWeight={'bold'}>Salary</FormLabel>
-                                        <HStack
+                                    </Center>
+                                </Box>
+                                <Box as={'header'}>
+                                    <FormLabel fontWeight={'bold'}>Job title</FormLabel>
+                                    <Input
+                                        lineHeight={1.1}
+                                        fontWeight={600}
+                                        fontSize={{ base: 'xl', sm: '3xl', lg: '4xl' }}
+                                        id='jobTitle'
+                                        value={formData['jobTitle'] || ''}
+                                        onChange={handleNewInputChange}
+                                    />
+                                    <FormLabel fontWeight={'bold'}>Salary</FormLabel>
+                                    <HStack
+                                        fontWeight={300}
+                                        fontSize={'2xl'}
+                                    >
+
+                                        <Text fontSize={'2xl'}>NRs. </Text>
+                                        <Input
                                             fontWeight={300}
                                             fontSize={'2xl'}
-                                        >
-                                            
-                                            <Text fontSize={'2xl'}>NRs. </Text>
-                                            <Input
-                                                fontWeight={300}
-                                                fontSize={'2xl'}
-                                                pt={2}
-                                                w={170}
-                                                type='number'
-                                                id='salary'
-                                                value={formData['salary'] || ''}
-                                                onChange={handleNewInputChange}
-
-                                            />
-                                            <Text >per month </Text>
-                                        </HStack>
-                                        <FormLabel fontWeight={'bold'}>Short description</FormLabel>
-                                        <Input fontWeight={300}
-                                            fontSize={'2xl'}
-                                            id='shortDescription'
-                                            value={formData['shortDescription'] || ''}
+                                            pt={2}
+                                            w={170}
+                                            type='number'
+                                            id='salary'
+                                            value={formData['salary'] || ''}
                                             onChange={handleNewInputChange}
 
                                         />
-                                    </Box>
-                                </Stack>
-                                <Box px={{ base: '5', sm: '5', md: '20', lg: '250' }}
-                                    py={5}
-                                >
-                                    <Box mt="1" justifyContent="center" alignContent="center">
-                                        <Box
-                                            fontSize="2xl"
-                                            fontWeight="semibold"
-                                            as="h4"
-                                            lineHeight="tight"
-                                            textAlign="center"
-                                        >
-                                            <Stack spacing={{ base: 6, md: 10 }}>
+                                        <Text >per month </Text>
+                                    </HStack>
+                                    <FormLabel fontWeight={'bold'}>Short description</FormLabel>
+                                    <Input fontWeight={300}
+                                        fontSize={'2xl'}
+                                        id='shortDescription'
+                                        value={formData['shortDescription'] || ''}
+                                        onChange={handleNewInputChange}
+
+                                    />
+                                </Box>
+                            </Stack>
+                            <Box px={{ base: '5', sm: '5', md: '20', lg: '250' }}
+                                py={5}
+                            >
+                                <Box mt="1" justifyContent="center" alignContent="center">
+                                    <Box
+                                        fontSize="2xl"
+                                        fontWeight="semibold"
+                                        as="h4"
+                                        lineHeight="tight"
+                                        textAlign="center"
+                                    >
+                                        <Stack spacing={{ base: 6, md: 10 }}>
 
 
-                                                <Stack
-                                                    spacing={{ base: 4, sm: 6 }}
-                                                    direction={'column'}
-                                                    divider={
-                                                        <StackDivider borderColor='gray.200' />
-                                                    }>
-                                                    <Box textAlign={'left'}>
-                                                        <Text
-                                                            fontSize={{ base: '20px', lg: '24px' }}
-                                                            fontWeight={'700'}
-                                                            textTransform={'uppercase'}
-                                                            mb={'4'}
-                                                        >
-                                                            Details
-                                                        </Text>
+                                            <Stack
+                                                spacing={{ base: 4, sm: 6 }}
+                                                direction={'column'}
+                                                divider={
+                                                    <StackDivider borderColor='gray.200' />
+                                                }>
+                                                <Box textAlign={'left'}>
+                                                    <Text
+                                                        fontSize={{ base: '20px', lg: '24px' }}
+                                                        fontWeight={'700'}
+                                                        textTransform={'uppercase'}
+                                                        mb={'4'}
+                                                    >
+                                                        Details
+                                                    </Text>
 
-                                                        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} fontSize={{ base: '14px', lg: '18px' }}>
-                                                            <List spacing={2}>
-                                                                <HStack>
-                                                                    <Text as={'span'} fontWeight={'bold'}>
-                                                                        Location:
-                                                                    </Text>
-                                                                    <Input
-                                                                        w="150"
-                                                                        id='location'
-                                                                        value={formData['location'] || ''}
-                                                                        onChange={handleNewInputChange}
-                                                                    />
-                                                                </HStack>
-                                                                <HStack>
-                                                                    <Text as={'span'} fontWeight={'bold'}>
-                                                                        Field:
-                                                                    </Text>
-                                                                    <Input
-                                                                        w="150"
-                                                                        id='category'
-                                                                        value={formData['category'] || ''}
-                                                                        onChange={handleNewInputChange}
-
-                                                                    />
-                                                                </HStack>
-                                                                <HStack>
-                                                                    <FormLabel fontWeight={'bold'}>Type</FormLabel>
-                                                                    <FormControl id="type" py={2}>
-                                                                        <Select
-                                                                            maxW="150"
-                                                                            value={formData['type'] || ''}
-                                                                            onChange={handleNewInputChange}
-                                                                        >
-                                                                            <option>Full time</option>
-                                                                            <option>Part time</option>
-                                                                        </Select>
-                                                                    </FormControl>
-                                                                </HStack>
-                                                                <HStack>
-                                                                    <Text as={'span'} fontWeight={'bold'}>
-                                                                        Work hours:
-                                                                    </Text>
-                                                                    <Input
-                                                                        maxW="100"
-                                                                        id='workHours'
-                                                                        value={formData['workHours'] || ''}
-                                                                        onChange={handleNewInputChange}
-                                                                    />
-                                                                </HStack>
-
-                                                            </List>
-                                                            <List spacing={2}>
-                                                                <HStack>
-                                                                    <Text as={'span'} fontWeight={'bold'}>
-                                                                        Days off:
-                                                                    </Text>
-                                                                    <Input
-                                                                        maxW="170"
-                                                                        id='daysOff'
-                                                                        value={formData['daysOff'] || ''}
-                                                                        onChange={handleNewInputChange}
-                                                                    />
-                                                                </HStack>
-                                                                <HStack>
-                                                                    <FormLabel fontWeight={'bold'}>Housing</FormLabel>
-                                                                    <FormControl id="housing" py={2}>
-                                                                        <Select
-                                                                            maxW="150"
-                                                                            value={formData['housing'] || ''}
-                                                                            onChange={handleNewInputChange}  >
-                                                                            <option>Yes</option>
-                                                                            <option>No</option>
-                                                                        </Select>
-                                                                    </FormControl>
-                                                                </HStack>
-                                                                <HStack>
-                                                                    <FormLabel fontWeight={'bold'}>Fooding</FormLabel>
-                                                                    <FormControl id="fooding" py={2}>
-                                                                        <Select
-                                                                            maxW="150"
-                                                                            value={formData['fooding'] || ''}
-                                                                            onChange={handleNewInputChange}
-                                                                        >
-                                                                            <option>Yes</option>
-                                                                            <option>No</option>
-                                                                        </Select>
-                                                                    </FormControl>
-                                                                </HStack>
-                                                            </List>
-                                                        </SimpleGrid>
-                                                    </Box>
-
-
-
-                                                    <Box textAlign={'left'}>
-                                                        <Text
-                                                            fontSize={{ base: '20px', lg: '24px' }}
-                                                            fontWeight={'700'}
-                                                            textTransform={'uppercase'}
-                                                            mb={'4'}>
-                                                            Qualifications Required
-                                                        </Text>
-                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                                <Input 
-                                                                id='reqQualification'
-                                                                value={formData['reqQualification'] || ''}
-                                                                onChange={handleNewInputChange}
+                                                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} fontSize={{ base: '14px', lg: '18px' }}>
+                                                        <List spacing={2}>
+                                                            <HStack>
+                                                                <Text as={'span'} fontWeight={'bold'}>
+                                                                    Location:
+                                                                </Text>
+                                                                <Input
+                                                                    w="150"
+                                                                    id='location'
+                                                                    value={formData['location'] || ''}
+                                                                    onChange={handleNewInputChange}
                                                                 />
-                                                        </VStack>
-                                                    </Box>
+                                                            </HStack>
+                                                            <HStack>
+                                                                <Text as={'span'} fontWeight={'bold'}>
+                                                                    Field:
+                                                                </Text>
+                                                                <Input
+                                                                    w="150"
+                                                                    id='category'
+                                                                    value={formData['category'] || ''}
+                                                                    onChange={handleNewInputChange}
+
+                                                                />
+                                                            </HStack>
+                                                            <HStack>
+                                                                <FormLabel fontWeight={'bold'}>Type</FormLabel>
+                                                                <FormControl id="type" py={2}>
+                                                                    <Select
+                                                                        maxW="150"
+                                                                        value={formData['type'] || ''}
+                                                                        onChange={handleNewInputChange}
+                                                                    >
+                                                                        <option>Full time</option>
+                                                                        <option>Part time</option>
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </HStack>
+                                                            <HStack>
+                                                                <Text as={'span'} fontWeight={'bold'}>
+                                                                    Work hours:
+                                                                </Text>
+                                                                <Input
+                                                                    maxW="100"
+                                                                    id='workHours'
+                                                                    value={formData['workHours'] || ''}
+                                                                    onChange={handleNewInputChange}
+                                                                />
+                                                            </HStack>
+
+                                                        </List>
+                                                        <List spacing={2}>
+                                                            <HStack>
+                                                                <Text as={'span'} fontWeight={'bold'}>
+                                                                    Days off:
+                                                                </Text>
+                                                                <Input
+                                                                    maxW="170"
+                                                                    id='daysOff'
+                                                                    value={formData['daysOff'] || ''}
+                                                                    onChange={handleNewInputChange}
+                                                                />
+                                                            </HStack>
+                                                            <HStack>
+                                                                <FormLabel fontWeight={'bold'}>Housing</FormLabel>
+                                                                <FormControl id="housing" py={2}>
+                                                                    <Select
+                                                                        maxW="150"
+                                                                        value={formData['housing'] || ''}
+                                                                        onChange={handleNewInputChange}  >
+                                                                        <option>Yes</option>
+                                                                        <option>No</option>
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </HStack>
+                                                            <HStack>
+                                                                <FormLabel fontWeight={'bold'}>Fooding</FormLabel>
+                                                                <FormControl id="fooding" py={2}>
+                                                                    <Select
+                                                                        maxW="150"
+                                                                        value={formData['fooding'] || ''}
+                                                                        onChange={handleNewInputChange}
+                                                                    >
+                                                                        <option>Yes</option>
+                                                                        <option>No</option>
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </HStack>
+                                                        </List>
+                                                    </SimpleGrid>
+                                                </Box>
 
 
-                                                    <Box textAlign={'left'}>
-                                                        <Text
-                                                            fontSize={{ base: '20px', lg: '24px' }}
-                                                            fontWeight={'700'}
-                                                            textTransform={'uppercase'}
-                                                            mb={'4'}>
-                                                            Qualifications Required
-                                                        </Text>
-                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                            
-                                                                <Input 
-                                                                id='skillsRequired'
-                                                                value={formData['skillsRequired'] || ''}
-                                                                onChange={handleNewInputChange}
-                                                                />
-                                                         
-                                                        </VStack> 
-                                                    </Box>
-                                                    <Box textAlign={'left'}>
-                                                        <Text
-                                                            fontSize={{ base: '20px', lg: '24px' }}
-                                                            fontWeight={'700'}
-                                                            textTransform={'uppercase'}
-                                                            mb={'4'}>
-                                                            Qualifications Required
-                                                        </Text>
-                                                        <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                           
-                                                                <Input id='responsiblities'
-                                                                value={formData['responsiblities'] || ''}
-                                                                onChange={handleNewInputChange}
-                                                                />
-                                                         
-                                                        </VStack>
-                                                    </Box>
-                                                </Stack>
-                                                <Box
-                                                    align='center'
-                                                >
-                                                    <Button
-                                                        w="7rem"
-                                                        colorScheme="purple"
-                                                        variant="solid"
-                                                        onClick={() => {
-                                                            handlePostNewJob()
-                                                        }}>
-                                                        Publish Job
-                                                    </Button>
+
+                                                <Box textAlign={'left'}>
+                                                    <Text
+                                                        fontSize={{ base: '20px', lg: '24px' }}
+                                                        fontWeight={'700'}
+                                                        textTransform={'uppercase'}
+                                                        mb={'4'}>
+                                                        Qualifications Required
+                                                    </Text>
+                                                    <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                        <Input
+                                                        as={"textarea"} 
+                                                        minH={'100px'}
+                                                            id='reqQualification'
+                                                            value={formData['reqQualification'] || ''}
+                                                            onChange={handleNewInputChange}
+                                                        />
+                                                    </VStack>
+                                                </Box>
+
+
+                                                <Box textAlign={'left'}>
+                                                    <Text
+                                                        fontSize={{ base: '20px', lg: '24px' }}
+                                                        fontWeight={'700'}
+                                                        textTransform={'uppercase'}
+                                                        mb={'4'}>
+                                                        Skills Required
+                                                    </Text>
+                                                    <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+
+                                                        <Input 
+                                                        as={"textarea"} 
+                                                        minH={'100px'}
+                                                            id='skillsRequired'
+                                                            value={formData['skillsRequired'] || ''}
+                                                            onChange={handleNewInputChange}
+                                                        />
+
+                                                    </VStack>
+                                                </Box>
+                                                <Box textAlign={'left'}>
+                                                    <Text
+                                                        fontSize={{ base: '20px', lg: '24px' }}
+                                                        fontWeight={'700'}
+                                                        textTransform={'uppercase'}
+                                                        mb={'4'}>
+                                                        Responsiblities
+                                                    </Text>
+                                                    <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+
+                                                        <Input 
+                                                        as={"textarea"} 
+                                                        minH={'100px'} 
+                                                        id='responsiblities'
+                                                            value={formData['responsiblities'] || ''}
+                                                            onChange={handleNewInputChange}
+                                                        />
+
+                                                    </VStack>
                                                 </Box>
                                             </Stack>
-                                        </Box>
+                                            <Box
+                                                align='center'
+                                            >
+                                                <Button
+                                                    w="7rem"
+                                                    colorScheme="purple"
+                                                    variant="solid"
+                                                    onClick={() => {
+                                                        handlePostNewJob()
+                                                    }}>
+                                                    Publish Job
+                                                </Button>
+                                            </Box>
+                                        </Stack>
                                     </Box>
                                 </Box>
-                            </form>
+                            </Box>
                         </Box>
                     )}
 

@@ -226,9 +226,9 @@ const EditNewspaperAds = () => {
                       objectFit="fill"
                       width="100%"
                       transition="0.15s ease-in-out"
-                      _hover={{
-                        brightness: '0.8',
-                      }}
+                                        _hover={{
+                                            filter: "brightness(0.6)"
+                                        }}
                       onClick={() => imageInputRef.current.click()}
                     />
                     <input

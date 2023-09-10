@@ -14,6 +14,7 @@ const EditCarousel = (props) => {
     const [imageTitles, setImageTitles] = useState('');
 
     const [imageTitle, setImageTitle] = useState('');
+    const [newPreviewImage, setNewPreviewImage] = useState(null)
 
     const carouselImageInputRef = useRef();
     const newImageUploadInputRef = useRef();
@@ -44,6 +45,13 @@ const EditCarousel = (props) => {
 
 
     // ADD A NEW TITLE 
+    const handleNewImageSelect = (event) => {
+        setSelectedImageFile(event.target.files[0])
+        if (event.target.files && event.target.files[0]) {
+            setNewPreviewImage(URL.createObjectURL(event.target.files[0]));
+        }
+    }
+
     const handleUploadNewImage = async () => {
         if (selectedImageFile && imageTitle) {
             const formData = new FormData();
@@ -59,6 +67,7 @@ const EditCarousel = (props) => {
                 fetchCarouselImages();
                 setSelectedImageFile(null);
                 setImageTitle('');
+                setNewPreviewImage(null)
             } catch (error) {
                 console.error('Error adding sector:', error);
             }
@@ -99,9 +108,7 @@ const EditCarousel = (props) => {
         }
     }
 
-    const handleNewImageSelect = (event) => {
-        setSelectedImageFile(event.target.files[0])
-    }
+
 
     const handleImageReplace = async (imageId) => {
         if (selectedImageFile) {
@@ -209,7 +216,7 @@ const EditCarousel = (props) => {
                                         width="100%"
                                         transition="0.15s ease-in-out"
                                         _hover={{
-                                            brightness: '0.8',
+                                            filter: "brightness(0.6)"
                                         }}
                                         onClick={() => carouselImageInputRef.current.click()}
                                     />
@@ -222,6 +229,7 @@ const EditCarousel = (props) => {
                                     ref={carouselImageInputRef}
                                     onChange={handleNewImageSelect}
                                 />
+                                
                                 <Button
                                     mt="2"
                                     onClick={() => handleImageReplace(imageData._id)}
@@ -259,7 +267,7 @@ const EditCarousel = (props) => {
 
                     </>)
                 })}
-                {carouselImageData.length <= 5 ?
+                {carouselImageData.length <= 11 ?
 
                     (<Box
                         boxShadow={'2xl'}
@@ -276,7 +284,7 @@ const EditCarousel = (props) => {
                         <AspectRatio>
                             <Image
                                 mt="8"
-                                src={'https://image.pngaaa.com/768/791768-middle.png'}
+                                src={newPreviewImage || 'https://image.pngaaa.com/768/791768-middle.png'}
                                 alt='Add Image'
                                 rounded='10px'
                                 h={120}

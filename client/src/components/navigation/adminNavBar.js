@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import axios from "axios"
+import axios, { all } from "axios"
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { resetLoginDetails } from '../../redux/reducers/userSllice'
@@ -120,21 +120,22 @@ export default function AdminNavBar() {
 
   }]
 
-  const adminMenuItems = menuItems.map((item) => {
-    const newItem = { ...item };
+  // const adminMenuItems = menuItems.map((item) => {
+  //   const newItem = { ...item };
   
-    newItem.href = `edit-${newItem.href}`;
+  //   newItem.href = `edit-${newItem.href}`;
   
-    if (newItem.children && newItem.children.length > 0) {
-      newItem.children = newItem.children.map((child) => ({
-        ...child,
-        href: `edit-${child.href}`,
-      }));
-    }
-    return newItem;
-  });
+  //   if (newItem.children && newItem.children.length > 0) {
+  //     newItem.children = newItem.children.map((child) => ({
+  //       ...child,
+  //       href: `edit-${child.href}`,
+  //     }));
+  //   }
+  //   return newItem;
+  // });
   
-  const allMenuItems = [...homeNavbarMenu, ...adminMenuItems, ...headerFooterItems]
+    const allMenuItems = [...homeNavbarMenu, ...menuItems, ...headerFooterItems]
+
   
   //PROFILE SECTION
   const handleSignOut = () => {
@@ -144,7 +145,7 @@ export default function AdminNavBar() {
 
   const handelEditProfileButtonClick = () => {
     navigate("/profile")
-}
+  }
 
   return (
     
@@ -206,12 +207,12 @@ export default function AdminNavBar() {
         >
             <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
               <HStack>
-                <Avatar
+                {/* <Avatar
                   size={'sm'}
                   src={
                     'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
                   }
-                />
+                /> */}
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
@@ -251,18 +252,33 @@ const DesktopNav = (props) => {
   const linkHoverColor = useColorModeValue('gray.100', 'white')
   const popoverContentBgColor = useColorModeValue('purple.100', 'purple.800')
   const navigate = useNavigate();
-
+  const allHrefMenu  = [
+    {href: "/"},
+    {href: "/edit-jobs"},
+    {href: "/edit-resume"},
+    {href: "/edit-license",
+    children: [{href: "/edit-license"},{href: "/edit-newspaper"}]
+      },
+    {href: "/edit-about-us",
+    children: [{href: "/edit-about-nepal"},{href: "/edit-choose-us"}]
+      },
+    {href: "/edit-gallery"},
+    {href: "/edit-contact-us"},
+    {href: "/edit-header"},
+    {href: "/edit-navbar"},
+    {href: "/edit-footer"}
+  ]
   return (<>
     {props.allMenuItems && (
 
     <Stack direction={'row'} spacing={4} fontWeight="bold">
-      {props.allMenuItems.map((navItem) => (
+      {props.allMenuItems.map((navItem, index) => (
         <Box key={navItem.label} fontWeight="bold">
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Box
                 p={2}
-                href={navItem.href ?? '/'}
+                // href={allHrefMenu.href ?? '/'}
                 fontSize={'xs'}
                 fontWeight={500}
                 color='gray.100'
@@ -274,7 +290,7 @@ const DesktopNav = (props) => {
                   shadow: 'md',
                   cursor: "pointer"
                 }}
-                onClick={() => navigate( navItem.href || "/edit-home")}
+                onClick={() => navigate( allHrefMenu[index].href || "/edit-home")}
               >
                 {navItem.label}
               </Box>
@@ -290,16 +306,18 @@ const DesktopNav = (props) => {
                 rounded={'10px'}
                 minW={'sm'}>
                 <Stack>
-                  {navItem.children.map((child) => (
+                  {navItem.children.map((child, childIndex) => (
                     <DesktopSubNav
                       key={child.label} {...child}
+                      href={allHrefMenu[index].children[childIndex].href}
+
                       _hover={{
                         textDecoration: 'none',
                         color: linkHoverColor,
                         bg: 'purple.400',
                         rounded: '10px',
                       }}
-                      onClick={() => navigate("/" + navItem?.children?.urlPath)}
+                      // onClick={() => navigate(allHrefMenu[index].children[ChildIndex])}
                     />
                   ))}
                 </Stack>

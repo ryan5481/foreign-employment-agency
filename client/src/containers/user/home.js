@@ -110,37 +110,7 @@ const Home = () => {
                     </Box>
                 </Stack>
             </Box>
-            {/* <Modal isOpen={isOpen} onClose={onClose} zIndex="9999" isCentered>
-                <ModalOverlay  />
-                <ModalContent bg="blue.400" >
-                    <Box
-                        as={IconButton}
-                        size='sm'
-                        colorScheme='red'
-                        rounded="full"
-                        top='20px'
-                        left='90%'
-                        zIndex='10'
-                        boxShadow="2xl"
-                        onClick={onClose}
-                        w='30px'
-                        h='30px'
-                    >
-                        <SmallCloseIcon
-                            color='gray.50'
-                            w='30px'
-                        />
-                    </Box>
-                    <ModalBody>
-                        {/* Image inside the modal */}
-                        {/* <Image
-                            src="https://skywaynepal.com/static/media/Qatar.0fcc35e00f31f7f1b9fd.jpeg"
-                            alt="Modal Image"
-                        /> */}
-                    {/* </ModalBody>
-                    <ModalFooter/>
-                </ModalContent>
-            </Modal> */} 
+           
         </>
     )
 }

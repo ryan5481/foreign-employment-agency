@@ -1,6 +1,6 @@
 
 import { Image, Badge, Input, Box, Grid, Button, Heading, useToast, Text, FormControl, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Textarea, VStack, useColorModeValue, Editable } from '@chakra-ui/react';
-import { SmallCloseIcon, CheckCircleIcon } from "@chakra-ui/icons"
+import { SmallCloseIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
 
@@ -194,6 +194,7 @@ const EditImageGallery = (props) => {
     return (
         <><Box bg={useColorModeValue('purple.100', 'gray.100')}
             color={useColorModeValue('purple.800', 'gray.100')}
+            h={"full"}
         >
             <Heading m={2} fontSize={'4xl'} fontFamily={'body'} pt={5}
                 color={useColorModeValue('purple.800', 'gray.100')}
@@ -305,7 +306,7 @@ const EditImageGallery = (props) => {
                                         overflow="hidden"
                                         transition="0.15s ease-in-out"
                                         _hover={{
-                                            brightness: '0.8',
+                                            filter: "brightness(0.6)"
                                         }}
                                         onClick={() => newImageUploadInputRef.current.click()}
                                     />
