@@ -94,7 +94,7 @@ export default function Profile() {
                     Edit Profile
                 </Heading>
                 <form onSubmit={handelSubmit}>
-                    <FormControl id="profilePicture">
+                    {/* <FormControl id="profilePicture">
                         <FormLabel>Profile Picture</FormLabel>
                         <Stack direction={['column', 'row']} spacing={6}>
                             <Center>
@@ -114,7 +114,7 @@ export default function Profile() {
                                 <Button w="full">Change Image</Button>
                             </Center>
                         </Stack>
-                    </FormControl>
+                    </FormControl> */}
                     <FormControl id="fullName">
                         <FormLabel>Full Name</FormLabel>
                         <Input
@@ -161,7 +161,7 @@ export default function Profile() {
                         </Button>
                     </Stack>
                 </form>
-                <Divider />
+                {/* <Divider />
                 <Button
                     bg={'gray.500'}
                     color={'white'}
@@ -171,7 +171,7 @@ export default function Profile() {
                     }}
                     onClick={navigateToChangePassword}>
                     Change Password
-                </Button>
+                </Button> */}
             </Stack>
         </Flex>
     )

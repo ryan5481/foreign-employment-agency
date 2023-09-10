@@ -129,7 +129,6 @@ const EditHomePage = () => {
             <Box alignContent={'center'} align="center"
                 bg={useColorModeValue('blue.600', 'blue.900')}
             >
-                
                 <Box >
                     <OperatingProcedure />
                 </Box>

@@ -39,7 +39,7 @@ import {
     MdFacebook,
     MdOutlineEmail,
 } from 'react-icons/md'
-import { BsWhatsapp, BsPerson, BsMessenger, BsInstagram } from 'react-icons/bs'
+import { BsWhatsapp, BsPerson, BsMessenger } from 'react-icons/bs'
 
 //GET
 const EditContactUs = (props) => {

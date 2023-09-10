@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 import {
@@ -61,6 +61,7 @@ export default function NavBar() {
   //GET
   const [menuItems, setMenuItems] = useState([]);
   const [logoImageData, setLogoImageData] = useState({});
+
 
   const fetchLogoImage = async () => {
     try {
@@ -158,9 +159,29 @@ export default function NavBar() {
 
 
 const DesktopNav = (props) => {
+  const textColorMode=useColorModeValue('blue.500', 'gray.300')
   const linkHoverColor = useColorModeValue('gray.200', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
   const navigate = useNavigate();
+  const menuHrefs = [
+    {href: "jobs"},
+    {href: "resume"},
+    {href: "license",
+    children: [
+      {href: "license"},
+      {href: "newspaper"},
+
+      ]
+    },
+    {href: "about-us",
+    children: [
+      {href: "about-nepal"},
+      {href: "choose-us"},
+      ]
+    },
+    {href: "gallery"},
+    {href: "contact-us"}
+  ]
 
   return (
     <Stack direction={'row'} spacing={4} fontWeight="bold"
@@ -182,7 +203,7 @@ const DesktopNav = (props) => {
       >
         Home
       </Box>
-      {props.menuItems.map((navItem) => (
+      {props.menuItems.map((navItem, index) => (
         <Center>
         <Box key={navItem.label} fontWeight="bold">
           <Popover trigger={'hover'} placement={'bottom-start'}>
@@ -190,7 +211,7 @@ const DesktopNav = (props) => {
               <Box
                 as="a"
                 p={2}
-                href={navItem.href ?? '/home'}
+                href={menuHrefs[index].href ?? '/home'}
                 fontSize={'md'}
                 fontWeight={500}
                 _hover={{
@@ -200,7 +221,7 @@ const DesktopNav = (props) => {
                   rounded: '10px',
                   shadow: 'md'
                 }}
-                onClick={() => navigate(navItem.urlPath || "/")}
+                // onClick={() => navigate(navItem.urlPath || "/")}
               >
                 {navItem.label}
               </Box>
@@ -212,20 +233,22 @@ const DesktopNav = (props) => {
                 boxShadow={'xl'}
                 bg={popoverContentBgColor}
                 p={4}
-                color='gray.600'
+                color={textColorMode}
                 rounded={'10px'}
                 minW={'sm'}>
                 <Stack>
-                  {navItem.children.map((child) => (
+                  {navItem.children.map((child, childIndex) => (
                     <DesktopSubNav
                       key={child.label} {...child}
+                      href={menuHrefs[index]?.children[childIndex]?.href}
                       _hover={{
                         textDecoration: 'none',
                         color: linkHoverColor,
                         bg: 'blue.400',
                         rounded: '10px',
+                        shadow: 'md'
                       }}
-                      onClick={() => navigate("/" + navItem?.children?.urlPath)}
+                      // onClick={() => navigate("/" + menuHrefs[index]?.children?.href)}
                     />
                   ))}
                 </Stack>
@@ -255,10 +278,11 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       color={'blue.500'}
       _hover={{ 
         color: linkHoverColor, 
-      bg: useColorModeValue('blue.400', 'gray.900'), rounded: '10px' }}
+      bg: useColorModeValue('blue.400', 'blue.400'), rounded: '10px' }}
       >
       <Stack direction={'row'} align={'center'}>
-        <Box>
+        <Box
+        >
           <Text
             transition={'all 0.3s ease'}
             _groupHover={{ color: 'white.400' }}

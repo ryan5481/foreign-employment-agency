@@ -122,7 +122,7 @@ const OperatingProcedure = () => {
                     Operating Procedure
                 </Heading>
             <Text fontSize={'xl'} textAlign='center' pb={10} >
-                Maximum of {stepperData.length + 1} images allowed
+                Maximum of 18 steps
             </Text>
             <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1r', lg: '1fr 1fr 1fr 1fr 1fr 1fr' }} gap px={{ sm: '2', md: '10', lg: '15' }} alignContent='center' align='center' rowGap={20} maxW={'100%'}>
                 {stepperData.map((step, index) => {

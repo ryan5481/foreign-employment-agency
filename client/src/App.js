@@ -1,15 +1,14 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import ConditionalRoute from "./routes/conditionalRoute"
 import AdminLogin from './containers/admin/auth/login';
 
 function App() {
-  const { userRole } = useSelector(state => state.user)
 
   return (
-    <div className="App" data-theme={userRole === 'admin' ? 'purple' : ''}>
+    <div className="App" style={{width:"100%"}} >
       <Routes>
         <Route path="/adminlogin/*" element={<AdminLogin />} />
         <Route path="/*" element={<Layout />} />

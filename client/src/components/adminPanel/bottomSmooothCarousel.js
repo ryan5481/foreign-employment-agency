@@ -7,11 +7,10 @@ import axios from "axios"
 const EditBottomCarousel = (props) => {
     const [carouselImageData, setCarouselImageData] = useState([])
 
-    const [sectorsData, setSectorsData] = useState([])
-    const [loading, setLoading] = useState(true)
     const [selectedimageId, setSelectedimageId] = useState(null);
     const [selectedImageFile, setSelectedImageFile] = useState(null);
     const [imageTitles, setImageTitles] = useState('');
+    const [newPreviewImage, setNewPreviewImage] = useState(null)
 
     const [imageTitle, setImageTitle] = useState('');
 
@@ -59,6 +58,7 @@ const EditBottomCarousel = (props) => {
                 fetchCarouselImages();
                 setSelectedImageFile(null);
                 setImageTitle('');
+                setNewPreviewImage(null)
             } catch (error) {
                 console.error('Error adding sector:', error);
             }
@@ -101,6 +101,9 @@ const EditBottomCarousel = (props) => {
 
     const handleNewImageSelect = (event) => {
         setSelectedImageFile(event.target.files[0])
+        if (event.target.files && event.target.files[0]) {
+            setNewPreviewImage(URL.createObjectURL(event.target.files[0]));
+        }
 
     }
 
@@ -139,7 +142,7 @@ const EditBottomCarousel = (props) => {
                 Top Carousel Images
             </Heading>
             <Text fontSize={'xl'} textAlign='center'>
-                Maximum of {carouselImageData.length} images allowed
+                Maximum of 10 images 
             </Text>
 
             <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
@@ -210,7 +213,7 @@ const EditBottomCarousel = (props) => {
                                         width="100%"
                                         transition="0.15s ease-in-out"
                                         _hover={{
-                                            brightness: '0.8',
+                                            filter: "brightness(0.6)"
                                         }}
                                         onClick={() => carouselImageInputRef.current.click()}
                                     />
@@ -277,7 +280,7 @@ const EditBottomCarousel = (props) => {
                         <AspectRatio>
                             <Image
                                 mt="8"
-                                src={'https://image.pngaaa.com/768/791768-middle.png'}
+                                src={newPreviewImage || 'https://image.pngaaa.com/768/791768-middle.png'}
                                 alt='Add Image'
                                 rounded='10px'
                                 h={120}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import {
-    Grid, useToast, Heading, Text, Box, useColorModeValue, IconButton, Image, Input, FormControl, Button, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter
+    Grid, Center, useToast, Heading, Text, Box, useColorModeValue, IconButton, Image, Input, FormControl, Button, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter
 } from '@chakra-ui/react'
 import { SmallCloseIcon } from "@chakra-ui/icons"
 
@@ -15,6 +15,7 @@ const EditCertificatePage = () => {
     const newImageInputRef = useRef()
     const [certificateTitle, setCertificateTitle] = useState('')
     const [newCertificateImage, setNewCertificateImage] = useState(null)
+    const [newPreviewImage, setNewPreviewImage] = useState(null)
 
     //PUT
     const [imageToUpdateWith, setImageToUpdateWith] = useState(null)
@@ -41,6 +42,9 @@ const EditCertificatePage = () => {
     //POST
     const handleNewCertificate = (event) => {
         setNewCertificateImage(event.target.files[0])
+        if (event.target.files && event.target.files[0]) {
+            setNewPreviewImage(URL.createObjectURL(event.target.files[0]));
+        }
     }
 
     const handleUploadNewImage = async() => {
@@ -67,6 +71,7 @@ const EditCertificatePage = () => {
                 fetchCertificates();
                 setNewCertificateImage(null);
                 setCertificateTitle('');
+                setNewPreviewImage(null)
               } else {
                 toast({
                   title: 'Error.',
@@ -158,7 +163,7 @@ const EditCertificatePage = () => {
                 if (res.status === 200) {
                     toast({
                       title: 'Success.',
-                      description: 'Image delete.',
+                      description: 'Image deleted.',
                       status: 'success',
                       duration: 5000,
                       isClosable: true,
@@ -248,9 +253,13 @@ const EditCertificatePage = () => {
                                         <Image
                                         
                                             roundedTop='5px'
-                                            src={`data:image/jpeg;base64,${cert.certificateImage}`}
+                                            src={ `data:image/jpeg;base64,${cert.certificateImage}`}
                                             alt={cert.certificateTitle}
                                             onClick={() => updateImageInputRef.current.click()}
+                                            transition="0.15s ease-in-out"
+                                        _hover={{
+                                            filter: "brightness(0.6)"
+                                        }}
                                         />
                                         <input
                                             type="file"
@@ -288,11 +297,13 @@ const EditCertificatePage = () => {
 
                     )
                 })}
-                <FormControl  alignSelf='center' w='sm' p="6" roundedTop='5px'>
+                <Center>
+
+                <FormControl  alignSelf='center' w='sm' p="10" roundedTop='5px'>
                     {/* IMAGE */}
                     <Image
                         roundedTop='5px'
-                        src={"https://image.pngaaa.com/768/791768-middle.png"}
+                        src={newPreviewImage || "https://image.pngaaa.com/768/791768-middle.png"}
                         alt="Upload image"
                         onClick={() => newImageInputRef.current.click()}
                     />
@@ -305,6 +316,7 @@ const EditCertificatePage = () => {
                     />
                     <Box bg='white' id='certificateTitle'>
                         <Input
+                        placeholder="Title"
                             roundedBottom='5px'
                             colorScheme="purple"
                             fontSize="2xl"
@@ -322,6 +334,7 @@ const EditCertificatePage = () => {
                         onClick={handleUploadNewImage}
                     >Add Image</Button>
                 </FormControl>
+                </Center>
             </Grid>
             {/* DELETE ALERT */}
             <AlertDialog

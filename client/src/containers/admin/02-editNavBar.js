@@ -148,7 +148,7 @@ const EditNavbar = () => {
             console.error("Error: ", error);
         }
     };
-    
+
 
     return (
         <Box bg='purple.500' h='100vh'>
@@ -225,13 +225,13 @@ const EditNavbar = () => {
                                     bg: 'blue.400',
                                     rounded: '10px',
                                     shadow: 'md'
-                                  }}
+                                }}
                             >
                                 <Text>Home</Text>
                             </Box>
                             {editedData.map((item, index) => (
                                 <Box key={index} rounded={"10px"} >
-                                    <Popover trigger={'hover'} placement={'bottom-start'}>
+                                    <Popover trigger={'click'} placement={'bottom-start'}>
                                         <PopoverTrigger>
                                             <Box
                                                 p={2}
@@ -243,7 +243,7 @@ const EditNavbar = () => {
                                                     bg: 'blue.400',
                                                     rounded: '10px',
                                                     shadow: 'md'
-                                                  }}
+                                                }}
                                             >
                                                 <Editable placeholder={item.label} >
                                                     <EditablePreview />
@@ -261,48 +261,46 @@ const EditNavbar = () => {
 
                                         {item.children.length !== 0 && (
                                             <PopoverContent color={textColorModeValue} rounded="10px"  >
-                                                
-                                                    {item.children.map((child, childIndex) => (
-                                                        <Box
-                                                            key={childIndex}
-                                                            p={2}
-                                                            px={5}
-                                                            textAlign='left'
-                                                            fontSize="md"
-                                                            fontWeight={500}
-                                                            color={textColorModeValue}
-                                                            _hover={{
-                                                                textDecoration: 'none',
-                                                                color: linkHoverColor,
-                                                                bg: 'blue.400',
-                                                                rounded: '10px',
-                                                                shadow: 'md'
-                                                              }}
-                                                        >
-                                                            <Editable placeholder={child.label}>
-                                                                <EditablePreview />
-                                                                <EditableInput
-                                                                color={textColorModeValue} 
-                                                                    _placeholder={{
-                                                                        color: "gray.100",
-                                                                    }}
-                                                                    _hover={{ color: "purple.800", cursor: "pointer" }}
-                                                                    value={child.label}
-                                                                    onClick={() => {
-                                                                        // Handle child label editing
-                                                                        const newChildLabel = prompt("Edit child label:", child.label);
-                                                                        if (newChildLabel !== null) {
-                                                                            handleInputChange(index, "children", [
-                                                                                ...item.children.slice(0, childIndex),
-                                                                                { label: newChildLabel },
-                                                                                ...item.children.slice(childIndex + 1),
-                                                                            ]);
-                                                                        }
-                                                                    }}
-                                                                />
-                                                            </Editable>
-                                                        </Box>
-                                                    ))}
+
+                                                {item.children.map((child, childIndex) => (
+                                                    <Box
+                                                        key={childIndex}
+                                                        p={2}
+                                                        px={5}
+                                                        textAlign='left'
+                                                        fontSize="md"
+                                                        fontWeight={500}
+                                                        color={textColorModeValue}
+                                                        _hover={{
+                                                            textDecoration: 'none',
+                                                            color: linkHoverColor,
+                                                            bg: 'blue.400',
+                                                            rounded: '10px',
+                                                            shadow: 'md'
+                                                        }}
+                                                    >
+                                                        <Editable placeholder={child.label}>
+                                                            <EditablePreview />
+                                                            <EditableInput
+                                                                color={textColorModeValue}
+                                                                _placeholder={{
+                                                                    color: "gray.100",
+                                                                }}
+                                                                _hover={{ color: "purple.800", cursor: "pointer" }}
+                                                                value={child.label}
+                                                                onChange={(e) => {
+                                                                    // Handle child label editing using e.target.value
+                                                                    const newChildLabel = e.target.value;
+                                                                    handleInputChange(index, "children", [
+                                                                        ...item.children.slice(0, childIndex),
+                                                                        { label: newChildLabel },
+                                                                        ...item.children.slice(childIndex + 1),
+                                                                    ]);
+                                                                }}
+                                                            />
+                                                        </Editable>
+                                                    </Box>
+                                                ))}
                                             </PopoverContent>
                                         )}
 
@@ -310,17 +308,18 @@ const EditNavbar = () => {
                                 </Box>
                             ))}
                         </HStack>
-                        <Button 
-                        _hover={{
-                            textDecoration: 'none',
-                            color: 'blue.600',
-                            bg: 'white',
-                            rounded: '5px',
-                            shadow: 'md'
-                          }}
-                        bg={buttonBgColorModeValue} 
-                        color={buttonColorModeValue} 
-                        onClick={handlePutRequest}>
+                        <Button
+                            mt={"200px"}
+                            _hover={{
+                                textDecoration: 'none',
+                                color: 'blue.600',
+                                bg: 'white',
+                                rounded: '5px',
+                                shadow: 'md'
+                            }}
+                            bg={buttonBgColorModeValue}
+                            color={buttonColorModeValue}
+                            onClick={handlePutRequest}>
                             Submit
                         </Button>
                     </>
@@ -331,6 +330,5 @@ const EditNavbar = () => {
 };
 
 export default EditNavbar;
-
 
 

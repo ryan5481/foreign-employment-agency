@@ -60,7 +60,7 @@ const UserRoutes = () => {
         <Route path="/adminlogin" element={<AdminLogin />} />
 
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutUs />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/about-nepal" element={<AboutNepal />} />
         <Route path="/choose-us" element={<WhyUs />} />
         <Route path="/jobs" element={<Jobs />} />
@@ -95,7 +95,7 @@ const AdminRoutes = () => {
         <Route path="/edit-resume" element={<EditResumePage />} />
         <Route path="/edit-license" element={<EditCertificatePage />} />
         <Route path="/edit-newspaper" element={<EditNewspaperAds />} />
-        <Route path="/edit-about" element={<EditAboutUsPage />} />
+        <Route path="/edit-about-us" element={<EditAboutUsPage />} />
         <Route path="/edit-about-nepal" element={<EditAboutUsPage />} />
         <Route path="/edit-choose-us" element={<EditWhyChooseUs />} />
         <Route path="/edit-gallery" element={<EditGalleryPage />} />

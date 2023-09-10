@@ -217,6 +217,9 @@ const EditTestimony = () => {
                     src={selectedPreviewImages[index] || `data:image/jpeg;base64,${testimony.testimonyImage}`}
                     alt={testimony.name}
                     onClick={() => imageInputRef.current.click()}
+                    _hover={{
+                      filter: "brightness(0.6)"
+                  }}
                   />
                   <input
                     type='file'

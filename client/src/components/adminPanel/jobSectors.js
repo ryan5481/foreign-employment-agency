@@ -203,7 +203,7 @@ const JobSectors = (props) => {
                                         width="100%"
                                         transition="0.15s ease-in-out"
                                         _hover={{
-                                            brightness: '0.8',
+                                            filter: "brightness(0.6)"
                                         }}
                                         onClick={() => sectorImageInputRef.current.click()}
                                     />

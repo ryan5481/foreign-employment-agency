@@ -186,6 +186,10 @@ const EditWhyChooseUs = () => {
                         h={400}
                         onClick={() => imageInputRef.current.click()}
                         cursor="pointer"
+                        transition="0.15s ease-in-out"
+                                        _hover={{
+                                            filter: "brightness(0.6)"
+                                        }}
                         >
                             <Box>
                                 

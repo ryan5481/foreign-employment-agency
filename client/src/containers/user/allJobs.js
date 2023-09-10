@@ -56,7 +56,7 @@ const AllJobs = ({ displayAll }) => {
                         <>{itemsToDisplay ? (itemsToDisplay.map((job, index) => {
                             return (<>
 
-                                <Card maxW='sm' key={job.jobCode}>
+                                <Card maxW='sm' key={job.jobCode} >
                                     <CardBody w='100%' h='10' bg='' >
                                         <AspectRatio>
                                             <Image
@@ -142,6 +142,7 @@ const AllJobs = ({ displayAll }) => {
                                     <Box>
                                         <Center>
                                             <Image
+                                            maxH={"md"}
                                                 roundedTop={'md'}
                                                 alt={modalJobData.jobTitle}
                                                 src={
