@@ -16,8 +16,8 @@ const EditImageGallery = (props) => {
     const [imageTitle, setImageTitle] = useState('');
     const [imageDescription, setImageDescription] = useState('');
 
-    const newImageUploadInputRef = useRef(null);
     const updateImageInputRef = useRef(null); 
+    const newImageUploadInputRef = useRef(null);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [imageToDelete, setImageToDelete] = useState(null);

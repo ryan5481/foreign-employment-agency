@@ -57,15 +57,15 @@ const jobSchema = ({
     },
 
     reqQualification: {
-        type: Array,
+        type: String,
     },
 
     responsiblities: {
-        type: Array,
+        type: String,
     },
 
     skillsRequired: {
-        type: Array,
+        type: String,
     },
     createdAt: { type: Date, default: Date.now },
     
