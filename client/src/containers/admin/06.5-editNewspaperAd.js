@@ -184,7 +184,7 @@ const EditNewspaperAds = () => {
               Newspaper Vacancy Snippets
             </Text>
           </Heading>
-          <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }} p={3} justifySelf={'center'} alignSelf="center">
+          <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr', lg: "1fr 1fr", xl: '1fr 1fr 1fr' }} p={3} justifySelf={'center'} alignSelf="center">
             {newspaperAds.map((ad, index) => {
               return (<>
                 <Box

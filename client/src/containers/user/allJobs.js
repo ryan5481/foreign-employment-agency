@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
-
+import { useLocation } from 'react-router-dom';
 import {
     Box, Button, Heading, useColorModeValue, Grid, Image, Stack, Badge, Divider, ButtonGroup, Card, useDisclosure, Modal, ModalOverlay, ModalContent, ModalBody, ModalFooter, CardBody, CardFooter, AspectRatio, Flex, Center,
     StackDivider, Text, VStack, List, ListItem, SimpleGrid, Spinner
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const AllJobs = ({ displayAll }) => {
+    const location = useLocation()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [modalJobData, setModalJobData] = useState({})
     const [reqQualifications, setReqQualifications] = useState([])
@@ -18,14 +19,24 @@ const AllJobs = ({ displayAll }) => {
     const [data, setData] = useState([])
     const navigate = useNavigate()
 
+    const selectedCategory = location.state?.selectedCategory;
 
     const fetchJobsList = async () => {
         try {
-            console.log("Fetching job list...");
-            const res = await axios.get('http://localhost:8000/jobslist');
-            let newData = res.data.jobsList
+
+            if(selectedCategory){
+                const res = await axios.get(`http://localhost:8000/jobslist?category=${selectedCategory}`);
+                let newData = res.data.jobsList
             setData(newData.reverse());
-            // console.log(data)
+
+
+            }else{
+                const res = await axios.get('http://localhost:8000/jobslist');
+                let newData = res.data.jobsList
+                setData(newData.reverse());
+            }
+
+
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -49,10 +60,15 @@ const AllJobs = ({ displayAll }) => {
                 color='gray.100'
             >
                 <div>
-                    <Heading fontSize={'4xl'} fontFamily={'body'} pt={5}>
+                    {selectedCategory ? (<Heading fontSize={'4xl'} fontFamily={'body'} pt={5}>
+                        Latest {selectedCategory} Jobs
+                    </Heading>) : (<Heading fontSize={'4xl'} fontFamily={'body'} pt={5}>
                         Latest Jobs
-                    </Heading>
-                    <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr', xl: '1fr 1fr 1fr 1fr 1fr', '2xl': '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+                    </Heading>) }
+                    
+
+                    {/* {data && data.length !== 0 ?  ( */}
+                    <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr', lg: '1fr 1fr 1fr', xl: '1fr 1fr 1fr 1fr 1fr', '2xl': '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
                         <>{itemsToDisplay ? (itemsToDisplay.map((job, index) => {
                             return (<>
 
@@ -81,6 +97,8 @@ const AllJobs = ({ displayAll }) => {
                                     <Divider />
                                     <CardFooter alignContent={'middle'} align="center">
                                         <ButtonGroup spacing='3' >
+                                            <Center>
+
                                             <Button
                                                 variant='ghost'
                                                 colorScheme='blue'
@@ -100,6 +118,7 @@ const AllJobs = ({ displayAll }) => {
                                             >
                                                 Apply now
                                             </Button>
+                                            </Center>
                                         </ButtonGroup>
                                     </CardFooter>
                                 </Card>
@@ -110,7 +129,9 @@ const AllJobs = ({ displayAll }) => {
                             color='blue.500'
                             size='xl' />}
                         </>
-                    </Grid>
+                    </Grid> 
+                    {/* ) : (<Text>Jobs not available at this moment.</Text>) } */}
+
                     {displayAll == false && (<Flex w="full" alignItems="center" justifyContent="center">
                         <Box pb={"15px"}>
                             <Button
@@ -271,13 +292,20 @@ const AllJobs = ({ displayAll }) => {
                                                                 mb={'4'}>
                                                                 Qualifications Required
                                                             </Text>
-                                                            {reqQualifications.map((qualify, index) => (
-                                                                <List spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                                    <ListItem>
-                                                                        {index + 1 + "."} {qualify}
-                                                                    </ListItem>
-                                                                </List>
-                                                            ))}
+                                                            <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                            <Text textAlign={"left"}>
+                                                                {modalJobData && modalJobData.reqQualification ? (
+                                                                    modalJobData.reqQualification
+                                                                        .split(". ")
+                                                                        .filter((sentence) => sentence.trim() !== "")
+                                                                        .map((sentence, index) => (
+                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                        ))
+                                                                ) : (
+                                                                    <span>No qualification information available</span>
+                                                                )}
+                                                            </Text>
+                                                        </VStack>
                                                         </Box>
                                                         <Box textAlign={'left'}>
                                                             <Text
@@ -287,13 +315,20 @@ const AllJobs = ({ displayAll }) => {
                                                                 mb={'4'}>
                                                                 Skills Required
                                                             </Text>
-                                                            {reqSkills.map((skill, index) => (
-                                                                <List spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                                    <ListItem>
-                                                                        {index + 1 + "."} {skill}
-                                                                    </ListItem>
-                                                                </List>
-                                                            ))}
+                                                            <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                            <Text textAlign={"left"}>
+                                                                {modalJobData && modalJobData.skillsRequired ? (
+                                                                    modalJobData.skillsRequired
+                                                                        .split(". ")
+                                                                        .filter((sentence) => sentence.trim() !== "")
+                                                                        .map((sentence, index) => (
+                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                        ))
+                                                                ) : (
+                                                                    <span>No skills information available</span>
+                                                                )}
+                                                            </Text>
+                                                        </VStack>
                                                         </Box>
                                                         <Box textAlign={'left'}>
                                                             <Text
@@ -303,13 +338,20 @@ const AllJobs = ({ displayAll }) => {
                                                                 mb={'4'}>
                                                                 Responsiblities
                                                             </Text>
-                                                            {reqResponsiblities.map((responsiblity, index) => (
-                                                                <List spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                                    <ListItem>
-                                                                        {index + 1 + "."} {responsiblity}
-                                                                    </ListItem>
-                                                                </List>
-                                                            ))}
+                                                            <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                            <Text textAlign={"left"}>
+                                                                {modalJobData && modalJobData.responsiblities ? (
+                                                                    modalJobData.responsiblities
+                                                                        .split(". ")
+                                                                        .filter((sentence) => sentence.trim() !== "")
+                                                                        .map((sentence, index) => (
+                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                        ))
+                                                                ) : (
+                                                                    <span>No responsiblities information available</span>
+                                                                )}
+                                                            </Text>
+                                                        </VStack>
                                                         </Box>
                                                     </Stack>
                                                     <Box
@@ -327,7 +369,7 @@ const AllJobs = ({ displayAll }) => {
                                 <Button colorScheme='blue' rounded='30px' mr={3} onClick={onClose}>
                                     Close
                                 </Button>
-                                <Button variant='solid' colorScheme='blue' rounded='30px' size={'md'} onClick={() => navigate("/resume")}>
+                                <Button variant='solid' colorScheme='blue' rounded='30px' size={'md'} onClick={() => handleApplyNowClick(modalJobData.jobCode)}>
                                     Apply now
                                 </Button>
                             </ModalFooter>

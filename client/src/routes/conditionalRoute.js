@@ -39,6 +39,7 @@ import AdminNavBar from '../components/navigation/adminNavBar'
 import { useColorModeValue } from '@chakra-ui/react'
 
 import '../App.css';
+import EditAboutNepal from '../containers/admin/07.6-EditAboutNepal'
 
 
 const ConditionalRoute = () => {
@@ -96,7 +97,7 @@ const AdminRoutes = () => {
         <Route path="/edit-license" element={<EditCertificatePage />} />
         <Route path="/edit-newspaper" element={<EditNewspaperAds />} />
         <Route path="/edit-about-us" element={<EditAboutUsPage />} />
-        <Route path="/edit-about-nepal" element={<EditAboutUsPage />} />
+        <Route path="/edit-about-nepal" element={<EditAboutNepal />} />
         <Route path="/edit-choose-us" element={<EditWhyChooseUs />} />
         <Route path="/edit-gallery" element={<EditGalleryPage />} />
         <Route path="/edit-contact-us" element={<EditContactUsPage />} />

@@ -32,8 +32,9 @@ const StatisticsCard = () => {
   return (
     <Grid
     ref={inViewRef}
-      templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }}
-      templateRows={{ base: '1fr 1fr 1fr', md: '1fr' }}
+      templateColumns={{ base: '1fr', md: '1fr', lg: '1fr 1fr 1fr' }}
+      templateRows={{ base: '1fr 1fr 1fr',  md: '1fr 1fr 1fr',lg: '1fr' }}
+      pb={{md: "600px", lg: '0px'}}
       gap={5}
       alignItems="center"
       justifyItems="center"

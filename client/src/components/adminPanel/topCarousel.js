@@ -1,12 +1,12 @@
 
-import { Image, Stack, Input, Box, Grid, Button, Heading, AspectRatio, Text, FormControl, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter } from '@chakra-ui/react';
+import { Image, useToast, Stack, Input, Box, Grid, Button, Heading, AspectRatio, Text, FormControl, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter } from '@chakra-ui/react';
 import { SmallCloseIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
 
 const EditCarousel = (props) => {
     const [carouselImageData, setCarouselImageData] = useState([])
-
+    const toast = useToast()
     const [sectorsData, setSectorsData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectedimageId, setSelectedimageId] = useState(null);
@@ -59,18 +59,47 @@ const EditCarousel = (props) => {
             formData.append('imageTitle', imageTitle);
 
             try {
-                await axios.post("http://localhost:8000/edit-homepage/add-topcarousel-image", formData, {
+                const data = await axios.post("http://localhost:8000/edit-homepage/add-topcarousel-image", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                fetchCarouselImages();
-                setSelectedImageFile(null);
-                setImageTitle('');
-                setNewPreviewImage(null)
+                if (data) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Data updated.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                    fetchCarouselImages();
+                    setSelectedImageFile(null);
+                    setImageTitle('');
+                    setNewPreviewImage(null)
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
+
             } catch (error) {
-                console.error('Error adding sector:', error);
+                console.error("Error updating image: ", error)
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
+
         }
     }
 
@@ -83,8 +112,40 @@ const EditCarousel = (props) => {
                     onClose();
                     console.log("Item deleted.")
                 }
+                if (res) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Image deleted.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                    fetchCarouselImages();
+                    setSelectedImageFile(null);
+                    setImageTitle('');
+                    setNewPreviewImage(null)
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to delete image.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
+
             } catch (error) {
-                console.error("Error deleting the item: ", error)
+                console.error("Error updating image: ", error)
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
     }
@@ -148,7 +209,7 @@ const EditCarousel = (props) => {
                 Maximum of {carouselImageData.length} images allowed
             </Text>
 
-            <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+            <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
 
                 {carouselImageData.map((imageData, index) => {
                     return (<>
@@ -158,9 +219,9 @@ const EditCarousel = (props) => {
                             role={'group'}
                             p={2}
                             maxW={'330px'}
-                            maxH="310"
+                            h={{base: '450px', sm: '450px', md: '380px',lg: '380px' }}
                             w={'full'}
-                            minH={{ base: "400", sm: "340", md: "320", lg: "340" }}
+                            // minH={{ base: "400", sm: "340", md: "320", lg: "340" }}
                             boxShadow={'2xl'}
                             pos={'relative'}
                             zIndex={1}
@@ -229,7 +290,7 @@ const EditCarousel = (props) => {
                                     ref={carouselImageInputRef}
                                     onChange={handleNewImageSelect}
                                 />
-                                
+
                                 <Button
                                     mt="2"
                                     onClick={() => handleImageReplace(imageData._id)}

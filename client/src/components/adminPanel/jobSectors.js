@@ -1,5 +1,5 @@
 
-import { Image, Stack, Input, Box, Grid, Button, Heading, AspectRatio, Text, FormControl, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter } from '@chakra-ui/react';
+import { Image, Stack, useToast, Input, Box, Grid, Button, Heading, AspectRatio, Text, FormControl, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter } from '@chakra-ui/react';
 import { SmallCloseIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
@@ -10,9 +10,9 @@ const JobSectors = (props) => {
     const [selectedSectorId, setSelectedSectorId] = useState(null);
     const [selectedImageFile, setSelectedImageFile] = useState(null);
     const [sectorTitles, setSectorTitles] = useState('');
-
+    const toast = useToast()
     const [sectorTitle, setSectorTitle] = useState('');
-
+    const [newPreviewImage, setNewPreviewImage] = useState(null)
 
     const sectorImageInputRef = useRef();
     const newImageInputRef = useRef();
@@ -26,12 +26,37 @@ const JobSectors = (props) => {
             try {
                 const res = await axios.delete(`http://localhost:8000/delete-worksector/${sectorToDelete}`)
                 if (res) {
-                    fetchWorkSectors();
+                    toast({
+                        title: 'Success.',
+                        description: 'Data updated.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
                     onClose();
-                    console.log("Item deleted.")
+                    fetchWorkSectors();
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
                 }
+
             } catch (error) {
-                console.error("Error deleting the item: ", error)
+                console.error("Error updating image: ", error)
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
     }
@@ -63,20 +88,50 @@ const JobSectors = (props) => {
         formData.append('_id', sectorId);
         formData.append('sectorTitle', updatedTitle);
         try {
-            await axios.put('http://localhost:8000/edit-homepage/worksectors', formData, {
+            const res = await axios.put('http://localhost:8000/edit-homepage/worksectors', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            fetchWorkSectors();
+            if (res) {
+                toast({
+                    title: 'Success.',
+                    description: 'Data updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                fetchWorkSectors();
+            } else {
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+            }
+
         } catch (error) {
-            console.error('Error updating title:', error);
+            console.error("Error updating image: ", error)
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
         }
     }
 
     const handleImageSelect = (event) => {
         setSelectedImageFile(event.target.files[0])
-
+        if (event.target.files && event.target.files[0]) {
+            setNewPreviewImage(URL.createObjectURL(event.target.files[0]));
+        }        
     }
 
     const handleImageReplace = async (sectorId) => {
@@ -85,17 +140,44 @@ const JobSectors = (props) => {
             formData.append("sectorImage", selectedImageFile)
             formData.append("_id", sectorId)
             try {
-                await axios.put("http://localhost:8000/edit-homepage/worksectors", formData, {
+                const res = await axios.put("http://localhost:8000/edit-homepage/worksectors", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 })
-                fetchWorkSectors();
+                if (res) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Data updated.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                    fetchWorkSectors();
                 setSelectedImageFile(null);
                 setSelectedSectorId(null);
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
+    
             } catch (error) {
-
                 console.error("Error updating image: ", error)
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
     }
@@ -108,16 +190,45 @@ const JobSectors = (props) => {
             formData.append('sectorTitle', sectorTitle);
 
             try {
-                await axios.post("http://localhost:8000/edit-homepage/add-worksector", formData, {
+                const res = await axios.post("http://localhost:8000/edit-homepage/add-worksector", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                fetchWorkSectors();
-                setSelectedImageFile(null);
-                setSectorTitle('');
+                if (res) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Sector added.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                    fetchWorkSectors();
+                    setSelectedImageFile(null);
+                    setSectorTitle('');
+                    setNewPreviewImage(null)
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
+                }
+    
             } catch (error) {
-                console.error('Error adding sector:', error);
+                console.error("Error updating image: ", error)
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
     }
@@ -136,7 +247,7 @@ const JobSectors = (props) => {
                 Sectors We Work In
             </Heading>
 
-            <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+            <Grid templateColumns={{base:'1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr', xl: '1fr 1fr 1fr 1fr 1fr 1fr'}} p={10} gap={10}>
 
                 {sectorsData.map((sector, index) => {
                     return (<>
@@ -147,7 +258,7 @@ const JobSectors = (props) => {
                             p={2}
                             maxW={'330px'}
                             w={'full'}
-                            minH={{ base: "400", sm: "340", md: "320", lg: "340" }}
+                            h={{base: '430px', sm: '460px', md: '400px',lg: '380px' }}
                             boxShadow={'2xl'}
                             pos={'relative'}
                             zIndex={1}
@@ -263,10 +374,10 @@ const JobSectors = (props) => {
                     minH="400"
                     pos={'relative'}
                     zIndex={1}>
-                    <Text fontWeight="bold" pb={2} >Add new sector</Text>
+                    <Text fontWeight="bold" pb={2} >Image Preview</Text>
                     <AspectRatio>
                         <Image
-                            src={'https://image.pngaaa.com/768/791768-middle.png'}
+                            src={newPreviewImage || 'https://image.pngaaa.com/768/791768-middle.png'}
                             // selectedImageFile ? URL.createObjectURL(selectedImageFile) : 
                             alt='Add Image'
                             rounded='10px'

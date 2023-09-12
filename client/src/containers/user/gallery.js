@@ -30,12 +30,15 @@ const Gallery = () => {
     }, [])
     
     return(
-        <Center bg={useColorModeValue('blue.500', 'gray.800')}
+        <Center 
+        py={10}
+        bg={useColorModeValue('blue.500', 'gray.800')}
         color='gray.100'
-            w={"full"}>
+            w={"full"}
+            >
             <Heading m={2} fontSize={'2xl'} fontFamily={'body'} p={5}>
                 Image Gallery
-                <Grid templateColumns={{sm: '1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr' }} gap={5} p={10} align="center" rowGap={5}>
+                <Grid templateColumns={{sm: '1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr' }} gap={5} p={10} align="center" rowGap={5}>
                     <GalleryPhotoCard imageGalleryData={imageGalleryData}/>
                 </Grid>
             </Heading>

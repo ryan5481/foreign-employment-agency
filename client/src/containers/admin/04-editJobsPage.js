@@ -29,7 +29,7 @@ const AllJobs = ({ displayAll }) => {
     const formBgColorMode = useColorModeValue("gray.50", "gray.700")
     const formTextColorMode = useColorModeValue("purple.800", "gray.100")
 
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         jobTitle: '',
         salary: '',
         category: '',
@@ -44,7 +44,8 @@ const AllJobs = ({ displayAll }) => {
         responsiblities: [],
         skillsRequired: [],
         jobImage: null
-    })
+    }
+    const [formData, setFormData] = useState(initialFormData);
 
     //POST
 
@@ -62,23 +63,6 @@ const AllJobs = ({ displayAll }) => {
             value === 'No' ? false :
                 value
         setFormData((prevData) => ({
-            // if (id === 'reqQualifications') {
-            //     return {
-            //         ...prevData,
-            //         reqQualification: [...prevData.reqQualification, value]
-            //     };
-            // } else if(id === 'reqQualifications') {
-            //     return {
-            //         ...prevData,
-            //         responsiblities: [...prevData.responsiblities, value]
-            //     };
-            // } else if(id === 'skillsRequired') {
-            //     return {
-            //         ...prevData,
-            //         skillsRequired: [...prevData.skillsRequired, value]
-            //     };
-            // }
-            // else {
 
             ...prevData,
             [id]: newValue
@@ -87,19 +71,26 @@ const AllJobs = ({ displayAll }) => {
         }))
     }
 
-
     const handlePostNewJob = async () => {
         try {
+            if (selectedImage === null) {
+                toast({
+                    title: 'Error',
+                    description: 'Please select an image.',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                activatePostNewJob(true)
+            }
+
             const updatedFormData = new FormData();
 
             // Append all the form data to the updated FormData
             Object.entries(formData).forEach(([key, value]) => {
                 if (key === 'jobImage') {
                     updatedFormData.append(key, selectedImage);
-                } else if (Array.isArray(value)) {
-                    value.forEach((item, index) => {
-                        updatedFormData.append(`${key}[${index}]`, item);
-                    });
                 } else {
                     updatedFormData.append(key, value);
                 }
@@ -121,7 +112,7 @@ const AllJobs = ({ displayAll }) => {
                     position: 'top'
                 });
                 setDisplaySelectedImage(null)
-                setFormData({})
+                setFormData(initialFormData)
                 activatePostNewJob(true)
                 fetchJobsList()
             } else {
@@ -133,17 +124,20 @@ const AllJobs = ({ displayAll }) => {
                     isClosable: true,
                     position: 'top'
                 });
+            // window.location.reload()
             }
         } catch (error) {
             console.error("Error: ", error)
             toast({
                 title: 'Error',
-                description: 'Please select an image.',
+                description: 'Error. Please Try again.',
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
                 position: 'top'
             });
+            // window.location.reload()
+            activatePostNewJob(true)
         }
     }
 
@@ -194,20 +188,12 @@ const AllJobs = ({ displayAll }) => {
         fetchJobsList();
     }, [])
 
-
-    // function capitalizeWords(str) {
-    //     return str
-    //         .split(' ')
-    //         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    //         .join(' ');
-    // }
-
-
     return (
         <>
             <Box
                 bg={useColorModeValue('blue.500', 'gray.800')}
                 color={useColorModeValue('gray.50', 'gray.800')}
+                h={"full"}
             >
                 <Box p={1} pt={5} color="purple.800" bg={useColorModeValue('purple.100', 'purple.800')} h="100%">
                     <Heading color={useColorModeValue('blue.800', 'gray.100')}>Jobs</Heading>
@@ -219,7 +205,7 @@ const AllJobs = ({ displayAll }) => {
                             colorScheme='purple'
                             variant='solid'
                             onClick={() => {
-                                window.location.reload()
+                                // window.location.reload()
                                 activatePostNewJob(true)
                             }}
                         >All jobs</Button>
@@ -235,7 +221,7 @@ const AllJobs = ({ displayAll }) => {
                         <VStack p={10} >
                             {/* HEADER */}
                             <Grid color='blue.800'
-                                templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                                templateColumns={{ sm: '1fr', md:'1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
                                 p={3}
                                 gap={1}
                                 textAlign={"left"}
@@ -270,7 +256,7 @@ const AllJobs = ({ displayAll }) => {
                                         borderColor="lightGray"
                                     >
                                         <Grid
-                                            templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                                            templateColumns={{ sm: '1fr', md:'1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
                                             p={3}
                                             gap={2}
                                             style={rowStyle}
@@ -318,22 +304,8 @@ const AllJobs = ({ displayAll }) => {
                         <Box mt={"3%"}  >
                             <Modal isOpen={isOpen} onClose={onClose}>
                                 <ModalOverlay />
-                                <ModalContent minW={"80%"} >
-                                <ModalHeader alignContent={"right"} >
-                                        <DeleteIcon 
-                                        pos={"relative"}
-                                        bottom={3}
-                                        colorScheme="purple"
-                                        w={4}
-                                        style={{ cursor: 'pointer' }}
-                                        _hover={{ color: 'purple.600' }}
-                                        onClick={() => {
-                                            setJobTodelete(selectedJob._id)
-                                            handleDeleteDialogOpen()
-
-                                        }}
-                                         />
-                                       
+                                <ModalContent minW={"90%"} >
+                                    <ModalHeader alignContent={"right"} >
                                     </ModalHeader>
                                     <ModalCloseButton />
                                     <ModalBody>
@@ -502,10 +474,18 @@ const AllJobs = ({ displayAll }) => {
                                                         </Text>
 
                                                         <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                            {reqQualificationsList.map((qualify, index) => (
-                                                                <Text textAlign={"left"}
-                                                                >{qualify}</Text>
-                                                            ))}
+                                                            <Text textAlign={"left"}>
+                                                                {selectedJob && selectedJob.reqQualification ? (
+                                                                    selectedJob.reqQualification
+                                                                        .split(". ")
+                                                                        .filter((sentence) => sentence.trim() !== "")
+                                                                        .map((sentence, index) => (
+                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                        ))
+                                                                ) : (
+                                                                    <span>No qualification information available</span>
+                                                                )}
+                                                            </Text>
                                                         </VStack>
                                                     </Box>
 
@@ -519,10 +499,18 @@ const AllJobs = ({ displayAll }) => {
                                                             Skills Required
                                                         </Text>
                                                         <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                            {reqSkillsList.map((skill, index) => (
-                                                                <Text textAlign={"left"}
-                                                                >{skill}</Text>
-                                                            ))}
+                                                            <Text textAlign={"left"}>
+                                                                {selectedJob && selectedJob.skillsRequired ? (
+                                                                    selectedJob.skillsRequired
+                                                                        .split(". ")
+                                                                        .filter((sentence) => sentence.trim() !== "")
+                                                                        .map((sentence, index) => (
+                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                        ))
+                                                                ) : (
+                                                                    <span>No skills information available</span>
+                                                                )}
+                                                            </Text>
                                                         </VStack>
                                                     </Box>
                                                     <Box textAlign={'left'}>
@@ -531,14 +519,22 @@ const AllJobs = ({ displayAll }) => {
                                                             fontWeight={'700'}
                                                             textTransform={'uppercase'}
                                                             mb={'4'}>
-                                                            Qualifications Required
+                                                            responsiblities
                                                         </Text>
 
                                                         <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                            {reqResponsiblitiesList.map((responsiblity, index) => (
-                                                                <Text textAlign={"left"}
-                                                                >{responsiblity}</Text>
-                                                            ))}
+                                                            <Text textAlign={"left"}>
+                                                                {selectedJob && selectedJob.responsiblities ? (
+                                                                    selectedJob.responsiblities
+                                                                        .split(". ")
+                                                                        .filter((sentence) => sentence.trim() !== "")
+                                                                        .map((sentence, index) => (
+                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                        ))
+                                                                ) : (
+                                                                    <span>No responsiblities information available</span>
+                                                                )}
+                                                            </Text>
                                                         </VStack>
                                                     </Box>
                                                 </Stack>
@@ -550,7 +546,7 @@ const AllJobs = ({ displayAll }) => {
                                         </Box>
                                         {/* </ScrollDiv> */}
                                     </ModalBody>
-                                    
+
                                 </ModalContent>
                             </Modal>
                         </Box>
@@ -594,7 +590,7 @@ const AllJobs = ({ displayAll }) => {
                         >
 
                             <Stack
-                                direction={{ base: 'row', sm: 'column', md: "row", lg: "row" }}
+                                direction={{ base: 'column', sm: 'column', md: "row", lg: "row" }}
                                 gap={5}
                                 justify="center"
                                 divider={
@@ -639,13 +635,12 @@ const AllJobs = ({ displayAll }) => {
                                     <FormLabel fontWeight={'bold'}>Salary</FormLabel>
                                     <HStack
                                         fontWeight={300}
-                                        fontSize={'2xl'}
+                                        // fontSize={'2xl'}
                                     >
 
-                                        <Text fontSize={'2xl'}>NRs. </Text>
+                                        <Text >NRs. </Text>
                                         <Input
                                             fontWeight={300}
-                                            fontSize={'2xl'}
                                             pt={2}
                                             w={170}
                                             type='number'
@@ -800,11 +795,12 @@ const AllJobs = ({ displayAll }) => {
                                                     </Text>
                                                     <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
                                                         <Input
-                                                        as={"textarea"} 
-                                                        minH={'100px'}
+                                                            as={"textarea"}
+                                                            minH={'100px'}
                                                             id='reqQualification'
                                                             value={formData['reqQualification'] || ''}
                                                             onChange={handleNewInputChange}
+
                                                         />
                                                     </VStack>
                                                 </Box>
@@ -820,9 +816,9 @@ const AllJobs = ({ displayAll }) => {
                                                     </Text>
                                                     <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
 
-                                                        <Input 
-                                                        as={"textarea"} 
-                                                        minH={'100px'}
+                                                        <Input
+                                                            as={"textarea"}
+                                                            minH={'100px'}
                                                             id='skillsRequired'
                                                             value={formData['skillsRequired'] || ''}
                                                             onChange={handleNewInputChange}
@@ -840,10 +836,10 @@ const AllJobs = ({ displayAll }) => {
                                                     </Text>
                                                     <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
 
-                                                        <Input 
-                                                        as={"textarea"} 
-                                                        minH={'100px'} 
-                                                        id='responsiblities'
+                                                        <Input
+                                                            as={"textarea"}
+                                                            minH={'100px'}
+                                                            id='responsiblities'
                                                             value={formData['responsiblities'] || ''}
                                                             onChange={handleNewInputChange}
                                                         />

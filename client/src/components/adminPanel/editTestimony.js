@@ -12,7 +12,8 @@ import {
   useColorModeValue,
   Textarea,
   VStack,
-  Button
+  Button,
+  useToast
 } from '@chakra-ui/react'
 
 interface Props {
@@ -81,6 +82,7 @@ const TestimonialText = (props: Props) => {
 }
 
 const EditTestimony = () => {
+  const toast = useToast()
 
   const [testimonyData, setTestimonyData] = useState([])
   const [selectedPreviewImages, setSelectedPreviewImages] = useState([]);
@@ -137,7 +139,7 @@ const EditTestimony = () => {
        formData.append("name", updatedName) 
        formData.append("description", updatedDescription) 
        formData.append("address", updatedAddress) 
-       formData.append("testimonyImage", selectedImageFile) 
+       formData.append("testimonyImage", selectedImageFile || testimonyData[index].testimonyImage) 
       
 
       try {
@@ -146,12 +148,46 @@ const EditTestimony = () => {
             "Content-Type": "multipart/form-data"
         }
         })
+        if(data){
+          toast({
+            title: 'Success.',
+            description: 'Data updated.',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+            position: 'top'
+        });
         fetchTestimonies();
         setSelectedImageFile(null);
+        }else{
+          toast({
+            title: 'Error.',
+            description: 'Failed to update data.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+            position: 'top'
+        });
+        }
+       
       } catch (error) {
         console.error("Error updating image: ", error)
+        toast({
+          title: 'Error.',
+          description: "Could not connect to server.",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top'
+          });
       }
   }
+
+  
+
+
+
+
 
 
   useEffect(() => {
@@ -170,7 +206,7 @@ const EditTestimony = () => {
 
 
         <Stack
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: 'column', md: 'column', lg:"column", xl:"row" }}
           spacing={{ base: 10, md: 4, lg: 10 }}
           color={useColorModeValue('blue.700', 'gray.1000')}
           justify="center"

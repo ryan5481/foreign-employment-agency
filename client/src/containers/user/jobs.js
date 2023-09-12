@@ -34,7 +34,7 @@ const Jobs = () => {
 
     return (
         <>
-            <Box pt={5}>
+            <Box pt={5} m={"0px"}>
                 <HeroWithBg />
                <AllJobs  displayAll={true}/>
             </Box>

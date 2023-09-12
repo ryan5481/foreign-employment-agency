@@ -232,3 +232,19 @@ export const newsAdImageUpload = multer({
     // limits: { fileSize: 1024 * 1024 * 4 },
     // fileFilter: fileFilter
 }).single("newsAdImage")
+
+////////// ABOUT NEPAL //////////
+const aboutNepalImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../server/uploads/aboutNepalImage")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "AboutNepalImg_" + Date.now() + ".jpeg")
+    }
+})
+
+export const aboutNepalImageUpload = multer({
+    storage: aboutNepalImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("heroImage")

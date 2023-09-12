@@ -53,14 +53,15 @@ const ContactCard = (props) => {
   }
 
   return (
-    <Container maxW="full" mt={0} centerContent  overflow="hidden">
+    <Box maxW="full" mt={0} centerContent  overflow="hidden">
       <Box
         bg={useColorModeValue('blue.600', 'gray.800')}
         color={'white'}
         borderRadius="lg"
         m={{ sm: 4, md: 16, lg: 10 }}
         px={{ sm: 5, md: 5, lg: 16 }}>
-        <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr' }} p={10} gap={10}  >
+        <Grid templateColumns={{ sm: '1fr', md: '1fr', lg: '1fr 1fr 1fr' }} p={10} gap={10}  >
+          {/* LEFT */}
               <Box w={200} pt={3} alignSelf="center"  >
                 <Heading fontSize="3xl" >{props.data.contactUsHeading}</Heading>
                 <Text fontSize="md" mt={{ sm: 3, md: 3, lg: 5 }} color={useColorModeValue('grey.200', 'grey.200')}
@@ -88,7 +89,7 @@ const ContactCard = (props) => {
                         width="200px"
                         variant="ghost"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<VisuallyHidden><MdPhone color="white" size="20px" /></VisuallyHidden>}
+                        leftIcon={<MdPhone color="white" size="20px" />}
                       >
                         <a href={`tel:${props.data.phoneNumber2}`}>{props.data.phoneNumber2}</a>
                       </Button>
@@ -155,19 +156,12 @@ const ContactCard = (props) => {
                       icon={<BsMessenger size="28px" />}
                       onClick={() => openMessengerChat(props.data.messengerId)}
                     />
-                    {/* <IconButton
-                    color={'white'}
-                    aria-label="instagram"
-                    variant="ghost"
-                    size="lg"
-                    isRound={true}
-                    _hover={{ bg: '#0D74FF' }}
-                    icon={<BsInstagram size="28px" />} */}
+                    
                   </Stack>
                 </Box>
               </Box>
-   
-              <Box bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')} w={400} borderRadius="lg" maxH="455px" alignContent="center" >
+          {/* MIDDLE */}
+              <Box bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')} h={{base: '500px', sm: '450', md: '450' }}   w={{base: '300px', sm: '400px', md: '400px', lg: '350px', xl: '400px' }} borderRadius="lg"  alignContent="center" >
                 <Box m={8}  color={'white'}>
                   <VStack spacing={5}>
                   <Text fontSize="xl" fontWeight="bold" color={useColorModeValue('grey.200', 'grey.200')}>Send us a direct message</Text>
@@ -208,8 +202,8 @@ const ContactCard = (props) => {
                   </VStack>
                 </Box>
               </Box>
-           
-            <Box overflow='hidden' borderRadius={10} w={400} h={450}>
+           {/* RIGHT */}
+            <Box overflow='hidden' borderRadius={10} w={{base: '300px', sm: '400px', md: '400px', lg: '350px', xl: '400px' }} h={450}>
               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1023.6851100697893!2d85.33048799804155!3d!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1907b0522ead%3A0x392af32fe87dd0ea!2sRadiant%20Infotech%20Nepal%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1690782916035!5m2!1sen!2snp"
                 className='footer-map'
                 width="400"
@@ -221,7 +215,7 @@ const ContactCard = (props) => {
             </Box>
           </Grid>
         </Box>
-    </Container>
+    </Box>
   )
 }
 

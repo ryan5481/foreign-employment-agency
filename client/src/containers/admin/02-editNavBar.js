@@ -67,12 +67,38 @@ const EditNavbar = () => {
             }
             formData.append('id', logoImageData._id);
 
-            const response = await axios.put('http://localhost:8000/admin/update-logo-image', formData);
-            if (response) {
-                window.location.reload()
+            const res = await axios.put('http://localhost:8000/admin/update-logo-image', formData);
+            if (res) {
+                toast({
+                    title: 'Success.',
+                    description: 'Logo updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                fetchLogoImage()
+            } else {
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
+      
         } catch (error) {
-            console.error('Error updating logo:', error);
+            console.error("Error updating image: ", error)
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
         }
     };
 
@@ -142,10 +168,38 @@ const EditNavbar = () => {
                     "Content-Type": "application/json",
                 },
             });
-            window.location.reload()
-            console.log("PUT request successful", res);
+            if (res) {
+                toast({
+                    title: 'Success.',
+                    description: 'Data updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                fecthNavBarItems()
+                fetchLogoImage()
+            } else {
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+            }
+      
         } catch (error) {
-            console.error("Error: ", error);
+            console.error("Error updating image: ", error)
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
         }
     };
 
@@ -168,6 +222,9 @@ const EditNavbar = () => {
                                 h={"65px"}
                                 textAlign='left'
                                 fontFamily={'heading'}
+                                _hover={{
+                                    filter: "brightness(0.6)"
+                                }}
                                 onClick={() => imageInputRef.current.click()}
                             />
                             <input

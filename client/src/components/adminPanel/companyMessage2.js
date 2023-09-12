@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Button, FormControl, Grid, Input, Textarea, Image } from '@chakra-ui/react';
+import { Box, Button, FormControl, Grid, Input, Textarea, Image, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 
 const CompanyMessage2 = () => {
   const [image2, setImage2] = useState('');
   const [displaySelectedImage, setDisplaySelectedImage] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null)
-
+  const toast = useToast()
   const [heading2, setHeading2] = useState('');
   const [text2, setText2] = useState('');
   const imageInputRef = useRef()
@@ -44,13 +44,39 @@ const CompanyMessage2 = () => {
       formData.append('heading2', heading2);
       formData.append('text2', text2);
 
-      const response = await axios.post('http://localhost:8000/edit-homepage/companyMessage2', formData);
-      if (response) {
-        // window.location.reload();
-      }
-    } catch (error) {
-      console.error('Error updating data:', error);
+      const res = await axios.post('http://localhost:8000/edit-homepage/companyMessage2', formData);
+      if (res) {
+        toast({
+            title: 'Success.',
+            description: 'Data updated.',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+            position: 'top'
+        });
+        fetchData()
+    } else {
+        toast({
+            title: 'Error.',
+            description: 'Failed to update data.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+            position: 'top'
+        });
     }
+
+} catch (error) {
+    console.error("Error updating image: ", error)
+    toast({
+        title: 'Error.',
+        description: "Could not connect to server.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'top'
+    });
+}
   };
 
   return (

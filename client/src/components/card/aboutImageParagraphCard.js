@@ -1,3 +1,6 @@
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import
 { Box,
   chakra,
@@ -19,6 +22,23 @@ import
 import { MdLocalShipping } from 'react-icons/md'
 
 export default function AboutImageParagraphCard() {
+  const [data, setData] = useState([])
+
+  const fetchAboutNepalData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/get-about-nepal");
+      const data = res.data.data;
+      setData(data)
+      // setHeroImage(`data:image/jpeg;base64,${data.heroImage}`)
+  
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAboutNepalData();
+  }, []);
   return (
     <Container maxW={'7xl'} color={useColorModeValue('blue.700', 'gray.400')}>
      
@@ -26,9 +46,7 @@ export default function AboutImageParagraphCard() {
         <Image
             rounded={'md'}
             alt={'product image'}
-            src={
-              "https://i.ibb.co/fDq8jDn/Kathmandu-Nepal.jpg"
-            }
+            src={`data:image/jpeg;base64,${data.heroImage}`}
             fit={'cover'}
             align={'center'}
             w={'100%'}
@@ -39,13 +57,13 @@ export default function AboutImageParagraphCard() {
               lineHeight={1.1}
               fontWeight={600}
               fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
-              Nepal
+              {data.title1}
             </Heading>
             <Text
               color={useColorModeValue('gray.400', 'gray.400')}
               fontWeight={300}
               fontSize={'2xl'}>
-              A country of lovingkindness and compassion
+              {data.tagline}
             </Text>
           </Box>
 
@@ -60,10 +78,10 @@ export default function AboutImageParagraphCard() {
                 color={useColorModeValue('blue.500', 'gray.400')}
                 fontSize={'2xl'}
                 fontWeight={'300'}>
-                Middle Eastern countries continue to attract hundreds of thousands of Nepali migrant workers every year.
+                  {data.shortDescription}
               </Text>
               <Text fontSize={'lg'}>
-              Migration for foreign employment has become a major source of income for a many Nepali households. A recent report  - Labour Migration for Employment: A Status Report for Nepal 2013/14  shows that the number of migrants leaving Nepal for work is increasing every year. During the last fiscal year 2014, more than 520,000 labour permits were issued to Nepalis planning to work abroad. Malaysia is now the number one destination country for Nepali migrants, closely followed by Qatar, Saudi Arabia, UAE and Kuwait. The same report concluded that overseas employment is heavily male dominated: roughly 95 per cent of all labour permits are given to men. However, other data that captures those working in India (where labour permits are not required) or those leaving to work abroad through informal channels indicate that female migration might be as high as 12 per cent of the total workforce abroad.
+              {data.paragraph}              
               </Text>
             </VStack>
             <Box>
@@ -73,51 +91,57 @@ export default function AboutImageParagraphCard() {
                 fontWeight={'500'}
                 textTransform={'uppercase'}
                 mb={'4'}>
-                Demographics
+                {data.title2}
               </Text>
 
               <List spacing={2}>
                 <ListItem>
                   <Text as={'span'} fontWeight={'bold'}>
-                    Population:
+                  {data.key1}
                   </Text>{' '}
-                  29,164,578
+                  {data.value1}
                 </ListItem>
                 <ListItem>
                   <Text as={'span'} fontWeight={'bold'}>
-                    Growth Rate:
+                  {data.key2}
                   </Text>{' '}
-                  0.92%
+                  {data.value2}
                 </ListItem>
                 <ListItem>
                   <Text as={'span'} fontWeight={'bold'}>
-                    Migration Rate:
+                  {data.key3}
                   </Text>{' '}
-                  0.92%
+                  {data.value3}
                 </ListItem>
                 <ListItem>
                   <Text as={'span'} fontWeight={'bold'}>
-                    Birth Rate:
+                  {data.key4}
                   </Text>{' '}
-                  17.53 births/1,000 population
+                  {data.value4}
                 </ListItem>
                 <ListItem>
                   <Text as={'span'} fontWeight={'bold'}>
-                    Official Language:
+                  {data.key5}
                   </Text>{' '}
-                  Nepali
+                  {data.value5}
                 </ListItem>
                 <ListItem>
                   <Text as={'span'} fontWeight={'bold'}>
-                    Title:
+                  {data.key6}
                   </Text>{' '}
-                  Description
+                  {data.value6}
                 </ListItem>
                 <ListItem>
                   <Text as={'span'} fontWeight={'bold'}>
-                    Title:
+                  {data.key7}
                   </Text>{' '}
-                  Description{' '}
+                  {data.value7}
+                </ListItem>
+                <ListItem>
+                  <Text as={'span'} fontWeight={'bold'}>
+                  {data.key8}
+                  </Text>{' '}
+                  {data.value8}
                 </ListItem>
               </List>
             </Box>
@@ -128,19 +152,22 @@ export default function AboutImageParagraphCard() {
                 fontWeight={'500'}
                 textTransform={'uppercase'}
                 mb={'4'}>
-                Overseas Nepali Immigrant Professions
+                {data.title3}
               </Text>
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} pb={10}>
                 <List spacing={2}>
-                  <ListItem>Construction</ListItem>
-                  <ListItem>Security</ListItem>{' '}
-                  <ListItem>Cook</ListItem>
+                  <ListItem>{data.point1}</ListItem>
+                  <ListItem>{data.point3}</ListItem>{' '}
+                  <ListItem>{data.point5}</ListItem>
+                  <ListItem>{data.point7}</ListItem>
                 </List>
                 <List spacing={2}>
-                  <ListItem>Waiter</ListItem>
-                  <ListItem>Caretaker</ListItem>
-                  <ListItem>Driver</ListItem>
+                <ListItem>{data.point2}</ListItem>
+                <ListItem>{data.point4}</ListItem>
+                <ListItem>{data.point6}</ListItem>
+                <ListItem>{data.point8}</ListItem>
+
                 </List>
               </SimpleGrid>
             </Box>

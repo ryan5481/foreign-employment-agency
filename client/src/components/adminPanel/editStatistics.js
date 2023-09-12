@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios"
-import { Box, Grid, Heading, useColorModeValue, Button, Input, FormControl } from '@chakra-ui/react';
+import { Box, Grid, Heading, useColorModeValue, Button, Input, FormControl, useToast } from '@chakra-ui/react';
 
 const EditStats = () => {
+    const toast = useToast()
     //FETCH
     const [barChartData, setBarChartData] = useState({})
 
@@ -81,8 +82,37 @@ const EditStats = () => {
                 box2BottomText: box2BottomText,
                 box3BottomText: box3BottomText,
             })
+            if (res) {
+                toast({
+                    title: 'Success.',
+                    description: 'Data updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+                
+            } else {
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+            }
+
         } catch (error) {
-            console.error("Error: ", error)
+            console.error("Error updating image: ", error)
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
         }
     }
 
@@ -209,8 +239,9 @@ const EditStats = () => {
                     </Box>
 
                     <Grid
-                        templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }}
-                        templateRows={{ base: '1fr 1fr 1fr', md: '1fr' }}
+                        templateColumns={{ base: '1fr', md: '1fr', lg: '1fr 1fr 1fr' }}
+                        templateRows={{ base: '1fr 1fr 1fr',  md: '1fr 1fr 1fr',lg: '1fr' }}
+                        pb={{md: "600px", lg: '0px'}}
                         gap={5}
                         alignItems="center"
                         justifyItems="center"
@@ -298,7 +329,7 @@ const EditStats = () => {
                         </Box>
                     </Grid>
                     <Button
-                        mt={5}
+                        m={10}
                         bg={'blue.400'}
                         color={'white'}
                         w="300px"

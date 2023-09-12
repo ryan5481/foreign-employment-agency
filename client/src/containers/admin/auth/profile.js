@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useLocation, useAsyncValue } from 'react-router-dom'
 import { setLoginDetails } from '../../../redux/reducers/userSllice'
+import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import {
     Button,
@@ -21,6 +22,7 @@ import {
 import { SmallCloseIcon } from '@chakra-ui/icons'
 
 export default function Profile() {
+    const toast = useToast()
     const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -59,13 +61,36 @@ export default function Profile() {
                         email: formData.email,
                     })
                 );
-                window.location.reload()
-            } else {
-                alert('Edit profile failed.');
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+        toast({
+            title: 'Success.',
+            description: 'Data updated.',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+            position: 'top'
+        });
+    } else {
+        toast({
+            title: 'Error.',
+            description: 'Failed to update data.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+            position: 'top'
+        });
+    }
+
+} catch (error) {
+    console.error("Error updating image: ", error)
+    toast({
+        title: 'Error.',
+        description: "Could not connect to server.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'top'
+    });
+}
     };
 
     useEffect(() => {
@@ -80,7 +105,7 @@ export default function Profile() {
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.800')}>
+            bg={useColorModeValue('purple.700', 'gray.800')}>
             <Stack
                 spacing={4}
                 w={'full'}

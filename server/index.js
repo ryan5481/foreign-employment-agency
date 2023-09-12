@@ -17,6 +17,7 @@ import navBarRoutes from "./routes/navbarRoutes.js"
 import whyChooseUSRoutes from "./routes/whyChooseUsRoutes.js"
 import brochureRoutes from "./routes/brochurePdfRoutes.js"
 import newsAdRoutes from "./routes/newspaperAdImageRoutes.js"
+import aboutNepalRoutes from "./routes/aboutNepalRoutes.js"
 
 app.use(cors());
 
@@ -40,9 +41,10 @@ app.use("/", navBarRoutes)
 app.use("/", whyChooseUSRoutes)
 app.use("/", brochureRoutes)
 app.use("/", newsAdRoutes)
+app.use("/", aboutNepalRoutes)
 
 const port = 8000;
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`This App is listening on port ${port}`)
 })

@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Text, useDisclosure, Box, Grid, Input, FormControl, IconButton, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button, Heading } from "@chakra-ui/react"
+import { Text, useDisclosure, useToast, Box, Grid, Input, FormControl, IconButton, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button, Heading } from "@chakra-ui/react"
 import { SmallCloseIcon, CheckCircleIcon, AddIcon } from "@chakra-ui/icons";
 import { MdAddCircle } from "react-icons/md";
 import axios from "axios"
 
 
 const OperatingProcedure = () => {
+    const toast = useToast()
     //POST
     const [newStepText, setNewStepText] = useState(null)
     //GET
@@ -53,11 +54,37 @@ const OperatingProcedure = () => {
                     procedureText: newStepText
                 })
                 if (res) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Data updated.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
                     fetchStepperData()
-                    setNewStepText(null)
+                    setNewStepText('')
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
                 }
+
             } catch (error) {
-                console.error('Error adding sector:', error);
+                console.error("Error updating image: ", error)
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
     }
@@ -89,10 +116,37 @@ const OperatingProcedure = () => {
                 _id: stepId,
                 procedureText: updatedStepText,
             })
+            if (res) {
+                toast({
+                    title: 'Success.',
+                    description: 'Data updated.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
                 fetchStepperData()
+            } else {
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+            }
 
         } catch (error) {
-            console.error('Error updating title:', error);
+            console.error("Error updating image: ", error)
+            toast({
+                title: 'Error.',
+                description: "Could not connect to server.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            });
         }
     }
 
@@ -102,11 +156,37 @@ const OperatingProcedure = () => {
             try {
                 const res = await axios.delete(`http://localhost:8000/delete-procedure/${stepTodelete}`)
                 if (res) {
+                    toast({
+                        title: 'Success.',
+                        description: 'Data updated.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
                     fetchStepperData()
                     onClose()
+                } else {
+                    toast({
+                        title: 'Error.',
+                        description: 'Failed to update data.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    });
                 }
+
             } catch (error) {
-                console.log("Error deteting this item: ", error)
+                console.error("Error updating image: ", error)
+                toast({
+                    title: 'Error.',
+                    description: "Could not connect to server.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         }
 
@@ -119,8 +199,8 @@ const OperatingProcedure = () => {
     return (
         <Box alignItems={'center'} px={10} pb={{ sm: '2', md: '7', lg: '10' }}>
             <Heading m={2} fontSize={'4xl'} fontFamily={'body'} pt={10}>
-                    Operating Procedure
-                </Heading>
+                Operating Procedure
+            </Heading>
             <Text fontSize={'xl'} textAlign='center' pb={10} >
                 Maximum of 18 steps
             </Text>
@@ -131,7 +211,7 @@ const OperatingProcedure = () => {
                         <Box
 
                             boxShadow={'2xl'}
-                            key={step._id} 
+                            key={step._id}
                             p={2}
                             _hover={{ boxShadow: "0 0 0 2px rgba(251, 251, 251, 0.5)" }}
                             transition="box-shadow 0.4s"
@@ -206,9 +286,8 @@ const OperatingProcedure = () => {
                                 w='10'
                                 bg="green.400"
                                 rounded="full"
-                                zIndex='10'
+                                zIndex='1'
                                 boxShadow="2xl"
-
                             >
                                 <AddIcon boxSize={5} color="blue.900" />
                             </Box>

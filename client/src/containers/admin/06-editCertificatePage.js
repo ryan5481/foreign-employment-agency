@@ -218,7 +218,7 @@ const EditCertificatePage = () => {
                     Licenses and Certificates
                 </Text>
             </Heading>
-            <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr' }} gap={1} py={3} align="center">
+            <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr', lg: "1fr 1fr", xl: '1fr 1fr 1fr' }} gap={1} py={3} align="center">
                 {certificatesList.map((cert, index) => {
                     return (
                         <>
@@ -235,7 +235,7 @@ const EditCertificatePage = () => {
                                         as={IconButton}
                                         colorScheme='red'
                                         rounded="full"
-                                        left='34%'
+                                        left='150px'
                                         top="20px"
                                         boxShadow="2xl"
                                         onClick={() => {
