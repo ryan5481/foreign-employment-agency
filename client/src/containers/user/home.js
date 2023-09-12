@@ -52,7 +52,7 @@ const Home = () => {
                     <BlogArticleCard />
                 </Box>
                 {/* JOB SECTORS */}
-                <Box id="job-sectors" >
+                <Box id="job-sectors"  >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}
                         color={useColorModeValue('blue.600', 'gray.1000')}
                     >

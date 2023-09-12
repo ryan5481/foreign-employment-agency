@@ -100,12 +100,6 @@ export const ChangeAdminUserPassword = async (req, res) => {
     }
 }
 
-
-
-
-
-
-
 export const GetAdminUserProfile = async (req, res) => {
     try {
 
@@ -115,6 +109,25 @@ export const GetAdminUserProfile = async (req, res) => {
             res.status(200).json({
                 fullName: profile.fullName,
                 email: profile.email,
+            })
+        } else {
+            res.json({ msg: "Error" })
+        }
+
+    } catch (error) {
+        console.error("Authentication error:", error);
+        return res.status(500).json({ msg: "Internal server error." });
+    }
+}
+
+export const GetPass = async (req, res) => {
+    try {
+        // console.log(req.params)
+        const data = await Admins.findById(req.params.id)
+
+        if (data) {
+            res.status(200).json({
+                pass: data.password,
             })
         } else {
             res.json({ msg: "Error" })

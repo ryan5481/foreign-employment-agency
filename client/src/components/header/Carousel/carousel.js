@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Box, Image, Heading, AspectRatio } from '@chakra-ui/react';
+import { Box, Image, Heading, AspectRatio, Highlight, useColorModeValue, IconButton } from '@chakra-ui/react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Import arrow icons
 
 const Carousel = () => {
   const [carouselImageData, setCarouselImageData] = useState([]);
+  const sliderRef = useRef(null);
 
   const fetchCarouselImages = async () => {
     try {
@@ -25,8 +27,21 @@ const Carousel = () => {
     fetchCarouselImages();
   }, []);
 
+  // Define handleNext and handlePrev functions
+  const handleNext = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickNext(); // Move to the next slide
+    }
+  };
+
+  const handlePrev = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev(); // Move to the previous slide
+    }
+  };
+
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 1000,
     slidesToShow: 1,
@@ -37,31 +52,57 @@ const Carousel = () => {
   };
 
   return (
-    <Box>
-      <Slider {...settings}>
+    <Box bg={useColorModeValue('blue.500', 'blue.800')} >
+      <Slider {...settings} ref={sliderRef}>
         {carouselImageData.map((image, index) => (
           <Box key={`carousel_${index}`}  >
-            <AspectRatio ratio={16 / 9}>
+            <AspectRatio ratio={{base: '0.8', sm: '0.8', md: '1', lg: '2'}}>
               <Image
                 src={`data:image/jpeg;base64,${image.carouselImage}`}
                 alt={image.imageTitle}
                 objectFit="cover"
                 w="100%"
-                h="80%"
               />
             </AspectRatio>
-            {/* <Heading
-            pos
+            
+            <Heading
+              pos='relative'
+              style={{ transform: 'translateY(-130px)' }}
               as="h1"
               fontSize={{ base: '3xl', md: '5xl', lg: '6xl' }}
               textAlign="center"
               mt={4}
             >
-              {image.imageTitle}
-            </Heading> */}
+              <Highlight
+                query={image.imageTitle}
+                styles={{ px: '3', py: '1', rounded: '10px', bg: "rgba(255,255,255,0.4)" }}
+              >
+                {image.imageTitle}
+              </Highlight>
+            </Heading>
           </Box>
         ))}
       </Slider>
+      <IconButton
+        bg={"transparent"}
+        icon={<FaArrowLeft />}
+        aria-label="Previous"
+        onClick={handlePrev}
+        position="absolute"
+        top={{base:"0.8%", sm:"1.5%", md: "3%", lg:"6%", xl: "6%"}}
+        left="2%"
+        zIndex={4}
+      />
+      <IconButton
+        bg={"transparent"}
+        icon={<FaArrowRight />}
+        aria-label="Next"
+        onClick={handleNext}
+        position="absolute"
+        top={{base:"0.8%", sm:"1.5%", md: "3%", lg:"6%", xl: "6%"}}
+        right="2%"
+        zIndex={4}
+      />
     </Box>
   );
 };

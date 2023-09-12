@@ -139,13 +139,13 @@ const EditBottomCarousel = (props) => {
             <Heading m={2} fontSize={'4xl'} fontFamily={'body'} pt={5}
                 color="gray.100"
             >
-                Top Carousel Images
+                Bottom Carousel Images
             </Heading>
             <Text fontSize={'xl'} textAlign='center'>
                 Maximum of 10 images 
             </Text>
 
-            <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+            <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
 
                 {carouselImageData.map((imageData, index) => {
                     return (<>
@@ -155,9 +155,8 @@ const EditBottomCarousel = (props) => {
                             role={'group'}
                             p={2}
                             maxW={'330px'}
-                            maxH="310"
                             w={'full'}
-                            minH={{ base: "400", sm: "340", md: "320", lg: "340" }}
+                            h={{base: '440px', sm: '360px', md: '380px',lg: '380px' }}
                             boxShadow={'2xl'}
                             pos={'relative'}
                             zIndex={1}

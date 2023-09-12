@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-    Box, Image, Badge, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
+    Box, Image, Badge, useDisclosure, Modal, ModalOverlay, ModalContent, Center, ModalCloseButton, ModalBody, ModalFooter,
 } from '@chakra-ui/react';
 
 const GalleryPhotoCard = (props) => {
@@ -18,33 +18,17 @@ const GalleryImage = ({ imageData }) => {
 
     return (
         <>
-            <Box
-                borderWidth='1px'
-                borderRadius='lg'
-                overflow='hidden'
-                h={"xs"}
-                shadow={'xl'}
-                bg={'gray.100'}
-                onClick={onOpen}
-                cursor='pointer'
-            >
+                <Center>
                 <Image
                     src={`data:image/jpeg;base64,${imageData.galleryImage}`}
                     alt={imageData.imageTitle}
-                    objectFit='fill'
-                    h='100%'
+                    rounded={"10px"}
+                    border={"2px solid white"}
+                    objectFit='stretch'
+                    h='auto'
+                    onClick={onOpen}
                 />
-                <Box p='6'>
-                    <Box display='flex' alignItems='baseline'>
-                        <Badge borderRadius='full' px='2' colorScheme='teal'>
-                            New
-                        </Badge>
-                    </Box>
-                    <Box mt='1' fontWeight='semibold' as='h4' lineHeight='tight' noOfLines={1}>
-                        {imageData.imageTitle}
-                    </Box>
-                </Box>
-            </Box>
+                </Center>
             <Modal isOpen={isOpen} onClose={onClose} size='xl' zIndex={9999} >
                     <ModalOverlay />
                     <ModalContent minW={'80%'}>
@@ -59,7 +43,6 @@ const GalleryImage = ({ imageData }) => {
                                     w='100%'
                                     h='100%'
                                 />
-                            
                         </ModalBody>
                     </ModalContent>
             </Modal>

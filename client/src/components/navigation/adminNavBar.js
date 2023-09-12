@@ -120,22 +120,7 @@ export default function AdminNavBar() {
 
   }]
 
-  // const adminMenuItems = menuItems.map((item) => {
-  //   const newItem = { ...item };
-  
-  //   newItem.href = `edit-${newItem.href}`;
-  
-  //   if (newItem.children && newItem.children.length > 0) {
-  //     newItem.children = newItem.children.map((child) => ({
-  //       ...child,
-  //       href: `edit-${child.href}`,
-  //     }));
-  //   }
-  //   return newItem;
-  // });
-  
     const allMenuItems = [...homeNavbarMenu, ...menuItems, ...headerFooterItems]
-
   
   //PROFILE SECTION
   const handleSignOut = () => {
@@ -277,9 +262,9 @@ const DesktopNav = (props) => {
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Box
-                p={2}
+                p={1}
                 // href={allHrefMenu.href ?? '/'}
-                fontSize={'xs'}
+                fontSize={{md:'xs',lg:'md'}}
                 fontWeight={500}
                 color='gray.100'
                 _hover={{

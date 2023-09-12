@@ -12,8 +12,7 @@ const JobSectors = (props) => {
     const [sectorTitles, setSectorTitles] = useState('');
     const toast = useToast()
     const [sectorTitle, setSectorTitle] = useState('');
-
-
+    const [newPreviewImage, setNewPreviewImage] = useState(null)
 
     const sectorImageInputRef = useRef();
     const newImageInputRef = useRef();
@@ -130,7 +129,9 @@ const JobSectors = (props) => {
 
     const handleImageSelect = (event) => {
         setSelectedImageFile(event.target.files[0])
-        
+        if (event.target.files && event.target.files[0]) {
+            setNewPreviewImage(URL.createObjectURL(event.target.files[0]));
+        }        
     }
 
     const handleImageReplace = async (sectorId) => {
@@ -197,7 +198,7 @@ const JobSectors = (props) => {
                 if (res) {
                     toast({
                         title: 'Success.',
-                        description: 'Data updated.',
+                        description: 'Sector added.',
                         status: 'success',
                         duration: 5000,
                         isClosable: true,
@@ -206,6 +207,7 @@ const JobSectors = (props) => {
                     fetchWorkSectors();
                     setSelectedImageFile(null);
                     setSectorTitle('');
+                    setNewPreviewImage(null)
                 } else {
                     toast({
                         title: 'Error.',
@@ -245,7 +247,7 @@ const JobSectors = (props) => {
                 Sectors We Work In
             </Heading>
 
-            <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+            <Grid templateColumns={{base:'1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr', xl: '1fr 1fr 1fr 1fr 1fr 1fr'}} p={10} gap={10}>
 
                 {sectorsData.map((sector, index) => {
                     return (<>
@@ -256,7 +258,7 @@ const JobSectors = (props) => {
                             p={2}
                             maxW={'330px'}
                             w={'full'}
-                            minH={{ base: "400", sm: "340", md: "320", lg: "340" }}
+                            h={{base: '430px', sm: '460px', md: '400px',lg: '380px' }}
                             boxShadow={'2xl'}
                             pos={'relative'}
                             zIndex={1}
@@ -372,10 +374,10 @@ const JobSectors = (props) => {
                     minH="400"
                     pos={'relative'}
                     zIndex={1}>
-                    <Text fontWeight="bold" pb={2} >Add new sector</Text>
+                    <Text fontWeight="bold" pb={2} >Image Preview</Text>
                     <AspectRatio>
                         <Image
-                            src={ 'https://image.pngaaa.com/768/791768-middle.png'}
+                            src={newPreviewImage || 'https://image.pngaaa.com/768/791768-middle.png'}
                             // selectedImageFile ? URL.createObjectURL(selectedImageFile) : 
                             alt='Add Image'
                             rounded='10px'

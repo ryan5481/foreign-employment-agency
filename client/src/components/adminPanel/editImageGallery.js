@@ -201,7 +201,7 @@ const EditImageGallery = (props) => {
             >
                 Gallery
             </Heading>
-            <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr' }} gap={5} p={10} align="center" rowGap={5}>
+            <Grid templateColumns={{sm: '1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr' }} gap={5} p={10} align="center" rowGap={5}>
 
                 {props.imageGalleryData.map((imageData, index) => {
                     return (<>
@@ -213,7 +213,7 @@ const EditImageGallery = (props) => {
                                 colorScheme='red'
                                 rounded="full"
                                 bottom='-5%'
-                                left='49%'
+                                left='140px'
                                 zIndex='4'
                                 boxShadow="2xl"
                                 onClick={() => {

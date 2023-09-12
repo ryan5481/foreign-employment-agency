@@ -1,4 +1,4 @@
-import { Stack, Flex, Button, Text, VStack, useBreakpointValue, Heading } from '@chakra-ui/react'
+import { Stack, Flex, Button, Text, VStack, useBreakpointValue, Heading, Center } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
 export default function HeroWithBgButton(props) {
@@ -31,7 +31,9 @@ export default function HeroWithBgButton(props) {
                     at a glance
                 </Text>
             </Heading>
-          <Stack direction={'row'}>
+          <Stack direction={{base:'column', sm:'column', md:'column', lg:'row', xl:'row'}}>
+          
+
           <Button
               bg={'whiteAlpha.300'}
               rounded={'full'}
@@ -56,20 +58,3 @@ export default function HeroWithBgButton(props) {
     </Flex>
   )
 }
-
-
-            // <Heading
-            //     fontWeight={600}
-            //     fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
-            //     pt={2}
-            // >
-            //     Sky Way Nepal{' '}
-            //     <Text as={'span'} color={'blue.400'}>
-            //         at a glance
-            //     </Text>
-            // </Heading>
-            // <Text color={'gray.500'} maxW={'3xl'}>
-            //     Never miss a meeting. Never be late for one too. Keep track of your meetings and
-            //     receive smart reminders in appropriate times. Read your smart “Daily Agenda”
-            //     every morning.
-            // </Text>

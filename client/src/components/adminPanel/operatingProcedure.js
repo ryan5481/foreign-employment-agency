@@ -286,9 +286,8 @@ const OperatingProcedure = () => {
                                 w='10'
                                 bg="green.400"
                                 rounded="full"
-                                zIndex='10'
+                                zIndex='1'
                                 boxShadow="2xl"
-
                             >
                                 <AddIcon boxSize={5} color="blue.900" />
                             </Box>

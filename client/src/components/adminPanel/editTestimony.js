@@ -206,7 +206,7 @@ const EditTestimony = () => {
 
 
         <Stack
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: 'column', md: 'column', lg:"column", xl:"row" }}
           spacing={{ base: 10, md: 4, lg: 10 }}
           color={useColorModeValue('blue.700', 'gray.1000')}
           justify="center"

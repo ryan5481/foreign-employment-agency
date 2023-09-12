@@ -96,7 +96,8 @@ useEffect(() => {
                   }}
                   transition="0.4s ease-in-out"
                   ref={thisRef}
-                />            </Center>
+                />
+                </Center>
             </Box>
           </Flex>
           <Stack flex={1} spacing={{ base: 5, md: 10 }} align="center" >

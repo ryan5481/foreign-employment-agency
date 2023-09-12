@@ -90,7 +90,7 @@ const EditResumePage = () => {
             <VStack p={10} >
                 {/* HEADER */}
                 <Grid color={useColorModeValue('blue.800', 'gray.100')}
-                    templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                    templateColumns={{ sm: '1fr', md:'1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
                     p={3}
                     gap={1}
                     textAlign={"left"}
@@ -127,7 +127,7 @@ const EditResumePage = () => {
                         borderColor="lightGray"
                         >
                             <Grid
-                                templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                                templateColumns={{ sm: '1fr', md:'1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
                                 p={3}
                                 gap={1}
                                 style={rowStyle}
@@ -177,9 +177,9 @@ const EditResumePage = () => {
                         py={10}
                         color={useColorModeValue('blue.700', 'gray.1000')}
                     >
-                        <Heading w="100%" textAlign={'center'} fontSize={24} fontWeight="thin" mb="2%">
+                        {/* <Heading w="100%" textAlign={'center'} fontSize={24} fontWeight="thin" mb="2%">
                             www.RadiantInfoTech.com
-                        </Heading>
+                        </Heading> */}
                         <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
                             Resume
                         </Heading>
@@ -196,7 +196,7 @@ const EditResumePage = () => {
 
                         </Stack>
                         {/* NAME ADDRESS */}
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{sm: '1fr', md: '1fr 1fr', lg:"1fr 1fr 1fr 1fr"}} textAlign={"left"}>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Full name:
                             </Text>
@@ -212,7 +212,7 @@ const EditResumePage = () => {
                             </Text>
                         </Grid>
                         {/* NATIONALITY PASSPORT */}
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{sm: '1fr', md: '1fr 1fr', lg:"1fr 1fr 1fr 1fr"}} textAlign={"left"}>
                             <Text htmlFor="passport" fontWeight={'bold'}>
                                 Nationality:
                             </Text>
@@ -232,7 +232,7 @@ const EditResumePage = () => {
                                 {selectedResume.gender}
                             </Text>
                         </Grid>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{sm: '1fr', md: '1fr 1fr', lg:"1fr 1fr 1fr 1fr"}} textAlign={"left"}>
                             <Text htmlFor="place-of-issue" fontWeight={'bold'}>
                                 Place of issue:
                             </Text>
@@ -246,7 +246,7 @@ const EditResumePage = () => {
                                 {selectedResume.expiryDate}
                             </Text>
                         </Grid>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{sm: '1fr', md: '1fr 1fr', lg:"1fr 1fr 1fr 1fr"}} textAlign={"left"}>
                             <Text htmlFor="date-of-birth" fontWeight={'bold'}>
                                 Date of birth:
                             </Text>
@@ -266,7 +266,7 @@ const EditResumePage = () => {
                                 {selectedResume.weight}
                             </Text>
                         </Grid>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{sm: '1fr', md: '1fr 1fr', lg:"1fr 1fr 1fr 1fr"}} textAlign={"left"}>
                             <Text htmlFor="children" fontWeight={'bold'}>
                                 Marital Status:
                             </Text>
@@ -288,7 +288,7 @@ const EditResumePage = () => {
                             </Text>
                         </Grid>
                         <Spacer />
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{sm: '1fr', md: '1fr 1fr', lg:"1fr 1fr 1fr 1fr"}} textAlign={"left"}>
                             <Text fontSize={28} htmlFor="job-code" pt={2} fontWeight={'normal'}>
                                 Qualifiations
                             </Text>
@@ -296,10 +296,10 @@ const EditResumePage = () => {
                         <Text fontSize={18} htmlFor="job-code" fontWeight={'bold'}>
                             Language
                         </Text>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr" textAlign={"left"}>
                             <Text htmlFor="children" fontWeight={'bold'} fontSize={18}>
                                 English
                             </Text>
+                        <Grid templateColumns={{base: '1fr 1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr', lg:"1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr "}} textAlign={"left"}>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Speaking:
                             </Text>
@@ -325,10 +325,10 @@ const EditResumePage = () => {
                                 {selectedResume?.english?.writing}
                             </Text>
                         </Grid>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr" textAlign={"left"}>
                             <Text htmlFor="children" fontWeight={'bold'} fontSize={18}>
                                 Arabic
                             </Text>
+                        <Grid templateColumns={{base: '1fr 1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr', lg:"1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr "}} textAlign={"left"}>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Speaking:
                             </Text>
@@ -354,10 +354,10 @@ const EditResumePage = () => {
                                 {selectedResume?.arabic?.writing}
                             </Text>
                         </Grid>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr" textAlign={"left"}>
                             <Text htmlFor="children" fontWeight={'bold'} fontSize={18}>
                                 Hindi
                             </Text>
+                        <Grid templateColumns={{base: '1fr 1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr', lg:"1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr "}} textAlign={"left"}>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Speaking:
                             </Text>
@@ -394,10 +394,10 @@ const EditResumePage = () => {
                         <Text htmlFor="children" fontWeight={'bold'} fontSize={18}>
                             Work experience
                         </Text>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr" textAlign={"left"}>
                             <Text htmlFor="children" fontWeight={'bold'} fontSize={18}>
                                 In Nepal
                             </Text>
+                        <Grid templateColumns={{base: '1fr 1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr', lg:"1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr "}} textAlign={"left"}>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Field:
                             </Text>
@@ -423,10 +423,10 @@ const EditResumePage = () => {
                                 {selectedResume?.workExpNepal?.address}
                             </Text>
                         </Grid>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr" textAlign={"left"}>
                             <Text htmlFor="children" fontWeight={'bold'} fontSize={18}>
                                 Overseas
                             </Text>
+                        <Grid templateColumns={{base: '1fr 1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr', lg:"1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr "}} textAlign={"left"}>
                             <Text htmlFor="full-name" fontWeight={'bold'}>
                                 Field:
                             </Text>
@@ -462,7 +462,7 @@ const EditResumePage = () => {
                             Contact Information
                         </Text>
                         {/* NATIONALITY PASSPORT */}
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{base: '1fr 1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr'}} textAlign={"left"}>
                             <Text htmlFor="passport" fontWeight={'bold'}>
                                 Agent name:
                             </Text>
@@ -470,7 +470,7 @@ const EditResumePage = () => {
                                 {selectedResume.agentName}
                             </Text>
                         </Grid>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{base: '1fr 1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr'}} textAlign={"left"}>
                             <Text htmlFor="passport" fontWeight={'bold'}>
                                 Applicant's phone number:
                             </Text>
@@ -484,7 +484,7 @@ const EditResumePage = () => {
                                 {selectedResume.email}
                             </Text>
                         </Grid>
-                        <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign={"left"}>
+                        <Grid templateColumns={{base: '1fr 1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr'}} textAlign={"left"}>
                             <Text htmlFor="passport" fontWeight={'bold'}>
                                 Home number:
                             </Text>
@@ -539,6 +539,7 @@ const EditResumePage = () => {
                 </AlertDialogContent>
             </AlertDialogOverlay>
         </AlertDialog>
+        
     </>)
 }
 

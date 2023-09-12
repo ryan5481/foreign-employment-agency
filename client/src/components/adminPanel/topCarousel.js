@@ -209,7 +209,7 @@ const EditCarousel = (props) => {
                 Maximum of {carouselImageData.length} images allowed
             </Text>
 
-            <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
+            <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
 
                 {carouselImageData.map((imageData, index) => {
                     return (<>
@@ -219,9 +219,9 @@ const EditCarousel = (props) => {
                             role={'group'}
                             p={2}
                             maxW={'330px'}
-                            maxH="310"
+                            h={{base: '450px', sm: '450px', md: '380px',lg: '380px' }}
                             w={'full'}
-                            minH={{ base: "400", sm: "340", md: "320", lg: "340" }}
+                            // minH={{ base: "400", sm: "340", md: "320", lg: "340" }}
                             boxShadow={'2xl'}
                             pos={'relative'}
                             zIndex={1}

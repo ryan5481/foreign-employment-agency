@@ -33,8 +33,27 @@ export const PublishJob = async(req, res) => {
 //Fetch jobs from user's end
 export const GetJobsList =  async(req, res) => {
     try{
-        // console.log("Jobs list fetched")
-        const jobsList = await JobDescription.find()
+
+         //filter
+         const queryObj = { ...req.query }
+         const excludeFields = ["page", "sort", "skip", "limit", "fields"]
+         excludeFields.forEach(el => delete queryObj[el])
+ 
+         //sort
+         const sortBy = req.query.sort
+         // console.log(queryObj, req.query.sort)
+ 
+         //pagination
+         const page = req.query.page
+         const limit = req.query.limit
+         const skip = (page - 1) * limit
+         console.log(page, limit, skip)
+ 
+         const jobsList = await JobDescription.find(queryObj).sort(sortBy).skip(skip).limit(limit)
+
+
+        // // console.log("Jobs list fetched")
+        // const jobsList = await JobDescription.find()
         if(jobsList){
             res.status(200).json({
                 jobsList

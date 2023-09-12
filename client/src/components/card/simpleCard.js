@@ -1,9 +1,10 @@
 
-import { Image, Stack, Heading, Box, Divider, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, AspectRatio } from '@chakra-ui/react'
+import { Image, Stack, Heading, Box, AspectRatio } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from "axios"
 const SimpleCard = (props) => {
-
+    const navigate = useNavigate()
     const [sectorsData, setSectorsData] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -23,6 +24,11 @@ const SimpleCard = (props) => {
     useEffect(() => {
         fetchWorkSectors();
     }, [])
+
+    const handleCategoryClick = (category) => {
+        // Navigate to "/jobs" and set the selected category
+        navigate('/jobs', { state: { selectedCategory: category } });
+    };
 
 
     return (
@@ -44,6 +50,7 @@ const SimpleCard = (props) => {
                                 transform: 'scale(1.1)',
                             }}
                             transition="0.15s ease-in-out"
+                            onClick={() => handleCategoryClick(sector.sectorTitle)}
                              >
                             <Box
                               rounded={'lg'}

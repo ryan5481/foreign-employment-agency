@@ -39,7 +39,7 @@ const Newspaper = () => {
       bg={useColorModeValue('blue.500', 'gray.800')}
       color='gray.100'
       p={5}
-      pb={10}
+      py={10}
     >
 
       <Heading
@@ -52,7 +52,7 @@ const Newspaper = () => {
           Licenses and Certificates
         </Text>
       </Heading>
-      <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr', lg: "1fr 1fr 1fr" }} gap={5} p={1} justifyItems="center">
+      <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr', lg: "1fr 1fr", xl: '1fr 1fr 1fr' }} gap={5} p={1} justifyItems="center">
         {certificatesList.map((cert, index) => {
           return (
             <Box key={index}>

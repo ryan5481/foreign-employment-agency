@@ -29,7 +29,7 @@ const AllJobs = ({ displayAll }) => {
     const formBgColorMode = useColorModeValue("gray.50", "gray.700")
     const formTextColorMode = useColorModeValue("purple.800", "gray.100")
 
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         jobTitle: '',
         salary: '',
         category: '',
@@ -44,7 +44,8 @@ const AllJobs = ({ displayAll }) => {
         responsiblities: [],
         skillsRequired: [],
         jobImage: null
-    })
+    }
+    const [formData, setFormData] = useState(initialFormData);
 
     //POST
 
@@ -62,23 +63,6 @@ const AllJobs = ({ displayAll }) => {
             value === 'No' ? false :
                 value
         setFormData((prevData) => ({
-            // if (id === 'reqQualifications') {
-            //     return {
-            //         ...prevData,
-            //         reqQualification: [...prevData.reqQualification, value]
-            //     };
-            // } else if(id === 'reqQualifications') {
-            //     return {
-            //         ...prevData,
-            //         responsiblities: [...prevData.responsiblities, value]
-            //     };
-            // } else if(id === 'skillsRequired') {
-            //     return {
-            //         ...prevData,
-            //         skillsRequired: [...prevData.skillsRequired, value]
-            //     };
-            // }
-            // else {
 
             ...prevData,
             [id]: newValue
@@ -86,7 +70,6 @@ const AllJobs = ({ displayAll }) => {
 
         }))
     }
-
 
     const handlePostNewJob = async () => {
         try {
@@ -129,7 +112,7 @@ const AllJobs = ({ displayAll }) => {
                     position: 'top'
                 });
                 setDisplaySelectedImage(null)
-                setFormData({})
+                setFormData(initialFormData)
                 activatePostNewJob(true)
                 fetchJobsList()
             } else {
@@ -141,6 +124,7 @@ const AllJobs = ({ displayAll }) => {
                     isClosable: true,
                     position: 'top'
                 });
+            // window.location.reload()
             }
         } catch (error) {
             console.error("Error: ", error)
@@ -204,15 +188,6 @@ const AllJobs = ({ displayAll }) => {
         fetchJobsList();
     }, [])
 
-
-    // function capitalizeWords(str) {
-    //     return str
-    //         .split(' ')
-    //         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    //         .join(' ');
-    // }
-
-
     return (
         <>
             <Box
@@ -246,7 +221,7 @@ const AllJobs = ({ displayAll }) => {
                         <VStack p={10} >
                             {/* HEADER */}
                             <Grid color='blue.800'
-                                templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                                templateColumns={{ sm: '1fr', md:'1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
                                 p={3}
                                 gap={1}
                                 textAlign={"left"}
@@ -281,7 +256,7 @@ const AllJobs = ({ displayAll }) => {
                                         borderColor="lightGray"
                                     >
                                         <Grid
-                                            templateColumns={{ sm: '1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
+                                            templateColumns={{ sm: '1fr', md:'1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr' }}
                                             p={3}
                                             gap={2}
                                             style={rowStyle}
@@ -329,22 +304,8 @@ const AllJobs = ({ displayAll }) => {
                         <Box mt={"3%"}  >
                             <Modal isOpen={isOpen} onClose={onClose}>
                                 <ModalOverlay />
-                                <ModalContent minW={"80%"} >
+                                <ModalContent minW={"90%"} >
                                     <ModalHeader alignContent={"right"} >
-                                        {/* <DeleteIcon 
-                                        pos={"relative"}
-                                        bottom={3}
-                                        colorScheme="purple"
-                                        w={4}
-                                        style={{ cursor: 'pointer' }}
-                                        _hover={{ color: 'purple.600' }}
-                                        onClick={() => {
-                                            setJobTodelete(selectedJob._id)
-                                            handleDeleteDialogOpen()
-
-                                        }}
-                                         /> */}
-
                                     </ModalHeader>
                                     <ModalCloseButton />
                                     <ModalBody>
@@ -629,7 +590,7 @@ const AllJobs = ({ displayAll }) => {
                         >
 
                             <Stack
-                                direction={{ base: 'row', sm: 'column', md: "row", lg: "row" }}
+                                direction={{ base: 'column', sm: 'column', md: "row", lg: "row" }}
                                 gap={5}
                                 justify="center"
                                 divider={
@@ -674,13 +635,12 @@ const AllJobs = ({ displayAll }) => {
                                     <FormLabel fontWeight={'bold'}>Salary</FormLabel>
                                     <HStack
                                         fontWeight={300}
-                                        fontSize={'2xl'}
+                                        // fontSize={'2xl'}
                                     >
 
-                                        <Text fontSize={'2xl'}>NRs. </Text>
+                                        <Text >NRs. </Text>
                                         <Input
                                             fontWeight={300}
-                                            fontSize={'2xl'}
                                             pt={2}
                                             w={170}
                                             type='number'

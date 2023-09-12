@@ -25,7 +25,7 @@ const Contact = () => {
   }, [])
     
     return(
-        <Center bg={useColorModeValue('teal.50', 'gray.1000')} w={'full'}>
+        <Center bg={useColorModeValue('blue.500', 'blue.800')} w={'full'}>
             {/* <Heading m={2} fontSize={'2xl'} fontFamily={'body'} p={5}>
                         Get In Touch
                     </Heading> */}

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const whyChooseUsSchema = ({
+const aboutNepalSchema = ({
 
     landmark: {
         type: String,
@@ -31,7 +31,91 @@ const whyChooseUsSchema = ({
         type: String,
         default: "Paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph."
     },
+
+    title2: {
+        type: String,
+        default: "ABCEDF."
+    },
     
+    key1: {
+        type: String,
+        default: "ABCEDF."
+    },
+    
+    value1: {
+        type: String,
+        default: "ABCEDF."
+    },
+    key2: {
+        type: String,
+        default: "ABCEDF."
+    },
+    
+    value2: {
+        type: String,
+        default: "ABCEDF."
+    },
+    key3: {
+        type: String,
+        default: "ABCEDF."
+    },
+    
+    value3: {
+        type: String,
+        default: "ABCEDF."
+    },
+    key4: {
+        type: String,
+        default: "ABCEDF."
+    },
+    
+    value4: {
+        type: String,
+        default: "ABCEDF."
+    },
+    key5: {
+        type: String,
+        default: "ABCEDF."
+    },
+    
+    value5: {
+        type: String,
+        default: "ABCEDF."
+    },
+    key6: {
+        type: String,
+        default: "ABCEDF."
+    },
+    
+    value6: {
+        type: String,
+        default: "ABCEDF."
+    },
+    key7: {
+        type: String,
+        default: "ABCEDF."
+    },
+    
+    value7: {
+        type: String,
+        default: "ABCEDF."
+    },
+
+    key8: {
+        type: String,
+        default: "ABCEDF."
+    },
+    
+    value8: {
+        type: String,
+        default: "ABCEDF."
+    },
+
+    title3: {
+        type: String,
+        default: "ABCEDF."
+    },
+
     point1: {
         type: String,
         default: "Small Title 2"
@@ -80,4 +164,4 @@ const whyChooseUsSchema = ({
 
 })
 
-export default mongoose.model("WhyChooseUs", whyChooseUsSchema, "WhyChooseUs")
+export default mongoose.model("AboutNepal", aboutNepalSchema, "AboutNepal")
