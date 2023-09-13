@@ -6,7 +6,6 @@
 /client/build
 
 
-/server/uploads
 /server/node_modules
 /server/.env
 /server/build

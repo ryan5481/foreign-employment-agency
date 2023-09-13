@@ -6,6 +6,6 @@ import {PostContact, GetContact, EditContact} from "../controllers/contactContro
 
 router.post("/admin/post-contact", PostContact)
 router.get("/get-contact", GetContact)
-router.put("/admin/edit-contact", EditContact)
+router.patch("/admin/edit-contact/:id", EditContact)
 
 export default router
