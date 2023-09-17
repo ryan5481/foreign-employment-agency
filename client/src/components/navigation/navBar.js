@@ -28,6 +28,7 @@ import {
   MoonIcon,
   SunIcon
 } from '@chakra-ui/icons'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 interface Props {
   children: React.ReactNode
@@ -65,7 +66,7 @@ export default function NavBar() {
 
   const fetchLogoImage = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-logo-image")
+      const res = await axios.get(`${baseUrl}/get-logo-image`)
       const data = res.data.data
       setLogoImageData(data)   
 
@@ -76,7 +77,7 @@ export default function NavBar() {
 
   const fecthNavBarItems = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-menu-items")
+      const res = await axios.get(`${baseUrl}/get-menu-items`)
       const data = res.data.data
       setMenuItems(data)
 
@@ -137,6 +138,7 @@ export default function NavBar() {
             </Center>
           </Flex>
         </Flex>
+
         {/* toggle dark/light modes */}
         <Stack
           flex={{ base: 1, md: 0 }}

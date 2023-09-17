@@ -40,6 +40,7 @@ import {
     MdOutlineEmail,
 } from 'react-icons/md'
 import { BsWhatsapp, BsPerson, BsMessenger } from 'react-icons/bs'
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 //GET
 const EditContactUs = (props) => {
@@ -59,7 +60,7 @@ const EditContactUs = (props) => {
     });
 
     const GetHeaderData = async () => {
-        const res = await axios.get('http://localhost:8000/get-contact')
+        const res = await axios.get(`${baseUrl}/get-contact`)
         if (res) {
             setData(res.data.data)
             setFormData({
@@ -91,7 +92,7 @@ const EditContactUs = (props) => {
     console.log("FORMDATA: " + formData)
     const handleUpdateData = async() => {
         try{
-            const data = axios.put("http://localhost:8000/admin/edit-contact", formData, {
+            const data = axios.put(`${baseUrl}/admin/edit-contact`, formData, {
                 headers: {
                     "Content-Type": "application/json",
                 },

@@ -3,7 +3,7 @@ import { Text, useDisclosure, useToast, Box, Grid, Input, FormControl, IconButto
 import { SmallCloseIcon, CheckCircleIcon, AddIcon } from "@chakra-ui/icons";
 import { MdAddCircle } from "react-icons/md";
 import axios from "axios"
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const OperatingProcedure = () => {
     const toast = useToast()
@@ -44,13 +44,11 @@ const OperatingProcedure = () => {
         return words[number - 1] || "";
     };
 
-
-
     //POST
     const handleAddStep = async () => {
         if (newStepText) {
             try {
-                const res = axios.post("http://localhost:8000/edit-homepage/add-procedure", {
+                const res = axios.post(`${baseUrl}/edit-homepage/add-procedure`, {
                     procedureText: newStepText
                 })
                 if (res) {
@@ -92,7 +90,7 @@ const OperatingProcedure = () => {
     //GET
     const fetchStepperData = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/get-procedure")
+            const res = await axios.get(`${baseUrl}/get-procedure`)
             if (res) {
                 const newData = res.data.data
                 setStepperData(newData)
@@ -112,7 +110,7 @@ const OperatingProcedure = () => {
         }
         const updatedStepText = stepTextList[index]
         try {
-            const res = await axios.put("http://localhost:8000/edit-homepage/procedure", {
+            const res = await axios.put(`${baseUrl}/edit-homepage/procedure`, {
                 _id: stepId,
                 procedureText: updatedStepText,
             })
@@ -154,7 +152,7 @@ const OperatingProcedure = () => {
     const handleStepDelete = async () => {
         if (setStepToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/delete-procedure/${stepTodelete}`)
+                const res = await axios.delete(`${baseUrl}/delete-procedure/${stepTodelete}`)
                 if (res) {
                     toast({
                         title: 'Success.',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, FormControl, Grid, Input, Textarea, Image, useToast } from '@chakra-ui/react';
 import axios from 'axios';
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 const CompanyMessage1 = () => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -12,7 +13,7 @@ const CompanyMessage1 = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/get-companymessage1');
+      const response = await axios.get(`${baseUrl}/get-companymessage1`);
       const data = response.data.data
       setImage(`data:image/jpeg;base64,${data.companyMsgImage1}`);
       setHeading1(data.heading1);
@@ -49,7 +50,7 @@ const CompanyMessage1 = () => {
         formData.append('heading1', heading1);
         formData.append('text1', text1);
 
-        const res = await axios.post('http://localhost:8000/edit-homepage/companyMessage1', formData);
+        const res = await axios.post(`${baseUrl}/edit-homepage/companyMessage1`, formData);
         if (res) {
           toast({
               title: 'Success.',

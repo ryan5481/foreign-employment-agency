@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Box, useColorModeValue } from "@chakra-ui/react"
 import ArticleCard from "../../components/card/articleCard"
 import HeroWithBgButton from "../../components/card/heroWithBgButton"
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const AboutUs = () => {
     const navigate = useNavigate()
@@ -20,7 +21,7 @@ const AboutUs = () => {
     });
 
     const GetAboutUsData = async () => {
-        const res = await axios.get('http://localhost:8000/get-aboutuspage')
+        const res = await axios.get(`${baseUrl}/get-aboutuspage`)
         if (res.data && res.data.headerData) {
             setCurrentAboutUsData(res.data.headerData)
             setFormData({

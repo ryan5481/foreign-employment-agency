@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import bcrypt from "bcrypt"
-
 import axios from 'axios'
 import {
     Button,
@@ -19,7 +18,7 @@ import {
     Center,
     useToast
 } from '@chakra-ui/react'
-import { SmallCloseIcon } from '@chakra-ui/icons'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 export default function ChangePassword() {
     const toast = useToast()
@@ -31,8 +30,6 @@ const [newPassword, setNewPassword] = useState('');
 const [retypePassword, setRetypePassword] = useState('');
 const [isOldPasswordCorrect, setIsOldPasswordCorrect] = useState(false);
 
-
-
     useEffect(() => {
         if(id){
             GetPass()
@@ -42,7 +39,7 @@ const [isOldPasswordCorrect, setIsOldPasswordCorrect] = useState(false);
     const GetPass = async () => {
         // console.log('GetPass function called');
         try{
-            const res = await axios.get(`http://localhost:8000/admin/get-pass/${id}`)
+            const res = await axios.get(`${baseUrl}/admin/get-pass/${id}`)
             setCurrentPassword(res.data.pass)
             
         }catch(error){
@@ -61,7 +58,7 @@ const [isOldPasswordCorrect, setIsOldPasswordCorrect] = useState(false);
     
     const handelSubmit = async() => {
         try{
-        const res = await axios.put("http://localhost:8000/admin/change-password")
+        const res = await axios.put(`${baseUrl}/admin/change-password`)
         if (res) {
                 toast({
                     title: 'Success.',

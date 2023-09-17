@@ -20,7 +20,7 @@ import {
     useColorModeValue
 } from "@chakra-ui/react";
 import { WarningIcon, SmallCloseIcon, CheckIcon } from "@chakra-ui/icons"
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const EditNavbar = () => {
     const textColorModeValue = useColorModeValue('blue.600', 'white');
@@ -41,7 +41,7 @@ const EditNavbar = () => {
 
     const fetchLogoImage = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/get-logo-image")
+            const res = await axios.get(`${baseUrl}/get-logo-image`)
             const data = res.data.data
             setLogoImageData(data)
 
@@ -67,7 +67,7 @@ const EditNavbar = () => {
             }
             formData.append('id', logoImageData._id);
 
-            const res = await axios.put('http://localhost:8000/admin/update-logo-image', formData);
+            const res = await axios.put(`${baseUrl}/admin/update-logo-image`, formData);
             if (res) {
                 toast({
                     title: 'Success.',
@@ -105,7 +105,7 @@ const EditNavbar = () => {
     //GET NAVBAR
     const fecthNavBarItems = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/get-menu-items");
+            const res = await axios.get(`${baseUrl}/get-menu-items`);
             const data = res.data.data;
             setEditedData(data);
         } catch (error) {
@@ -163,7 +163,7 @@ const EditNavbar = () => {
         console.log(JSON.stringify(payload))
 
         try {
-            const res = await axios.put("http://localhost:8000/admin/edit-menu-item", payload, {
+            const res = await axios.put(`${baseUrl}/admin/edit-menu-item`, payload, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -205,7 +205,7 @@ const EditNavbar = () => {
 
 
     return (
-        <Box bg='purple.500' h='100vh'>
+        <Box bg={useColorModeValue('purple.300', 'purple.800')} h='100vh'>
             <Box pos={"relative"} top={"250px"}>
                 {isMobileView ? (<Text fontSize="lg" textAlign="center" mt={4}>
                     Navbar is editable on desktop.

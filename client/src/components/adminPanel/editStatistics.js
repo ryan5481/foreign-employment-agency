@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios"
 import { Box, Grid, Heading, useColorModeValue, Button, Input, FormControl, useToast } from '@chakra-ui/react';
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 const EditStats = () => {
     const toast = useToast()
@@ -32,7 +33,7 @@ const EditStats = () => {
 
     const fetchBarChartData = async () => {
         try {
-            const res = await axios.get('http://localhost:8000/get-stats')
+            const res = await axios.get(`${baseUrl}/get-stats`)
             const newData = await res.data.data
             //COLUMN BARS
             setColumn1Label(newData.column1Label)
@@ -62,7 +63,7 @@ const EditStats = () => {
     const handleEditSubmit = async (event) => {
         event.preventDefault()
         try {
-            const res = await axios.put("http://localhost:8000/edit-homepage/edit-stats", {
+            const res = await axios.put(`${baseUrl}/edit-homepage/edit-stats`, {
                 _id: barChartData._id,
                 //COLUMN BARS
                 column1height,

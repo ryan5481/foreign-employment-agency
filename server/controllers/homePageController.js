@@ -547,7 +547,6 @@ export const PostTestimony = async(req, res) => {
     }catch(error)
     {console.log(error)}
 } 
-// color={useColorModeValue('blue.700', 'gray.1000')}
 
 
 export const GetTestimonies = async(req, res) => {

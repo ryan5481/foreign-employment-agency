@@ -18,6 +18,8 @@ const AllJobs = ({ displayAll }) => {
     const [reqResponsiblities, setReqResponsiblities] = useState([])
     const [data, setData] = useState([])
     const navigate = useNavigate()
+    const baseUrl = process.env.REACT_APP_BASE_URL
+
 
     const selectedCategory = location.state?.selectedCategory;
 
@@ -25,13 +27,13 @@ const AllJobs = ({ displayAll }) => {
         try {
 
             if(selectedCategory){
-                const res = await axios.get(`http://localhost:8000/jobslist?category=${selectedCategory}`);
+                const res = await axios.get(`${baseUrl}/jobslist?category=${selectedCategory}`);
                 let newData = res.data.jobsList
             setData(newData.reverse());
 
 
             }else{
-                const res = await axios.get('http://localhost:8000/jobslist');
+                const res = await axios.get(`${baseUrl}/jobslist`);
                 let newData = res.data.jobsList
                 setData(newData.reverse());
             }

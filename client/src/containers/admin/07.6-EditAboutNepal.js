@@ -26,7 +26,7 @@ import {
   HStack
 } from '@chakra-ui/react'
 import { MdLocalShipping } from 'react-icons/md'
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 const EditAboutNepal = () => {
 
   const toast = useToast()
@@ -71,7 +71,7 @@ const EditAboutNepal = () => {
   //GET
   const fetchAboutNepalData = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-about-nepal");
+      const res = await axios.get(`${baseUrl}/get-about-nepal`);
       const data = res.data.data;
       setData(data)
       setHeroImage(`data:image/jpeg;base64,${data.heroImage}`)
@@ -157,7 +157,7 @@ const EditAboutNepal = () => {
       formData.append('point7', point7);
       formData.append('point8', point8);
 
-      const res = await axios.put("http://localhost:8000/admin/edit-about-nepal", formData);
+      const res = await axios.put(`${baseUrl}/admin/edit-about-nepal`, formData);
       if (res.status === 200) {
         toast({
           title: 'Success.',
@@ -199,7 +199,8 @@ const EditAboutNepal = () => {
 
 
   return (
-    <Container maxW={'7xl'} color={useColorModeValue('blue.700', 'gray.400')}>
+    <Container maxW={'7xl'} color={useColorModeValue('blue.700', 'gray.400')} 
+    >
       <form onSubmit={handleUpdateData}>
 
         <Stack spacing={{ base: 6, md: 10 }}>

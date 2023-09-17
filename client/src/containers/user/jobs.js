@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
-
-import { Box, useDisclosure } from '@chakra-ui/react'
-import { useNavigate } from "react-router-dom"
-
+import { Box } from '@chakra-ui/react'
 import HeroWithBg from '../../components/card/heroWithBg'
 import AllJobs from './allJobs'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 
 const Jobs = () => {
@@ -16,7 +14,7 @@ const Jobs = () => {
     const fetchJobsList = async () => {
         try {
             console.log("Fetching job list...");
-            const res = await axios.get('http://localhost:8000/jobslist');
+            const res = await axios.get(`${baseUrl}/jobslist`);
             setData(res.data.jobsList);
             // console.log(data)
             setLoading(false);

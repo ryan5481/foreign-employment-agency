@@ -3,14 +3,14 @@ import { Stepper, Step, Flex, Text, StepIndicator, StepStatus, Box, useSteps, Gr
 import { CheckCircleIcon } from '@chakra-ui/icons'
 import { HiOutlineArrowNarrowRight, HiOutlineArrowNarrowDown } from 'react-icons/hi';
 import axios from "axios"
-
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 const Procedure1 = () => {
   const [stepperData, setStepperData] = useState([])
 
   const fetchStepperData  = async() => {
     try{
-      const res = await axios.get("http://localhost:8000/get-procedure")
+      const res = await axios.get(`${baseUrl}/get-procedure`)
       if(res){
         setStepperData(res.data.data)
       }

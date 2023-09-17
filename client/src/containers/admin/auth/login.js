@@ -19,6 +19,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { assignUserRole, setLoginDetails } from '../../../redux/reducers/userSllice'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const AdminLogin = () => {
   const navigate = useNavigate()
@@ -40,7 +41,7 @@ const AdminLogin = () => {
 
     try {
       // console.log('Form Data:', formData);
-      const response = await axios.post("http://localhost:8000/adminlogin", {
+      const response = await axios.post(`${baseUrl}/adminlogin`, {
         email: formData.email,
         password: formData.password,
       })
@@ -53,7 +54,7 @@ const AdminLogin = () => {
           fullName: response.data.fullName,
         })
         )
-        navigate("/edit-homepage")
+        navigate("/")
       }else{
         alert("Login failed!")
       }

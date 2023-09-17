@@ -21,6 +21,8 @@ import {
     Textarea,
     Divider
 } from '@chakra-ui/react'
+const baseUrl = process.env.REACT_APP_BASE_URL 
+
 const EditAboutUsPage = () => {
     const toast = useToast()
     const navigate = useNavigate()
@@ -41,7 +43,7 @@ const EditAboutUsPage = () => {
     });
 
     const GetAboutUsData = async () => {
-        const res = await axios.get('http://localhost:8000/get-aboutuspage')
+        const res = await axios.get(`${baseUrl}/get-aboutuspage`)
         if (res.data && res.data.headerData) {
             setCurrentAboutUsData(res.data.headerData)
             setFormData({
@@ -83,7 +85,7 @@ const EditAboutUsPage = () => {
             imageFormData.append('aboutUsImage', selectedFile)
 
             try {
-                const res = await axios.put('http://localhost:8000/edit-aboutusimage', imageFormData)
+                const res = await axios.put(`${baseUrl}/edit-aboutusimage`, imageFormData)
                 if (res.status === 200) {
                     toast({
                         title: 'Success.',
@@ -131,7 +133,7 @@ const EditAboutUsPage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            const res = await axios.put("http://localhost:8000/edit-aboutuspage",
+            const res = await axios.put(`${baseUrl}/edit-aboutuspage`,
                 {
                     heading1: formData.heading1,
                     text1: formData.text1,

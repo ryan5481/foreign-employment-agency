@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import env from "react-dotenv"
 import {
   Box,
   Center,
@@ -13,6 +14,8 @@ import {
 } from '@chakra-ui/react'
 import { FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 import { ReactNode } from 'react'
+const baseUrl = process.env.REACT_APP_BASE_URL
+
 
 const SocialButton = ({
   children,
@@ -49,8 +52,11 @@ const Header = () => {
   const [isMobileView, setIsMobileView] = useState(false);
   const [data, setData] = useState([])
 
+
   const GetHeaderData = async() => {
-    const res = await axios.get('http://localhost:8000/get-contact')
+    // const res = await axios.get(`${baseUrl}/get-contact`)
+       const res = await axios.get(`${baseUrl}/get-contact`)
+
     if(res){
       // console.log("DATAAAA:" + data)
       setData(res.data.data)

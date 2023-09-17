@@ -3,7 +3,6 @@ import axios, { all } from "axios"
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { resetLoginDetails } from '../../redux/reducers/userSllice'
-
 import {
   Menu, MenuButton, HStack, Avatar, VStack, MenuList, MenuItem, MenuDivider,
   Box,
@@ -34,6 +33,7 @@ import {
   SunIcon
 } from '@chakra-ui/icons'
 import {FiChevronDown} from 'react-icons/fi'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 interface Props {
   children: React.ReactNode
@@ -64,6 +64,7 @@ export default function AdminNavBar() {
   const dispatch = useDispatch()
   const{fullName} = useSelector((state) => state.user)
   const navigate = useNavigate()
+  
 
   //GET LOGO IMAGE
   const [menuItems, setMenuItems] = useState([]);
@@ -71,7 +72,7 @@ export default function AdminNavBar() {
 
   const fetchLogoImage = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-logo-image")
+      const res = await axios.get(`${baseUrl}/get-logo-image`)
       const data = res.data.data
       setLogoImageData(data)   
 
@@ -82,7 +83,7 @@ export default function AdminNavBar() {
   //GET NAVBAR MENU
   const fecthNavBarItems = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-menu-items")
+      const res = await axios.get(`${baseUrl}/get-menu-items`)
       const data = res.data.data
       setMenuItems(data)
 

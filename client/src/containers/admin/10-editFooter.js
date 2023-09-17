@@ -29,8 +29,7 @@ import { FaFilePdf } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 import { BsWhatsapp, BsMessenger } from 'react-icons/bs'
 import { MdFacebook } from 'react-icons/md'
-
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const SocialButton = ({
     children,
@@ -103,7 +102,7 @@ const EditFooter = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.put("http://localhost:8000/edit-footer", {
+            const response = await axios.put(`${baseUrl}/edit-footer`, {
                 column1Line1: formData.column1Line1,
                 column1Line2: formData.column1Line2,
                 column1Line3: formData.column1Line3,
@@ -151,7 +150,7 @@ const EditFooter = () => {
 
     const fetchLogoImage = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/get-logo-image")
+            const res = await axios.get(`${baseUrl}/get-logo-image`)
             const data = res.data.data
             setLogoImageData(data)
 
@@ -161,7 +160,7 @@ const EditFooter = () => {
     }
 
     const GetFooterData = async () => {
-        const res = await axios.get('http://localhost:8000/get-footer')
+        const res = await axios.get(`${baseUrl}/get-footer`)
         if (res) {
             setCurrentFooterData(res.data.footerData)
             setFormData({
@@ -196,7 +195,7 @@ const EditFooter = () => {
             }
             formData.append('id', "64f8174bd3ffc9b5b018ee79");
 
-            const response = await axios.put('http://localhost:8000/admin/update-brochure-file', formData);
+            const response = await axios.put(`${baseUrl}/admin/update-brochure-file`, formData);
             if (response) {
                 setSelectedPdfFile(null)
                 window.location.reload()
@@ -213,7 +212,7 @@ const EditFooter = () => {
 
     return (
         <Box
-            bg={useColorModeValue('purple.500', 'purple.800')}
+            bg={useColorModeValue('purple.300', 'purple.800')}
             h={'93vh'}
             top={'10vh'}
         >

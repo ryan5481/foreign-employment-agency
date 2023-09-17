@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react"
 import { WarningIcon } from "@chakra-ui/icons"
 import {FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const EditHeader = () => {
     const toast= useToast()
@@ -41,7 +42,7 @@ const EditHeader = () => {
         event.preventDefault();
 
         try {
-            const res = await axios.put("http://localhost:8000/admin/edit-contact", {
+            const res = await axios.put(`${baseUrl}/admin/edit-contact`, {
                 regdField: formData.regdField,
                 licenseField: formData.licenseField,
                 email: formData.email,
@@ -86,7 +87,7 @@ const EditHeader = () => {
 
 
     const GetHeaderData = async () => { 
-        const res = await axios.get('http://localhost:8000/get-contact')
+        const res = await axios.get(`${baseUrl}/get-contact`)
         if (res) {
             setCurrentHeaderData(res.data.data)
             setFormData({
@@ -115,7 +116,7 @@ const EditHeader = () => {
         <Box
             h={'92.5vh'}
             p={2}
-            bg={useColorModeValue('purple.500', 'purple.800')}
+            bg={useColorModeValue('purple.300', 'purple.800')}
             color={'purple.100'}
             justifyContent={'center'}
             top={'10vh'}

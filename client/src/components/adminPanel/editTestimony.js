@@ -99,10 +99,11 @@ const EditTestimony = () => {
   const [descriptions, setDescriptions] = useState('')
   const [addresses, setAddresses] = useState('')
   const imageInputRef = useRef();
+  const baseUrl = process.env.REACT_APP_BASE_URL 
 
   const fetchTestimonies = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/get-testimonies');
+      const res = await axios.get(`${baseUrl}/get-testimonies`);
       const newData = await res.data.data
       setTestimonyData(newData)
       const initialImageTitles = newData.map(array => array.imageTitle || '')
@@ -143,7 +144,7 @@ const EditTestimony = () => {
       
 
       try {
-        const data = await axios.put(`http://localhost:8000/edit-homepage/update-testimony`, formData, {
+        const data = await axios.put(`${baseUrl}/edit-homepage/update-testimony`, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
         }

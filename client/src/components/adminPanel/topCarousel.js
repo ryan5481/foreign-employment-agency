@@ -22,13 +22,14 @@ const EditCarousel = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [imageToDelete, setImageToDelete] = useState(null);
     const cancelRef = useRef()
+    const baseUrl = process.env.REACT_APP_BASE_URL 
 
     // FETCH DATA FROM THE BACKEND FOR DISPLAY
 
     const fetchCarouselImages = async () => {
 
         try {
-            const res = await axios.get("http://localhost:8000/get-carousel-images")
+            const res = await axios.get(`${baseUrl}/get-carousel-images`)
             if (res) {
                 const newData = await res.data.data
                 setCarouselImageData(newData)
@@ -59,7 +60,7 @@ const EditCarousel = (props) => {
             formData.append('imageTitle', imageTitle);
 
             try {
-                const data = await axios.post("http://localhost:8000/edit-homepage/add-topcarousel-image", formData, {
+                const data = await axios.post(`${baseUrl}/edit-homepage/add-topcarousel-image`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -106,7 +107,7 @@ const EditCarousel = (props) => {
     const handleImageDelete = async () => {
         if (imageToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/edit-homepage/delete-topcarousel-image/${imageToDelete}`)
+                const res = await axios.delete(`${baseUrl}/edit-homepage/delete-topcarousel-image/${imageToDelete}`)
                 if (res) {
                     fetchCarouselImages();
                     onClose();
@@ -158,7 +159,7 @@ const EditCarousel = (props) => {
         }
         const updatedTitle = imageTitles[index]
         try {
-            await axios.put('http://localhost:8000/edit-homepage/update-topcarousel-image', {
+            await axios.put(`${baseUrl}/edit-homepage/update-topcarousel-image`, {
                 _id: imageId,
                 imageTitle: updatedTitle
 
@@ -178,7 +179,7 @@ const EditCarousel = (props) => {
             formData.append("_id", imageId)
 
             try {
-                await axios.put("http://localhost:8000/edit-homepage/update-topcarousel-image", formData, {
+                await axios.put(`${baseUrl}/edit-homepage/update-topcarousel-image`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }

@@ -4,9 +4,7 @@ import {
   Grid, Heading, Text, useColorModeValue, useToast, Box, Image, Button, useDisclosure, IconButton, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter
 } from '@chakra-ui/react'
 import { SmallCloseIcon } from "@chakra-ui/icons"
-
-
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const EditNewspaperAds = () => {
   const toast = useToast()
@@ -34,7 +32,7 @@ const EditNewspaperAds = () => {
   //GET
   const fetchNewspaperAds = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-newspaper-images")
+      const res = await axios.get(`${baseUrl}/get-newspaper-images`)
       const data = res.data.data
       setNewspaperAds(data)
     } catch (error) {
@@ -60,7 +58,7 @@ const EditNewspaperAds = () => {
       formData.append("_id", imageId)
 
       try {
-        const res = await axios.put("http://localhost:8000/admin/update-newspaper-image", formData, {
+        const res = await axios.put(`${baseUrl}/admin/update-newspaper-image`, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
@@ -106,7 +104,7 @@ const EditNewspaperAds = () => {
       const handleImageDelete = async () => {
         if (imageToDelete) {
           try {
-            const res = await axios.delete(`http://localhost:8000/admin/delete-newspaper-image/${imageToDelete}`)
+            const res = await axios.delete(`${baseUrl}/admin/delete-newspaper-image/${imageToDelete}`)
             if (res.status === 200) {
               toast({
                 title: 'Success.',
@@ -157,7 +155,7 @@ const EditNewspaperAds = () => {
           formData.append('newsAdImage', selectedNewImageFile);
 
           try {
-            await axios.post("http://localhost:8000/admin/add-newspaper-image", formData, {
+            await axios.post(`${baseUrl}/admin/add-newspaper-image`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },

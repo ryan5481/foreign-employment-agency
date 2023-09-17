@@ -12,7 +12,7 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react'
   import axios from 'axios';
-
+  const baseUrl = process.env.REACT_APP_BASE_URL 
   
   const ImageParagraph = () => {
     const [image1, setImage1] = useState('');
@@ -21,7 +21,7 @@ import {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/get-companymessage1');
+        const response = await axios.get(`${baseUrl}/get-companymessage1`);
         const data = response.data
         setImage1(`data:image/jpeg;base64,${data.data.companyMsgImage1}`);
         setHeading1(data.data.heading1);
