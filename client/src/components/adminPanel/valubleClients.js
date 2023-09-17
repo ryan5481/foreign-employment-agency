@@ -12,6 +12,7 @@ import {
     Textarea,
     FormControl
 } from '@chakra-ui/react'
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 
 const ValuableClients = () => {
@@ -27,7 +28,7 @@ const ValuableClients = () => {
 
     const fetchData = async () => {
         try{
-            const res = await axios.get("http://localhost:8000/get-valuableclients")
+            const res = await axios.get(`${baseUrl}/get-valuableclients`)
             if (res) {
                 const data = res.data.data
                 setImage1(`data:image/jpeg;base64,${data.valuableClientsImage1}`)
@@ -59,7 +60,7 @@ const ValuableClients = () => {
             formData.append('description1', description1);
             
     
-            const res = await axios.post('http://localhost:8000/edit-homepage/valuableClients', formData);
+            const res = await axios.post(`${baseUrl}/edit-homepage/valuableClients`, formData);
             if(res){
                 toast({
                     title: 'Success.',

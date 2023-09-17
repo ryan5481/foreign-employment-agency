@@ -4,6 +4,7 @@ import GalleryPhotoCard from "../../components/card/galleryPhotoCard";
 import {
     Heading, Grid, Center, useColorModeValue
 } from '@chakra-ui/react'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const Gallery = () => {
 
@@ -13,7 +14,7 @@ const Gallery = () => {
     const fetchGalleryImages = async () => {
 
         try {
-            const res = await axios.get("http://localhost:8000/get-gallery-images")
+            const res = await axios.get(`${baseUrl}/get-gallery-images`)
             if (res) {
                 const data = await res.data.data
                 setImageGalleryData(data)

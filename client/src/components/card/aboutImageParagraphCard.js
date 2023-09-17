@@ -19,14 +19,14 @@ import
   List,
   ListItem,
 } from '@chakra-ui/react'
-import { MdLocalShipping } from 'react-icons/md'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 export default function AboutImageParagraphCard() {
   const [data, setData] = useState([])
 
   const fetchAboutNepalData = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-about-nepal");
+      const res = await axios.get(`${baseUrl}/get-about-nepal`);
       const data = res.data.data;
       setData(data)
       // setHeroImage(`data:image/jpeg;base64,${data.heroImage}`)

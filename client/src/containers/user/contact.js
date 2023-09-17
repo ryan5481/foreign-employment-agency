@@ -5,13 +5,14 @@ import ContactCard from "../../components/card/contactCard"
 import {
     Heading, Grid, Box, HStack, useColorModeValue, Center
 } from '@chakra-ui/react'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const Contact = () => {
 
     const [data, setData] = useState([])
 
   const GetHeaderData = async() => {
-    const res = await axios.get('http://localhost:8000/get-contact')
+    const res = await axios.get(`${baseUrl}/get-contact`)
     if(res){
       // console.log("DATAAAA:" + data)
       setData(res.data.data)

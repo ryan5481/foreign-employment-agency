@@ -10,11 +10,12 @@ const CompanyMessage2 = () => {
   const [heading2, setHeading2] = useState('');
   const [text2, setText2] = useState('');
   const imageInputRef = useRef()
+  const baseUrl = process.env.REACT_APP_BASE_URL 
 
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/get-companymessage2');
+      const response = await axios.get(`${baseUrl}/get-companymessage2`);
       const data = response.data
       setImage2(`data:image/jpeg;base64,${data.data.companyMsgImage2}`);
       setHeading2(data.data.heading2);
@@ -44,7 +45,7 @@ const CompanyMessage2 = () => {
       formData.append('heading2', heading2);
       formData.append('text2', text2);
 
-      const res = await axios.post('http://localhost:8000/edit-homepage/companyMessage2', formData);
+      const res = await axios.post(`${baseUrl}/edit-homepage/companyMessage2`, formData);
       if (res) {
         toast({
             title: 'Success.',

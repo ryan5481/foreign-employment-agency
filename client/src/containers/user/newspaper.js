@@ -3,6 +3,7 @@ import axios from "axios"
 import {
   Grid, Heading, Text, Box, useColorModeValue, Wrap, Image, Center, Modal, ModalOverlay, ModalContent, ModalHeader, useDisclosure, ModalBody
 } from '@chakra-ui/react'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const Newspaper = () => {
   const [newspaperAds, setNewspaperAds] = useState([]);
@@ -11,7 +12,7 @@ const Newspaper = () => {
 
   const fetchNewspaperAds = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-newspaper-images")
+      const res = await axios.get(`${baseUrl}/get-newspaper-images`)
       const data = res.data.data
       setNewspaperAds(data)
     } catch (error) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
 import {Flex} from "@chakra-ui/react"
 import EditImageGallery from "../../components/adminPanel/editImageGallery"
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const EditGalleryPage = () => {
     const [imageGalleryData, setImageGalleryData] = useState([])
@@ -12,7 +13,7 @@ const EditGalleryPage = () => {
     const fetchGalleryImages = async () => {
 
         try {
-            const res = await axios.get("http://localhost:8000/get-gallery-images")
+            const res = await axios.get(`${baseUrl}/get-gallery-images`)
             if (res) {
                 const data = await res.data.data
                 setImageGalleryData(data)

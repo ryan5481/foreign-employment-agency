@@ -20,6 +20,7 @@ import {
     Divider,
 } from '@chakra-ui/react'
 import { SmallCloseIcon } from '@chakra-ui/icons'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 export default function Profile() {
     const toast = useToast()
@@ -48,7 +49,7 @@ export default function Profile() {
         event.preventDefault();
 
         try {
-            const response = await axios.put('http://localhost:8000/edit-profile', {
+            const response = await axios.put(`${baseUrl}/edit-profile`, {
                 _id: id,
                 fullName: formData.fullName,
                 email: formData.email,

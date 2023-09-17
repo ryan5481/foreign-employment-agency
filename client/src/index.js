@@ -8,6 +8,7 @@ import { persistor, store } from './redux/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from "react-redux";
 import { ChakraProvider } from '@chakra-ui/react'
+import { disableReactDevTools } from '@fvilers/disable-react-devtools'
 
 /*
 ==========================================
@@ -16,6 +17,8 @@ import { ChakraProvider } from '@chakra-ui/react'
   Date:   24 July 2023
 ==========================================
 */
+
+// if (process.env.NODE_ENV === 'production') disableReactDevTools
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

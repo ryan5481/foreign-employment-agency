@@ -11,7 +11,7 @@ import {
     Container
 } from '@chakra-ui/react'
 import ScrollDiv from '../animation/scrollDiv'
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const BlogArticleCard = () => {
     const[image1, setImage1] = useState()
@@ -20,7 +20,7 @@ const BlogArticleCard = () => {
     const[description1, setDescription1] = useState()
 
     const fetchData = async () => {
-        const res = await axios.get("http://localhost:8000/get-valuableclients")
+        const res = await axios.get(`${baseUrl}/get-valuableclients`)
         if (res) {
             const data = res.data.data
             setImage1(`data:image/jpeg;base64,${data.valuableClientsImage1}`) 

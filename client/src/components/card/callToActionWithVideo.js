@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { useInView } from 'react-hook-inview'
 import axios from 'axios'
 
-
 import {
   Container,
   Stack,
@@ -17,6 +16,7 @@ import {
   Center,
   ScaleFade
 } from '@chakra-ui/react'
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 export default function CallToActionWithVideo() {
   const [currentAboutUsData, setCurrentAboutUsData] = useState([])
@@ -26,7 +26,7 @@ export default function CallToActionWithVideo() {
   const [boxVisible, setBoxVisible] = useState()
 
   const GetAboutUsData = async () => {
-    const res = await axios.get('http://localhost:8000/get-aboutuspage')
+    const res = await axios.get(`${baseUrl}/get-aboutuspage`)
     if (res.data && res.data.headerData) {
         setCurrentAboutUsData(res.data.headerData)
     } else {
@@ -53,7 +53,6 @@ useEffect(() => {
 }, [])
 
   return (
-
     <Container maxW={'full'} bg={useColorModeValue('blue.500', 'gray.1000')} 
     color='white'>
       <ScaleFade initialScale={0.8} in={boxVisible} >

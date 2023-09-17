@@ -4,6 +4,7 @@ import {
     Grid, Center, useToast, Heading, Text, Box, useColorModeValue, IconButton, Image, Input, FormControl, Button, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter
 } from '@chakra-ui/react'
 import { SmallCloseIcon } from "@chakra-ui/icons"
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 
 const EditCertificatePage = () => {
@@ -29,7 +30,7 @@ const EditCertificatePage = () => {
 
     const fetchCertificates = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/get-certificate-images")
+            const res = await axios.get(`${baseUrl}/get-certificate-images`)
             const data = res.data.data
             setCertificatesList(data)
             const initialCertificateTitles = data.map(cert => cert.certificateTitle || '')
@@ -54,7 +55,7 @@ const EditCertificatePage = () => {
             formData.append("certificateTitle", certificateTitle)
         
         try {
-            const res = await axios.post("http://localhost:8000/admin/add-certificate-image", formData, {
+            const res = await axios.post(`${baseUrl}/admin/add-certificate-image`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -112,7 +113,7 @@ const EditCertificatePage = () => {
         formData.append("certificateTitle", updatedCertTitle)
 
         try {
-            const res = await axios.put(`http://localhost:8000/admin/update-certificate-image`, formData, {
+            const res = await axios.put(`${baseUrl}/admin/update-certificate-image`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
@@ -159,7 +160,7 @@ const EditCertificatePage = () => {
     const handleImageDelete = async () => {
         if (imageToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/admin/delete-certificate-image/${imageToDelete}`)
+                const res = await axios.delete(`${baseUrl}/admin/delete-certificate-image/${imageToDelete}`)
                 if (res.status === 200) {
                     toast({
                       title: 'Success.',
@@ -203,7 +204,7 @@ const EditCertificatePage = () => {
 
     return (
         <Box
-            bg={useColorModeValue('teal.50', 'gray.800')}
+        bg={useColorModeValue("purple.300", "purple.800")}
             color={useColorModeValue('purple.800', 'purple.100')}
             h='100%'
         >

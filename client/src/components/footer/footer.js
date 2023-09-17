@@ -22,10 +22,7 @@ import { FaFilePdf } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 import { BsWhatsapp, BsMessenger } from 'react-icons/bs'
 import { MdFacebook } from 'react-icons/md'
-
-
-
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
     return (
@@ -80,7 +77,7 @@ const Footer = () => {
 
     const fetchLogoImage = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/get-logo-image")
+            const res = await axios.get(`${baseUrl}/get-logo-image`)
             const data = res.data.data
             setLogoImageData(data)
 
@@ -91,7 +88,7 @@ const Footer = () => {
 
     //GET FOOTER DATA
     const GetFooterData = async () => {
-        const res = await axios.get('http://localhost:8000/get-footer')
+        const res = await axios.get(`${baseUrl}/get-footer`)
         if (res) {
             setCurrentFooterData(res.data.footerData)
 
@@ -105,7 +102,7 @@ const Footer = () => {
     const [socialData, setSocialData] = useState([])
 
     const GetHeaderData = async () => {
-        const res = await axios.get('http://localhost:8000/get-contact')
+        const res = await axios.get(`${baseUrl}/get-contact`)
         if (res) {
             // console.log("DATAAAA:" + data)
             setSocialData(res.data.data)

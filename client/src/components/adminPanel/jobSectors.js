@@ -3,6 +3,7 @@ import { Image, Stack, useToast, Input, Box, Grid, Button, Heading, AspectRatio,
 import { SmallCloseIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 const JobSectors = (props) => {
     const [sectorsData, setSectorsData] = useState([])
@@ -24,7 +25,7 @@ const JobSectors = (props) => {
     const handleSectorDelete = async () => {
         if (sectorToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/delete-worksector/${sectorToDelete}`)
+                const res = await axios.delete(`${baseUrl}/delete-worksector/${sectorToDelete}`)
                 if (res) {
                     toast({
                         title: 'Success.',
@@ -64,7 +65,7 @@ const JobSectors = (props) => {
     // FETCH DATA FROM THE BACKEND FOR DISPLAY
     const fetchWorkSectors = async () => {
         try {
-            const res = await axios.get('http://localhost:8000/get-worksectors');
+            const res = await axios.get(`${baseUrl}/get-worksectors`);
             const newData = await res.data.data
             setSectorsData(newData)
             const initialSectorTitles = newData.map(sector => sector.sectorTitle || '')
@@ -88,7 +89,7 @@ const JobSectors = (props) => {
         formData.append('_id', sectorId);
         formData.append('sectorTitle', updatedTitle);
         try {
-            const res = await axios.put('http://localhost:8000/edit-homepage/worksectors', formData, {
+            const res = await axios.put(`${baseUrl}/edit-homepage/worksectors`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -140,7 +141,7 @@ const JobSectors = (props) => {
             formData.append("sectorImage", selectedImageFile)
             formData.append("_id", sectorId)
             try {
-                const res = await axios.put("http://localhost:8000/edit-homepage/worksectors", formData, {
+                const res = await axios.put(`${baseUrl}/edit-homepage/worksectors`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -190,7 +191,7 @@ const JobSectors = (props) => {
             formData.append('sectorTitle', sectorTitle);
 
             try {
-                const res = await axios.post("http://localhost:8000/edit-homepage/add-worksector", formData, {
+                const res = await axios.post(`${baseUrl}/edit-homepage/add-worksector`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom"
 import { ViewIcon, DeleteIcon, EditIcon, CloseIcon } from '@chakra-ui/icons'
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const AllJobs = ({ displayAll }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -96,7 +96,7 @@ const AllJobs = ({ displayAll }) => {
                 }
             });
             // console.log("FORMDATA:" + updatedFormData)
-            const res = await axios.post("http://localhost:8000/admin/publishjob", updatedFormData,
+            const res = await axios.post(`${baseUrl}/admin/publishjob`, updatedFormData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data", // Set Content-Type
@@ -146,7 +146,7 @@ const AllJobs = ({ displayAll }) => {
     const fetchJobsList = async () => {
         try {
             console.log("Fetching job list...");
-            const res = await axios.get('http://localhost:8000/jobslist');
+            const res = await axios.get(`${baseUrl}/jobslist`);
             let newData = res.data.jobsList
             setData(newData.reverse());
             // console.log(data)
@@ -171,7 +171,7 @@ const AllJobs = ({ displayAll }) => {
     const handleJobDelete = async () => {
         if (jobToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/admin/delete-job/${jobToDelete}`)
+                const res = await axios.delete(`${baseUrl}/admin/delete-job/${jobToDelete}`)
                 if (res) {
                     fetchJobsList();
                     handleDeleteDialogClose()
@@ -191,7 +191,7 @@ const AllJobs = ({ displayAll }) => {
     return (
         <>
             <Box
-                bg={useColorModeValue('blue.500', 'gray.800')}
+                bg={useColorModeValue('blue.300', 'gray.800')}
                 color={useColorModeValue('gray.50', 'gray.800')}
                 h={"full"}
             >

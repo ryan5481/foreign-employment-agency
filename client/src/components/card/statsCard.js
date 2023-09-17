@@ -3,6 +3,7 @@ import axios from "axios"
 import { Grid, Box, Text, Stack } from '@chakra-ui/react';
 import CountUp from 'react-countup';
 import { useInView } from 'react-hook-inview';
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const StatisticsCard = () => {
   const [barChartData, setBarChartData] = useState({})
@@ -11,7 +12,7 @@ const StatisticsCard = () => {
 
   const fetchBarChartData = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/get-stats')
+      const res = await axios.get(`${baseUrl}/get-stats`)
       const newData = await res.data.data
       setBarChartData(newData)
     } catch (error) {

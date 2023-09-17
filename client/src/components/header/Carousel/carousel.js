@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Box, Image, Heading, AspectRatio, Highlight, useColorModeValue, IconButton } from '@chakra-ui/react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Import arrow icons
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const Carousel = () => {
   const [carouselImageData, setCarouselImageData] = useState([]);
@@ -12,7 +13,7 @@ const Carousel = () => {
 
   const fetchCarouselImages = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/get-carousel-images');
+      const res = await axios.get(`${baseUrl}/get-carousel-images`);
       if (res.status === 200) {
         setCarouselImageData(res.data.data);
       } else {

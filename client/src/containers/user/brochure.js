@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Center, useBreakpointValue } from '@chakra-ui/react';
 import { Document, Page, pdfjs } from 'react-pdf';
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 // Configure pdfjs worker URL (you can adjust this path as needed)
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -14,7 +15,7 @@ const Brochure = () => {
     // GET PDF data
     const getPdfData = async () => {
         try {
-            const res = await axios.get('http://localhost:8000/get-brochure-file');
+            const res = await axios.get(`${baseUrl}/get-brochure-file`);
             if (res) {
                 setPdfData(res.data.data);
             } else {

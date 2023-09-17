@@ -3,6 +3,7 @@ import axios from "axios"
 import {
   Grid, Heading, Text, Box, useColorModeValue, Wrap, Image, Center, Modal, ModalOverlay, ModalContent, ModalHeader, useDisclosure, ModalBody
 } from '@chakra-ui/react'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const Newspaper = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -12,7 +13,7 @@ const Newspaper = () => {
 
   const fetchCertificates = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/get-certificate-images")
+      const res = await axios.get(`${baseUrl}/get-certificate-images`)
       const data = res.data.data
       setCertificatesList(data)
     } catch (error) {
@@ -100,18 +101,3 @@ const Newspaper = () => {
 
 export default Newspaper
 
-// const [certificatesList, setCertificatesList] = useState([])
-
-//   const fetchCertificates = async () => {
-//     try {
-//       const res = await axios.get("http://localhost:8000/get-certificate-images")
-//       const data = res.data.data
-//       setCertificatesList(data)
-//     } catch (error) {
-//       console.error("Error: ", error)
-//     }
-//   }
-
-//   useEffect(() => {
-//     fetchCertificates()
-//   }, [])

@@ -26,8 +26,7 @@ import {
   useToast
 } from '@chakra-ui/react'
 import axios from "axios"
-import {useFormik} from 'formik'
-import * as Yup from 'yup'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 
 const Form1 = ({ formData, setFormData }) => {
@@ -547,7 +546,7 @@ const MultiStepForm = () => {
 
   const handleFormSubmit = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/submit-resume", formData)
+      const res = await axios.post(`${baseUrl}/submit-resume`, formData)
       if (res.status === 200) {
         toast({
           title: 'Form submitted.',

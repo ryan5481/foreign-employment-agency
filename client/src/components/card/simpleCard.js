@@ -3,6 +3,8 @@ import { Image, Stack, Heading, Box, AspectRatio } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from "axios"
+const baseUrl = process.env.REACT_APP_BASE_URL 
+
 const SimpleCard = (props) => {
     const navigate = useNavigate()
     const [sectorsData, setSectorsData] = useState([])
@@ -11,7 +13,7 @@ const SimpleCard = (props) => {
 
     const fetchWorkSectors = async () => {
         try {
-            const res = await axios.get('http://localhost:8000/get-worksectors');
+            const res = await axios.get(`${baseUrl}/get-worksectors`);
             const newData = await res.data.data
             setSectorsData(newData)
             // setLoading(false);

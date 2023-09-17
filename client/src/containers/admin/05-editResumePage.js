@@ -26,6 +26,7 @@ import {
 } from "@chakra-ui/react"
 import { ViewIcon, DeleteIcon} from '@chakra-ui/icons'
 import { useNavigate } from "react-router-dom";
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const EditResumePage = () => {
     const navigate = useNavigate()
@@ -46,7 +47,7 @@ const EditResumePage = () => {
 
     const fetchResumes = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/get-resumes")
+            const res = await axios.get(`${baseUrl}/get-resumes`)
             if (res) {
                 const data = res.data.data
                 setResumes(data.reverse())
@@ -60,7 +61,7 @@ const EditResumePage = () => {
     const handleResumeDelete = async () => {
         if (resumeToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/admin/delete-resume/${resumeToDelete}`)
+                const res = await axios.delete(`${baseUrl}/admin/delete-resume/${resumeToDelete}`)
                 if (res) {
                     fetchResumes();
                     handleDeleteDialogClose()
@@ -85,7 +86,7 @@ const EditResumePage = () => {
 
 
     return (<>
-        <Box p={1} pt={5} color="purple.800" bg={useColorModeValue('purple.50', 'purple.800')} h="100%">
+        <Box p={1} pt={5} color="purple.800" bg={useColorModeValue('purple.300', 'purple.800')} h="100%">
             <Heading color={useColorModeValue('blue.800', 'gray.100')}>Resume Submissions</Heading>
             <VStack p={10} >
                 {/* HEADER */}

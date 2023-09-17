@@ -1,7 +1,7 @@
 
-import { Image, Badge, Input, Box, Grid, Button, Heading, useToast, Text, FormControl, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Textarea, VStack, useColorModeValue, Editable } from '@chakra-ui/react';
+import { Image, Box, Grid, Button, Heading, useToast, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Textarea, VStack, useColorModeValue } from '@chakra-ui/react';
 import { SmallCloseIcon } from "@chakra-ui/icons"
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import axios from "axios"
 
 const EditImageGallery = (props) => {
@@ -11,7 +11,6 @@ const EditImageGallery = (props) => {
     const [newSelectedPreviewImage, setNewSelectedPreviewImage] = useState(null);
     //update image
     const [imageToUpdateWith, setImageToUpdateWith] = useState(null);
-    const [imageUpdatePreview, setImageUpdatePreview] = useState(null);
 
     const [imageTitle, setImageTitle] = useState('');
     const [imageDescription, setImageDescription] = useState('');
@@ -23,7 +22,7 @@ const EditImageGallery = (props) => {
     const [imageToDelete, setImageToDelete] = useState(null);
     const cancelRef = useRef()
     const toast = useToast()
-
+    const baseUrl = process.env.REACT_APP_BASE_URL 
 
 
     //EDIT
@@ -36,9 +35,6 @@ const EditImageGallery = (props) => {
 
     const handleImageReplaceSelect = (event) => {
         setImageToUpdateWith(event.target.files[0]);
-        if (event.target.files && event.target.files[0]) {
-            setImageUpdatePreview(URL.createObjectURL(event.target.files[0]));
-        }
     }
 
     const handleUploadNewImage = async (event) => {
@@ -46,11 +42,9 @@ const EditImageGallery = (props) => {
         if (newSelectedImageFile) {
             const formData = new FormData();
             formData.append('galleryImage', newSelectedImageFile);
-            // formData.append('imageTitle', imageTitle);
-            // formData.append('imageDescription', imageDescription);
 
             try {
-                const res = await axios.post("http://localhost:8000/admin/add-gallery-image", formData, {
+                const res = await axios.post(`${baseUrl}/admin/add-gallery-image`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -95,7 +89,7 @@ const EditImageGallery = (props) => {
     const handleImageDelete = async () => {
         if (imageToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/admin/delete-gallery-image/${imageToDelete}`)
+                const res = await axios.delete(`${baseUrl}/admin/delete-gallery-image/${imageToDelete}`)
                 if (res.status === 200) {
                     toast({
                         title: 'Success.',
@@ -144,7 +138,7 @@ const EditImageGallery = (props) => {
             formData.append("imageTitle", imageTitle)
             formData.append("imageDescription", imageDescription)
             try {
-                const res = await axios.put("http://localhost:8000/admin/update-gallery-image", formData, {
+                const res = await axios.put(`${baseUrl}/admin/update-gallery-image`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }

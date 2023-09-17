@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import "./SmoothCarousel.css"
 import { Box, Image, Center, VStack } from '@chakra-ui/react';
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const CustomPrevArrow = (props) => {
     return <></>; // Empty fragment to hide the button
@@ -23,7 +24,7 @@ const Carousel = () => {
   const FetchCarouselImages = async () => {
 
     try {
-      const res = await axios.get("http://localhost:8000/get-bottomcarousel-images")
+      const res = await axios.get(`${baseUrl}/get-bottomcarousel-images`)
       if (res) {
         const imagesBinData = await res.data.data
         setCarouselImageData(imagesBinData)

@@ -3,6 +3,7 @@ import { Image, Stack, Input, Box, Grid, Button, Heading, AspectRatio, Text, For
 import { SmallCloseIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 const EditBottomCarousel = (props) => {
     const [carouselImageData, setCarouselImageData] = useState([])
@@ -26,7 +27,7 @@ const EditBottomCarousel = (props) => {
     const fetchCarouselImages = async () => {
 
         try {
-            const res = await axios.get("http://localhost:8000/get-bottomcarousel-images")
+            const res = await axios.get(`${baseUrl}/get-bottomcarousel-images`)
             if (res) {
                 const newData = await res.data.data
                 setCarouselImageData(newData)
@@ -50,7 +51,7 @@ const EditBottomCarousel = (props) => {
             formData.append('imageTitle', imageTitle);
 
             try {
-                await axios.post("http://localhost:8000/edit-homepage/add-bottomcarousel-image", formData, {
+                await axios.post(`${baseUrl}/edit-homepage/add-bottomcarousel-image`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -68,7 +69,7 @@ const EditBottomCarousel = (props) => {
     const handleImageDelete = async () => {
         if (imageToDelete) {
             try {
-                const res = await axios.delete(`http://localhost:8000/edit-homepage/delete-bottomcarousel-image/${imageToDelete}`)
+                const res = await axios.delete(`${baseUrl}/edit-homepage/delete-bottomcarousel-image/${imageToDelete}`)
                 if (res) {
                     fetchCarouselImages();
                     onClose();
@@ -88,7 +89,7 @@ const EditBottomCarousel = (props) => {
         }
         const updatedTitle = imageTitles[index]
         try {
-            await axios.put('http://localhost:8000/edit-homepage/update-bottomcarousel-image', {
+            await axios.put(`${baseUrl}/edit-homepage/update-bottomcarousel-image`, {
                 _id: imageId,
                 imageTitle: updatedTitle
 
@@ -114,14 +115,14 @@ const EditBottomCarousel = (props) => {
             formData.append("_id", imageId)
 
             try {
-                await axios.put("http://localhost:8000/edit-homepage/update-topcarousel-image", formData, {
+                await axios.put(`${baseUrl}/edit-homepage/update-topcarousel-image`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 })
-                fetchCarouselImages();
-                setSelectedImageFile(null);
-                setSelectedimageId(null);
+                // fetchCarouselImages();
+                // setSelectedImageFile(null);
+                // setSelectedimageId(null);
             } catch (error) {
 
                 console.error("Error updating image: ", error)

@@ -10,6 +10,7 @@ import {
   Avatar,
   useColorModeValue,
 } from '@chakra-ui/react'
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 interface Props {
   children: React.ReactNode
@@ -109,7 +110,7 @@ const TestimonialCard = () => {
 
   const fetchTestimonies = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/get-testimonies');
+      const res = await axios.get(`${baseUrl}/get-testimonies`);
       const newData = await res.data.data
       setTestimonyData(newData)
       // console.log(testimonyData)

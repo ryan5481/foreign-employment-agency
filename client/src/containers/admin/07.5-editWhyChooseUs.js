@@ -23,7 +23,7 @@ import {
    
 } from "@chakra-ui/react"
 import { CheckIcon } from "@chakra-ui/icons";
-
+const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const EditWhyChooseUs = () => {
     const toast = useToast()
@@ -60,7 +60,7 @@ const EditWhyChooseUs = () => {
     //GET
     const fetchWhyChooseUsData = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/get-choose-us");
+            const res = await axios.get(`${baseUrl}/get-choose-us`);
             const data = res.data.data;
 
             setTopImage(`data:image/jpeg;base64,${data.heroImage}`)
@@ -134,7 +134,7 @@ const EditWhyChooseUs = () => {
             formData.append('featureTitle8', featureTitle8);
             formData.append('featureText8', featureText8);
 
-            const res = await axios.put("http://localhost:8000/admin/edit-choose-us", formData);
+            const res = await axios.put(`${baseUrl}/admin/edit-choose-us`, formData);
             if (res.status === 200) {
                 toast({
                     title: 'Success.',
