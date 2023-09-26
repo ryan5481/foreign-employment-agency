@@ -13,7 +13,6 @@ import AboutNepal from '../containers/user/aboutNepal'
 import Newspaper from '../containers/user/newspaper'
 import WhyUs from '../containers/user/whyChooseUs'
 import AboutUs from '../containers/user/aboutUs'
-import Brochure from '../containers/user/brochure'
 
 import Profile from '../containers/admin/auth/profile'
 import ChangePassword from '../containers/admin/auth/changePassword'
@@ -71,7 +70,6 @@ const UserRoutes = () => {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/newspaper" element={<Newspaper />} />
         <Route path="/license" element={<License />} />
-        <Route path="/brochure" element={<Brochure />} />
       </Routes>
       <Footer />
     </>

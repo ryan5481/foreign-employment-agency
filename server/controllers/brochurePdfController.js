@@ -1,6 +1,5 @@
 import Brochure from "../models/brochurePdfSchema.js"
-import * as fs from "fs"
-import path from "path"
+
 
 export const UploadBrochure = async (req, res) => {
     try {
@@ -10,12 +9,12 @@ export const UploadBrochure = async (req, res) => {
             });
         }
 
-        const filePath = path.join("../server/uploads/brochurePdf/" + req.file.filename);
-        const file = fs.readFileSync(filePath);
+        const reqInclFile = {
+            ...req.body,
+            brochurePdfFile: req.file.filename,
+          };
 
-        const fileReq = { ...req.body, brochurePdfFile: file };
-
-        const data = await Brochure.create(fileReq);
+        const data = await Brochure.create(reqInclFile);
 
         if (data) {
             return res.status(200).json({
@@ -44,11 +43,12 @@ export const UpdateBrochure = async(req, res) => {
             })
         }
         else{
-            const file = fs.readFileSync(path.join("../server/uploads/brochurePdf/" + req.file.filename))
+            const reqInclFile = {
+                ...req.body,
+                brochurePdfFile: req.file.filename,
+              };
     
-            const fileReq = {... req.body, brochurePdfFile: file}
-    
-            const data = await Brochure.findByIdAndUpdate(req.body.id, fileReq)
+            const data = await Brochure.findByIdAndUpdate(req.body.id, reqInclFile)
     
             if(data){
                 res.status(200).json({
@@ -68,7 +68,7 @@ export const UpdateBrochure = async(req, res) => {
 
 export const GetBrochure = async (req, res) => {
     try {
-        const brochureId = "64f8174bd3ffc9b5b018ee79"; 
+        const brochureId = "65127e644c1b0290600cb5bb"; 
 
         const data = await Brochure.findById(brochureId);
 
