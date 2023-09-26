@@ -14,7 +14,7 @@ import {
     Button,
     Text, useToast
 } from "@chakra-ui/react"
-import { WarningIcon } from "@chakra-ui/icons"
+// import { WarningIcon } from "@chakra-ui/icons"
 import {FaWhatsapp, FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 const baseUrl = process.env.REACT_APP_BASE_URL 
 
@@ -22,7 +22,7 @@ const EditHeader = () => {
     const toast= useToast()
     const navigate = useNavigate()
     const [currentHeaderData, setCurrentHeaderData] = useState([])
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         regdField: "",
         licenseField: "",
         email: "",
@@ -30,10 +30,11 @@ const EditHeader = () => {
         whatsappId: "",
         facebookId: "",
         oneTapMessengerLink: "",
-    });
+        _id: ""
+      };
+    const [formData, setFormData] = useState(initialFormData);
 
     const handleInputChange = (event) => {
-        // console.log(event); // Log the event to see if it's capturing changes
         const { name, value } = event.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
@@ -42,15 +43,18 @@ const EditHeader = () => {
         event.preventDefault();
 
         try {
-            const res = await axios.put(`${baseUrl}/admin/edit-contact`, {
-                regdField: formData.regdField,
-                licenseField: formData.licenseField,
-                email: formData.email,
-                phoneNumber1: formData.phoneNumber1,
-                whatsappId: formData.whatsappId,
-                facebookId: formData.facebookId,
-                oneTapMessengerLink: formData.oneTapMessengerLink,
-            })
+            const res = await axios.patch(`${baseUrl}/admin/edit-contact/${currentHeaderData._id}`, formData
+            // {
+            //     regdField: formData.regdField,
+            //     licenseField: formData.licenseField,
+            //     email: formData.email,
+            //     phoneNumber1: formData.phoneNumber1,
+            //     whatsappId: formData.whatsappId,
+            //     facebookId: formData.facebookId,
+            //     oneTapMessengerLink: formData.oneTapMessengerLink,
+            //     _id : formData._id
+            // }
+            )
             if(res.status === 200){
                 toast({
                     title: 'Success.',
@@ -98,6 +102,7 @@ const EditHeader = () => {
                 whatsappId: currentHeaderData.whatsappId,
                 facebookId: currentHeaderData.facebookId,
                 oneTapMessengerLink: currentHeaderData.oneTapMessengerLink,
+                _id: currentHeaderData._id,
             });
             
         } else {

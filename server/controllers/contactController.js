@@ -20,27 +20,42 @@ export const PostContact = async(req, res) => {
     }
 }
 
-export const EditContact = async(req, res) => {
-    try
-    {
-        const updatedData = await Contact.findOneAndUpdate(req.body._id, req.body)
-        if(updatedData){
-            res.status(200).json({
-                msg: " updated successfully."
-            })
-        }else{
-            res.json({
-                msg: "Failed to update header."
-            })
+export const EditContact = async (req, res) => {
+    try {
+        console.log(req.params, req.body);
+
+        const contactId = req.params.id;
+        const updatedFields = req.body;
+
+        if (!updatedFields || Object.keys(updatedFields).length === 0) {
+            return res.status(400).json({ msg: "No valid update data provided." });
         }
-       
-    }catch(err){
-        console.log("Error: " + err)
+
+        const updatedContact = await Contact.findByIdAndUpdate(
+            contactId,
+            { $set: updatedFields },
+            { new: true } // Return the updated contact document
+        );
+
+        if (updatedContact) {
+            return res.status(200).json({
+                msg: "Updated successfully.",
+                updatedContact // Optionally, you can include the updated contact in the response
+            });
+        } else {
+            return res.status(404).json({
+                msg: "Contact not found." // Adjust this message according to your use case
+            });
+        }
+    } catch (err) {
+        console.error("Error: " + err);
+        return res.status(500).json({
+            msg: "Internal server error." // Adjust this message according to your use case
+        });
     }
-}
+};
 
 export const GetContact =  async(req, res) => {
-    // const headerLandmark = "headerLandmark"
     try{
         const data = await Contact.findById({_id: "64f5be64a202c937ea933da7"})
         if(data){
