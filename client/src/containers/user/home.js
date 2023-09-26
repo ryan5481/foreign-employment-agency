@@ -13,6 +13,7 @@ import SimpleCard from "../../components/card/simpleCard"
 import Procedure from "../../components/stepper"
 import BarChart from "../../components/animation/barChart"
 import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
+import Newspaper from "./newspaper"
 import AllJobs from "./allJobs"
 const Home = () => {
     const [isOpen, setIsOpen] = useState(true);
@@ -51,6 +52,7 @@ const Home = () => {
                 <Box >
                     <BlogArticleCard />
                 </Box>
+                <Newspaper />
                 {/* JOB SECTORS */}
                 <Box id="job-sectors"  >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={5}

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from "axios"
 import { Grid, Box, Text, Stack } from '@chakra-ui/react';
 import CountUp from 'react-countup';

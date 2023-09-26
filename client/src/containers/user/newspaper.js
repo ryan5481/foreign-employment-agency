@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import {
-  Grid, Heading, Text, Box, useColorModeValue, Wrap, Image, Center, Modal, ModalOverlay, ModalContent, ModalHeader, useDisclosure, ModalBody
+  Grid, Heading, Text, Box, useColorModeValue,  Image, Center, Modal, ModalOverlay, ModalContent, useDisclosure, ModalBody
 } from '@chakra-ui/react'
 const baseUrl = process.env.REACT_APP_BASE_URL 
 
@@ -50,7 +50,7 @@ const Newspaper = () => {
         p={5}>
 
         <Text as={'span'}>
-          Licenses and Certificates
+          Newspaper Ads
         </Text>
       </Heading>
       <Grid templateColumns={{ sm: '1fr', md: '1fr 1fr', lg: "1fr 1fr", xl: '1fr 1fr 1fr' }} gap={5} p={1} justifyItems="center">

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import axios from 'axios'
 import {
   Box,
   Button,
-  Checkbox,
+  useToast,
   Flex,
   Text,
   FormControl,
@@ -22,6 +22,7 @@ import { assignUserRole, setLoginDetails } from '../../../redux/reducers/userSll
 const baseUrl = process.env.REACT_APP_BASE_URL 
 
 const AdminLogin = () => {
+  const toast = useToast()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -46,17 +47,35 @@ const AdminLogin = () => {
         password: formData.password,
       })
 
-      if(response){
-        dispatch(assignUserRole("admin"))
-        dispatch(setLoginDetails({
-          email: response.data.email,
-          id: response.data.id,
-          fullName: response.data.fullName,
-        })
-        )
-        navigate("/")
-      }else{
-        alert("Login failed!")
+      if (response.status === 200) {
+        // Successful login
+        dispatch(assignUserRole("admin"));
+        dispatch(
+          setLoginDetails({
+            email: response.data.email,
+            id: response.data.id,
+            fullName: response.data.fullName,
+          })
+        );
+        navigate("/");
+        toast({
+          title: 'Success.',
+          description: 'Logged into admin dashboard.',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: 'top'
+        });
+      } else {
+        // Wrong credentials or other error
+        toast({
+          title: 'Failure.',
+          description: 'Wrong credentials.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top'
+        });
       }
 
       // console.log('POST response', response.data);

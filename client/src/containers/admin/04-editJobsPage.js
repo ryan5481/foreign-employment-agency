@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import axios from "axios"
 import {
-    Box, Button, Heading, useColorModeValue, Grid, Image, Stack, FormControl, FormLabel, Select, Card, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, CardBody, CardFooter, AspectRatio, Input, Center,
+    Box, Button, Heading, useColorModeValue, Grid, Image, Stack, FormControl, FormLabel, Select, Card, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Input, Center,
     StackDivider, Text, VStack, List, useToast, SimpleGrid, Spinner, AlertDialog, cancelRef, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, HStack
 } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom"
@@ -19,7 +19,6 @@ const AllJobs = ({ displayAll }) => {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isPostNewJobActive, activatePostNewJob] = useState(true)
     const [loading, setLoading] = useState(true)
-    const navigate = useNavigate()
     const cancelRef = useRef()
     const imageInputRef = useRef()
     const toast = useToast()
