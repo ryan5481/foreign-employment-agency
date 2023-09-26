@@ -6,7 +6,7 @@ import axios from 'axios'
 import {
   Container,
   Stack,
-  Flex,
+  Grid,
   Box,
   Heading,
   Text,
@@ -21,9 +21,6 @@ const baseUrl = process.env.REACT_APP_BASE_URL
 export default function CallToActionWithVideo() {
   const [currentAboutUsData, setCurrentAboutUsData] = useState([])
   const navigate = useNavigate()
-  const [ref: thisRef, inView: boxVisible] = useInView()
-  const thisRef = useRef(null);
-  const [boxVisible, setBoxVisible] = useState()
 
   const GetAboutUsData = async () => {
     const res = await axios.get(`${baseUrl}/get-aboutuspage`)
@@ -44,95 +41,89 @@ const Get50Words = async(inputText) => {
 
 useEffect(() => {
   GetAboutUsData()
-  const observer = new IntersectionObserver((entries) => {
-    const entry = entries[0];
-    setBoxVisible(entry.isIntersecting)
-    console.log('entry', entry)
-  })
-  observer.observe(thisRef.current)
+  
 }, [])
 
   return (
     <Container maxW={'full'} bg={useColorModeValue('blue.500', 'gray.1000')} 
     color='white'>
-      <ScaleFade initialScale={0.8} in={boxVisible} >
-
-        <Stack
+        <Grid
           align={'center'}
+          gap={5}
           spacing={{ base: 8, md: 10 }}
           py={{ base: 20, md: 28 }}
           px={{ base: 10, md: 20 }}
-          direction={{ base: 'column', md: 'row' }}
-          
+          templateColumns={{ sm: '1fr', md: '1fr', lg: '1fr 1fr' }}
         >
-          <Flex
-            flex={1}
-            justify={'center'}
-            align={'center'}
-            position={'relative'}
-            w={'full'}>
             <Box
-              position={'relative'}
-              height={'400px'}
+              data-aos="fade-right"
+              data-aos-duration="1000"
+              data-aos-once="true"
+              // position={'relative'}
+              height="100%"
               rounded={'2xl'}
-              boxShadow={'2xl'}
-              width={'full'}
-              overflow={'hidden'}
-              h={{ sm: '200', lg: '400px' }}
               >
-          
-              <Center>
                 <Image
                   alt={'Hero Image'}
                   fit={'cover'}
                   align={'center'}
                   w={'100%'}
                   h={'100%'}
+                  rounded={'2xl'}
+                boxShadow={'2xl'}
                   src={
                     `data:image/jpeg;base64,${currentAboutUsData.aboutUsImage}`}
-                    _hover={{
-                      transform: 'scale(1.05)',
-                  }}
-                  transition="0.4s ease-in-out"
-                  ref={thisRef}
+                    // _hover={{
+                    //   transform: 'scale(1.05)',
+                  // }}
+                  // transition="0.4s ease-in-out"
                 />
-                </Center>
             </Box>
-          </Flex>
-          <Stack flex={1} spacing={{ base: 5, md: 10 }} align="center" >
+          <Box 
+           spacing={{ base: 5, md: 10 }} align="center" >
             <Heading
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            data-aos-once="true"
+
               lineHeight={1.1}
               fontWeight={600}
               fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
               >
-
               <Text as={'span'}  >
                 About Us
               </Text>
             </Heading>
-            <Text  >
+            <Text 
+            my={5} 
+            fontSize="18px" 
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            >
            {currentAboutUsData.text1?.split(/\s+/).slice(0, 100).join(' ') + " ..."}
             </Text>
 
             <Button
+            data-aos="flip-up"
+            data-aos-duration="1000"
+            data-aos-once="true"
+
               rounded={'full'}
               size={'lg'}
               fontWeight={'bold'}
               px={6}
               w={"200px"}
               placeItems="center"
-              bg={'blue.400'}
+              colorScheme="white"
               color={useColorModeValue('blue.500', 'gray.900')}
-              _hover={{ bg: 'whiteAlpha.900', color:'blue.600' }}
               onClick={() => navigate("/about")}
               bg={'whiteAlpha.800'}
             >
               Read More
             </Button>
-          </Stack>
-          
-        </Stack>
-      </ScaleFade>
+          </Box>
+        </Grid>
+      
     </Container>
   )
 }

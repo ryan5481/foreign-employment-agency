@@ -38,6 +38,28 @@ const Footer = () => {
     const [logoImageData, setLogoImageData] = useState({});
     const [email, setEmail] = useState('');
     const toast = useToast()
+
+    const [pdfData, setPdfData] = useState();
+
+    // GET PDF data
+    const getPdfData = async () => {
+        try {
+            const res = await axios.get(`${baseUrl}/get-brochure-file`);
+            if (res) {
+                setPdfData(res.data.data);
+            } else {
+                alert('Failed to fetch PDF data');
+            }
+        } catch (error) {
+            console.error('Error fetching PDF data:', error);
+        }
+    };
+
+    useEffect(() => {
+        getPdfData();
+    }, []);
+
+    console.log(pdfData)
     
     //MAIL SUBSCRIBE
     const handleInputChange = async(event) => {
@@ -236,8 +258,7 @@ const Footer = () => {
                         <ListHeader>Stay up to date</ListHeader>
                         <Stack direction={'row'}>
                             <IconButton
-                                bg={useColorModeValue('blue.700', 'blue.400')}
-                                color={useColorModeValue('white', 'gray.800')}
+                                colorScheme='blue'
                                 _hover={{ bg: '#0D74FF' }}
                                 aria-label="Subscribe"
                                 icon={<BiMailSend />}
@@ -255,14 +276,13 @@ const Footer = () => {
                             />
                         </Stack>
                         <Stack direction={'row'} >
-                            <IconButton
-                                bg={useColorModeValue('blue.700', 'blue.400')}
-                                color={useColorModeValue('white', 'gray.800')}
+                        
+                            {pdfData && <a href={`../assets/${pdfData.brochurePdfFile}`}  target="_blank" ><IconButton
+                                colorScheme='blue'
                                 _hover={{ bg: '#0D74FF' }}
                                 aria-label="Subscribe"
                                 icon={<FaFilePdf />}
-                                onClick={() => navigate("/brochure")}
-                            />
+                            /></a>}
                             <Center>
                                 <Text>{currentFooterData.fileDownloadText}</Text>
                             </Center>

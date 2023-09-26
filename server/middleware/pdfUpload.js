@@ -2,7 +2,7 @@ import multer from 'multer'
 // BROCHURE
 const BrochurePdfStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "../server/uploads/brochurePdf")
+        cb(null, "../client/public/assets/")
     },
     filename: function (req, file, cb) {
         cb(null, "Brochure_" + Date.now() + ".pdf")

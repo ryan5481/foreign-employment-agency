@@ -7,7 +7,7 @@ const brochurePdfSchema = ({
         default: "radiantInfoTech"
     },
 
-    brochurePdfFile: Buffer,
+    brochurePdfFile: String,
 
     createdAt: { type: Date, default: Date.now },
     
