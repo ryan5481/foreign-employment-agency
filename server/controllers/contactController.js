@@ -26,7 +26,7 @@ export const EditContact = async(req, res) => {
         const updatedData = await Contact.findOneAndUpdate(req.body._id, req.body)
         if(updatedData){
             res.status(200).json({
-                msg: "Header updated successfully."
+                msg: " updated successfully."
             })
         }else{
             res.json({

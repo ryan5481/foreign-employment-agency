@@ -26,13 +26,13 @@ const AllJobs = ({ displayAll }) => {
     const fetchJobsList = async () => {
         try {
 
-            if(selectedCategory){
+            if (selectedCategory) {
                 const res = await axios.get(`${baseUrl}/jobslist?category=${selectedCategory}`);
                 let newData = res.data.jobsList
-            setData(newData.reverse());
+                setData(newData.reverse());
 
 
-            }else{
+            } else {
                 const res = await axios.get(`${baseUrl}/jobslist`);
                 let newData = res.data.jobsList
                 setData(newData.reverse());
@@ -66,8 +66,8 @@ const AllJobs = ({ displayAll }) => {
                         Latest {selectedCategory} Jobs
                     </Heading>) : (<Heading fontSize={'4xl'} fontFamily={'body'} pt={5}>
                         Latest Jobs
-                    </Heading>) }
-                    
+                    </Heading>)}
+
 
                     {/* {data && data.length !== 0 ?  ( */}
                     <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr', lg: '1fr 1fr 1fr', xl: '1fr 1fr 1fr 1fr 1fr', '2xl': '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
@@ -101,25 +101,25 @@ const AllJobs = ({ displayAll }) => {
                                         <ButtonGroup spacing='3' >
                                             <Center>
 
-                                            <Button
-                                                variant='ghost'
-                                                colorScheme='blue'
-                                                rounded='full'
-                                                onClick={() => {
-                                                    onOpen()
-                                                    setModalJobData(job)
-                                                    setReqQualifications(job.reqQualification)
-                                                    setReqSkills(job.skillsRequired)
-                                                    setReqResponsiblities(job.responsiblities)
-                                                }}
-                                            >
-                                                Details
-                                            </Button>
-                                            <Button variant='solid' colorScheme='blue' rounded='full'
-                                                onClick={() => handleApplyNowClick(job.jobCode)}
-                                            >
-                                                Apply now
-                                            </Button>
+                                                <Button
+                                                    variant='ghost'
+                                                    colorScheme='blue'
+                                                    rounded='full'
+                                                    onClick={() => {
+                                                        onOpen()
+                                                        setModalJobData(job)
+                                                        setReqQualifications(job.reqQualification)
+                                                        setReqSkills(job.skillsRequired)
+                                                        setReqResponsiblities(job.responsiblities)
+                                                    }}
+                                                >
+                                                    Details
+                                                </Button>
+                                                <Button variant='solid' colorScheme='blue' rounded='full'
+                                                    onClick={() => handleApplyNowClick(job.jobCode)}
+                                                >
+                                                    Apply now
+                                                </Button>
                                             </Center>
                                         </ButtonGroup>
                                     </CardFooter>
@@ -131,7 +131,7 @@ const AllJobs = ({ displayAll }) => {
                             color='blue.500'
                             size='xl' />}
                         </>
-                    </Grid> 
+                    </Grid>
                     {/* ) : (<Text>Jobs not available at this moment.</Text>) } */}
 
                     {displayAll == false && (<Flex w="full" alignItems="center" justifyContent="center">
@@ -165,7 +165,7 @@ const AllJobs = ({ displayAll }) => {
                                     <Box>
                                         <Center>
                                             <Image
-                                            maxH={"md"}
+                                                maxH={"md"}
                                                 roundedTop={'md'}
                                                 alt={modalJobData.jobTitle}
                                                 src={
@@ -294,20 +294,20 @@ const AllJobs = ({ displayAll }) => {
                                                                 mb={'4'}>
                                                                 Qualifications Required
                                                             </Text>
-                                                            <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                            <Text textAlign={"left"}>
-                                                                {modalJobData && modalJobData.reqQualification ? (
-                                                                    modalJobData.reqQualification
-                                                                        .split(". ")
-                                                                        .filter((sentence) => sentence.trim() !== "")
-                                                                        .map((sentence, index) => (
-                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
-                                                                        ))
-                                                                ) : (
-                                                                    <span>No qualification information available</span>
-                                                                )}
-                                                            </Text>
-                                                        </VStack>
+                                                            <Box spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                                <Text textAlign={"left"}>
+                                                                    {modalJobData && modalJobData.reqQualification ? (
+                                                                        modalJobData.reqQualification
+                                                                            .split(". ")
+                                                                            .filter((sentence) => sentence.trim() !== "")
+                                                                            .map((sentence, index) => (
+                                                                                <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                            ))
+                                                                    ) : (
+                                                                        <span>No qualification information available</span>
+                                                                    )}
+                                                                </Text>
+                                                            </Box>
                                                         </Box>
                                                         <Box textAlign={'left'}>
                                                             <Text
@@ -317,20 +317,20 @@ const AllJobs = ({ displayAll }) => {
                                                                 mb={'4'}>
                                                                 Skills Required
                                                             </Text>
-                                                            <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                            <Text textAlign={"left"}>
-                                                                {modalJobData && modalJobData.skillsRequired ? (
-                                                                    modalJobData.skillsRequired
-                                                                        .split(". ")
-                                                                        .filter((sentence) => sentence.trim() !== "")
-                                                                        .map((sentence, index) => (
-                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
-                                                                        ))
-                                                                ) : (
-                                                                    <span>No skills information available</span>
-                                                                )}
-                                                            </Text>
-                                                        </VStack>
+                                                            <Box spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                                <Text textAlign={"left"}>
+                                                                    {modalJobData && modalJobData.skillsRequired ? (
+                                                                        modalJobData.skillsRequired
+                                                                            .split(". ")
+                                                                            .filter((sentence) => sentence.trim() !== "")
+                                                                            .map((sentence, index) => (
+                                                                                <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                            ))
+                                                                    ) : (
+                                                                        <span>No skills information available</span>
+                                                                    )}
+                                                                </Text>
+                                                            </Box>
                                                         </Box>
                                                         <Box textAlign={'left'}>
                                                             <Text
@@ -340,20 +340,20 @@ const AllJobs = ({ displayAll }) => {
                                                                 mb={'4'}>
                                                                 Responsiblities
                                                             </Text>
-                                                            <VStack spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
-                                                            <Text textAlign={"left"}>
-                                                                {modalJobData && modalJobData.responsiblities ? (
-                                                                    modalJobData.responsiblities
-                                                                        .split(". ")
-                                                                        .filter((sentence) => sentence.trim() !== "")
-                                                                        .map((sentence, index) => (
-                                                                            <p key={index}> {index + 1 + ". "} {sentence}</p>
-                                                                        ))
-                                                                ) : (
-                                                                    <span>No responsiblities information available</span>
-                                                                )}
-                                                            </Text>
-                                                        </VStack>
+                                                            <Box spacing={2} fontSize={{ base: '14px', lg: '18px' }} fontWeight={'400'}>
+                                                                <Text textAlign={"left"}>
+                                                                    {modalJobData && modalJobData.responsiblities ? (
+                                                                        modalJobData.responsiblities
+                                                                            .split(". ")
+                                                                            .filter((sentence) => sentence.trim() !== "")
+                                                                            .map((sentence, index) => (
+                                                                                <p key={index}> {index + 1 + ". "} {sentence}</p>
+                                                                            ))
+                                                                    ) : (
+                                                                        <span>No responsiblities information available</span>
+                                                                    )}
+                                                                </Text>
+                                                            </Box>
                                                         </Box>
                                                     </Stack>
                                                     <Box

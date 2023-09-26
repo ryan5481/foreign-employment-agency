@@ -15,7 +15,7 @@ import WhyUs from '../containers/user/whyChooseUs'
 import AboutUs from '../containers/user/aboutUs'
 
 import Profile from '../containers/admin/auth/profile'
-import ChangePassword from '../containers/admin/auth/changePassword'
+// import ChangePassword from '../containers/admin/auth/changePassword'
 import EditHeader from '../containers/admin/01-editHeader'
 import EditNavbar from '../containers/admin/02-editNavBar'
 import EditHomePage from '../containers/admin/03-editHomePage'
@@ -83,7 +83,7 @@ const AdminRoutes = () => {
       <Routes bg={useColorModeValue('purple.100', 'purple.800')}>
         <Route path="/adminpanel" element={<AdminPanel />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/password" element={<ChangePassword />} />
+        {/* <Route path="/password" element={<ChangePassword />} /> */}
         <Route path="/edit-header" element={<EditHeader />} />
         <Route path="/edit-navbar" element={<EditNavbar />} />
         <Route path="/edit-footer" element={<EditFooter />} />

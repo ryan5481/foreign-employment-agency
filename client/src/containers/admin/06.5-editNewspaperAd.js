@@ -9,7 +9,6 @@ const baseUrl = process.env.REACT_APP_BASE_URL
 const EditNewspaperAds = () => {
   const toast = useToast()
   //GET
-  const bgColorModeValue = useColorModeValue('blue.600', 'white');
   const [newspaperAds, setNewspaperAds] = useState([])
   //PUT
   const [selectedImageFile, setSelectedImageFile] = useState(null);

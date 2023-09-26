@@ -20,7 +20,7 @@ import {
     Editable,
     EditableInput,
     EditablePreview,
-    useToast, 
+    useToast,
     Tooltip
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
@@ -29,7 +29,7 @@ import { FaFilePdf } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 import { BsWhatsapp, BsMessenger } from 'react-icons/bs'
 import { MdFacebook } from 'react-icons/md'
-const baseUrl = process.env.REACT_APP_BASE_URL 
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 const SocialButton = ({
     children,
@@ -73,7 +73,7 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 
 
 const EditFooter = () => {
-    const uploadPdfRef = useRef(null); 
+    const uploadPdfRef = useRef(null);
     const textColorModeValue = useColorModeValue('white', 'purple.100');
     const navigate = useNavigate()
     const toast = useToast()
@@ -114,7 +114,7 @@ const EditFooter = () => {
                 instagramLink: formData.instagramLink,
                 fileDownloadText: formData.fileDownloadText
             })
-            if(response.status === 200){
+            if (response.status === 200) {
                 toast({
                     title: 'Success.',
                     description: 'Data updated.',
@@ -124,16 +124,16 @@ const EditFooter = () => {
                     position: 'top'
                 });
                 GetFooterData()
-                } else{
-                    toast({
-                        title: 'Error.',
-                        description: 'Failed to update data.',
-                        status: 'error',
-                        duration: 5000,
-                        isClosable: true,
-                        position: 'top'
-                    });
-                }
+            } else {
+                toast({
+                    title: 'Error.',
+                    description: 'Failed to update data.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+            }
 
         } catch (error) {
             console.error('Error:', error.response);
@@ -193,17 +193,43 @@ const EditFooter = () => {
             if (selectedPdfFile) {
                 formData.append('brochurePdfFile', selectedPdfFile);
             }
-            formData.append('id', "64f8174bd3ffc9b5b018ee79");
+            formData.append('id', "65127e644c1b0290600cb5bb");
 
             const response = await axios.put(`${baseUrl}/admin/update-brochure-file`, formData);
-            if (response) {
+
+            if (response.status === 200) {
                 setSelectedPdfFile(null)
-                window.location.reload()
+                // window.location.reload()
+                toast({
+                    title: 'Success.',
+                    description: 'File uploaded.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
+            } else {
+                toast({
+                    title: 'Failure!',
+                    description: 'Failed to upload file.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                });
             }
         } catch (error) {
-            console.error('Error updating logo:', error);
+            toast({
+                title: 'Failure!',
+                description: 'Failed to upload file.',
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            });
         }
     };
+
 
     useEffect(() => {
         fetchLogoImage()
@@ -217,7 +243,7 @@ const EditFooter = () => {
             top={'10vh'}
         >
             <Heading color={useColorModeValue('white', 'purple.100')} pt={5}> Edit Footer </Heading>
-            { currentFooterData && currentFooterData.updatedAt &&<Text color={textColorModeValue} fontStyle="italic" pb={3} > Last Updated on {currentFooterData.updatedAt.slice(0, 10)} </Text>}
+            {currentFooterData && currentFooterData.updatedAt && <Text color={textColorModeValue} fontStyle="italic" pb={3} > Last Updated on {currentFooterData.updatedAt.slice(0, 10)} </Text>}
             <form onSubmit={handleSubmit}>
                 <Box
                     bg={useColorModeValue('blue.900', 'gray.1000')}
@@ -232,162 +258,161 @@ const EditFooter = () => {
                             {currentFooterData && (
                                 <Stack spacing={6}>
                                     <Box align="center">
-                                    <Image
-                                src={ `data:image/jpeg;base64,${logoImageData.logoImage}`}
-                                alt="Logo"
-                                h={"65px"}
-                                textAlign='left'
-                                fontFamily={'heading'}
-                            />
+                                        <Image
+                                            src={`data:image/jpeg;base64,${logoImageData.logoImage}`}
+                                            alt="Logo"
+                                            h={"65px"}
+                                            textAlign='left'
+                                            fontFamily={'heading'}
+                                        />
                                     </Box>
-                                    <Editable id="column1Line1" textAlign='left' marginx={2} bg={'purple.700'} placeholder={currentFooterData.column1Line1}  fontSize={'sm'} rounded={'5px'}>
-                                        <EditablePreview  px={3} />
-                                        <EditableInput  type="text"  px={3} name="column1Line1" onChange={handleInputChange} />
+                                    <Editable id="column1Line1" textAlign='left' marginx={2} bg={'purple.700'} placeholder={currentFooterData.column1Line1} fontSize={'sm'} rounded={'5px'}>
+                                        <EditablePreview px={3} />
+                                        <EditableInput type="text" px={3} name="column1Line1" onChange={handleInputChange} />
                                     </Editable>
                                     <Editable id="column1Line2" textAlign='left' marginx={2} bg={'purple.700'} placeholder={currentFooterData.column1Line2} fontSize={'sm'} rounded={'5px'}>
-                                        <EditablePreview  px={3} />
-                                        <EditableInput type="text"  px={3} name="column1Line2" onChange={handleInputChange} />
+                                        <EditablePreview px={3} />
+                                        <EditableInput type="text" px={3} name="column1Line2" onChange={handleInputChange} />
                                     </Editable>
-                                    <Editable id="column1Line3" textAlign='left' marginx={2} bg={'purple.700'} placeholder={currentFooterData.column1Line3} fontSize={'sm'}  rounded={'5px'}>
-                                        <EditablePreview  px={3} />
-                                        <EditableInput type="text"  px={3}  name="column1Line3" onChange={handleInputChange} />
+                                    <Editable id="column1Line3" textAlign='left' marginx={2} bg={'purple.700'} placeholder={currentFooterData.column1Line3} fontSize={'sm'} rounded={'5px'}>
+                                        <EditablePreview px={3} />
+                                        <EditableInput type="text" px={3} name="column1Line3" onChange={handleInputChange} />
                                     </Editable>
                                     {/* FACEBOOK */}
                                     <Stack direction={'horizontal'} spacing={6} alignSelf="center" >
-                                    <IconButton
-                                color={'white'}
-                                aria-label="whatsapp"
-                                variant="ghost"
-                                size="lg"
-                                isRound={true}
-                                _hover={{ bg: '#0D74FF' }}
-                                icon={<BsWhatsapp size="28px" />}
+                                        <IconButton
+                                            color={'white'}
+                                            aria-label="whatsapp"
+                                            variant="ghost"
+                                            size="lg"
+                                            isRound={true}
+                                            _hover={{ bg: '#0D74FF' }}
+                                            icon={<BsWhatsapp size="28px" />}
 
-                            />
-                            <IconButton
-                                color={'white'}
-                                aria-label="facebook"
-                                variant="ghost"
-                                size="lg"
-                                isRound={true}
-                                _hover={{ bg: '#0D74FF' }}
-                                icon={<MdFacebook size="28px" />}
+                                        />
+                                        <IconButton
+                                            color={'white'}
+                                            aria-label="facebook"
+                                            variant="ghost"
+                                            size="lg"
+                                            isRound={true}
+                                            _hover={{ bg: '#0D74FF' }}
+                                            icon={<MdFacebook size="28px" />}
 
-                            />
+                                        />
 
-                            <IconButton
-                                color={'white'}
-                                aria-label="messanger"
-                                variant="ghost"
-                                size="lg"
-                                isRound={true}
-                                _hover={{ bg: '#0D74FF' }}
-                                icon={<BsMessenger size="28px" />}
-                            />
-                            </Stack>
+                                        <IconButton
+                                            color={'white'}
+                                            aria-label="messanger"
+                                            variant="ghost"
+                                            size="lg"
+                                            isRound={true}
+                                            _hover={{ bg: '#0D74FF' }}
+                                            icon={<BsMessenger size="28px" />}
+                                        />
+                                    </Stack>
                                 </Stack>
                             )}
-                            <Stack align={'flex-start'}>
+                            <Stack align={'flex-start'} >
                                 <ListHeader>Company</ListHeader>
-                                <Box as="a" href={'about'}>
+                                <Box as="a" _hover={{ color: '#0D74FF' }} >
                                     About us
                                 </Box>
-                                <Box as="a" href={'#'}>
-                                    Blog
+                                <Box as="a" _hover={{ color: '#0D74FF' }}>
+                                    Why Choose us
                                 </Box>
-                                <Box as="a" href={'contact'}>
-                                    Contact us
+                                <Box as="a" _hover={{ color: '#0D74FF' }}>
+                                    About Nepal
                                 </Box>
-                                <Box as="a" href={'#'}>
-                                    Pricing
+                                <Box as="a" _hover={{ color: '#0D74FF' }}>
+                                    Image Gallery
                                 </Box>
-                                <Box as="a" href={'testimonials'}>
-                                    Testimonials
-                                </Box>
+
                             </Stack>
-                            <Stack align={'flex-start'}>
+                            <Stack align={'flex-start'} >
                                 <ListHeader>Support</ListHeader>
-                                <Box as="a" href={'#'}>
-                                    Help Center
+                                <Box as="a" _hover={{ color: '#0D74FF' }}>
+                                    Contact Us
                                 </Box>
-                                <Box as="a" href={'#'}>
-                                    Terms of Service
+
+                                <Box as="a" _hover={{ color: '#0D74FF' }}>
+                                    License
                                 </Box>
-                                <Box as="a" href={'license'}>
-                                    Legal
+                                <Box as="a" _hover={{ color: '#0D74FF' }}>
+                                    Submit Resume
                                 </Box>
-                                <Box as="a" href={'#'}>
-                                    Privacy Policy
-                                </Box>
-                                <Box as="a" href={'#'}>
-                                    Satus
+
+                                <Box as="a" _hover={{ color: '#0D74FF' }}>
+                                    Latest Jobs
                                 </Box>
                             </Stack>
                             <Stack align={'flex-start'}>
-                                <ListHeader>Stay up to date</ListHeader>
-                                <Stack direction={'row'}>
-                                    <IconButton
-                                        bg={useColorModeValue('blue.700', 'blue.400')}
-                                        color={useColorModeValue('white', 'gray.800')}
-                                        _hover={{ bg: '#0D74FF' }}
-                                        aria-label="Subscribe"
-                                        icon={<BiMailSend />}
-                                    />
-                                    <Input
-                                        placeholder={'Email'}
-                                        w={150}
-                                        bg={useColorModeValue('blue.700', 'whiteAlpha.100')}
-                                        border={0}
-                                        _focus={{
-                                            bg: 'whiteAlpha.300',
-                                        }}
-                                    />
+                                <Stack align={'flex-start'}>
+                                    <ListHeader>Stay up to date</ListHeader>
+                                    <Stack direction={'row'}>
+                                        <IconButton
+                                            bg={useColorModeValue('blue.700', 'blue.400')}
+                                            color={useColorModeValue('white', 'gray.800')}
+                                            _hover={{ bg: '#0D74FF' }}
+                                            aria-label="Subscribe"
+                                            icon={<BiMailSend />}
+                                        />
+                                        <Input
+                                            placeholder={'Email'}
+                                            w={150}
+                                            bg={useColorModeValue('blue.700', 'whiteAlpha.100')}
+                                            border={0}
+                                            _focus={{
+                                                bg: 'whiteAlpha.300',
+                                            }}
+                                        />
+                                    </Stack>
+                                    <Stack direction={'row'} >
+                                        <Tooltip label="Click to upload Brochure PDF file." placement="top">
+                                            <IconButton
+                                                colorScheme='purple'
+                                                color={useColorModeValue('white', 'gray.800')}
+                                                _hover={{ bg: '#0D74FF' }}
+                                                aria-label="Subscribe"
+                                                icon={<FaFilePdf />}
+                                                onClick={() => uploadPdfRef.current.click()}
+                                            />
+                                        </Tooltip>
+
+                                        <input
+                                            type='file'
+                                            accept="pdf/*"
+                                            style={{ display: "none" }}
+                                            ref={uploadPdfRef}
+                                            onChange={handlePdfSelect}
+                                        />
+
+                                        {/* FILE DOWNLOAD */}
+                                        <Center>
+                                            <Stack direction={'row'} spacing={6}>
+                                                {currentFooterData && (
+                                                    <Editable id="fileDownloadText" marginx={2} bg={'purple.700'} placeholder={currentFooterData.fileDownloadText} fontSize={'sm'} rounded={'5px'}>
+                                                        <EditablePreview px={3} />
+                                                        <EditableInput type="text" px={3} name="fileDownloadText" onChange={handleInputChange} />
+                                                    </Editable>
+                                                )}
+                                            </Stack>
+                                        </Center>
+
+                                    </Stack>
+                                    {selectedPdfFile && <Button colorScheme='purple' onClick={handleUploadBrochure}>Upload selected PDF</Button>}
                                 </Stack>
-                                <Stack direction={'row'} >
-                                <Tooltip  label="Click to upload Brochure PDF file." placement="top">
-                                    <IconButton
-                                        colorScheme='purple'
-                                        color={useColorModeValue('white', 'gray.800')}
-                                        _hover={{ bg: '#0D74FF' }}
-                                        aria-label="Subscribe"
-                                        icon={<FaFilePdf />}
-                                        onClick={() => uploadPdfRef.current.click()}
-                                    />
-                                    </Tooltip>
-                                    
-                                    <input
-                                        type='file'
-                                        accept="pdf/*"
-                                        style={{ display: "none" }}
-                                        ref={uploadPdfRef}
-                                        onChange={handlePdfSelect}
-                                    />
-                                    
-                                    {/* FILE DOWNLOAD */}
-                                    <Center>
-                                        <Stack direction={'row'} spacing={6}>
-                                            {currentFooterData && (
-                                                <Editable id="fileDownloadText" marginx={2} bg={'purple.700'} placeholder={currentFooterData.fileDownloadText} fontSize={'sm'}  rounded={'5px'}>
-                                                    <EditablePreview px={3} />
-                                                    <EditableInput type="text" px={3} name="fileDownloadText" onChange={handleInputChange} />
-                                                </Editable>
-                                            )}
-                                        </Stack>
-                                    </Center>
-                                    
+                                <Stack overflow='hidden' borderRadius={10} h={260} w={200} align={'center'} alignItems={'center'}>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1023.6851100697893!2d85.33048799804155!3d!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1907b0522ead%3A0x392af32fe87dd0ea!2sRadiant%20Infotech%20Nepal%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1690782916035!5m2!1sen!2snp"
+                                        width="200"
+                                        height="260"
+                                        style={{ border: 0 }}
+                                        allowfullscreen=""
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                    ></iframe>
                                 </Stack>
-                                {selectedPdfFile && <Button colorScheme='purple' onClick={handleUploadBrochure}>Upload selected PDF</Button>}
-                            </Stack>
-                            <Stack overflow='hidden' borderRadius={10} h={260} w={200} align={'center'} alignItems={'center'}>
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1023.6851100697893!2d85.33048799804155!3d!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1907b0522ead%3A0x392af32fe87dd0ea!2sRadiant%20Infotech%20Nepal%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1690782916035!5m2!1sen!2snp"
-                                    width="200"
-                                    height="260"
-                                    style={{ border: 0 }}
-                                    allowfullscreen=""
-                                    loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"
-                                ></iframe>
-                            </Stack>
+                                </Stack>
                         </SimpleGrid>
                     </Container>
                 </Box>

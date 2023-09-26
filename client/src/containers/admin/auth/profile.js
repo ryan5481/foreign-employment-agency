@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useLocation, useAsyncValue } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { setLoginDetails } from '../../../redux/reducers/userSllice'
 import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
@@ -13,18 +13,11 @@ import {
     Input,
     Stack,
     useColorModeValue,
-    Avatar,
-    AvatarBadge,
-    IconButton,
-    Center,
-    Divider,
 } from '@chakra-ui/react'
-import { SmallCloseIcon } from '@chakra-ui/icons'
 const baseUrl = process.env.REACT_APP_BASE_URL 
 
 export default function Profile() {
     const toast = useToast()
-    const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { fullName, email, id } = useSelector((state) => state.user)

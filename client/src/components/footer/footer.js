@@ -223,7 +223,7 @@ const Footer = () => {
                     </Stack>
                     <Stack align={'flex-start'} >
                         <ListHeader>Company</ListHeader>
-                        <Box as="a" href={'/about'} _hover={{ color: '#0D74FF' }} >
+                        <Box as="a" href={'/about-us'} _hover={{ color: '#0D74FF' }} >
                             About us
                         </Box>
                         <Box as="a" href={'/choose-us'} _hover={{ color: '#0D74FF' }}>

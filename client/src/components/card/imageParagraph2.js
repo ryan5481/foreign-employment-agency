@@ -3,12 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Box,
     chakra,
-    Center,
     Flex,
-    Link,
-    Image,
-    Stack,
-    Text,
     useColorModeValue,
   } from '@chakra-ui/react'
   import axios from 'axios';

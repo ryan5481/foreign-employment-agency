@@ -1,6 +1,4 @@
 import {
-  Container,
-  Center,
   Box,
   Heading,
   Text,
@@ -8,17 +6,14 @@ import {
   Button,
   Stack,
   VStack,
-  HStack,
   Grid,
-  WrapItem,
   FormControl,
   FormLabel,
   Input,
   InputGroup,
   InputLeftElement,
   Textarea,
-  useColorModeValue,
-  VisuallyHidden
+  useColorModeValue
 } from '@chakra-ui/react'
 import {
   MdPhone,
