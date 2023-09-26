@@ -112,4 +112,16 @@ In addition, admins can post new job vacancies, view and delete the resumes subm
 
 ## Preview (GIFs):
 
+![11](https://github.com/ryan5481/foreign-employment-agency/assets/73333847/d3f548a5-984a-4b2a-ba28-41f1e297b966)
 
+![222](https://github.com/ryan5481/foreign-employment-agency/assets/73333847/5125606e-13e2-4449-8f67-5a00b9a0c5cf)
+
+![3](https://github.com/ryan5481/foreign-employment-agency/assets/73333847/7578925e-6fb0-4249-887b-ca1f90396256)
+
+![4](https://github.com/ryan5481/foreign-employment-agency/assets/73333847/271231bd-1698-4ca9-83eb-02fb393f22be)
+
+![5](https://github.com/ryan5481/foreign-employment-agency/assets/73333847/985224d2-ec05-4c92-bf6e-ccc5400577d7)
+
+![6](https://github.com/ryan5481/foreign-employment-agency/assets/73333847/5fc94e87-49af-4854-9bbf-bf5309b29f7e)
+
+![7](https://github.com/ryan5481/foreign-employment-agency/assets/73333847/e57ff754-8a31-4378-8e1e-f7df6bae8b9c)
