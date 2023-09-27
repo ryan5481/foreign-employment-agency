@@ -207,7 +207,7 @@ const EditCarousel = (props) => {
                 Top Carousel Images
             </Heading>
             <Text fontSize={'xl'} textAlign='center'>
-                Maximum of {carouselImageData.length} images allowed
+                Maximum of 12 images allowed
             </Text>
 
             <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: '1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
@@ -388,7 +388,7 @@ const EditCarousel = (props) => {
                                 mt="2"
                                 onClick={handleUploadNewImage}
 
-                            >Add Sector</Button>
+                            >Add Image</Button>
                         </FormControl>
                     </Box>) : (null)}
 

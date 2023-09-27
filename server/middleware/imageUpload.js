@@ -248,3 +248,19 @@ export const aboutNepalImageUpload = multer({
     // limits: { fileSize: 1024 * 1024 * 4 },
     // fileFilter: fileFilter
 }).single("heroImage")
+
+////////// HOMEPAGE MODAL //////////
+const homePageModalImageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../client/src/uploads/homePageModalImage")
+    },
+    filename: function (req, file, cb) {
+        cb(null, "home_page_modal_img_" + Date.now() + ".jpeg")
+    }
+})
+
+export const homePageModalImageUpload = multer({
+    storage: homePageModalImageStorage, 
+    // limits: { fileSize: 1024 * 1024 * 4 },
+    // fileFilter: fileFilter
+}).single("modalImage")

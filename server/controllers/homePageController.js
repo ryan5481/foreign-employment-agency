@@ -1,3 +1,4 @@
+import HomePageModal from "../models/homePageModalSchema.js"
 import TopCarousel from "../models/topCarouselSchema.js";
 import CompanyMessage from "../models/companyMessageSchema.js"
 import CompanyMessage2 from "../models/companyMessageSchema2.js"
@@ -9,7 +10,104 @@ import Testimony from "../models/testimonySchema.js"
 import Statistics from "../models/statisticsSchema.js"
 import * as fs from "fs"
 import path from "path"
+import { promisify } from 'util';
+const unlinkAsync = promisify(fs.unlink); 
 
+// HOME PAGE MODAL IMAGE
+export const PostModalImages = async(req, res) => {
+    try {
+        const reqInclImg = {
+          ...req.body,
+          modalImage: req.file.filename,
+        };
+        const data = await HomePageModal.create(reqInclImg);
+        if (data) {
+          res.status(200).json({
+            msg: "Data added."
+          });
+        } else {
+          res.status(200).json({
+            msg: "Failed to add data."
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+export const GetModalImages = async(req, res) => {
+    try {
+        const data = await HomePageModal.find();
+        if (data) {
+          res.json({ 
+            data
+          });
+        }else {
+          res.status(200).json({
+            msg: "Failed fetch data."
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+export const UpdateModalImage = async(req, res) => {
+
+        try {
+            const reqInclImg = {
+              ...req.body,
+              modalImage: req.file.filename,
+            };
+            const data = await HomePageModal.findByIdAndUpdate(req.body._id, reqInclImg);
+              // Get the image file name from the updated database entry
+            const imageName = data.modalImage;
+          
+              // Construct the path to the image file
+              const imagePath = `../client/src/uploads/homePageModalImage/${imageName}`;
+          
+              // Delete the image file from the file system
+              await unlinkAsync(imagePath);
+            if (data) {
+              res.json({
+                msg: "Data updated."
+              });
+            } else {
+              res.json({
+                msg: "Error updating data",
+              });
+            }
+          } catch (e) {
+            console.log(e);
+          }
+        };
+
+        export const DeleteModalImages = async (req, res) => {
+            try {
+              const _id = req.params.id;
+          
+              // Retrieve the image file name from the database
+              const deletedImage = await HomePageModal.findByIdAndDelete(_id);
+          
+              if (!deletedImage) {
+                return res.status(404).json({ message: 'Image not found' });
+              }
+          
+              // Get the image file name from the deleted database entry
+              const imageName = deletedImage.modalImage;
+          
+              // Construct the path to the image file
+              const imagePath = `../client/src/uploads/homePageModalImage/${imageName}`;
+          
+              // Delete the image file from the file system
+              await unlinkAsync(imagePath);
+          
+              res.status(200).json({ message: 'Image and database entry deleted successfully' });
+            } catch (error) {
+              console.error('Error deleting sector:', error);
+              res.status(500).json({ message: 'Internal server error' });
+            }
+          };
 
 // CAROUSEl
 export const PostCarouselImages = async(req, res) => {

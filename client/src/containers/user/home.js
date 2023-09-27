@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import {
-    Box, Heading, Grid, useColorModeValue, Divider, Stack
+    Box, Heading, Grid, useColorModeValue, Divider, Stack, Image, Modal, ModalBody, ModalContent, ModalOverlay, ModalFooter, IconButton
 } from "@chakra-ui/react"
+import { SmallCloseIcon } from "@chakra-ui/icons"
 import Carousel from "../../components/header/Carousel/carousel"
 import CallToActionWithVideo from "../../components/card/callToActionWithVideo"
 import ImageParagraph from "../../components/card/imageParagraph1"
@@ -15,14 +17,55 @@ import BarChart from "../../components/animation/barChart"
 import SmoothCarousel from "../../components/header/Carousel/SmoothCarousel"
 import Newspaper from "./newspaper"
 import AllJobs from "./allJobs"
+const baseUrl = process.env.REACT_APP_BASE_URL 
+
 const Home = () => {
     const [isOpen, setIsOpen] = useState(true);
     const onClose = () => setIsOpen(false);
 
+    //Fetch modal image
+    const [modalStates, setModalStates] = useState([]);
+    const [modalImageData, setModalImageData] = useState([]);
+    // const sliderRef = useRef(null);
+
+    const fetchModalImages = async () => {
+        try {
+            const res = await axios.get(`${baseUrl}/get-modal-images`);
+            if (res.status === 200) {
+                setModalImageData(res.data.data);
+                setModalStates(new Array(res.data.data.length).fill(true));
+            } else {
+                console.log('Failed to fetch images');
+            }
+        } catch (error) {
+            console.error('Error fetching images:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchModalImages();
+    }, []);
+
+    // Function to open a specific modal
+    const openModal = (index) => {
+        const newModalStates = [...modalStates];
+        newModalStates[index] = true;
+        setModalStates(newModalStates);
+    };
+
+    // Function to close a specific modal
+    const closeModal = (index) => {
+        const newModalStates = [...modalStates];
+        newModalStates[index] = false;
+        setModalStates(newModalStates);
+    };
+
+ 
+
     useEffect(() => {
         // Close the modal after a certain delay (e.g., 5 seconds)
         const timeout = setTimeout(() => {
-            setIsOpen(false);
+            closeModal();
         }, 10000);
 
         return () => {
@@ -33,13 +76,13 @@ const Home = () => {
     return (
         <>
             <Box bg={useColorModeValue('teal.100', 'blue.800')} alignContent={'center'}>
-                
-                <Carousel  />
-                
+
+                <Carousel />
+
                 {/* ABOUT US */}
                 <Box>
 
-                <CallToActionWithVideo pos="relative" bottom={"200px"} />
+                    <CallToActionWithVideo pos="relative" bottom={"200px"} />
                 </Box>
                 {/* MESSAGES */}
                 <Box >
@@ -63,7 +106,7 @@ const Home = () => {
                     <Box color={useColorModeValue('blue.600', 'gray.200')}
                     >
                         <Grid templateColumns={{ sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr 1fr' }} p={10} gap={10}>
-                            <SimpleCard  />
+                            <SimpleCard />
                         </Grid>
                     </Box>
                 </Box>
@@ -76,7 +119,7 @@ const Home = () => {
                 <Divider />
                 {/* OPERATING PROCEDURE */}
                 <Box id="operating-procedure"
-                alignContent={'center'} align="center"
+                    alignContent={'center'} align="center"
                     color={useColorModeValue('blue.700', 'gray.1000')}
                 >
                     <Heading m={2} fontSize={'4xl'} fontFamily={'body'} p={10}>
@@ -112,7 +155,40 @@ const Home = () => {
                     </Box>
                 </Stack>
             </Box>
-           
+            {modalImageData && modalImageData.map((imageData, index) => (
+                 <Modal key={index} isOpen={modalStates[index]} onClose={() => closeModal(index)} zIndex="9999" isCentered>
+                 <ModalOverlay />
+                 <ModalContent  >
+                     <Box
+                         as={IconButton}
+                         size='sm'
+                         colorScheme='red'
+                         rounded="full"
+                         top='20px'
+                         left='90%'
+                         zIndex='10'
+                         boxShadow="2xl"
+                         onClick={() => closeModal(index)}
+                         w='30px'
+                         h='30px'
+                     >
+                         <SmallCloseIcon
+                             color='gray.50'
+                             w='30px'
+                         />
+                     </Box>
+                     <ModalBody>
+                         {/* Image inside the modal */}
+                         <Image
+                             src={require(`../../uploads/homePageModalImage/${imageData.modalImage}`)}
+                             alt="Modal Image"
+                         />
+                     </ModalBody>
+                     <ModalFooter />
+                 </ModalContent>
+             </Modal>
+            )) 
+           }
         </>
     )
 }

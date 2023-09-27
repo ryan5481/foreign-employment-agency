@@ -47,17 +47,20 @@ const EditContactUs = (props) => {
     const toast = useToast()
     const navigate = useNavigate()
     const [data, setData] = useState([])
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         email: "",
         address: "",
-        phoneNumber1: 0,
-        phoneNumber2: 0,
+        phoneNumber1: '',
+        phoneNumber2: '',
         whatsappId: "",
         facebookId: "",
         oneTapMessengerLink: "",
         contactUsHeading: "",
         contactUsSubHeading: "",
-    });
+        _id: ''
+    };
+
+    const [formData, setFormData] = useState(initialFormData);
 
     const GetHeaderData = async () => {
         const res = await axios.get(`${baseUrl}/get-contact`)
@@ -70,9 +73,10 @@ const EditContactUs = (props) => {
                 phoneNumber2: data.phoneNumber2,
                 whatsappId: data.whatsappId,
                 facebookId: data.facebookId,
-                oneTapMessengerLink: data.oneTapMessengerLink,
+                messengerId: data.messengerId,
                 contactUsHeading: data.contactUsHeading,
                 contactUsSubHeading: data.contactUsSubHeading,
+                _id: data._id
             })
         } else {
             alert("Failed to fech header data")
@@ -90,9 +94,10 @@ const EditContactUs = (props) => {
     }
 
     console.log("FORMDATA: " + formData)
-    const handleUpdateData = async() => {
+    const handleUpdateData = async(event) => {
+        event.preventDefault();
         try{
-            const data = axios.put(`${baseUrl}/admin/edit-contact`, formData, {
+            const res = axios.patch(`${baseUrl}/admin/edit-contact/${data._id}`, formData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -364,14 +369,14 @@ const EditContactUs = (props) => {
                                         <PopoverCloseButton />
                                         <PopoverHeader fontSize={"lg"} fontWeight="bold" >FaceBook Messanger ID</PopoverHeader>
                                         <PopoverBody>
-                                            <Editable placeholder={data.oneTapMessengerLink} >
+                                            <Editable placeholder={data.messengerId} >
                                                 <EditablePreview />
                                                 <EditableInput
                                                     _placeholder={{
                                                         color: "gray.100",
                                                     }}
-                                                    value={data.oneTapMessengerLink}
-                                                    name="oneTapMessengerLink"
+                                                    value={data.messengerId}
+                                                    name="messengerId"
                                                     onChange={handleInputChange}
                                                 />
                                             </Editable>
