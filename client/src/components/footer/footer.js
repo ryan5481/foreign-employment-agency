@@ -137,7 +137,7 @@ const Footer = () => {
     function openMessengerChat(recipientId) {
         // Replace 'your-app-id' with your Facebook App ID
         const appId = 'your-app-id';
-        const messengerUrl = `https://m.me/${socialData.oneTapMessengerLink}`;
+        const messengerUrl = `https://m.me/${socialData.messangerId}`;
         window.open(messengerUrl, 'Messenger Chat', 'width=600,height=400');
     }
 

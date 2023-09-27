@@ -71,34 +71,30 @@ In addition, admins can post new job vacancies, view and delete the resumes subm
   - [x] Client testimonies section
   - [x] Partners display on a auto sliding smooth carousel
   - [x] Company statistics
-   - [x] Company statistics display on an auto growing attractive animation column chart
+   - [x] Company statistics display on an animated attractive column chart
    - [x] Company  numbers display on an auto count-up animation
 
 - [x] Jobs Page
-  - [x] Live chat with time stamp
-  - [x] Send text messages
-  - [ ] Private chat
-  - [ ] Send pictures
-  - [ ] Clear chat history
 
 - [x] Resume/ Apply Page
-  - [x] User detials and contact info
-  - [x] Log out
-  - [x] View current user's social media posts on profile page
-    - [ ] Change username, email, phone number 
-    - [ ] Edit profile picture
-    - [ ] Edit bio
-    
+  - [x] Multi step form with progress bar animation 
+  - [x] Form Validation
+
 - [x] Documentation Page
+
 - [x] About Us Page
+
 - [x] Gallery Page
+
 - [x] Contact Us Page
 
 - [x] Navigation Bar
-- [x] Page Header
-- [x] Page Footer
+  - [x] Editable menu and submenu labels
 
-- [ ] Chat window
+- [x] Page Header
+
+- [x] Admin Login 
+    - [x] Change name and email
    
 
 ## Usage
@@ -111,6 +107,8 @@ In addition, admins can post new job vacancies, view and delete the resumes subm
     - `npm start`
 
 ## Preview (GIFs):
+
+Live site url: https://skywaynepal.com
 
 ![11](https://github.com/ryan5481/foreign-employment-agency/assets/73333847/d3f548a5-984a-4b2a-ba28-41f1e297b966)
 

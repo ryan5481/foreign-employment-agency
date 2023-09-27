@@ -2,6 +2,7 @@ import Express from "express";
 const router = Express.Router()
 
 import {
+    PostModalImages, GetModalImages, UpdateModalImage, DeleteModalImages,
     PostCarouselImages, GetCarouselImages, UpdateCarouselImage, DeleteCarouselImages,
     SetCompanyMessage1, GetCompanyMessage1,
     SetCompanyMessage2, GetCompanyMessage2,
@@ -13,6 +14,7 @@ import {
     PostStats, GetStats, EditStats
 } from "../controllers/homePageController.js"
 import {
+    homePageModalImageUpload,
     TopCarouselImageUpload,
     CompanyMsgImgUpload1,
     CompanyMsgImgUpload2,
@@ -21,6 +23,12 @@ import {
     BottomSmoothCarouselImageUpload,
     TestimonyImageUpload
 } from "../middleware/imageUpload.js";
+
+//HOME PAGE MODAL
+router.post("/edit-homepage/add-modal-image", homePageModalImageUpload, PostModalImages)
+router.get("/get-modal-images", GetModalImages)
+router.put("/edit-homepage/update-modal-image", homePageModalImageUpload, UpdateModalImage)
+router.delete("/edit-homepage/delete-modal-image/:id", DeleteModalImages)
 
 //TOP CAROUSEL
 router.post("/edit-homepage/add-topcarousel-image", TopCarouselImageUpload, PostCarouselImages)

@@ -10,6 +10,7 @@ import CompanyMessage2 from "../../components/adminPanel/companyMessage2";
 import ValuableClients from "../../components/adminPanel/valubleClients";
 import JobSectors from "../../components/adminPanel/jobSectors";
 import OperatingProcedure from "../../components/adminPanel/operatingProcedure";
+import EditHomePageModal from "../../components/adminPanel/editHomePageModal";
 import EditCarousel from "../../components/adminPanel/topCarousel";
 import EditBottomCarousel from "../../components/adminPanel/bottomSmooothCarousel";
 import EditTestimony from "../../components/adminPanel/editTestimony";
@@ -106,6 +107,7 @@ const EditHomePage = () => {
             justifyContent={"center"}
             top={"10vh"}
         >
+            <EditHomePageModal />
             {/* CAROUSEL */}
             <EditCarousel/>
             {/* ABOUT US */}
