@@ -199,7 +199,8 @@ const ContactCard = (props) => {
               </Box>
            {/* RIGHT */}
             <Box overflow='hidden' borderRadius={10} w={{base: '300px', sm: '400px', md: '400px', lg: '350px', xl: '400px' }} h={450}>
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1023.6851100697893!2d85.33048799804155!3d!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1907b0522ead%3A0x392af32fe87dd0ea!2sRadiant%20Infotech%20Nepal%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1690782916035!5m2!1sen!2snp"
+              <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5194952990173!2d85.3408142!3d27.701242299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1983ee163391%3A0x8cbc1871ad79125f!2sSKYWAY%20MANAGEMENT%20PVT.%20LTD.!5e0!3m2!1sen!2snp!4v1695806262831!5m2!1sen!2snp"
                 className='footer-map'
                 width="400"
                 height="450"
