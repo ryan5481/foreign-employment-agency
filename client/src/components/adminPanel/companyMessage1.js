@@ -42,6 +42,18 @@ const CompanyMessage1 = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const formDataToUpdate = new FormData();
+  
+    // Append only the fields that need to be updated
+    formDataToUpdate.append('project', formData.project);
+    formDataToUpdate.append('firstName', formData.firstName);
+    // ... (continue for other fields)
+  
+    // Append the new image if it's selected
+    if (selectedImage) {
+      formDataToUpdate.append('file', selectedImage);
+    }
       try {
         const formData = new FormData();
         if(selectedFile){

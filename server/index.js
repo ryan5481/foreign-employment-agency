@@ -19,11 +19,16 @@ import brochureRoutes from "./routes/brochurePdfRoutes.js"
 import newsAdRoutes from "./routes/newspaperAdImageRoutes.js"
 import aboutNepalRoutes from "./routes/aboutNepalRoutes.js"
 
+import operatingStepsRoutes from "./routesMySql/operatingStepsRoutes.js"
+
 app.use(cors());
 
 
-import connectDb from './db/connectDb.js'
-connectDb()
+// import connectDb from './db/connectDb.js'
+// connectDb()
+
+// import connectMySqlDb from "./db/connectMySqlDb.js"
+// connectMySqlDb()
 
 
 app.use(express.json());
@@ -42,6 +47,8 @@ app.use("/", whyChooseUSRoutes)
 app.use("/", brochureRoutes)
 app.use("/", newsAdRoutes)
 app.use("/", aboutNepalRoutes)
+
+app.use("/", operatingStepsRoutes)
 
 const port = 8000;
 

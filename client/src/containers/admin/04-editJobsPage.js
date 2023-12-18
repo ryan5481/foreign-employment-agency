@@ -289,7 +289,6 @@ const AllJobs = ({ displayAll }) => {
                                                     onClick={() => {
                                                         setJobTodelete(doc._id)
                                                         handleDeleteDialogOpen()
-
                                                     }}
                                                 />
                                             </Center>
@@ -308,13 +307,11 @@ const AllJobs = ({ displayAll }) => {
                                     </ModalHeader>
                                     <ModalCloseButton />
                                     <ModalBody>
-
                                         <Box
                                             rounded="10px"
                                             position="relative"
                                             p={10}
                                         >
-
                                             <Stack
                                                 direction={{ base: 'column', sm: 'column', md: "row", lg: "row" }}
                                                 gap={5}
@@ -364,11 +361,7 @@ const AllJobs = ({ displayAll }) => {
                                                     >{selectedJob.shortDescription}</Text>
                                                 </Box>
                                             </Stack>
-
-
                                             <Stack spacing={{ base: 6, md: 10 }}>
-
-
                                                 <Stack
                                                     minW={"100%"}
                                                     spacing={{ base: 4, sm: 6 }}

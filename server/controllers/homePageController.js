@@ -8,6 +8,7 @@ import Sectors from "../models/sectorsSchema.js"
 import BottomCarousel from "../models/bottomSmoothCarouselSchema.js"
 import Testimony from "../models/testimonySchema.js"
 import Statistics from "../models/statisticsSchema.js"
+
 import * as fs from "fs"
 import path from "path"
 import { promisify } from 'util';
@@ -82,32 +83,32 @@ export const UpdateModalImage = async(req, res) => {
           }
         };
 
-        export const DeleteModalImages = async (req, res) => {
-            try {
-              const _id = req.params.id;
-          
-              // Retrieve the image file name from the database
-              const deletedImage = await HomePageModal.findByIdAndDelete(_id);
-          
-              if (!deletedImage) {
-                return res.status(404).json({ message: 'Image not found' });
-              }
-          
-              // Get the image file name from the deleted database entry
-              const imageName = deletedImage.modalImage;
-          
-              // Construct the path to the image file
-              const imagePath = `../client/src/uploads/homePageModalImage/${imageName}`;
-          
-              // Delete the image file from the file system
-              await unlinkAsync(imagePath);
-          
-              res.status(200).json({ message: 'Image and database entry deleted successfully' });
-            } catch (error) {
-              console.error('Error deleting sector:', error);
-              res.status(500).json({ message: 'Internal server error' });
-            }
-          };
+export const DeleteModalImages = async (req, res) => {
+    try {
+        const _id = req.params.id;
+    
+        // Retrieve the image file name from the database
+        const deletedImage = await HomePageModal.findByIdAndDelete(_id);
+    
+        if (!deletedImage) {
+        return res.status(404).json({ message: 'Image not found' });
+        }
+    
+        // Get the image file name from the deleted database entry
+        const imageName = deletedImage.modalImage;
+    
+        // Construct the path to the image file
+        const imagePath = `../client/src/uploads/homePageModalImage/${imageName}`;
+    
+        // Delete the image file from the file system
+        await unlinkAsync(imagePath);
+    
+        res.status(200).json({ message: 'Image and database entry deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting sector:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+    };
 
 // CAROUSEl
 export const PostCarouselImages = async(req, res) => {
@@ -529,6 +530,8 @@ export const DeleteProcedure = async(req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+
 
 //BOTTOM SMOOTH CAROUSEL
 export const PostBottomCarouselImages = async(req, res) => {

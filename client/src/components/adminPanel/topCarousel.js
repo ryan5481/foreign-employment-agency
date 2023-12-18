@@ -264,7 +264,7 @@ const EditCarousel = (props) => {
                                     }}
                                 >
                                     <SmallCloseIcon
-                                        color='gray.50'
+                                        colorScheme="gray"
                                         w='30px'
                                     />
                                 </Box>
